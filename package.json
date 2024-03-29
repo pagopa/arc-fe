@@ -1,0 +1,32 @@
+{
+  "name": "pagopa-arc-fe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/pagopa/pagopa-arc-fe.git",
+  "author": "anislucidi01 <anis.lucidi@pagopa.it>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.24.1",
+    "autochangelog": "^3.0.3",
+    "danger": "^11.3.1",
+    "danger-plugin-digitalcitizenship": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-functional": "^6.3.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-sonarjs": "^0.25.0",
+    "italia-tslint-rules": "^1.1.3",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "tsconfig.json": "^1.0.11",
+    "typescript": "^5.4.3"
+  }
+}
