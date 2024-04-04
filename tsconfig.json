@@ -28,7 +28,10 @@
     "strictFunctionTypes": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "removeComments": true
+    "removeComments": true,
+    "paths": {
+      "@/*": ["/*"]
+     }
   },
   "exclude": [
     "node_modules",
