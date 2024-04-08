@@ -1,25 +1,18 @@
-import translationIT from "./it/translations.json";
+import translationIT from './it/translations.json';
 
 const lang: Languages = {
   it: {
-    label: "Italiano",
-    lang: "it-IT",
-    translation: translationIT,
-  },
-  /*
-  en: {
-    label: "English",
-    lang: "en-EN",
-    translation: TRANSLATIONS_EN,
-  },
-  */
+    label: 'Italiano',
+    lang: 'it-IT',
+    translation: translationIT
+  }
 };
 
 export interface Languages {
   [key: string]: {
     label: string;
     lang: string;
-    translation: any;
+    translation: typeof translationIT;
   };
 }
 
@@ -27,11 +20,9 @@ export function getSortedLang(): Array<{
   label: string;
   lang: string;
 }> {
-  // eslint-disable-next-line functional/immutable-data
   return Object.keys(lang)
     .sort()
     .reduce((obj: Array<{ label: string; lang: string }>, key: string) => {
-      // eslint-disable-next-line functional/immutable-data
       obj.push(lang[key]);
       return obj;
     }, []);

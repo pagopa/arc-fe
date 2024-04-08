@@ -1,13 +1,13 @@
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import { initReactI18next } from "react-i18next";
-import lang from "src/translations/lang";
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
+import lang from 'src/translations/lang';
 
-export const fallbackLang = "it";
+export const fallbackLang = 'it';
 
 const DETECTION_OPTIONS = {
-  order: ["querystring", "navigator"],
-  caches: [],
+  order: ['querystring', 'navigator'],
+  caches: []
 };
 
 void i18n
@@ -17,8 +17,8 @@ void i18n
     detection: DETECTION_OPTIONS,
     fallbackLng: fallbackLang,
     resources: {
-      ...lang,
-    },
+      ...lang
+    }
   });
 
 export default i18n;
