@@ -1,0 +1,20 @@
+{
+  "app": {
+    "title": "PagoPa - Checkout Evoluto"
+  },
+  "general": {
+    "and": "e"
+  },
+  "ui": {
+    "header": {
+      "disclaimer": ""
+    },
+    "footer": {
+      "disclaimer": ""
+    }
+  },
+  "aria": {
+    "a11y": "Accessibilità"
+  }
+}
+

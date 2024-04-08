@@ -1,0 +1,15 @@
+{
+  "app": {
+    "title": "PagoPa - Checkout Evolved"
+  },
+  "general": {
+    "and": "&"
+  },
+  "header": {
+    "disclaimer": ""
+  },
+  "aria": {
+    "a11y": "Accessibility"
+  }
+}
+
