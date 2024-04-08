@@ -33,3 +33,4 @@ yarn-error.log*
 .parcel-cache
 
 test_reports/
+*storybook.log
