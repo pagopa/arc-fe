@@ -22,6 +22,13 @@ src/env-config.js
 .env.production.local
 
 npm-debug.log*
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 yarn-debug.log*
 yarn-error.log*
 
@@ -33,3 +40,4 @@ yarn-error.log*
 .parcel-cache
 
 test_reports/
+*storybook.log
