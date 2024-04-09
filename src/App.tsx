@@ -22,7 +22,7 @@ export const App = () => {
           <Routes>
             <Route path={'/'} element={<>{t('app.title')}</>} />
             <Route path="*" element={<Navigate replace to="/" />} />
-            <Route path={'/' + ArcRoutes.TRANSACTIONS + '/:ID'} element={<Transactions />} />
+            <Route path={`/${ArcRoutes.TRANSACTION}/:ID`} element={<Transactions />} />
           </Routes>
         </Layout>
       </BrowserRouter>

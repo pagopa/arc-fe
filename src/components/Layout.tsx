@@ -1,9 +1,10 @@
-import { Container, useTheme } from '@mui/material';
-import { Box, SxProps } from '@mui/system';
+import { Container, Grid, useTheme } from '@mui/material';
+import { SxProps } from '@mui/system';
 import React from 'react';
-import { Sidebar } from './Sidebar';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { Sidebar } from './Sidebar';
+import style from 'src/utils/style';
 
 interface LayoutProps {
   sx?: SxProps;
@@ -13,29 +14,25 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   const theme = useTheme();
   return (
-    <Box
+    <Container
+      maxWidth="lg"
       sx={{
-        display: "inline  ",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        height: "100vh",
-        bgcolor: theme.palette.background.default,
+        bgcolor: theme.palette.background.default
       }}>
-      <Header />
-      <Sidebar />
-      <Container
-        sx={{
-          p: { xs: 0 },
-          pl: { xs: 2, sm: 6, md: 0 },
-          pr: { xs: 2, sm: 6, md: 0 },
-          flexGrow: 1
-        }}
-        style={{display:'inline-block', textAlign:'center'}}
-        maxWidth={'sm'}>
-        {children}
-      </Container>
-
-      <Footer />
-    </Box>
+      <Grid container>
+        <Grid item xs={12}>
+          <Header />
+        </Grid>
+        <Grid item xs={3} height={`calc(100vh - (${style.header.height + style.footer.height}px))`}>
+          <Sidebar />
+        </Grid>
+        <Grid item xs={9}>
+          {children}
+        </Grid>
+        <Grid item xs={12}>
+          <Footer />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
