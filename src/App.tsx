@@ -7,6 +7,8 @@ import { Layout } from './components/Layout';
 import { useTranslation } from 'react-i18next';
 
 import './translations/i18n';
+import { ArcRoutes } from './routes/routes';
+import Transactions from './routes/Transactions';
 
 export const App = () => {
   const { t } = useTranslation();
@@ -20,6 +22,7 @@ export const App = () => {
           <Routes>
             <Route path={'/'} element={<>{t('app.title')}</>} />
             <Route path="*" element={<Navigate replace to="/" />} />
+            <Route path={'/' + ArcRoutes.TRANSACTIONS + '/:ID'} element={<Transactions />} />
           </Routes>
         </Layout>
       </BrowserRouter>
