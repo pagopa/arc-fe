@@ -11,7 +11,16 @@ interface LayoutProps {
   children?: React.ReactNode;
 }
 
+export type LangLabels = Partial<Record<LangCode, string>> & {
+  it: string;
+};
+
+const it: Record<LangCode, string> = {"it": "IT", "de": "DE", "fr":"FR", "sl":"SL", "en":"EN"};
+const languages: Record<LangCode, LangLabels> = {it: it, de: it} ;
+
 export function Layout({ children }: LayoutProps) {
+  const { t } = useTranslation();
+
   const theme = useTheme();
   return (
     <Container
