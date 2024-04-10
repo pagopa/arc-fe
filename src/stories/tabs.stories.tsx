@@ -1,40 +1,8 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tabs } from '.';
-import Storico from '../Storico/Storico';
-import { IStoricoItem } from '../Storico/StoricoItem';
-
-const dummyStoricoData: IStoricoItem[] = [
-  {
-    ente: "Comune di Milano",
-    id: "123456",
-    date: "12/12/2024",
-    status: "pagato",
-    amount: "123,50 $"
-  },
-  {
-    ente: "Comune di Milano",
-    id: "123456",
-    date: "12/12/2024",
-    status: "pagato",
-    amount: "123,50 $"
-  },
-  {
-    ente: "Comune di Milano",
-    id: "123456",
-    date: "12/12/2024",
-    status: "pagato",
-    amount: "123,50 $"
-  },
-  {
-    ente: "Comune di Milano",
-    id: "123456",
-    date: "12/12/2024",
-    status: "pagato",
-    amount: "123,50 $"
-  }
-]
-
+import { Tabs } from '../components/Tabs';
+import Storico from '../components/Storico/Storico';
+import { dummyStoricoData } from './utils/mocks';
 
 const meta: Meta<typeof Tabs> = {
   component: Tabs,
