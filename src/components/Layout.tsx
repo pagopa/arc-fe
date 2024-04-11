@@ -95,12 +95,6 @@ export function Layout({ children }: LayoutProps) {
               }
             }}
             currentLangCode={'it'}
-            onLanguageChanged={() =>
-              /* newLang */
-              {
-                console.log('Changed Language');
-              }
-            }
             languages={lang}
             onExit={() => {}}
             productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
