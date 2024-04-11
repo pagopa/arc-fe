@@ -2,13 +2,13 @@ import translationIT from './it/translations.json';
 
 const lang: Languages = {
   it: {
-    it: "Italiano",
-    en: "Inglese",
-    fr: "Francese",
+    it: 'Italiano',
+    en: 'Inglese',
+    fr: 'Francese',
     label: 'Italiano',
     lang: 'it-IT',
     translation: translationIT
-  },
+  }
 };
 
 export interface Languages {
