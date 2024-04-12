@@ -4,17 +4,21 @@ import React from 'react';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import style from 'src/utils/style';
-import { Footer } from '@pagopa/mui-italia';
+import { Footer, LangCode } from '@pagopa/mui-italia';
 import { useTranslation } from 'react-i18next';
 import lang from '../translations/lang';
 
 interface LayoutProps {
   sx?: SxProps;
   children?: React.ReactNode;
+  currentLanguage: LangCode;
+  changeLanguage(langCode: LangCode): void;
 }
 
-export function Layout({ children }: LayoutProps) {
+export function Layout({ children, currentLanguage, changeLanguage }: LayoutProps) {
   const { t } = useTranslation();
+
+  
 
   const theme = useTheme();
   return (
@@ -94,12 +98,13 @@ export function Layout({ children }: LayoutProps) {
                 links: [{ label: 'string', ariaLabel: 'string', linkType: 'internal' }]
               }
             }}
-            currentLangCode={'it'}
+            currentLangCode={currentLanguage}
             languages={lang}
             onExit={() => {}}
             productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
             hideProductsColumn={false}
-          />{' '}
+            onLanguageChanged={changeLanguage}
+          />
         </Grid>
       </Grid>
     </Container>
