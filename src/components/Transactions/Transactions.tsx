@@ -1,15 +1,15 @@
 import React from 'react';
-import { IStoricoItem } from './StoricoItem';
+import { transactionProps } from './Transaction';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
-import StoricoItem from './StoricoItem';
+import StoricoItem from './Transaction';
 
-interface IStorico {
-  rows: IStoricoItem[];
+interface TransactionsProps {
+  rows: transactionProps[];
 }
 
-const Storico = (props: IStorico) => (
+const Transactions = (props: TransactionsProps) => (
   <TableContainer sx={{ bgcolor: 'background.paper' }}>
     <Table aria-label="Storico table">
       <TableBody>
@@ -21,4 +21,4 @@ const Storico = (props: IStorico) => (
   </TableContainer>
 );
 
-export default Storico;
+export default Transactions;

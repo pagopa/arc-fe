@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import style from '../../utils/style';
 
-export interface storicoItemProps {
+export interface transactionProps {
   payee: {
     name: string;
     srcImg?: string;
@@ -26,16 +26,16 @@ export interface storicoItemProps {
   };
 }
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  borderBottomColor: theme.palette.divider
-}));
-
-interface enteIconProps {
+interface payeeIconProps {
   src?: string;
   alt?: string;
 }
 
-const EnteIcon = (props: enteIconProps) => (
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  borderBottomColor: theme.palette.divider
+}));
+
+const PayeeIcon = (props: payeeIconProps) => (
   <Box
     width={48}
     height={48}
@@ -52,13 +52,13 @@ const EnteIcon = (props: enteIconProps) => (
   </Box>
 );
 
-const StoricoItem = (props: storicoItemProps) => {
+const Transaction = (props: transactionProps) => {
   const { payee, status, amount, id, date, detailsButton } = props;
   return (
     <TableRow>
       <StyledTableCell>
         <Stack direction="row" spacing={2} alignItems="center">
-          <EnteIcon src={payee.srcImg} alt={payee.altImg} />
+          <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
           <Typography variant="body2">{payee.name}</Typography>
         </Stack>
       </StyledTableCell>
@@ -81,4 +81,4 @@ const StoricoItem = (props: storicoItemProps) => {
   );
 };
 
-export default StoricoItem;
+export default Transaction;

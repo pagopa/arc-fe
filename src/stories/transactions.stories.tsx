@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Storico from '../components/Storico/Storico';
-import { dummyStoricoData } from './utils/mocks';
+import Transactions from '../components/Transactions/Transactions';
+import { dummyTransactionsData } from './utils/mocks';
 
-const meta: Meta<typeof Storico> = {
-  component: Storico,
-  title: 'Storico'
+const meta: Meta<typeof Transactions> = {
+  component: Transactions,
+  title: 'Transactions'
 };
 
 export default meta;
-type StoryTabs = StoryObj<typeof Storico>;
+type StoryTabs = StoryObj<typeof Transactions>;
 
-export const StoricoTable: StoryTabs = {
+export const TransactionTable: StoryTabs = {
   args: {
-    rows: dummyStoricoData
+    rows: dummyTransactionsData.all
   }
 };
