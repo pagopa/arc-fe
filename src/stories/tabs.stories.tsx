@@ -37,7 +37,6 @@ export const BasicTabsExample: StoryTabs = {
 export const OneTabExample: StoryTabs = {
   args: {
     initialActiveTab: 0,
-    tabListArialabel: 'storybook example usage of Tabs component with just one Tab',
     tabs: [
       {
         title: 'Tab one',
@@ -50,7 +49,6 @@ export const OneTabExample: StoryTabs = {
 export const TransactionsTabs: StoryTabs = {
   args: {
     initialActiveTab: 1,
-    tabListArialabel: 'Transactions table tabs',
     tabs: [
       {
         title: 'Tutte',

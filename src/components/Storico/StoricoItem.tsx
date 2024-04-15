@@ -1,12 +1,18 @@
 import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Button, Chip, ChipOwnProps, Typography } from '@mui/material';
+import { Box, Button, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material/styles';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import style from '../../utils/style';
 
-export interface IStoricoItem {
-  ente: string;
+export interface storicoItemProps {
+  payee: {
+    name: string;
+    srcImg?: string;
+    altImg?: string;
+  };
   date: string;
   status: {
     label: ChipOwnProps['label'];
@@ -24,12 +30,37 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   borderBottomColor: theme.palette.divider
 }));
 
-const StoricoItem = (props: IStoricoItem) => {
-  const { ente, status, amount, id, date, detailsButton } = props;
+interface enteIconProps {
+  src?: string;
+  alt?: string;
+}
+
+const EnteIcon = (props: enteIconProps) => (
+  <Box
+    width={48}
+    height={48}
+    border={`solid 1px ${style.theme.palette.divider}`}
+    borderRadius={6}
+    alignItems="center"
+    display="flex"
+    justifyContent="center">
+    {props.src ? (
+      <img src={props.src} alt={props.alt} />
+    ) : (
+      <AccountBalanceIcon sx={{ color: style.theme.palette.grey[400] }} />
+    )}
+  </Box>
+);
+
+const StoricoItem = (props: storicoItemProps) => {
+  const { payee, status, amount, id, date, detailsButton } = props;
   return (
     <TableRow>
       <StyledTableCell>
-        <Typography variant="body2">{ente}</Typography>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <EnteIcon src={payee.srcImg} alt={payee.altImg} />
+          <Typography variant="body2">{payee.name}</Typography>
+        </Stack>
       </StyledTableCell>
       <StyledTableCell>{date}</StyledTableCell>
       <StyledTableCell align="center">

@@ -11,7 +11,7 @@ const preview: Preview = {
       }
     }
   },
-  decorators: [ (Story) => (<Theme>{Story()}</Theme>)],
+  decorators: [ (Story) => (<Theme><Story /></Theme>)],
 };
 
 export default preview;
