@@ -16,10 +16,10 @@ const customTheme = createTheme({
   palette: {
     ...theme.palette,
     background: {
-   /*   paper: '#F5F5F5', // mui-italia paper is defined as #FFFFFF
+      /*   paper: '#F5F5F5', // mui-italia paper is defined as #FFFFFF
    Commented this line because while this is true, the footer uses this color, but the footer should be white. Shouldn't we take it to MUI Italia's owner?
-   */  
-   default: '#FFFFFF' // mui-italia default is defined as '#F2F2F2'
+   */
+      default: '#FFFFFF' // mui-italia default is defined as '#F2F2F2'
     }
   }
 });

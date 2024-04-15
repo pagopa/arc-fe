@@ -1,8 +1,6 @@
 import { Footer } from '@pagopa/mui-italia';
-import { t } from 'react-i18next';
 import lang from '../src/translations/lang';
 import React from 'react';
-
 
 export default {
   component: Footer,
@@ -23,12 +21,12 @@ export const Default = {
     postLoginLinks: [
       {
         label: 'Informativa privacy',
-        ariaLabel:'Informativa privacy',
+        ariaLabel: 'Informativa privacy',
         linkType: 'internal'
       },
       {
         label: 'Diritto alla protezione dei dati personali',
-        ariaLabel:'Diritto alla protezione dei dati personali',
+        ariaLabel: 'Diritto alla protezione dei dati personali',
         linkType: 'internal'
       },
       {

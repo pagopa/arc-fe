@@ -18,12 +18,11 @@ interface LayoutProps {
 export function Layout({ children, currentLanguage, changeLanguage }: LayoutProps) {
   const { t } = useTranslation();
 
-  
-
   const theme = useTheme();
   return (
     <Container
       maxWidth={false}
+      disableGutters
       sx={{
         bgcolor: theme.palette.background.default
       }}>
