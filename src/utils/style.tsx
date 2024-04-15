@@ -33,8 +33,6 @@ const customTheme = createTheme({
   }
 });
 
-console.log(customTheme);
-
 const style = {
   theme: customTheme,
   header: {

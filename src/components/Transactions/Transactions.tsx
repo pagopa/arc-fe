@@ -14,7 +14,7 @@ const Transactions = (props: TransactionsProps) => (
     <Table aria-label="Storico table">
       <TableBody>
         {props.rows.map((row) => (
-          <StoricoItem {...row} />
+          <StoricoItem {...row} key={row.id} />
         ))}
       </TableBody>
     </Table>
