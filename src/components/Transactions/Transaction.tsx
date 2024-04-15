@@ -67,7 +67,9 @@ const Transaction = (props: transactionProps) => {
         <Chip label={status.label} color={status.color} />
       </StyledTableCell>
       <StyledTableCell align="center">
-        <Typography variant="body2">{amount}</Typography>
+        <Typography variant="body2" fontWeight={600}>
+          {amount}
+        </Typography>
       </StyledTableCell>
       <StyledTableCell align="right">
         <Button

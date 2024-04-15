@@ -63,8 +63,8 @@ const Transaction_3d40b8e0: transactionProps = {
   id: '3d40b8e0',
   date: '12/08/2023',
   status: {
-    label: 'Pagato',
-    color: 'success'
+    label: 'Errore',
+    color: 'error'
   },
   amount: '392,00 €',
   detailsButton: {

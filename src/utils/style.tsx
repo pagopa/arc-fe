@@ -13,6 +13,22 @@ const customTheme = createTheme({
           borderBottom: `solid 2px ${theme.palette.grey[300]}`
         }
       }
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: ({ ownerState, theme }) => ({
+          ...(ownerState.color === 'success' && {
+            backgroundColor: theme.palette.success.extraLight
+          })
+        })
+      }
+    }
+  },
+  typography: {
+    ...theme.typography,
+    body2: {
+      ...theme.typography.body2,
+      fontSize: 18
     }
   }
 });
