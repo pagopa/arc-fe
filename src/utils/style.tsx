@@ -6,14 +6,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const customTheme = createTheme({
   ...theme,
-  palette: {
-    ...theme.palette,
-    background: {
-      paper: '#F5F5F5', // mui-italia paper is defined as #FFFFFF
-      default: '#FFFFFF' // mui-italia default is defined as '#F2F2F2'
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          borderBottom: `solid 2px ${theme.palette.grey[300]}`
+        }
+      }
     }
   }
 });
+
+console.log(customTheme);
 
 const style = {
   theme: customTheme,

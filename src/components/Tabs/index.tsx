@@ -1,7 +1,7 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab } from '@mui/material';
+import { Tabs as MuiTabs, Tab } from '@mui/material';
 import React, { ReactElement } from 'react';
 import useTabs from './useTabs';
+import TabPanel from './TabPanel';
 
 interface ITab {
   title: string;
@@ -13,36 +13,27 @@ export interface ITabs {
   tabs: ITab[];
   /** the zero based index of the initial active Tab */
   initialActiveTab?: number;
-  tabListArialabel?: string;
 }
 
 export const Tabs = (props: ITabs) => {
   const { activeTab, changeActiveTab } = useTabs(props.initialActiveTab);
-  const { tabs, tabListArialabel = '' } = props;
+  const { tabs } = props;
   return tabs.length > 0 ? (
-    <TabContext value={activeTab}>
-      {tabs.length > 1 ? (
-        <Box
-          sx={{
-            borderBottom: 1,
-            borderColor: 'divider',
-            display: tabs.length === 1 ? 'hidden' : 'unset'
-          }}>
-          <TabList
-            aria-label={tabListArialabel}
-            onChange={(_, value: number) => changeActiveTab(value)}>
-            {tabs.map(({ title, disabled }) => (
-              <Tab label={title} disabled={disabled} />
-            ))}
-          </TabList>
-        </Box>
-      ) : null}
+    <>
+      <MuiTabs
+        value={activeTab}
+        variant="fullWidth"
+        onChange={(_, value: number) => changeActiveTab(value)}>
+        {tabs.map(({ title, disabled }) => (
+          <Tab label={title} disabled={disabled} />
+        ))}
+      </MuiTabs>
       {tabs.map((tab, index) => (
-        // eslint-disable-next-line
-        //@ts-ignore
-        <TabPanel value={index}>{tab.content}</TabPanel>
+        <TabPanel value={index} activeValue={activeTab}>
+          {tab.content}
+        </TabPanel>
       ))}
-    </TabContext>
+    </>
   ) : null;
 };
 

@@ -3,7 +3,6 @@ import { IStoricoItem } from './StoricoItem';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
-import Paper from '@mui/material/Paper';
 import StoricoItem from './StoricoItem';
 
 interface IStorico {
@@ -11,8 +10,8 @@ interface IStorico {
 }
 
 const Storico = (props: IStorico) => (
-  <TableContainer component={Paper}>
-    <Table aria-label="simple table">
+  <TableContainer sx={{ bgcolor: 'background.paper' }}>
+    <Table aria-label="Storico table">
       <TableBody>
         {props.rows.map((row) => (
           <StoricoItem {...row} />
