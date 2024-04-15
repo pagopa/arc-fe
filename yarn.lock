@@ -2673,9 +2673,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pagopa/mui-italia@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@pagopa/mui-italia@npm:1.2.0"
+"@pagopa/mui-italia@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@pagopa/mui-italia@npm:1.3.0"
   dependencies:
     "@fontsource/dm-mono": "npm:^4.5.10"
     "@fontsource/titillium-web": "npm:^4.5.9"
@@ -2685,7 +2685,7 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 10c0/19da562480f112497867fa3a640f6dd34d7d53990f8cff691e1f09b5ee04cd34d8b56b3abce77399b987173b7d577269bb6800517a2e68fb46aeb8f6ea3a5bc4
+  checksum: 10c0/06fa346c41a8425346ac5d85e964a69f2703c24ed93ac81c8b8363d380b3134e6373430510c348214c3b4a66e2915420a9fe4ec949ce8352edae99274cbeeb70
   languageName: node
   linkType: hard
 
@@ -11201,7 +11201,7 @@ __metadata:
     "@mui/icons-material": "npm:^5.15.15"
     "@mui/lab": "npm:^5.0.0-alpha.170"
     "@mui/material": "npm:^5.15.15"
-    "@pagopa/mui-italia": "npm:^1.2.0"
+    "@pagopa/mui-italia": "npm:^1.3.0"
     "@storybook/addon-essentials": "npm:^8.0.6"
     "@storybook/addon-interactions": "npm:^8.0.6"
     "@storybook/addon-links": "npm:^8.0.6"

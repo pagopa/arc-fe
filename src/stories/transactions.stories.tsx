@@ -10,7 +10,6 @@ const meta: Meta<typeof Storico> = {
 export default meta;
 type StoryTabs = StoryObj<typeof Storico>;
 
-
 export const StoricoTable: StoryTabs = {
   args: {
     rows: dummyStoricoData

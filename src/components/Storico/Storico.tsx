@@ -7,17 +7,19 @@ import Paper from '@mui/material/Paper';
 import StoricoItem from './StoricoItem';
 
 interface IStorico {
-  rows: IStoricoItem[]
+  rows: IStoricoItem[];
 }
 
 const Storico = (props: IStorico) => (
   <TableContainer component={Paper}>
     <Table aria-label="simple table">
       <TableBody>
-        {props.rows.map((row) => <StoricoItem {...row} />)}
+        {props.rows.map((row) => (
+          <StoricoItem {...row} />
+        ))}
       </TableBody>
     </Table>
   </TableContainer>
 );
 
-export default Storico
+export default Storico;
