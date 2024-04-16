@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Grid } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { SxProps } from '@mui/system';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { Sidebar } from './Sidebar';
-import { grey } from '@mui/material/colors';
+import { Sidebar } from './Sidebar/Sidebar';
 
 interface LayoutProps {
   sx?: SxProps;

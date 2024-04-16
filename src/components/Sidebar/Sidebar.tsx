@@ -3,15 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { ISidebarMenuItem } from 'src/models/SidebarMenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-import React, { useState } from 'react';
+import React from 'react';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Tooltip from '@mui/material/Tooltip';
 import ViewSidebarIcon from '@mui/icons-material/ViewSidebar';
+import useCollapseMenu from './useCollapseMenu';
 
 export const Sidebar = () => {
   const { t } = useTranslation();
 
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const { collapsed, changeMenuState } = useCollapseMenu(false);
 
   const menuItems: Array<ISidebarMenuItem> = [
     {
@@ -49,7 +50,7 @@ export const Sidebar = () => {
               <IconButton
                 aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
                 onClick={() => {
-                  setCollapsed(!collapsed);
+                  changeMenuState(collapsed);
                 }}
                 size="large">
                 <MenuIcon />
