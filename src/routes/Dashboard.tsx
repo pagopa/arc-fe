@@ -18,7 +18,7 @@ export default function Dashboard() {
       </Stack>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h6">{t('app.dashboard.lastTransactions')}</Typography>
-        <Button>{t('app.dashboard.lastTransactions')}</Button>
+        <Button>{t('app.dashboard.seeAllTransactions')}</Button>
       </Stack>
       <Tabs
         initialActiveTab={0}
