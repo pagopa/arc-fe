@@ -8,8 +8,20 @@
       "seeAllTransactions": "Vedi tutti"
     }
   },
+  "aria": {
+    "a11y": "Accessibilità"
+  },
   "general": {
     "and": "e"
+  },
+  "menu": {
+    "description": "Naviga il portale",
+    "homepage": "Homepage",
+    "receipts": "Ricevute"
+  },
+  "sidebar": {
+    "collapse": "Comprimi il menu",
+    "expand": "Espandi il menu"
   },
   "ui": {
     "header": {
@@ -18,9 +30,5 @@
     "footer": {
       "disclaimer": ""
     }
-  },
-  "aria": {
-    "a11y": "Accessibilità"
   }
 }
-
