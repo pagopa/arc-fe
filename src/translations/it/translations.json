@@ -1,6 +1,12 @@
 {
   "app": {
-    "title": "PagoPa - Checkout Evoluto"
+    "title": "PagoPa - Checkout Evoluto",
+    "dashboard": {
+      "hello": "Ciao, John Doe",
+      "newPayment": "Nuovo Pagamento",
+      "lastTransactions": "Ecco le tue ultime ricevute",
+      "seeAllTransactions": "Vedi tutti"
+    }
   },
   "general": {
     "and": "e"
