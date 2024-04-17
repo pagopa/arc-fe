@@ -43,7 +43,7 @@ export default function NoticeDetail() {
                 <Typography variant="caption-semibold">Matteo Rossi</Typography>
               </Stack>
               <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={5}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
                       Codice autorizzativo
@@ -60,7 +60,7 @@ export default function NoticeDetail() {
                 </Grid>
               </Grid>
               <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={5}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
                       Codice autorizzativo
@@ -77,7 +77,7 @@ export default function NoticeDetail() {
                 </Grid>
               </Grid>
               <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={5}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
                       Codice autorizzativo
@@ -102,7 +102,7 @@ export default function NoticeDetail() {
                 <Typography variant="caption-semibold">Matteo Rossi</Typography>
                 <Typography variant="caption-semibold">CF</Typography>
               </Stack>
-              <Grid container>
+              <Grid container mt={1.13}>
                 <Grid item xs={1} paddingTop={1.54}>
                   <CopyToClipboardButton value="VAL" color="primary" />
                 </Grid>
