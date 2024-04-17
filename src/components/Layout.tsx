@@ -4,17 +4,14 @@ import React from 'react';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import style from 'src/utils/style';
-import { LangCode } from '@pagopa/mui-italia';
 import { Footer } from './Footer';
 
 interface LayoutProps {
   sx?: SxProps;
   children?: React.ReactNode;
-  currentLanguage: LangCode;
-  changeLanguage(langCode: LangCode): void;
 }
 
-export function Layout({ children, currentLanguage, changeLanguage }: LayoutProps) {
+export function Layout({ children }: LayoutProps) {
   const theme = useTheme();
   return (
     <Container
@@ -34,7 +31,7 @@ export function Layout({ children, currentLanguage, changeLanguage }: LayoutProp
           {children}
         </Grid>
         <Grid item xs={12}>
-          <Footer currentLanguage={currentLanguage} changeLanguage={changeLanguage} />
+          <Footer />
         </Grid>
       </Grid>
     </Container>

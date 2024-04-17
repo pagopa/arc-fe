@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import lang from '../translations/lang';
 import { LangCode, Footer as MUIFooter } from '@pagopa/mui-italia';
+import i18n from 'src/translations/i18n';
 
-export const Footer = ({
-  currentLanguage,
-  changeLanguage
-}: {
-  currentLanguage: LangCode;
-  changeLanguage(langCode: LangCode): void;
-}) => {
+export const Footer = () => {
   const { t } = useTranslation();
+  const [currentLanguage, setCurrentLanguage] = useState<LangCode>('it');
 
+  const changeLanguage = (langCode: LangCode) => {
+    i18n.changeLanguage(langCode);
+    setCurrentLanguage(langCode);
+  };
   return (
     <MUIFooter
       loggedUser
