@@ -17,7 +17,7 @@ export function Layout({ children }: LayoutProps) {
     <Container
       maxWidth="lg"
       sx={{
-        bgcolor: theme.palette.background.default
+        bgcolor: theme.palette.background.paper //I changed it to paper because that's the color we want for the background. The default one is used in the components (header, sidebar, footer)
       }}>
       <Grid container>
         <Grid item xs={12}>
