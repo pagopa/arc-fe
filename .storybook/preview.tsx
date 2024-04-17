@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
 import { Theme } from '../src/utils/style';
+import { BrowserRouter } from 'react-router-dom';
 
 const preview: Preview = {
   parameters: {
@@ -11,7 +12,15 @@ const preview: Preview = {
       }
     }
   },
-  decorators: [ (Story) => (<Theme><Story /></Theme>)],
+  decorators: [
+    (Story) => (
+      <Theme>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </Theme>
+    )
+  ]
 };
 
 export default preview;
