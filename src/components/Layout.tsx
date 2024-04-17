@@ -1,11 +1,10 @@
 import React from 'react';
 import { Container, Grid } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { SxProps } from '@mui/system';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { Sidebar } from './Sidebar';
-import style from 'src/utils/style';
-import { grey } from '@mui/material/colors';
+import { Sidebar } from './Sidebar/Sidebar';
 
 interface LayoutProps {
   sx?: SxProps;
@@ -19,10 +18,8 @@ export function Layout({ children }: LayoutProps) {
         <Grid item xs={12}>
           <Header />
         </Grid>
-        <Grid item xs={3} height={`calc(100vh - (${style.header.height + style.footer.height}px))`}>
-          <Sidebar />
-        </Grid>
-        <Grid item xs={9} bgcolor={grey['100']} padding={4}>
+        <Sidebar />
+        <Grid item bgcolor={grey['100']} padding={4}>
           {children}
         </Grid>
         <Grid item xs={12}>
