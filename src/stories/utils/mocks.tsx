@@ -1,5 +1,6 @@
 import { transactionProps } from 'src/components/Transactions/Transaction';
 import { fn } from '@storybook/test';
+import { TransactionDetail } from 'src/components/TransactionDetail';
 
 const Transaction_dc379158: transactionProps = {
   payee: {
@@ -73,12 +74,37 @@ const Transaction_3d40b8e0: transactionProps = {
   }
 };
 
+const transactionDetail = {
+  paidBy: 'Matteo Rossi',
+  authCode: 11111,
+  transactionId: 11111,
+  PRN: 1111111,
+  owedBy: 'Matteo Rossi',
+  owedByFiscalCode: 'MTTRSS74B23F205K',
+  paymentMethod: 'Mastercard',
+  cardNumber: '**** 1234',
+  PSP: 'Nexi',
+  dateTime: new Date(),
+  subject: ' Bollo auto 2023',
+  debtor: 'Matteo Rossi',
+  debtorFiscalCode: 'MTTRSS74B23F205K',
+  creditorEntity: 'ACI',
+  creditorFiscalCode: '00000000',
+  noticeCode: '0000 0000 0000 0000',
+  partialAmount: 250,
+  commission: 1,
+  total: 251,
+  status: 'Pagato'
+};
+
 export const dummyTransactionsData: {
   all: transactionProps[];
   payedByMe: transactionProps[];
   ownedByMe: transactionProps[];
+  transactionData: TransactionDetail;
 } = {
   all: [Transaction_dc379158, Transaction_ffe1324e, Transaction_a305f59a, Transaction_3d40b8e0],
   payedByMe: [Transaction_dc379158, Transaction_ffe1324e],
-  ownedByMe: [Transaction_a305f59a, Transaction_3d40b8e0]
+  ownedByMe: [Transaction_a305f59a, Transaction_3d40b8e0],
+  transactionData: transactionDetail
 };

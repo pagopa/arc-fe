@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
-import NoticeDetail from 'src/components/NoticeDetail';
+import TransactionDetail from 'src/components/TransactionDetail';
+import { dummyTransactionsData } from '../stories/utils/mocks';
 
 export default function Transaction() {
   const { ID } = useParams();
-  return <NoticeDetail />;
+  return <TransactionDetail transactionData={dummyTransactionsData.transactionData} />;
 }

@@ -1,29 +1,57 @@
 import { Download } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
-import MasterCard from '../assets/creditcard/mastercard.png'
+import MasterCard from '../assets/creditcard/mastercard.png';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-export default function NoticeDetail() {
+export interface TransactionDetail {
+  paidBy: string;
+  authCode: number;
+  transactionId: number;
+  PRN: number;
+  owedBy: string;
+  owedByFiscalCode: string;
+  paymentMethod: string;
+  cardNumber: string;
+  PSP: string;
+  dateTime: Date;
+  subject: string;
+  debtor: string;
+  debtorFiscalCode: string;
+  creditorEntity: string;
+  creditorFiscalCode: string;
+  noticeCode: string;
+  partialAmount: number;
+  commission: number;
+  total: number;
+  status: string;
+}
+export default function TransactionDetail({
+  transactionData
+}: {
+  transactionData: TransactionDetail;
+}) {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Grid container>
       <Grid item>
-        <Chip label="Pagato" color="success" />
+        <Chip label={transactionData.status} color="success" />
       </Grid>
       <Stack
         direction="row"
         justifyContent="space-between"
         alignItems="center"
         sx={{ width: '100%' }}>
-        <Typography variant="h4">Bollo auto</Typography>
+        <Typography variant="h4">{transactionData.subject}</Typography>
         <Stack direction="row" spacing={0.6}>
           <Button endIcon={<Download />} size="medium" variant="outlined">
-            Scarica quietanza
+            {t('app.transactionDetail.downloadQuiettance')}
           </Button>
           <Button endIcon={<Download />} size="medium" variant="contained">
-            Scarica ricevuta
+            {t('app.transactionDetail.downloadReceipt')}
           </Button>
         </Stack>
       </Stack>
@@ -31,7 +59,8 @@ export default function NoticeDetail() {
       <Stack spacing={1.41} mt={1} width={'100%'}>
         <Box>
           <Typography variant="caption">
-            Creato il <b>23 giugno 2022, 15:50</b>
+            {t('app.transactionDetail.createdOn')}
+            {transactionData.dateTime.toISOString()}
           </Typography>
         </Box>
         <Box sx={{ bgcolor: theme.palette.background.paper }} borderRadius={1.5} padding={2}>
@@ -39,7 +68,7 @@ export default function NoticeDetail() {
             <Grid item xs={6}>
               <Stack padding={0.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Pagato da
+                  {t('app.transactionDetail.paidBy')}
                 </Typography>
                 <Typography variant="caption-semibold">Matteo Rossi</Typography>
               </Stack>
@@ -47,7 +76,7 @@ export default function NoticeDetail() {
                 <Grid item xs={5}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                      Codice autorizzativo
+                      {t('app.transactionDetail.authCode')}
                     </Typography>
                     <Typography variant="caption" sx={{ color: theme.palette.primary.main }}>
                       <b>
@@ -64,7 +93,7 @@ export default function NoticeDetail() {
                 <Grid item xs={5}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                      Codice autorizzativo
+                      {t('app.transactionDetail.transactionId')}
                     </Typography>
                     <Typography variant="caption" sx={{ color: theme.palette.primary.main }}>
                       <b>
@@ -81,7 +110,7 @@ export default function NoticeDetail() {
                 <Grid item xs={5}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                      Codice autorizzativo
+                      PRN{' '}
                     </Typography>
                     <Typography variant="caption" sx={{ color: theme.palette.primary.main }}>
                       <b>
@@ -98,7 +127,7 @@ export default function NoticeDetail() {
             <Grid item xs={6}>
               <Stack padding={0.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Intestato a
+                  {t('app.transactionDetail.noticeOwner')}
                 </Typography>
                 <Typography variant="caption-semibold">Matteo Rossi</Typography>
                 <Typography variant="caption-semibold">(MTTRSS74B23F205K)</Typography>
@@ -110,7 +139,7 @@ export default function NoticeDetail() {
                 <Grid item xs={10}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                      Metodo di pagamento
+                      {t('app.transactionDetail.paymentMethod')}
                     </Typography>
                     <Typography variant="caption-semibold">Master card ****1234</Typography>
                   </Stack>
@@ -118,15 +147,17 @@ export default function NoticeDetail() {
               </Grid>
               <Stack padding={0.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Gestore della transazione (PSP)
+                  {t('app.transactionDetail.PSP')}
                 </Typography>
                 <Typography variant="caption-semibold">Nexi</Typography>
               </Stack>
               <Stack padding={0.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Data e ora{' '}
+                  {t('app.transactionDetail.dateAndTime')}
                 </Typography>
-                <Typography variant="caption-semibold">Nexi</Typography>
+                <Typography variant="caption-semibold">
+                  {transactionData.dateTime.toString()}
+                </Typography>
               </Stack>
             </Grid>
             <Grid item xs={12} pt={4}>
@@ -136,13 +167,13 @@ export default function NoticeDetail() {
             <Grid item xs={6}>
               <Stack pl={0.66} pt={2.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Oggetto
+                  {t('app.transactionDetail.subject')}
                 </Typography>
                 <Typography variant="caption-semibold">Bollo auto</Typography>
               </Stack>
               <Stack pl={0.66} pt={2.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Debitore
+                  {t('app.transactionDetail.debtor')}
                 </Typography>
                 <Typography variant="caption-semibold">Matteo Rossi</Typography>
                 <Typography variant="caption-semibold">CF</Typography>
@@ -151,14 +182,14 @@ export default function NoticeDetail() {
             <Grid item xs={6}>
               <Stack pl={0.66} pt={2.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Ente creditore
+                  {t('app.transactionDetail.creditorEntity')}
                 </Typography>
                 <Typography variant="caption-semibold">ACI</Typography>
                 <Typography variant="caption-semibold">0000</Typography>
               </Stack>
               <Stack pl={0.66} pt={2.66}>
                 <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                  Codice avviso
+                  {t('app.transactionDetail.noticeCode')}
                 </Typography>
                 <Typography variant="caption-semibold">00000</Typography>
               </Stack>
@@ -170,21 +201,26 @@ export default function NoticeDetail() {
               <Stack pl={0.66} pt={2.66} alignItems={'end'} spacing={1.333}>
                 <Stack alignItems={'end'}>
                   <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                    Importo parziale
+                    {t('app.transactionDetail.partialAmount')}
                   </Typography>
                   <Typography variant="caption-semibold">250.00 €</Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
                   <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                    Commissione (applicata da Nexi)
+                    {t('app.transactionDetail.commission') +
+                      ' ' +
+                      t('app.transactionDetail.appliedBy') +
+                      ' Nexi'}
                   </Typography>
                   <Typography variant="caption-semibold">1.00 €</Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
                   <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-                    Totale
+                    {t('app.transactionDetail.total')}
                   </Typography>
-                  <Typography variant="h6"><b>251.00 €</b></Typography>
+                  <Typography variant="h6">
+                    <b>251.00 €</b>
+                  </Typography>
                 </Stack>
               </Stack>
             </Grid>
