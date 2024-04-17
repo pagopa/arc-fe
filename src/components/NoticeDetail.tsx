@@ -34,7 +34,7 @@ export default function NoticeDetail() {
             Creato il <b>23 giugno 2022, 15:50</b>
           </Typography>
         </Box>
-        <Box sx={{ bgcolor: theme.palette.background.default }} borderRadius={1.5} padding={2}>
+        <Box sx={{ bgcolor: theme.palette.background.paper }} borderRadius={1.5} padding={2}>
           <Grid container>
             <Grid item xs={6}>
               <Stack padding={0.66}>
