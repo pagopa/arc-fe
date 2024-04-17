@@ -1,6 +1,7 @@
 import { Download } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
+import MasterCard from '../assets/creditcard/mastercard.png'
 import React from 'react';
 
 export default function NoticeDetail() {
@@ -100,13 +101,13 @@ export default function NoticeDetail() {
                   Intestato a
                 </Typography>
                 <Typography variant="caption-semibold">Matteo Rossi</Typography>
-                <Typography variant="caption-semibold">CF</Typography>
+                <Typography variant="caption-semibold">(MTTRSS74B23F205K)</Typography>
               </Stack>
               <Grid container mt={1.13}>
-                <Grid item xs={1} paddingTop={1.54}>
-                  <CopyToClipboardButton value="VAL" color="primary" />
+                <Grid item xs={1} paddingTop={1.54} pl={0.66}>
+                  <img src={MasterCard} />
                 </Grid>
-                <Grid item xs={10} ml={1.33}>
+                <Grid item xs={10}>
                   <Stack padding={0.66}>
                     <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
                       Metodo di pagamento
@@ -183,7 +184,7 @@ export default function NoticeDetail() {
                   <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
                     Totale
                   </Typography>
-                  <Typography variant="h6">251.00 €</Typography>
+                  <Typography variant="h6"><b>251.00 €</b></Typography>
                 </Stack>
               </Stack>
             </Grid>
