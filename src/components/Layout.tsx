@@ -19,7 +19,7 @@ export function Layout({ children }: LayoutProps) {
           <Header />
         </Grid>
         <Sidebar />
-        <Grid item bgcolor={grey['100']} padding={4}>
+        <Grid item bgcolor={grey['100']} padding={4} xs>
           {children}
         </Grid>
         <Grid item xs={12}>
