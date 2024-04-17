@@ -3,7 +3,7 @@ import { transactionProps } from './Transaction';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
-import StoricoItem from './Transaction';
+import Transaction from './Transaction';
 
 interface TransactionsProps {
   rows: transactionProps[];
@@ -14,7 +14,7 @@ const Transactions = (props: TransactionsProps) => (
     <Table aria-label="Storico table">
       <TableBody>
         {props.rows.map((row) => (
-          <StoricoItem {...row} key={row.id} />
+          <Transaction {...row} key={row.id} />
         ))}
       </TableBody>
     </Table>
