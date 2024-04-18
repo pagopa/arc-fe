@@ -196,7 +196,7 @@ export default function TransactionDetail({
                 <Typography fontWeight={600}>{transactionData.noticeCode}</Typography>
               </Stack>
             </Grid>
-            <Grid item xs={12} pt={4}>
+            <Grid item xs={12} pt={3}>
               <Divider orientation="horizontal" />
             </Grid>
             <Grid item xs={12}>
@@ -232,10 +232,10 @@ export default function TransactionDetail({
           </Grid>
         </Box>
         <Stack>
-          <Typography fontWeight={600}>
+          <Typography fontSize={16} fontWeight={600}>
             {t('app.transactionDetail.somethingDoesntAddUp')}
           </Typography>
-          <Typography fontWeight={600} color="primary">
+          <Typography fontSize={16} fontWeight={600} color="primary">
             <b>{t('app.transactionDetail.contactSupport')}</b>
           </Typography>
         </Stack>
