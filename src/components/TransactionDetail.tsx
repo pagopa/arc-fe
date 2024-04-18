@@ -62,7 +62,12 @@ export default function TransactionDetail({
             {t('app.transactionDetail.createdOn') + ' ' + transactionData.dateTime.toDateString()}
           </Typography>
         </Box>
-        <Box sx={{ bgcolor: theme.palette.background.paper }} borderRadius={1.5} pt={4} pl={3} pr={3}>
+        <Box
+          sx={{ bgcolor: theme.palette.background.paper }}
+          borderRadius={1.5}
+          pt={4}
+          pl={3}
+          pr={3}>
           <Grid container>
             <Grid item xs={6}>
               <Stack spacing={2} pt={1}>
@@ -117,40 +122,42 @@ export default function TransactionDetail({
             </Grid>
             <Grid item xs={6}>
               <Stack spacing={2} pt={1}>
-              <Stack>
-                <Typography sx={{ color: theme.palette.text.secondary }}>
-                  {t('app.transactionDetail.noticeOwner')}
-                </Typography>
-                <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
-                <Typography fontWeight={600}>({transactionData.owedByFiscalCode})</Typography>
-              </Stack>
-              <Grid container pt={1}>
-                <Grid item xs={1} paddingTop={3.065} pr={2}>
-                  <img src={MasterCard} />
+                <Stack>
+                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                    {t('app.transactionDetail.noticeOwner')}
+                  </Typography>
+                  <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
+                  <Typography fontWeight={600}>({transactionData.owedByFiscalCode})</Typography>
+                </Stack>
+                <Grid container pt={1}>
+                  <Grid item xs={1} paddingTop={3.065} pr={2}>
+                    <img src={MasterCard} />
+                  </Grid>
+                  <Grid item xs={10}>
+                    <Stack pt={0.75} pb={0.75} pl={2}>
+                      <Typography sx={{ color: theme.palette.text.secondary }}>
+                        {t('app.transactionDetail.paymentMethod')}
+                      </Typography>
+                      <Typography fontWeight={600}>
+                        {transactionData.paymentMethod + ' ' + transactionData.cardNumber}
+                      </Typography>
+                    </Stack>
+                  </Grid>
                 </Grid>
-                <Grid item xs={10}>
-                  <Stack pt={0.75} pb={0.75} pl={2}>
-                    <Typography sx={{ color: theme.palette.text.secondary }}>
-                      {t('app.transactionDetail.paymentMethod')}
-                    </Typography>
-                    <Typography fontWeight={600}>
-                      {transactionData.paymentMethod + ' ' + transactionData.cardNumber}
-                    </Typography>
-                  </Stack>
-                </Grid>
-              </Grid>
-              <Stack>
-                <Typography sx={{ color: theme.palette.text.secondary }}>
-                  {t('app.transactionDetail.PSP')}
-                </Typography>
-                <Typography fontWeight={600}>{transactionData.PSP}</Typography>
-              </Stack>
-              <Stack>
-                <Typography sx={{ color: theme.palette.text.secondary }}>
-                  {t('app.transactionDetail.dateAndTime')}
-                </Typography>
-                <Typography fontWeight={600}>{transactionData.dateTime.toDateString()}</Typography>
-              </Stack>
+                <Stack>
+                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                    {t('app.transactionDetail.PSP')}
+                  </Typography>
+                  <Typography fontWeight={600}>{transactionData.PSP}</Typography>
+                </Stack>
+                <Stack>
+                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                    {t('app.transactionDetail.dateAndTime')}
+                  </Typography>
+                  <Typography fontWeight={600}>
+                    {transactionData.dateTime.toDateString()}
+                  </Typography>
+                </Stack>
               </Stack>
             </Grid>
             <Grid item xs={12} pt={4.5}>
@@ -159,19 +166,19 @@ export default function TransactionDetail({
 
             <Grid item xs={6} pt={4}>
               <Stack spacing={4}>
-              <Stack>
-                <Typography sx={{ color: theme.palette.text.secondary }}>
-                  {t('app.transactionDetail.subject')}
-                </Typography>
-                <Typography fontWeight={600}>{transactionData.subject}</Typography>
-              </Stack>
-              <Stack>
-                <Typography sx={{ color: theme.palette.text.secondary }}>
-                  {t('app.transactionDetail.debtor')}
-                </Typography>
-                <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
-                <Typography fontWeight={600}>({transactionData.owedByFiscalCode})</Typography>
-              </Stack>
+                <Stack>
+                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                    {t('app.transactionDetail.subject')}
+                  </Typography>
+                  <Typography fontWeight={600}>{transactionData.subject}</Typography>
+                </Stack>
+                <Stack>
+                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                    {t('app.transactionDetail.debtor')}
+                  </Typography>
+                  <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
+                  <Typography fontWeight={600}>({transactionData.owedByFiscalCode})</Typography>
+                </Stack>
               </Stack>
             </Grid>
             <Grid item xs={6}>
@@ -182,7 +189,7 @@ export default function TransactionDetail({
                 <Typography fontWeight={600}>{transactionData.creditorEntity}</Typography>
                 <Typography fontWeight={600}>{transactionData.creditorFiscalCode}</Typography>
               </Stack>
-              <Stack  pt={2}>
+              <Stack pt={2}>
                 <Typography sx={{ color: theme.palette.text.secondary }}>
                   {t('app.transactionDetail.noticeCode')}
                 </Typography>
