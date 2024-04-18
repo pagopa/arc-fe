@@ -27,13 +27,7 @@ const customTheme = createTheme({
 });
 
 const style = {
-  theme: customTheme,
-  header: {
-    height: 122
-  },
-  footer: {
-    height: 158
-  }
+  theme: customTheme
 };
 
 export const Theme = (props: PropsWithChildren) => (

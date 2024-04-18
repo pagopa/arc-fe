@@ -1,6 +1,6 @@
 import { Button, Stack, Typography } from '@mui/material';
-import Tabs from 'src/components/Tabs';
-import Transactions from 'src/components/Transactions/Transactions';
+import Tabs from 'components/Tabs';
+import Transactions from 'components/Transactions/Transactions';
 
 // TO BE REMOVED
 import { dummyTransactionsData } from '../stories/utils/mocks';

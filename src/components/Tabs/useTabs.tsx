@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { ITabs } from '.';
+import { TabsProps } from '.';
 
-function useTabs(initialActiveTab: ITabs['initialActiveTab']) {
+function useTabs(initialActiveTab: TabsProps['initialActiveTab']) {
   const [activeTab, setActiveTab] = useState(initialActiveTab || 0);
 
   const changeActiveTab = (activeTab: number) => setActiveTab(activeTab);
