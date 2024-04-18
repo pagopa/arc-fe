@@ -1,5 +1,26 @@
-import { Box } from '@mui/material';
 import React from 'react';
-import style from '../../src/utils/style';
+import { HeaderAccount, HeaderProduct, JwtUser } from '@pagopa/mui-italia';
+import utils from 'src/utils';
 
-export const Header = () => <Box height={style.header.height}>Header</Box>;
+/*
+User info
+*/
+const mockUser: JwtUser = {
+  id: '1',
+  name: 'John',
+  surname: 'Doe',
+  email: 'john.doe@gmail.com'
+};
+
+export const Header = () => (
+  <>
+    <HeaderAccount
+      rootLink={utils.config.pagopaLink}
+      enableDropdown
+      onAssistanceClick={() => null}
+      loggedUser={mockUser}
+      userActions={utils.config.userActions}
+    />
+    <HeaderProduct productsList={[utils.config.product]} />
+  </>
+);
