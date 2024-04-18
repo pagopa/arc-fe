@@ -6,6 +6,28 @@
       "newPayment": "Nuovo Pagamento",
       "lastTransactions": "Ecco le tue ultime ricevute",
       "seeAllTransactions": "Vedi tutti"
+    },
+    "transactionDetail": {
+      "downloadReceipt": "Scarica ricevuta",
+      "downloadQuiettance": "Scarica quietanza",
+      "createdOn": "Creato il",
+      "paidBy":"Pagato da",
+      "authCode":"Codice autorizzativo",
+      "transactionId": "ID Transazione",
+      "noticeOwner":"Intestato a",
+      "paymentMethod": "Metodo di pagamento",
+      "PSP": "Gestore della transazione (PSP)",
+      "dateAndTime":"Data e ora",
+      "subject":"Oggetto",
+      "creditorEntity": "Ente creditore",
+      "debtor":"Debitore",
+      "noticeCode": "Codice avviso",
+      "partialAmount": "Importo parziale",
+      "commission": "Commissione",
+      "appliedBy": "applicata da",
+      "total":"Totale",
+      "somethingDoesntAddUp": "Qualcosa non torna?",
+      "contactSupport": "Contatta l'assistenza"
     }
   },
   "aria": {
