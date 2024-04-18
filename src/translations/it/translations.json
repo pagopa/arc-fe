@@ -20,12 +20,14 @@
       "dateAndTime":"Data e ora",
       "subject":"Oggetto",
       "creditorEntity": "Ente creditore",
-      "debtor":"Debtiore",
+      "debtor":"Debitore",
       "noticeCode": "Codice avviso",
       "partialAmount": "Importo parziale",
       "commission": "Commissione",
       "appliedBy": "applicata da",
-      "total":"Totale"
+      "total":"Totale",
+      "somethingDoesntAddUp": "Qualcosa non torna?",
+      "contactSupport": "Contatta l'assistenza"
     }
   },
   "aria": {

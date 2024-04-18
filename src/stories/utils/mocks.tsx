@@ -76,9 +76,9 @@ const Transaction_3d40b8e0: transactionProps = {
 
 const transactionDetail = {
   paidBy: 'Matteo Rossi',
-  authCode: 11111,
-  transactionId: 11111,
-  PRN: 1111111,
+  authCode: 1234567890123456800,
+  transactionId: "F57E2F8E-25FF-4183-AB7B-4…",
+  PRN: 1234567890,
   owedBy: 'Matteo Rossi',
   owedByFiscalCode: 'MTTRSS74B23F205K',
   paymentMethod: 'Mastercard',
@@ -92,7 +92,7 @@ const transactionDetail = {
   creditorFiscalCode: '00000000',
   noticeCode: '0000 0000 0000 0000',
   partialAmount: 250,
-  commission: 1,
+  fee: 1,
   total: 251,
   status: 'Pagato'
 };
