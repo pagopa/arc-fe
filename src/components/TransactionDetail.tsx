@@ -218,10 +218,10 @@ export default function TransactionDetail({
           </Grid>
         </Box>
         <Stack>
-          <Typography fontSize={16} fontWeight={600}>
+          <Typography variant="body2" fontWeight={600}>
             {t('app.transactionDetail.somethingDoesntAddUp')}
           </Typography>
-          <Typography fontSize={16} fontWeight={600} color="primary">
+          <Typography variant="body2" fontWeight={600} color="primary">
             <b>{t('app.transactionDetail.contactSupport')}</b>
           </Typography>
         </Stack>

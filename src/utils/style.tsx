@@ -23,13 +23,6 @@ const customTheme = createTheme({
         })
       }
     }
-  },
-  typography: {
-    ...theme.typography,
-    body2: {
-      ...theme.typography.body2,
-      fontSize: 18
-    }
   }
 });
 
