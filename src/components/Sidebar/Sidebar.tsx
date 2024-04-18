@@ -1,7 +1,7 @@
 import { Box, Divider, Grid, IconButton, List } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { SidebarMenuItem } from './SidebarMenuItem';
-import { ISidebarMenuItem } from 'src/models/SidebarMenuItem';
+import { ISidebarMenuItem } from 'models/SidebarMenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';

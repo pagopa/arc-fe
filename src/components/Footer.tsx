@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import lang from '../translations/lang';
 import { Footer as MUIFooter } from '@pagopa/mui-italia';
-import utils from 'src/utils';
+import utils from 'utils';
 
 export const Footer = () => {
   const { t } = useTranslation();

@@ -5,7 +5,7 @@ import { Box, Button, Chip, ChipOwnProps, Stack, Typography } from '@mui/materia
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material/styles';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import style from '../../utils/style';
+import style from 'utils/style';
 
 export interface transactionProps {
   payee: {
