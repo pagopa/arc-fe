@@ -41,24 +41,19 @@ export default function TransactionDetail({
             {t('app.transactionDetail.createdOn') + ' ' + transactionData.dateTime.toDateString()}
           </Typography>
         </Box>
-        <Box
-          sx={{ bgcolor: theme.palette.background.paper }}
-          borderRadius={1.5}
-          pt={4}
-          pl={3}
-          pr={3}>
+        <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
           <Grid container>
             <Grid item xs={6}>
               <Stack spacing={2} pt={1}>
                 <Stack>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.paidBy')}
                   </Typography>
                   <Typography fontWeight={600}>{transactionData.paidBy}</Typography>
                 </Stack>
                 <Grid container>
                   <Grid item xs={9}>
-                    <Typography sx={{ color: theme.palette.text.secondary }}>
+                    <Typography color={theme.palette.text.secondary}>
                       {t('app.transactionDetail.authCode')}
                     </Typography>
                     <Typography fontWeight={600} color={theme.palette.primary.main}>
@@ -75,7 +70,7 @@ export default function TransactionDetail({
                 <Grid container>
                   <Grid item xs={9}>
                     <Stack>
-                      <Typography sx={{ color: theme.palette.text.secondary }}>
+                      <Typography color={theme.palette.text.secondary}>
                         {t('app.transactionDetail.transactionId')}
                       </Typography>
                       <Typography fontWeight={600} color={theme.palette.primary.main}>
@@ -93,7 +88,7 @@ export default function TransactionDetail({
                 <Grid container>
                   <Grid item xs={9}>
                     <Stack>
-                      <Typography sx={{ color: theme.palette.text.secondary }}>PRN</Typography>
+                      <Typography color={theme.palette.text.secondary}>PRN</Typography>
                       <Typography fontWeight={600} color={theme.palette.primary.main}>
                         <u>{transactionData.PRN}</u>
                       </Typography>
@@ -108,7 +103,7 @@ export default function TransactionDetail({
             <Grid item xs={6}>
               <Stack spacing={2} pt={1}>
                 <Stack>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.noticeOwner')}
                   </Typography>
                   <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
@@ -120,7 +115,7 @@ export default function TransactionDetail({
                   </Grid>
                   <Grid item xs={10}>
                     <Stack pt={0.75} pb={0.75} pl={2}>
-                      <Typography sx={{ color: theme.palette.text.secondary }}>
+                      <Typography color={theme.palette.text.secondary}>
                         {t('app.transactionDetail.paymentMethod')}
                       </Typography>
                       <Typography fontWeight={600}>
@@ -130,13 +125,13 @@ export default function TransactionDetail({
                   </Grid>
                 </Grid>
                 <Stack>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.PSP')}
                   </Typography>
                   <Typography fontWeight={600}>{transactionData.PSP}</Typography>
                 </Stack>
                 <Stack>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
                   <Typography fontWeight={600}>
@@ -152,13 +147,13 @@ export default function TransactionDetail({
             <Grid item xs={6} pt={4}>
               <Stack spacing={4}>
                 <Stack>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.subject')}
                   </Typography>
                   <Typography fontWeight={600}>{transactionData.subject}</Typography>
                 </Stack>
                 <Stack>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.debtor')}
                   </Typography>
                   <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
@@ -168,14 +163,14 @@ export default function TransactionDetail({
             </Grid>
             <Grid item xs={6}>
               <Stack pt={4}>
-                <Typography sx={{ color: theme.palette.text.secondary }}>
+                <Typography color={theme.palette.text.secondary}>
                   {t('app.transactionDetail.creditorEntity')}
                 </Typography>
                 <Typography fontWeight={600}>{transactionData.creditorEntity}</Typography>
                 <Typography fontWeight={600}>{transactionData.creditorFiscalCode}</Typography>
               </Stack>
               <Stack pt={2}>
-                <Typography sx={{ color: theme.palette.text.secondary }}>
+                <Typography color={theme.palette.text.secondary}>
                   {t('app.transactionDetail.noticeCode')}
                 </Typography>
                 <Typography fontWeight={600}>{transactionData.noticeCode}</Typography>
@@ -187,7 +182,7 @@ export default function TransactionDetail({
             <Grid item xs={12}>
               <Stack pt={4} pb={4} alignItems={'end'} spacing={2}>
                 <Stack alignItems={'end'}>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.partialAmount')}
                   </Typography>
                   <Typography fontWeight={600}>
@@ -195,7 +190,7 @@ export default function TransactionDetail({
                   </Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.commission') +
                       ' (' +
                       t('app.transactionDetail.appliedBy') +
@@ -206,7 +201,7 @@ export default function TransactionDetail({
                   <Typography fontWeight={600}>{transactionData.fee.toFixed(2)} €</Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
-                  <Typography sx={{ color: theme.palette.text.secondary }}>
+                  <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.total')}
                   </Typography>
                   <Typography variant="h6">
