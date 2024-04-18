@@ -86,8 +86,11 @@ export default function TransactionDetail({
                       <u>{transactionData.authCode}</u>
                     </Typography>
                   </Grid>
-                  <Grid item xs={2} paddingTop={1.54}>
-                    <CopyToClipboardButton value="VAL" color="primary" />
+                  <Grid item xs={2} paddingTop={1}>
+                    <CopyToClipboardButton
+                      value={transactionData.authCode.toString()}
+                      color="primary"
+                    />
                   </Grid>
                 </Grid>
                 <Grid container>
@@ -101,8 +104,11 @@ export default function TransactionDetail({
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item xs={2} paddingTop={1.54}>
-                    <CopyToClipboardButton value="VAL" color="primary" />
+                  <Grid item xs={2} paddingTop={1}>
+                    <CopyToClipboardButton
+                      value={transactionData.transactionId.toString()}
+                      color="primary"
+                    />
                   </Grid>
                 </Grid>
                 <Grid container>
@@ -114,8 +120,8 @@ export default function TransactionDetail({
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item xs={2} paddingTop={1.54}>
-                    <CopyToClipboardButton value="VAL" color="primary" />
+                  <Grid item xs={2} paddingTop={1}>
+                    <CopyToClipboardButton value={transactionData.PRN.toString()} color="primary" />
                   </Grid>
                 </Grid>
               </Stack>
