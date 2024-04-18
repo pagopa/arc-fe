@@ -2,31 +2,10 @@ import { Download } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import MasterCard from '../assets/creditcard/mastercard.png';
+import { TransactionDetail } from 'src/models/TransactionDetail';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-export interface TransactionDetail {
-  paidBy: string;
-  authCode: number;
-  transactionId: string;
-  PRN: number;
-  owedBy: string;
-  owedByFiscalCode: string;
-  paymentMethod: string;
-  cardNumber: string;
-  PSP: string;
-  dateTime: Date;
-  subject: string;
-  debtor: string;
-  debtorFiscalCode: string;
-  creditorEntity: string;
-  creditorFiscalCode: string;
-  noticeCode: string;
-  partialAmount: number;
-  fee: number;
-  total: number;
-  status: string;
-}
 export default function TransactionDetail({
   transactionData
 }: {
@@ -218,10 +197,11 @@ export default function TransactionDetail({
                 <Stack alignItems={'end'}>
                   <Typography sx={{ color: theme.palette.text.secondary }}>
                     {t('app.transactionDetail.commission') +
-                      ' ' +
+                      ' (' +
                       t('app.transactionDetail.appliedBy') +
                       ' ' +
-                      transactionData.PSP}
+                      transactionData.PSP +
+                      ')'}
                   </Typography>
                   <Typography fontWeight={600}>{transactionData.fee.toFixed(2)} €</Typography>
                 </Stack>
