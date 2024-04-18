@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeaderAccount, HeaderProduct, JwtUser } from '@pagopa/mui-italia';
-import utils from 'src/utils';
+import utils from 'utils';
 
 /*
 User info

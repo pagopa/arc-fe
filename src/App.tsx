@@ -5,7 +5,6 @@ import { Layout } from './components/Layout';
 import { ArcRoutes } from './routes/routes';
 import TransactionRoute from './routes/Transaction';
 import DashboardRoute from './routes/Dashboard';
-import './translations/i18n';
 
 export const App = () => (
   <Theme>
@@ -14,7 +13,7 @@ export const App = () => (
         <Routes>
           <Route path={ArcRoutes.DASHBOARD} element={<DashboardRoute />} />
           <Route path={ArcRoutes.TRANSACTION} element={<TransactionRoute />} />
-          <Route path="*" element={<Navigate replace to="/" />} />
+          <Route path="*" element={<Navigate replace to={ArcRoutes.DASHBOARD} />} />
         </Routes>
       </Layout>
     </BrowserRouter>

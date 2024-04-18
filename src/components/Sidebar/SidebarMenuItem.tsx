@@ -2,7 +2,7 @@ import { SvgIconComponent } from '@mui/icons-material';
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ISidebarMenuItem } from 'src/models/SidebarMenuItem';
+import { ISidebarMenuItem } from 'models/SidebarMenuItem';
 
 type Props = {
   collapsed: boolean;

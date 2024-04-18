@@ -1,4 +1,4 @@
-import { transactionProps } from 'src/components/Transactions/Transaction';
+import { transactionProps } from 'components/Transactions/Transaction';
 import { fn } from '@storybook/test';
 
 const Transaction_dc379158: transactionProps = {

@@ -3,7 +3,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "allowUmdGlobalAccess": true,
-    "baseUrl": "./",
+    "baseUrl": "src",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -26,6 +26,9 @@
     "strict": true,
     "target": "es6",
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules",
     "build",
