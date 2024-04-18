@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import lang from '../translations/lang';
-import { LangCode, Footer as MUIFooter } from '@pagopa/mui-italia';
-import i18n from 'src/translations/i18n';
+import { Footer as MUIFooter } from '@pagopa/mui-italia';
+import utils from 'src/utils';
 
 export const Footer = () => {
   const { t } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState<LangCode>('it');
+  const { language, changeLanguage } = utils.hooks.useLanguage();
 
-  const changeLanguage = (langCode: LangCode) => {
-    i18n.changeLanguage(langCode);
-    setCurrentLanguage(langCode);
-  };
   return (
     <MUIFooter
       loggedUser
@@ -73,7 +69,7 @@ export const Footer = () => {
           links: [{ label: 'string', ariaLabel: 'string', linkType: 'internal' }]
         }
       }}
-      currentLangCode={currentLanguage}
+      currentLangCode={language}
       languages={lang}
       onExit={() => {}}
       productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
