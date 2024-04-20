@@ -1,9 +1,11 @@
 import React from 'react';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar/Sidebar';
+import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
+import { NavigateNext } from '@mui/icons-material';
 
 interface LayoutProps {
   children?: React.ReactNode;
@@ -18,7 +20,15 @@ export function Layout({ children }: LayoutProps) {
         </Grid>
         <Sidebar />
         <Grid item bgcolor={grey['100']} padding={4} xs>
-          {children}
+          <Stack spacing={1.5}>
+            <Breadcrumbs
+              separator={<NavigateNext fontSize="small" />}
+              backButton={true}
+              path={[]}
+            />
+
+            {children}
+          </Stack>
         </Grid>
         <Grid item xs={12}>
           <Footer />
