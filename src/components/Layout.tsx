@@ -23,7 +23,7 @@ export function Layout({ children }: LayoutProps) {
         </Grid>
         <Sidebar />
         <Grid item bgcolor={grey['100']} padding={4} xs>
-          <Stack spacing={1.5}>
+          <Stack spacing={3}>
             <Breadcrumbs separator={<NavigateNext fontSize="small" />} path={path} />
 
             {children}

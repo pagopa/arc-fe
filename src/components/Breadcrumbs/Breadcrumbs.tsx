@@ -26,7 +26,7 @@ const Breadcrumbs = ({
             </Box>
           </Grid>
         )}
-        <Grid item>
+        <Grid item marginBlock={0.25}>
           <BreadcrumbsMUI separator={separator}>
             {path?.elements?.map((r) => {
               return (

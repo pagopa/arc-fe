@@ -25,7 +25,7 @@ const routeObjects: BreadcrumbPath[] = [
   },
   {
     routeName: '/transaction/:id',
-    backButton: true,
+    backButton: false,
     elements: [
       { name: 'transactions', fontWeight: 600 },
       { name: 'transactionDetail', fontWeight: 400, color: theme.palette.text.disabled }
