@@ -1,5 +1,43 @@
+import { theme } from "@pagopa/mui-italia";
+
 export enum ArcRoutes {
   DASHBOARD = '/',
   TRANSACTION = '/transaction/:ID',
   TRANSACTIONS = '/transactions/'
 }
+
+export interface BreadcrumbPath {
+  backButton?: boolean;
+  elements: BreadcrumbElement[];
+  routeName: string;
+}
+
+export interface BreadcrumbElement {
+  name: string;
+  fontWeight: number;
+  color?: string;
+}
+
+const routeObjects: BreadcrumbPath[] = [
+  {
+    routeName: '/transactions',
+    elements: [{ name: 'transactions', fontWeight: 400 }]
+  },
+  {
+    routeName: '/transaction/:id',
+    backButton: true,
+    elements: [
+      { name: 'transactions', fontWeight: 600 },
+      { name: 'transactionDetail', fontWeight: 400, color: theme.palette.text.disabled }
+    ]
+  }
+];
+
+export const getRouteObject = (pathname: string) => {
+  const path = routeObjects.find((ro) => {
+    const regex = new RegExp(`^${ro.routeName.replace(/:[^\s/]+/g, '[^\\s/]+')}$`);
+    return regex.test(pathname);
+  });
+
+  return path;
+};

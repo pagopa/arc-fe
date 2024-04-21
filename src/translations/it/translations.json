@@ -7,6 +7,11 @@
       "lastTransactions": "Ecco le tue ultime ricevute",
       "seeAllTransactions": "Vedi tutti"
     },
+    "routes": {
+      "back":"Indietro",
+      "transactions": "Ricevute",
+      "transactionDetail": "Dettaglio ricevute"
+    },
     "transactionDetail": {
       "downloadReceipt": "Scarica ricevuta",
       "downloadQuiettance": "Scarica quietanza",

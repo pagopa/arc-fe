@@ -6,12 +6,15 @@ import { Header } from './Header';
 import { Sidebar } from './Sidebar/Sidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import { NavigateNext } from '@mui/icons-material';
+import { getRouteObject } from 'routes/routes';
 
 interface LayoutProps {
   children?: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
+  const path = getRouteObject(location.pathname);
+
   return (
     <Container maxWidth="lg" disableGutters>
       <Grid container>
@@ -21,11 +24,7 @@ export function Layout({ children }: LayoutProps) {
         <Sidebar />
         <Grid item bgcolor={grey['100']} padding={4} xs>
           <Stack spacing={1.5}>
-            <Breadcrumbs
-              separator={<NavigateNext fontSize="small" />}
-              backButton={true}
-              path={[]}
-            />
+            <Breadcrumbs separator={<NavigateNext fontSize="small" />} path={path} />
 
             {children}
           </Stack>
