@@ -1,5 +1,13 @@
 import React from 'react';
-import { Breadcrumbs as BreadcrumbsMUI, Link, useTheme, Button, Grid, Box } from '@mui/material';
+import {
+  Breadcrumbs as BreadcrumbsMUI,
+  Link,
+  useTheme,
+  Button,
+  Grid,
+  Box,
+  Typography
+} from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { BreadcrumbPath } from '../../routes/routes';
@@ -27,16 +35,25 @@ const Breadcrumbs = ({
           </Grid>
         )}
         <Grid item marginBlock={0.25}>
-          <BreadcrumbsMUI separator={separator}>
+          <BreadcrumbsMUI separator={separator} aria-label="breadcrumb">
             {path?.elements?.map((r) => {
-              return (
+              return r.clickable ? (
                 <Link
-                  href={r.href || "/#"}
+                  aria-label="breadcrumb-element-clickable"
+                  href={r.href || '/#'}
                   underline="none"
                   fontWeight={r.fontWeight}
                   color={r.color || theme.palette.text.primary}>
                   {t(`app.routes.${r.name}`)}
                 </Link>
+              ) : (
+                <Typography
+                  aria-label="breadcrumb-element"
+                  aria-current="page"
+                  fontWeight={r.fontWeight}
+                  color={r.color || theme.palette.text.primary}>
+                  {t(`app.routes.${r.name}`)}
+                </Typography>
               );
             })}
           </BreadcrumbsMUI>

@@ -17,6 +17,7 @@ export interface BreadcrumbElement {
   fontWeight: number;
   color?: string;
   href?: string;
+  clickable: boolean;
 }
 
 const routeObjects: BreadcrumbPath[] = [
@@ -29,7 +30,7 @@ const routeObjects: BreadcrumbPath[] = [
     backButton: false,
     elements: [
       { name: 'transactions', fontWeight: 600, href: '/transactions' },
-      { name: 'transactionDetail', fontWeight: 400, color: theme.palette.text.disabled }
+      { name: 'transactionDetail', fontWeight: 400, color: theme.palette.text.disabled, clickable:false }
     ]
   }
 ];
