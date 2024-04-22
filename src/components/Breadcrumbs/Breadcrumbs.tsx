@@ -28,7 +28,7 @@ const Breadcrumbs = ({
         {path.backButton && (
           <Grid item>
             <Box>
-              <Button size="medium" startIcon={<ArrowBack />} variant="text">
+              <Button role="button" aria-label="back-button" size="medium" startIcon={<ArrowBack />} variant="text">
                 {t('app.routes.back')}
               </Button>
             </Box>
@@ -43,6 +43,7 @@ const Breadcrumbs = ({
                   href={r.href || '/#'}
                   underline="none"
                   fontWeight={r.fontWeight}
+                  role="link"
                   color={r.color || theme.palette.text.primary}>
                   {t(`app.routes.${r.name}`)}
                 </Link>
