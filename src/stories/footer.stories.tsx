@@ -1,5 +1,5 @@
 import { Footer } from '@pagopa/mui-italia';
-import lang from '../src/translations/lang';
+import lang from '../translations/lang';
 import React from 'react';
 
 export default {

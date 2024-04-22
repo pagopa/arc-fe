@@ -9,7 +9,7 @@
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
     "lint:fix": "eslint . -c .eslintrc.js --ext .ts,.tsx --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "develop": "parcel",
+    "develop": "parcel --no-cache",
     "build": "tsc & parcel build",
     "type-check": "tsc",
     "storybook": "storybook dev -p 6006",

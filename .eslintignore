@@ -7,3 +7,4 @@ generated
 
 
 .eslintrc.js
+jest.config.ts
