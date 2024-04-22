@@ -31,6 +31,7 @@ const Breadcrumbs = ({
             {path?.elements?.map((r) => {
               return (
                 <Link
+                  href={r.href || "/#"}
                   underline="none"
                   fontWeight={r.fontWeight}
                   color={r.color || theme.palette.text.primary}>

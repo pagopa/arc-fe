@@ -1,4 +1,4 @@
-import { theme } from "@pagopa/mui-italia";
+import { theme } from '@pagopa/mui-italia';
 
 export enum ArcRoutes {
   DASHBOARD = '/',
@@ -16,6 +16,7 @@ export interface BreadcrumbElement {
   name: string;
   fontWeight: number;
   color?: string;
+  href?: string;
 }
 
 const routeObjects: BreadcrumbPath[] = [
@@ -27,7 +28,7 @@ const routeObjects: BreadcrumbPath[] = [
     routeName: '/transaction/:id',
     backButton: false,
     elements: [
-      { name: 'transactions', fontWeight: 600 },
+      { name: 'transactions', fontWeight: 600, href: '/transactions' },
       { name: 'transactionDetail', fontWeight: 400, color: theme.palette.text.disabled }
     ]
   }
