@@ -7,3 +7,5 @@ generated
 
 
 .eslintrc.js
+jest.config.ts
+__mocks__

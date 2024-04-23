@@ -2,6 +2,7 @@ import React from 'react';
 import type { Preview } from '@storybook/react';
 import { Theme } from '../src/utils/style';
 import { BrowserRouter } from 'react-router-dom';
+import '../src/translations/i18n';
 
 const preview: Preview = {
   parameters: {

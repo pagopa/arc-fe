@@ -23,6 +23,7 @@ src/env-config.js
 
 npm-debug.log*
 .yarn/*
+.yarn/install-state.gz
 !.yarn/cache
 !.yarn/patches
 !.yarn/plugins
