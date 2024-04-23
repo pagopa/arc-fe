@@ -34,7 +34,6 @@ const router = createBrowserRouter([
                 name: 'transactionDetail',
                 fontWeight: 400,
                 color: theme.palette.text.disabled,
-                clickable: false
               }
             ]
           }

@@ -23,7 +23,6 @@ export interface BreadcrumbElement {
   fontWeight: number;
   color?: string;
   href?: string;
-  clickable: boolean;
 }
 
 export interface CrumbObject {
@@ -34,7 +33,7 @@ const Breadcrumbs = ({ separator }: { separator: React.ReactElement }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const matches = useMatches();
-  const crumbs = (matches.find((match) => Boolean(match.handle))?.handle as CrumbObject).crumb;
+  const crumbs = (matches.find((match) => Boolean(match.handle))?.handle as CrumbObject)?.crumb;
 
   const show = crumbs && crumbs.elements.length > 1;
 
@@ -58,11 +57,11 @@ const Breadcrumbs = ({ separator }: { separator: React.ReactElement }) => {
         <Grid item marginBlock={0.25}>
           <BreadcrumbsMUI separator={separator} aria-label="breadcrumb">
             {crumbs?.elements?.map((r, i) => {
-              return r.clickable ? (
+              return r.href ? (
                 <Link
                   key={i}
                   aria-label="breadcrumb-element-clickable"
-                  href={r.href || '/#'}
+                  href={r.href}
                   underline="none"
                   fontWeight={r.fontWeight}
                   role="link"
