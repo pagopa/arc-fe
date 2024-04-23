@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - 'develop'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - id: build-publish
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          path: storybook-static-develop
+          build_command: yarn build-storybook -o storybook-static-develop
