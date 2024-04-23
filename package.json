@@ -14,7 +14,8 @@
     "type-check": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.24.1",
