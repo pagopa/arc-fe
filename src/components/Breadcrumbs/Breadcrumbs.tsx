@@ -39,7 +39,7 @@ const Breadcrumbs = ({ separator }: { separator: React.ReactElement }) => {
 
   return (
     show && (
-      <Grid container maxHeight={40}>
+      <Grid container maxHeight={40} mb={3}>
         {crumbs.backButton && (
           <Grid item>
             <Box>

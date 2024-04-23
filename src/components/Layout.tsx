@@ -17,11 +17,9 @@ export function Layout() {
         </Grid>
         <Sidebar />
         <Grid item bgcolor={grey['100']} padding={4} xs>
-          <Stack spacing={3}>
             <Breadcrumbs separator={<NavigateNext fontSize="small" />} />
 
             <Outlet />
-          </Stack>
         </Grid>
         <Grid item xs={12}>
           <Footer />
