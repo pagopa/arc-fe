@@ -10,30 +10,17 @@ import {
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { useMatches } from 'react-router-dom';
+import { BreadcrumbPath } from 'models/Breadcrumbs';
 
-export interface BreadcrumbPath {
-  backButton?: boolean;
-  elements: BreadcrumbElement[];
-  routeName: string;
-}
-
-export interface BreadcrumbElement {
-  name: string;
-  fontWeight: number;
-  color?: string;
-  href?: string;
-}
-
-export interface CrumbObject {
-  crumb: BreadcrumbPath;
-}
-
-const Breadcrumbs = ({ separator }: { separator: React.ReactElement }) => {
+const Breadcrumbs = ({
+  separator,
+  crumbs
+}: {
+  separator: React.ReactElement;
+  crumbs: BreadcrumbPath;
+}) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const matches = useMatches();
-  const crumbs = (matches.find((match) => Boolean(match.handle))?.handle as CrumbObject)?.crumb;
 
   const show = crumbs && crumbs.elements.length > 1;
 

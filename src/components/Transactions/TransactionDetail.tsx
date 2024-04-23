@@ -1,7 +1,7 @@
 import { Download } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
-import MasterCard from '../assets/creditcard/mastercard.png';
+import MasterCard from '../../assets/creditcard/mastercard.png';
 import { TransactionDetail } from '../../models/TransactionDetail';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
