@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Grid } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
-import { Header } from './Header';
+import Header from './Header';
 import { Sidebar } from './Sidebar/Sidebar';
 
 interface LayoutProps {
