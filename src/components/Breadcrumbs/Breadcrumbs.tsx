@@ -45,7 +45,7 @@ const Breadcrumbs = ({ separator }: { separator: React.ReactElement }) => {
             <Box>
               <Button
                 role="button"
-                aria-label="back-button"
+                aria-label={t('app.routes.back')}
                 size="medium"
                 startIcon={<ArrowBack />}
                 variant="text">
@@ -55,12 +55,12 @@ const Breadcrumbs = ({ separator }: { separator: React.ReactElement }) => {
           </Grid>
         )}
         <Grid item marginBlock={0.25}>
-          <BreadcrumbsMUI separator={separator} aria-label="breadcrumb">
+          <BreadcrumbsMUI separator={separator} aria-label={t('app.routes.breadcrumbs')}>
             {crumbs?.elements?.map((r, i) => {
               return r.href ? (
                 <Link
                   key={i}
-                  aria-label="breadcrumb-element-clickable"
+                  aria-label={t('app.routes.breadcrumbsElementClickable')}
                   href={r.href}
                   underline="none"
                   fontWeight={r.fontWeight}
@@ -70,7 +70,7 @@ const Breadcrumbs = ({ separator }: { separator: React.ReactElement }) => {
                 </Link>
               ) : (
                 <Typography
-                  aria-label="breadcrumb-element"
+                  aria-label={t('app.routes.breadcrumbsElement')}
                   aria-current="page"
                   fontWeight={r.fontWeight}
                   color={r.color || theme.palette.text.primary}>
