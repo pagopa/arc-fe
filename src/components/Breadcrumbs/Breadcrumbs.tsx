@@ -57,6 +57,7 @@ const Breadcrumbs = ({
                 </Link>
               ) : (
                 <Typography
+                  key={i}
                   aria-label={t('app.routes.breadcrumbsElement')}
                   aria-current="page"
                   fontWeight={r.fontWeight}
