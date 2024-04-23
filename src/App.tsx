@@ -29,11 +29,11 @@ const router = createBrowserRouter([
           crumb: {
             backButton: false,
             elements: [
-              { name: 'transactions', fontWeight: 600, href: '/transactions' },
+              { name: 'transactions', fontWeight: 600, href: ArcRoutes.TRANSACTIONS },
               {
                 name: 'transactionDetail',
                 fontWeight: 400,
-                color: theme.palette.text.disabled,
+                color: theme.palette.text.disabled
               }
             ]
           }
