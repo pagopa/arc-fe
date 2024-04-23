@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { ProductEntity, RootLinkType, UserAction } from '@pagopa/mui-italia';
 /* Icons */
 import SettingsIcon from '@mui/icons-material/Settings';

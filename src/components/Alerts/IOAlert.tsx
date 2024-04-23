@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, AlertTitle, Button, Typography } from '@mui/material';
-import { theme } from '@pagopa/mui-italia';
 import { useTranslation } from 'react-i18next';
+import style from '../../utils/style';
 
 const IOAlert = () => {
   const { t } = useTranslation();
@@ -10,7 +10,7 @@ const IOAlert = () => {
     <Alert
       severity="info"
       sx={{
-        borderLeft: `solid 4px ${theme.palette.info.main}`,
+        borderLeft: `solid 4px ${style.theme.palette.info.main}`,
         '& .MuiAlert-icon': {
           color: 'info.contrastText',
           alignItems: 'center'
