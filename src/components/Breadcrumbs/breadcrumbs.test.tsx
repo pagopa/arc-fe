@@ -14,7 +14,7 @@ describe('Breadcrumbs component', () => {
           elements: [
             { name: 'name1', fontWeight: 600 },
             { name: 'name2', fontWeight: 600 },
-            { name: 'name2', fontWeight: 600, href:"test"}
+            { name: 'name2', fontWeight: 600, href: 'test' }
           ]
         }}
       />
