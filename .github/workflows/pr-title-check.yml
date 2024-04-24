@@ -1,0 +1,20 @@
+name: 'PR title check'
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - opened
+      - edited
+      - synchronize
+      - labeled
+      - unlabeled
+
+jobs:
+  pr-title-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Slashgear/action-check-pr-title@v4.3.0
+        with:
+          regexp: '(feat|fix|chore|breaking): \[P4ADEV(-[0-9]{3,4})?\] .+'
+          helpMessage: "Example: 'feat: [P4ADEV-1041] example of title'"
