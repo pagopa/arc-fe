@@ -1,18 +1,7 @@
 import React from 'react';
 import Tabs from 'components/Tabs';
 import Transactions from 'components/Transactions/Transactions';
-import {
-  Box,
-  FormControl,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography
-} from '@mui/material';
+import { Box, Grid, InputAdornment, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 // TO BE REMOVED
@@ -20,7 +9,7 @@ import { dummyTransactionsData } from '../stories/utils/mocks';
 import { Search } from '@mui/icons-material';
 import { theme } from '@pagopa/mui-italia';
 
-export default function Dashboard() {
+export default function TransactionsList() {
   const { t } = useTranslation();
   return (
     <>

@@ -21,8 +21,14 @@
       "orderBy": "Ordina per",
       "mostRecent": "più recente",
       "leastRecent": "meno recente",
+      "entityName": "Ente",
+      "status" :"Stato",
+      "date": "In data",
+      "amount": "Importo",
       "higherAmount": "importo più alto",
       "lowerAmount" :"importo più basso"
+    
+
     },
     "transactionDetail": {
       "downloadReceipt": "Scarica ricevuta",

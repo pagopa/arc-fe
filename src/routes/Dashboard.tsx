@@ -35,7 +35,7 @@ export default function Dashboard() {
         tabs={[
           {
             title: 'Last transactions',
-            content: <Transactions rows={dummyTransactionsData.ownedByMe} extendedButton={true} />
+            content: <Transactions rows={dummyTransactionsData.ownedByMe} />
           }
         ]}
       />
