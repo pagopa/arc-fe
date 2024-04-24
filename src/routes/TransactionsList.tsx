@@ -19,6 +19,9 @@ export default function TransactionsList() {
       <Grid container spacing={3} mb={3}>
         <Grid item xs={9}>
           <TextField
+            role="textbox"
+            aria-required="false"
+            aria-label={t('app.transactions.searchByName')}
             size="small"
             fullWidth={true}
             label={t('app.transactions.searchByName')}
@@ -43,6 +46,8 @@ export default function TransactionsList() {
               color="primary"
               size="small"
               fullWidth={true}
+              aria-label={t('app.transactions.orderBy')}
+              role="listbox"
               label={t('app.transactions.orderBy')}
               SelectProps={{
                 sx: {
@@ -58,16 +63,16 @@ export default function TransactionsList() {
                 }
               }}
               select>
-              <MenuItem selected value="it-health-code">
+              <MenuItem role="option" selected value="it-health-code">
                 {t('app.transactions.mostRecent')}
               </MenuItem>
-              <MenuItem selected value="it-health-code">
+              <MenuItem role="option" selected value="it-health-code">
                 {t('app.transactions.leastRecent')}
               </MenuItem>
-              <MenuItem selected value="it-health-code">
+              <MenuItem role="option" selected value="it-health-code">
                 {t('app.transactions.lowerAmount')}
               </MenuItem>
-              <MenuItem selected value="it-health-code">
+              <MenuItem role="option" selected value="it-health-code">
                 {t('app.transactions.higherAmount')}
               </MenuItem>
             </TextField>
@@ -75,6 +80,7 @@ export default function TransactionsList() {
         </Grid>
       </Grid>
       <Tabs
+        ariaLabel="tabs"
         initialActiveTab={0}
         tabs={[
           {
