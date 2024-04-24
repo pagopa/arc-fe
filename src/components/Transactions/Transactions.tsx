@@ -7,6 +7,7 @@ import Transaction from './Transaction';
 
 interface TransactionsProps {
   rows: transactionProps[];
+  extendedButton?: boolean;
 }
 
 const Transactions = (props: TransactionsProps) => (
@@ -14,7 +15,7 @@ const Transactions = (props: TransactionsProps) => (
     <Table aria-label="Storico table">
       <TableBody>
         {props.rows.map((row) => (
-          <Transaction {...row} key={row.id} />
+          <Transaction {...row} key={row.id} extendedButton={props.extendedButton} />
         ))}
       </TableBody>
     </Table>

@@ -24,6 +24,7 @@ export interface transactionProps {
     text: string;
     action: (id: string) => void;
   };
+  extendedButton?: boolean;
 }
 
 interface payeeIconProps {
@@ -53,7 +54,7 @@ const PayeeIcon = (props: payeeIconProps) => (
 );
 
 const Transaction = (props: transactionProps) => {
-  const { payee, status, amount, id, date, detailsButton } = props;
+  const { payee, status, amount, id, date, detailsButton, extendedButton } = props;
   return (
     <TableRow>
       <StyledTableCell>
@@ -72,12 +73,20 @@ const Transaction = (props: transactionProps) => {
         </Typography>
       </StyledTableCell>
       <StyledTableCell align="right">
-        <Button
-          variant="text"
-          onClick={() => detailsButton.action(id)}
-          endIcon={<ArrowForwardIosIcon />}>
-          {detailsButton.text}
-        </Button>
+        {extendedButton ? (
+          <Button
+            variant="text"
+            onClick={() => detailsButton.action(id)}
+            endIcon={<ArrowForwardIosIcon />}>
+            {detailsButton.text}
+          </Button>
+        ) : (
+          <Button
+            variant="naked"
+            onClick={() => detailsButton.action(id)}
+            endIcon={<ArrowForwardIosIcon color="primary" />}
+          />
+        )}
       </StyledTableCell>
     </TableRow>
   );
