@@ -16,7 +16,7 @@ const mockUser: JwtUser = {
   email: 'john.doe@gmail.com'
 };
 
-interface HeaderProps {
+export interface HeaderProps {
   onAssistanceClick?: () => void;
 }
 
