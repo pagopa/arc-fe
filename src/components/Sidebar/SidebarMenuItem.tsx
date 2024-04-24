@@ -28,7 +28,7 @@ export const SidebarMenuItem = ({ collapsed, item, selected = false }: Props) =>
         {item.icon && <ListItemIcon>{renderIcon(item.icon)}</ListItemIcon>}
         {!collapsed && (
           <ListItemText
-            id={`menu-item(${item.label.toLowerCase()})`}
+            id={`menu-item-${item.label.toLowerCase()}`}
             primary={item.label}></ListItemText>
         )}
       </ListItemButton>
