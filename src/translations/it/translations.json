@@ -17,6 +17,12 @@
       "paidByMe": "Pagate da me",
       "ownedByMe": "Intestate a me",
       "searchByName": "Cerca per nome",
+      "searchBy": "Cerca per",
+      "orderBy": "Ordina per",
+      "mostRecent": "più recente",
+      "leastRecent": "meno recente",
+      "higherAmount": "importo più alto",
+      "lowerAmount" :"importo più basso"
     },
     "transactionDetail": {
       "downloadReceipt": "Scarica ricevuta",
