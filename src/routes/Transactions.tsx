@@ -3,7 +3,6 @@ import Tabs from 'components/Tabs';
 import Transactions from 'components/Transactions/Transactions';
 import {
   Box,
-  Button,
   FormControl,
   Grid,
   InputAdornment,
@@ -25,7 +24,7 @@ export default function Dashboard() {
   const { t } = useTranslation();
   return (
     <>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={5}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={7}>
         <Typography variant="h3">{t('menu.receipts')}</Typography>
       </Stack>
       <Grid container spacing={3} mb={3}>
