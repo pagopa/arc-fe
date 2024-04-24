@@ -8,6 +8,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Tooltip from '@mui/material/Tooltip';
 import ViewSidebarIcon from '@mui/icons-material/ViewSidebar';
 import useCollapseMenu from './useCollapseMenu';
+import { ArcRoutes } from 'routes/routes';
 
 export const Sidebar = () => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export const Sidebar = () => {
     {
       label: t('menu.receipts'),
       icon: ReceiptLongIcon,
-      route: '/'
+      route: ArcRoutes.TRANSACTIONS
     }
   ];
   return (
