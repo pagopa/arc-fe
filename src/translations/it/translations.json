@@ -12,6 +12,14 @@
         "cta": "Scarica app IO"
       }
     },
+    "routes": {
+      "back":"Indietro",
+      "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
+      "breadcrumbsElement": "Elemento breadcrumbs",
+      "breadcrumbs": "breadcrumbs",
+      "transactions": "Ricevute",
+      "transactionDetail": "Dettaglio ricevute"
+    },
     "transactionDetail": {
       "downloadReceipt": "Scarica ricevuta",
       "downloadQuiettance": "Scarica quietanza",
