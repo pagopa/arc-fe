@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Breadcrumbs as BreadcrumbsMUI,
-  Link,
   useTheme,
   Button,
   Grid,
@@ -11,6 +10,8 @@ import {
 import { ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { BreadcrumbPath } from 'models/Breadcrumbs';
+import { useNavigate } from 'react-router-dom';
+import { ArcRoutes } from 'routes/routes';
 
 const Breadcrumbs = ({
   separator,
@@ -21,6 +22,7 @@ const Breadcrumbs = ({
 }) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const show = crumbs && crumbs.elements.length > 1;
 
@@ -35,7 +37,9 @@ const Breadcrumbs = ({
                 aria-label={t('app.routes.back')}
                 size="medium"
                 startIcon={<ArrowBack />}
-                variant="text">
+                variant="text"
+                onClick={() => navigate(-1)}
+                sx={{ paddingRight: 3 }}>
                 {t('app.routes.back')}
               </Button>
             </Box>
@@ -44,17 +48,17 @@ const Breadcrumbs = ({
         <Grid item marginBlock={0.25}>
           <BreadcrumbsMUI separator={separator} aria-label={t('app.routes.breadcrumbs')}>
             {crumbs?.elements?.map((r, i) => {
-              return r.href ? (
-                <Link
+              return r?.href ? (
+                <Typography
                   key={i}
+                  onClick={() => navigate(r.href as ArcRoutes)}
                   aria-label={t('app.routes.breadcrumbsElementClickable')}
-                  href={r.href}
-                  underline="none"
                   fontWeight={r.fontWeight}
                   role="link"
+                  sx={{ cursor: 'pointer' }}
                   color={r.color || theme.palette.text.primary}>
                   {t(`app.routes.${r.name}`)}
-                </Link>
+                </Typography>
               ) : (
                 <Typography
                   key={i}

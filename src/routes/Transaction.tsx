@@ -1,3 +1,4 @@
+import React from 'react';
 import TransactionDetail from '../components/Transactions/TransactionDetail';
 import { dummyTransactionsData } from '../stories/utils/mocks';
 
