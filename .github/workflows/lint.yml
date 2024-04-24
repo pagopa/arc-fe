@@ -5,10 +5,20 @@ on:
       - develop
 
 jobs:
-  lint:
+  build:
+    name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [18]
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node_version: ${{ matrix.node_version }}
+  
       - name: run lint
         run: |
           yarn install
