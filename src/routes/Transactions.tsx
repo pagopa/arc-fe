@@ -50,35 +50,38 @@ export default function Dashboard() {
         </Grid>
         <Grid item xs={3}>
           <Box>
-            <FormControl fullWidth>
-              <InputLabel
-                size="small"
-                sx={{ fontWeight: 600, fontSize: theme.typography.body2.fontSize }}>
-                {t('app.transactions.orderBy')}:
-              </InputLabel>
-
-              <Select
-                id="search-by"
-                label={t('app.transactions.searchBy')}
-                labelId="search-by-label"
-                size="small"
-                fullWidth
-                onChange={function noRefCheck() {}}
-                value="">
-                <MenuItem selected value="it-health-code">
-                  {t('app.transactions.mostRecent')}
-                </MenuItem>
-                <MenuItem selected value="it-health-code">
-                  {t('app.transactions.leastRecent')}
-                </MenuItem>
-                <MenuItem selected value="it-health-code">
-                  {t('app.transactions.lowerAmount')}
-                </MenuItem>
-                <MenuItem selected value="it-health-code">
-                  {t('app.transactions.higherAmount')}
-                </MenuItem>
-              </Select>
-            </FormControl>
+            <TextField
+              color="primary"
+              size="small"
+              fullWidth={true}
+              label={t('app.transactions.orderBy')}
+              SelectProps={{
+                sx: {
+                  fontSize: theme.typography.body2,
+                  fontWeight: 600,
+                  background: 'white'
+                }
+              }}
+              InputLabelProps={{
+                sx: {
+                  color: theme.palette.text.secondary,
+                  fontWeight: 600
+                }
+              }}
+              select>
+              <MenuItem selected value="it-health-code">
+                {t('app.transactions.mostRecent')}
+              </MenuItem>
+              <MenuItem selected value="it-health-code">
+                {t('app.transactions.leastRecent')}
+              </MenuItem>
+              <MenuItem selected value="it-health-code">
+                {t('app.transactions.lowerAmount')}
+              </MenuItem>
+              <MenuItem selected value="it-health-code">
+                {t('app.transactions.higherAmount')}
+              </MenuItem>
+            </TextField>
           </Box>
         </Grid>
       </Grid>
