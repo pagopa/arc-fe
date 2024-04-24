@@ -6,6 +6,7 @@ import { ArcRoutes } from './routes/routes';
 import TransactionRoute from './routes/Transaction';
 import DashboardRoute from './routes/Dashboard';
 import { theme } from '@pagopa/mui-italia';
+import UserRoute from 'routes/User';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
+      {
+        path: ArcRoutes.USER,
+        element: <UserRoute />
+      },
       {
         path: ArcRoutes.DASHBOARD,
         element: <DashboardRoute />

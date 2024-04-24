@@ -1,6 +1,16 @@
 {
   "app": {
     "title": "PagoPa - Checkout Evoluto",
+    "user": {
+      "title": "I tuoi dati",
+      "subtitle": "Questi dati vengono utilizzati per generare le ricevute.",
+      "info": {
+        "name": "Nome",
+        "surname": "Cognome",
+        "identifier": "Codice fiscale",
+        "email": "Mail"
+      }
+    },
     "dashboard": {
       "hello": "Ciao, John Doe",
       "newPayment": "Nuovo Pagamento",
