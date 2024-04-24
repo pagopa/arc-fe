@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Header from './';
 import '../../translations/i18n';
+import { Header } from '.';
 
 describe('Header component', () => {
   it('should render as expected', () => {

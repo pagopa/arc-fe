@@ -7,6 +7,7 @@ import TransactionRoute from './routes/Transaction';
 import DashboardRoute from './routes/Dashboard';
 import { theme } from '@pagopa/mui-italia';
 import UserRoute from 'routes/User';
+import { RouteHandleObject } from 'models/Breadcrumbs';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: ArcRoutes.USER,
-        element: <UserRoute />
+        element: <UserRoute />,
+        handle: {
+          sidebar: {
+            visibile: false
+          },
+          crumbs: {
+            backButton: true,
+            elements: [
+              { name: 'home', fontWeight: 600, href: ArcRoutes.DASHBOARD },
+              {
+                name: 'user',
+                fontWeight: 400,
+                color: theme.palette.text.disabled
+              }
+            ]
+          }
+        } as RouteHandleObject
       },
       {
         path: ArcRoutes.DASHBOARD,
@@ -28,10 +45,9 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.TRANSACTION,
-
         element: <TransactionRoute />,
         handle: {
-          crumb: {
+          crumbs: {
             backButton: false,
             elements: [
               { name: 'transactions', fontWeight: 600, href: ArcRoutes.TRANSACTIONS },
@@ -42,7 +58,7 @@ const router = createBrowserRouter([
               }
             ]
           }
-        }
+        } as RouteHandleObject
       }
     ]
   }

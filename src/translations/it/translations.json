@@ -24,11 +24,13 @@
     },
     "routes": {
       "back":"Indietro",
+      "breadcrumbs": "breadcrumbs",
       "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
       "breadcrumbsElement": "Elemento breadcrumbs",
-      "breadcrumbs": "breadcrumbs",
+      "home": "Homepage",
+      "transactionDetail": "Dettaglio ricevute",
       "transactions": "Ricevute",
-      "transactionDetail": "Dettaglio ricevute"
+      "user": "I tuoi dati"
     },
     "transactionDetail": {
       "downloadReceipt": "Scarica ricevuta",
