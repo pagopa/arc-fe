@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import style from '../../utils/style';
 
 const IOAlert = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Alert
