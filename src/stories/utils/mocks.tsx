@@ -1,6 +1,6 @@
 import { transactionProps } from 'components/Transactions/Transaction';
 import { fn } from '@storybook/test';
-import { TransactionDetail } from 'src/models/TransactionDetail';
+import { TransactionDetail } from 'models/TransactionDetail';
 
 const Transaction_dc379158: transactionProps = {
   payee: {

@@ -1,23 +1,76 @@
 import React from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Theme } from './utils/style';
 import { Layout } from './components/Layout';
 import { ArcRoutes } from './routes/routes';
 import TransactionRoute from './routes/Transaction';
 import DashboardRoute from './routes/Dashboard';
+import { theme } from '@pagopa/mui-italia';
+import UserRoute from 'routes/User';
+import { RouteHandleObject } from 'models/Breadcrumbs';
 import TransactionsList from 'routes/TransactionsList';
+
+const router = createBrowserRouter([
+  {
+    path: '*',
+    element: <Navigate replace to={ArcRoutes.DASHBOARD} />
+  },
+
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        path: ArcRoutes.USER,
+        element: <UserRoute />,
+        handle: {
+          sidebar: {
+            visibile: false
+          },
+          crumbs: {
+            backButton: true,
+            elements: [
+              { name: 'home', fontWeight: 600, href: ArcRoutes.DASHBOARD },
+              {
+                name: 'user',
+                fontWeight: 400,
+                color: theme.palette.text.disabled
+              }
+            ]
+          }
+        } as RouteHandleObject
+      },
+      {
+        path: ArcRoutes.DASHBOARD,
+        element: <DashboardRoute />
+      },
+      {
+        path: ArcRoutes.TRANSACTION,
+        element: <TransactionRoute />,
+        handle: {
+          crumbs: {
+            backButton: false,
+            elements: [
+              { name: 'transactions', fontWeight: 600, href: ArcRoutes.TRANSACTIONS },
+              {
+                name: 'transactionDetail',
+                fontWeight: 400,
+                color: theme.palette.text.disabled
+              }
+            ]
+          }
+        } as RouteHandleObject
+      },
+      {
+        path: ArcRoutes.TRANSACTIONS,
+        element: <TransactionsList />
+      }
+    ]
+  }
+]);
 
 export const App = () => (
   <Theme>
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path={ArcRoutes.DASHBOARD} element={<DashboardRoute />} />
-          <Route path={ArcRoutes.TRANSACTION} element={<TransactionRoute />} />
-          <Route path={ArcRoutes.TRANSACTIONS} element={<TransactionsList />} />
-          <Route path="*" element={<Navigate replace to={ArcRoutes.DASHBOARD} />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </Theme>
 );

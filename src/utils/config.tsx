@@ -1,13 +1,9 @@
-import * as React from 'react';
-import { ProductEntity, RootLinkType, UserAction } from '@pagopa/mui-italia';
+import { ProductEntity, RootLinkType } from '@pagopa/mui-italia';
 /* Icons */
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 type Config = {
   product: ProductEntity;
   pagopaLink: RootLinkType;
-  userActions: UserAction[];
 };
 
 const product: ProductEntity = {
@@ -24,29 +20,9 @@ const pagopaLink: RootLinkType = {
   title: 'Sito di PagoPA S.p.A.'
 };
 
-const userActions: UserAction[] = [
-  {
-    id: 'profile',
-    label: 'I tuoi dati',
-    onClick: () => {
-      console.log('Clicked/Tapped on Profile');
-    },
-    icon: <SettingsIcon fontSize="small" color="inherit" />
-  },
-  {
-    id: 'logout',
-    label: 'Esci',
-    onClick: () => {
-      console.log('User logged out');
-    },
-    icon: <LogoutRoundedIcon fontSize="small" color="inherit" />
-  }
-];
-
 const config: Config = {
   product,
-  pagopaLink,
-  userActions
+  pagopaLink
 };
 
 export default config;

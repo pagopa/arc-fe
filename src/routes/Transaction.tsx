@@ -1,4 +1,5 @@
-import TransactionDetail from '../components/TransactionDetail';
+import React from 'react';
+import TransactionDetail from '../components/Transactions/TransactionDetail';
 import { dummyTransactionsData } from '../stories/utils/mocks';
 
 export default function Transaction() {
