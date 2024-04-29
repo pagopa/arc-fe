@@ -8,12 +8,14 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Tooltip from '@mui/material/Tooltip';
 import ViewSidebarIcon from '@mui/icons-material/ViewSidebar';
 import useCollapseMenu from './useCollapseMenu';
+import useCurrentIndex from './useCurrentIndex';
 import { ArcRoutes } from 'routes/routes';
 
 export const Sidebar = () => {
   const { t } = useTranslation();
 
   const { collapsed, changeMenuState } = useCollapseMenu(false);
+  const { currentIndex, changeCurrentIndex } = useCurrentIndex();
 
   const menuItems: Array<ISidebarMenuItem> = [
     {
@@ -39,7 +41,14 @@ export const Sidebar = () => {
         sx={{ bgcolor: 'background.paper' }}>
         <List role="navigation" component="nav" aria-label={t('menu.description')}>
           {menuItems.map((item: ISidebarMenuItem, index: number) => (
-            <SidebarMenuItem collapsed={collapsed} item={item} key={index}></SidebarMenuItem>
+            <SidebarMenuItem
+              changeCurrentIndex={changeCurrentIndex}
+              collapsed={collapsed}
+              item={item}
+              key={index}
+              index={index}
+              selected={currentIndex == index}
+            />
           ))}
         </List>
         <Divider orientation="horizontal" flexItem />
