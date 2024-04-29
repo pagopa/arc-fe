@@ -20,10 +20,7 @@ export interface transactionProps {
   };
   amount: string;
   id: string;
-  detailsButton: {
-    text: string;
-    action: (id: string) => void;
-  };
+  action: (id: string) => void;
 }
 
 interface payeeIconProps {
@@ -53,31 +50,35 @@ const PayeeIcon = (props: payeeIconProps) => (
 );
 
 const Transaction = (props: transactionProps) => {
-  const { payee, status, amount, id, date, detailsButton } = props;
+  const { payee, status, amount, id, date, action } = props;
   return (
     <TableRow>
-      <StyledTableCell>
+      <StyledTableCell width={'60%'}>
         <Stack direction="row" spacing={2} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
-          <Typography variant="body2">{payee.name}</Typography>
+          <Typography variant="body2" fontWeight={600}>
+            {payee.name}
+          </Typography>
         </Stack>
       </StyledTableCell>
-      <StyledTableCell>{date}</StyledTableCell>
-      <StyledTableCell align="center">
+      <StyledTableCell align="center" width={'12%'}>
         <Chip label={status.label} color={status.color} />
       </StyledTableCell>
-      <StyledTableCell align="center">
+      <StyledTableCell align="center" width={'12%'}>
+        {date}
+      </StyledTableCell>
+
+      <StyledTableCell align="center" width={'12%'}>
         <Typography variant="body2" fontWeight={600}>
           {amount}
         </Typography>
       </StyledTableCell>
       <StyledTableCell align="right">
         <Button
-          variant="text"
-          onClick={() => detailsButton.action(id)}
-          endIcon={<ArrowForwardIosIcon />}>
-          {detailsButton.text}
-        </Button>
+          variant="naked"
+          onClick={() => action(id)}
+          endIcon={<ArrowForwardIosIcon color="primary" />}
+        />
       </StyledTableCell>
     </TableRow>
   );

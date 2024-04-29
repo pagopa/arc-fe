@@ -22,6 +22,24 @@
         "cta": "Scarica app IO"
       }
     },
+    "transactions": {
+      "all": "Tutte",
+      "paidByMe": "Pagate da me",
+      "ownedByMe": "Intestate a me",
+      "searchByName": "Cerca per nome",
+      "searchBy": "Cerca per",
+      "orderBy": "Ordina per",
+      "mostRecent": "più recente",
+      "leastRecent": "meno recente",
+      "entityName": "Ente",
+      "status" :"Stato",
+      "date": "In data",
+      "amount": "Importo",
+      "higherAmount": "importo più alto",
+      "lowerAmount" :"importo più basso"
+    },
+    
+
     "routes": {
       "back":"Indietro",
       "breadcrumbs": "breadcrumbs",

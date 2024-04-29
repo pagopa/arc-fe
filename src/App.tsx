@@ -8,6 +8,7 @@ import DashboardRoute from './routes/Dashboard';
 import { theme } from '@pagopa/mui-italia';
 import UserRoute from 'routes/User';
 import { RouteHandleObject } from 'models/Breadcrumbs';
+import TransactionsList from 'routes/TransactionsList';
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
             ]
           }
         } as RouteHandleObject
+      },
+      {
+        path: ArcRoutes.TRANSACTIONS,
+        element: <TransactionsList />
       }
     ]
   }
