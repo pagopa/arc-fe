@@ -36,18 +36,21 @@ export const SidebarMenuItem = ({
         sx={{
           px: 3,
           '&.Mui-selected': {
-            fontWeight: 600,
-            color: 'primary.dark',
+
             '& .MuiListItemIcon-root': {
               color: 'primary.dark'
             },
-      
+            '& .MuiListItemText-primary	': {
+              color: 'primary.dark',
+              fontWeight:600
+            },
+
+            
           }
         }}>
         {item.icon && <ListItemIcon>{renderIcon(item.icon)}</ListItemIcon>}
         {!collapsed && (
           <ListItemText
-            disableTypography
             id={`menu-item-${item.label.toLowerCase()}`}
             primary={item.label}></ListItemText>
         )}
