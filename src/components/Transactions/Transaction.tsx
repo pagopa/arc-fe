@@ -21,7 +21,6 @@ export interface transactionProps {
   amount: string;
   id: string;
   detailsButton: {
-    text: string;
     action: (id: string) => void;
   };
 }

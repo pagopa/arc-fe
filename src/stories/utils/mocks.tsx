@@ -16,7 +16,6 @@ const Transaction_dc379158: transactionProps = {
   },
   amount: '123,50 €',
   detailsButton: {
-    text: 'Vedi i dettagli',
     action: fn()
   }
 };
@@ -35,7 +34,6 @@ const Transaction_ffe1324e: transactionProps = {
   },
   amount: '100,00 €',
   detailsButton: {
-    text: 'Vedi i dettagli',
     action: fn()
   }
 };
@@ -52,7 +50,6 @@ const Transaction_a305f59a: transactionProps = {
   },
   amount: '274,50 €',
   detailsButton: {
-    text: 'Vedi i dettagli',
     action: fn()
   }
 };
@@ -69,7 +66,6 @@ const Transaction_3d40b8e0: transactionProps = {
   },
   amount: '392,00 €',
   detailsButton: {
-    text: 'Vedi i dettagli',
     action: fn()
   }
 };
