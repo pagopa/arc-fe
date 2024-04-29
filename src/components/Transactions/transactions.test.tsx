@@ -25,9 +25,7 @@ describe('Transactions table component', () => {
         }}
         amount={dummyTransactionsData.all[0].amount}
         id={dummyTransactionsData.all[0].id}
-        detailsButton={{
-          action: action
-        }}
+        action={action}
       />
     );
 

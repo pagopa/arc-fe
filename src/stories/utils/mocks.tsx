@@ -15,9 +15,7 @@ const Transaction_dc379158: transactionProps = {
     color: 'success'
   },
   amount: '123,50 €',
-  detailsButton: {
-    action: fn()
-  }
+  action: fn()
 };
 
 const Transaction_ffe1324e: transactionProps = {
@@ -33,9 +31,7 @@ const Transaction_ffe1324e: transactionProps = {
     color: 'success'
   },
   amount: '100,00 €',
-  detailsButton: {
-    action: fn()
-  }
+  action: fn()
 };
 
 const Transaction_a305f59a: transactionProps = {
@@ -49,9 +45,7 @@ const Transaction_a305f59a: transactionProps = {
     color: 'success'
   },
   amount: '274,50 €',
-  detailsButton: {
-    action: fn()
-  }
+  action: fn()
 };
 
 const Transaction_3d40b8e0: transactionProps = {
@@ -65,9 +59,7 @@ const Transaction_3d40b8e0: transactionProps = {
     color: 'error'
   },
   amount: '392,00 €',
-  detailsButton: {
-    action: fn()
-  }
+  action: fn()
 };
 
 const transactionDetail = {

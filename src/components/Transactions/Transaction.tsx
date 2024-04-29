@@ -20,9 +20,7 @@ export interface transactionProps {
   };
   amount: string;
   id: string;
-  detailsButton: {
-    action: (id: string) => void;
-  };
+  action: (id: string) => void;
 }
 
 interface payeeIconProps {
@@ -52,7 +50,7 @@ const PayeeIcon = (props: payeeIconProps) => (
 );
 
 const Transaction = (props: transactionProps) => {
-  const { payee, status, amount, id, date, detailsButton } = props;
+  const { payee, status, amount, id, date, action } = props;
   return (
     <TableRow>
       <StyledTableCell width={'60%'}>
@@ -78,7 +76,7 @@ const Transaction = (props: transactionProps) => {
       <StyledTableCell align="right">
         <Button
           variant="naked"
-          onClick={() => detailsButton.action(id)}
+          onClick={() => action(id)}
           endIcon={<ArrowForwardIosIcon color="primary" />}
         />
       </StyledTableCell>
