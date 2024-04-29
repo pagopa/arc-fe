@@ -36,16 +36,13 @@ export const SidebarMenuItem = ({
         sx={{
           px: 3,
           '&.Mui-selected': {
-
             '& .MuiListItemIcon-root': {
               color: 'primary.dark'
             },
             '& .MuiListItemText-primary	': {
               color: 'primary.dark',
-              fontWeight:600
-            },
-
-            
+              fontWeight: 600
+            }
           }
         }}>
         {item.icon && <ListItemIcon>{renderIcon(item.icon)}</ListItemIcon>}
