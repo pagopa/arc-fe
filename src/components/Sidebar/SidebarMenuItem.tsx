@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { SvgIconComponent } from '@mui/icons-material';
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material';
 import React from 'react';
@@ -27,7 +28,7 @@ export const SidebarMenuItem = ({ collapsed, item }: Props) => {
             px: 3,
             '&.active': {
               fontWeight: 'bold',
-              backgroundColor: 'rgba(0, 115, 230, 0.08)',
+              backgroundColor: alpha(theme.palette.primary.main, 0.08),
               '.MuiTypography-root': {
                 fontWeight: 600,
                 color: theme.palette.primary.dark
