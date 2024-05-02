@@ -43,6 +43,8 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "parcel": "latest",
+    "parcel-reporter-static-files-copy": "^1.5.3",
+    "parcel-resolver-ignore": "^2.2.0",
     "prettier": "^3.2.5",
     "process": "^0.11.10",
     "rimraf": "^5.0.5",
@@ -68,5 +70,8 @@
     "react-router-dom": "^6.22.3",
     "vite-tsconfig-paths": "^4.3.2"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.1.1",
+  "parcelIgnore": [
+    "otSDKStub.js"
+  ]
 }

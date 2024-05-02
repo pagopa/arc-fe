@@ -3056,7 +3056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parcel/plugin@npm:2.12.0":
+"@parcel/plugin@npm:2.12.0, @parcel/plugin@npm:^2.0.0-beta.1, @parcel/plugin@npm:^2.10.3":
   version: 2.12.0
   resolution: "@parcel/plugin@npm:2.12.0"
   dependencies:
@@ -11234,6 +11234,8 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     parcel: "npm:latest"
+    parcel-reporter-static-files-copy: "npm:^1.5.3"
+    parcel-resolver-ignore: "npm:^2.2.0"
     prettier: "npm:^3.2.5"
     process: "npm:^0.11.10"
     react: "npm:^18.2.0"
@@ -11255,6 +11257,24 @@ __metadata:
   version: 0.2.9
   resolution: "pako@npm:0.2.9"
   checksum: 10c0/79c1806ebcf325b60ae599e4d7227c2e346d7b829dc20f5cf24cef07c934079dc3a61c5b3c8278a2f7a190c4a613e343ea11e5302dbe252efd11712df4b6b041
+  languageName: node
+  linkType: hard
+
+"parcel-reporter-static-files-copy@npm:^1.5.3":
+  version: 1.5.3
+  resolution: "parcel-reporter-static-files-copy@npm:1.5.3"
+  dependencies:
+    "@parcel/plugin": "npm:^2.0.0-beta.1"
+  checksum: 10c0/02a0067c61d131558bfd3f74e2edbd016f26e95e0c3619642db8b75b47429824ee08cc0176f8740cf93a5794c2e408da845bf6165b15b11d91d34a5c9223605a
+  languageName: node
+  linkType: hard
+
+"parcel-resolver-ignore@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "parcel-resolver-ignore@npm:2.2.0"
+  dependencies:
+    "@parcel/plugin": "npm:^2.10.3"
+  checksum: 10c0/dd5a9cfeb321aea53bf66d88bced6c6c8360fe424a07c62b32145c3e4e2fc73cf9e2c74118e69daee8081b16464bb423e65fcb7798ec8f8a4628b37d339bf9dc
   languageName: node
   linkType: hard
 
