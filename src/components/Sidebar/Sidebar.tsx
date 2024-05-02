@@ -35,11 +35,14 @@ export const Sidebar = () => {
         flexDirection={'column'}
         item
         minHeight={'50vh'}
+        component={'nav'}
+        aria-label={t('menu.navigationMenu')}
+        role="navigation"
         xs={collapsed ? 'auto' : 3}
         sx={{ bgcolor: 'background.paper' }}>
-        <List role="navigation" component="nav" aria-label={t('menu.description')}>
+        <List component="ol" aria-label={t('menu.description')}>
           {menuItems.map((item: ISidebarMenuItem, index: number) => (
-            <SidebarMenuItem collapsed={collapsed} item={item} key={index}></SidebarMenuItem>
+            <SidebarMenuItem collapsed={collapsed} item={item} key={index} />
           ))}
         </List>
         <Divider orientation="horizontal" flexItem />

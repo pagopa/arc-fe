@@ -83,7 +83,8 @@
   "menu": {
     "description": "Naviga il portale",
     "homepage": "Homepage",
-    "receipts": "Ricevute"
+    "receipts": "Ricevute",
+    "navigationMenu": "Menù di navigazione"
   },
   "sidebar": {
     "collapse": "Comprimi il menu",
