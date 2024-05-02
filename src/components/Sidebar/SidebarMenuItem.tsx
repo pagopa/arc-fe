@@ -29,6 +29,8 @@ export const SidebarMenuItem = ({ collapsed, item }: Props) => {
             '&.active': {
               fontWeight: 'bold',
               backgroundColor: alpha(theme.palette.primary.main, 0.08),
+              borderRight: '2px solid',
+              borderColor: theme.palette.primary.dark,
               '.MuiTypography-root': {
                 fontWeight: 600,
                 color: theme.palette.primary.dark
