@@ -1,7 +1,14 @@
 import { ProductEntity, RootLinkType } from '@pagopa/mui-italia';
-/* Icons */
+
+/** Useful default values  */
+/** APIHOST default value works in conjunction with the proxy server. See the .proxyrc file */
+const { APIHOST = 'http://localhost:1234/api', ENV = 'LOCAL' } = process.env;
+
+type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
 
 type Config = {
+  env: ENVIRONMENT;
+  baseURL: string;
   product: ProductEntity;
   pagopaLink: RootLinkType;
 };
@@ -21,6 +28,8 @@ const pagopaLink: RootLinkType = {
 };
 
 const config: Config = {
+  env: ENV as ENVIRONMENT,
+  baseURL: APIHOST,
   product,
   pagopaLink
 };
