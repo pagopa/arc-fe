@@ -9,6 +9,7 @@ import { theme } from '@pagopa/mui-italia';
 import UserRoute from 'routes/User';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import TransactionsList from 'routes/TransactionsList';
+import utils from 'utils';
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,9 @@ const router = createBrowserRouter([
     ]
   }
 ]);
+
+// INSTANT FEEDBACK WHEN DEVELOPING LOCALLY
+utils.config.env === 'LOCAL' && utils.apiClient.info.healthCheck();
 
 export const App = () => (
   <Theme>
