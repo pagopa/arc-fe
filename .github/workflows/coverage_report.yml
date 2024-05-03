@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: yarn install
-      - run: yanr generate
+      - run: yarn generate
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           package-manager: yarn
