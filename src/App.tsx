@@ -48,6 +48,7 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.TRANSACTION,
         element: <TransactionRoute />,
+        loader: () => utils.apiClient.transactions.getTransactionDetails('1'),
         handle: {
           crumbs: {
             backButton: false,

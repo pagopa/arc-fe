@@ -1,22 +1,22 @@
 export interface TransactionDetail {
   paidBy: string;
-  authCode: number;
+  authCode: string;
   transactionId: string;
-  PRN: number;
+  PRN: string;
   owedBy: string;
   owedByFiscalCode: string;
   paymentMethod: string;
   cardNumber: string;
   PSP: string;
-  dateTime: Date;
+  dateTime: string;
   subject: string;
   debtor: string;
   debtorFiscalCode: string;
   creditorEntity: string;
   creditorFiscalCode: string;
   noticeCode: string;
-  partialAmount: number;
-  fee: number;
-  total: number;
+  partialAmount: string;
+  fee: string;
+  total: string;
   status: string;
 }

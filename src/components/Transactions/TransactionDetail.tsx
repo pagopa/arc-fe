@@ -38,7 +38,7 @@ export default function TransactionDetail({
       <Stack spacing={2} mt={3} width={'100%'}>
         <Box>
           <Typography>
-            {t('app.transactionDetail.createdOn') + ' ' + transactionData.dateTime.toDateString()}
+            {t('app.transactionDetail.createdOn') + ' ' + transactionData.dateTime}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
@@ -134,9 +134,7 @@ export default function TransactionDetail({
                   <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
-                  <Typography fontWeight={600}>
-                    {transactionData.dateTime.toDateString()}
-                  </Typography>
+                  <Typography fontWeight={600}>{transactionData.dateTime}</Typography>
                 </Stack>
               </Stack>
             </Grid>
@@ -185,9 +183,7 @@ export default function TransactionDetail({
                   <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.partialAmount')}
                   </Typography>
-                  <Typography fontWeight={600}>
-                    {transactionData.partialAmount.toFixed(2)} €
-                  </Typography>
+                  <Typography fontWeight={600}>{transactionData.partialAmount}</Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
                   <Typography color={theme.palette.text.secondary}>
@@ -198,14 +194,14 @@ export default function TransactionDetail({
                       transactionData.PSP +
                       ')'}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.fee.toFixed(2)} €</Typography>
+                  <Typography fontWeight={600}>{transactionData.fee}</Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
                   <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.total')}
                   </Typography>
                   <Typography variant="h6">
-                    <b>{transactionData.total.toFixed(2)} €</b>
+                    <b>{transactionData.total}</b>
                   </Typography>
                 </Stack>
               </Stack>
