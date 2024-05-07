@@ -4,12 +4,22 @@ import Transactions from 'components/Transactions/Transactions';
 import IOAlert from 'components/Alerts/IOAlert';
 import { Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
-// TO BE REMOVED
-import { dummyTransactionsData } from '../stories/utils/mocks';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import utils from 'utils';
+import { AxiosResponse } from 'axios';
+import { TransactionsResponse } from '../../generated/apiClient';
 
 export default function Dashboard() {
   const { t } = useTranslation();
+  const transactions = useLoaderData();
+  const navigate = useNavigate();
+
+  const rows = utils.converters.prepareRowsData(
+    (transactions as AxiosResponse<TransactionsResponse>).data,
+    t,
+    navigate
+  );
+
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={5}>
@@ -35,7 +45,7 @@ export default function Dashboard() {
         tabs={[
           {
             title: 'Last transactions',
-            content: <Transactions rows={dummyTransactionsData.ownedByMe} />
+            content: <Transactions rows={rows} />
           }
         ]}
       />

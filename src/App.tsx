@@ -43,7 +43,8 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.DASHBOARD,
-        element: <DashboardRoute />
+        element: <DashboardRoute />,
+        loader: () => utils.apiClient.transactions.getTransactionList({ size: 10 })
       },
       {
         path: ArcRoutes.TRANSACTION,
