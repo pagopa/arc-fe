@@ -46,8 +46,11 @@ export default function TransactionDetail({
 
       <Stack spacing={2} mt={3} width={'100%'}>
         <Box>
-          <Typography>
-            {`${t('app.transactionDetail.createdOn')} ${transactionData.dateTime}`}
+          <Typography fontWeight={600}>
+            {`${t('app.transactionDetail.createdOn')} ${new Intl.DateTimeFormat('it-IT', {
+              dateStyle: 'long',
+              timeStyle: 'short'
+            }).format(new Date(Date.parse(transactionData.dateTime) || 0))}`}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
@@ -143,7 +146,12 @@ export default function TransactionDetail({
                   <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.dateTime}</Typography>
+                  <Typography fontWeight={600}>
+                    {new Intl.DateTimeFormat('it-IT', {
+                      dateStyle: 'long',
+                      timeStyle: 'short'
+                    }).format(new Date(Date.parse(transactionData.dateTime) || 0))}
+                  </Typography>
                 </Stack>
               </Stack>
             </Grid>
