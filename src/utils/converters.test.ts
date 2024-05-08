@@ -33,3 +33,14 @@ describe('return a transactiondetail object', () => {
     expect(utils.converters.prepareTransactionDetailData(resp)).toHaveProperty('transactionId');
   });
 });
+
+describe('return a transactiondetail object even if the reponse is empty', () => {
+  it('should return a transaction detail object', () => {
+    const resp: TransactionDetailResponse = {
+      infoTransaction: {},
+      carts: [{}]
+    };
+
+    expect(utils.converters.prepareTransactionDetailData(resp)).toHaveProperty('transactionId');
+  });
+});
