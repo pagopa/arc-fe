@@ -43,7 +43,10 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.DASHBOARD,
-        element: <DashboardRoute />
+        element: <DashboardRoute />,
+        loader: utils.loaders.dashoboard,
+        // TEMPORARY ERROR ELEMENT
+        errorElement: <p>Ops!... somethig went wrong</p>
       },
       {
         path: ArcRoutes.TRANSACTION,
@@ -71,7 +74,14 @@ const router = createBrowserRouter([
 ]);
 
 // INSTANT FEEDBACK WHEN DEVELOPING LOCALLY
-utils.config.env === 'LOCAL' && utils.apiClient.info.healthCheck();
+utils.config.env === 'LOCAL' &&
+  (async () => {
+    try {
+      await utils.apiClient.info.healthCheck();
+    } catch (e) {
+      console.error(e, 'Mock not avaible or /info not reachable');
+    }
+  })();
 
 export const App = () => (
   <Theme>

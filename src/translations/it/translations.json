@@ -36,7 +36,9 @@
       "date": "In data",
       "amount": "Importo",
       "higherAmount": "importo più alto",
-      "lowerAmount" :"importo più basso"
+      "lowerAmount" :"importo più basso",
+      "multiEntities": "Avvisi Multipli",
+      "payed": "Pagato"
     },
     
 
