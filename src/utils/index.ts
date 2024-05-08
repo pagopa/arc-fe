@@ -10,5 +10,6 @@ export default {
   hooks,
   //** data transformers utility and formatters */
   converters,
-  apiClient: new Api({ baseURL: config.baseURL })
+  // TO DO: timeout as env variable?
+  apiClient: new Api({ baseURL: config.baseURL, timeout: 1000 })
 };
