@@ -1,6 +1,7 @@
 import { transactionProps } from 'components/Transactions/Transaction';
 import { fn } from '@storybook/test';
 import { TransactionDetail } from 'models/TransactionDetail';
+import { TransactionReceiptResponse } from '../../../generated/apiClient';
 
 const Transaction_dc379158: transactionProps = {
   payee: {
@@ -85,14 +86,26 @@ const transactionDetail = {
   status: 'Pagato'
 };
 
+const transactionReceipt = {
+  attachments: [
+    {
+      content_type: 'application/pdf',
+      id: 'id_allegato',
+      name: 'ricevuta 1',
+      url: 'mocked-url'
+    }
+  ]
+};
 export const dummyTransactionsData: {
   all: transactionProps[];
   payedByMe: transactionProps[];
   ownedByMe: transactionProps[];
   transactionData: TransactionDetail;
+  transactionReceipt: TransactionReceiptResponse;
 } = {
   all: [Transaction_dc379158, Transaction_ffe1324e, Transaction_a305f59a, Transaction_3d40b8e0],
   payedByMe: [Transaction_dc379158, Transaction_ffe1324e],
   ownedByMe: [Transaction_a305f59a, Transaction_3d40b8e0],
-  transactionData: transactionDetail
+  transactionData: transactionDetail,
+  transactionReceipt
 };
