@@ -1,32 +1,41 @@
 import { transactionProps } from 'components/Transactions/Transaction';
 import { TransactionsResponse } from '../../generated/apiClient';
-import { NavigateFunction } from 'react-router-dom';
-import { TFunction } from 'i18next/typescript/t';
-import { ArcRoutes } from 'routes/routes';
 
 const toEuro = (amount: string): string => `${amount} €`;
 
+interface PrepareRowsData {
+  transactions: TransactionsResponse;
+  status: {
+    label: string;
+    color?: string;
+  };
+  payee: {
+    /** text to shown when more than an entities are in involed within a single transaction */
+    multi: string;
+    /** alt text for entity logo */
+    altImg?: string;
+  };
+  action: (id: string) => void;
+}
+
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
-const prepareRowsData = (
-  transactions: TransactionsResponse,
-  t: TFunction<'translation', undefined>,
-  navigate: NavigateFunction
-): transactionProps[] =>
-  transactions.map((element) => ({
+const prepareRowsData = (data: PrepareRowsData): transactionProps[] =>
+  data.transactions.map((element) => ({
     date: element.transactionDate,
     amount: toEuro(element.amount),
     id: element.transactionId,
     payee: {
-      name: element.payeeName || t('app.transactions.multiEntities'),
+      name: element.payeeName || data.payee.multi,
       // update here the cdn host when avaiable
       srcImg: element.payeeTaxCode ? `http://cdn.com/${element.payeeTaxCode}.png` : undefined,
-      altImg: `Logo Ente`
+      altImg: data.payee.altImg || `Logo Ente`
     },
+    // needs to be updated when status can be different from success
     status: {
-      label: t('app.transactions.payed'),
+      label: data.status.label,
       color: 'success'
     },
-    action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+    action: data.action
   }));
 
 export default {

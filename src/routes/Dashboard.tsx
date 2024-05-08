@@ -8,17 +8,19 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 import utils from 'utils';
 import { AxiosResponse } from 'axios';
 import { TransactionsResponse } from '../../generated/apiClient';
+import { ArcRoutes } from './routes';
 
 export default function Dashboard() {
   const { t } = useTranslation();
   const transactions = useLoaderData();
   const navigate = useNavigate();
 
-  const rows = utils.converters.prepareRowsData(
-    (transactions as AxiosResponse<TransactionsResponse>).data,
-    t,
-    navigate
-  );
+  const rows = utils.converters.prepareRowsData({
+    transactions: (transactions as AxiosResponse<TransactionsResponse>).data,
+    status: { label: t('app.transactions.payed') },
+    payee: { multi: t('app.transactions.multiEntities') },
+    action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+  });
 
   return (
     <>
