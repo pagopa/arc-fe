@@ -44,15 +44,8 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.DASHBOARD,
         element: <DashboardRoute />,
-        loader: () => {
-          try {
-            return utils.apiClient.transactions.getTransactionList({ size: 10 });
-          } catch (e) {
-            console.error(e);
-            return [];
-          }
-        },
-        // TEMPORARY ERRORELEMENT
+        loader: utils.loaders.dashoboard,
+        // TEMPORARY ERROR ELEMENT
         errorElement: <p>Ops!... somethig went wrong</p>
       },
       {
