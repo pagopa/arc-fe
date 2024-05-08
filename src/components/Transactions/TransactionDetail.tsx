@@ -38,7 +38,7 @@ export default function TransactionDetail({
       <Stack spacing={2} mt={3} width={'100%'}>
         <Box>
           <Typography>
-            {t('app.transactionDetail.createdOn') + ' ' + transactionData.dateTime}
+            {`${t('app.transactionDetail.createdOn')} ${transactionData.dateTime}`}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
@@ -119,7 +119,7 @@ export default function TransactionDetail({
                         {t('app.transactionDetail.paymentMethod')}
                       </Typography>
                       <Typography fontWeight={600}>
-                        {transactionData.paymentMethod + ' ' + transactionData.cardNumber}
+                        {`${transactionData.paymentMethod} ${transactionData.cardNumber}`}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -187,12 +187,9 @@ export default function TransactionDetail({
                 </Stack>
                 <Stack alignItems={'end'}>
                   <Typography color={theme.palette.text.secondary}>
-                    {t('app.transactionDetail.commission') +
-                      ' (' +
-                      t('app.transactionDetail.appliedBy') +
-                      ' ' +
-                      transactionData.PSP +
-                      ')'}
+                    {`${t('app.transactionDetail.commission')} (${t(
+                      'app.transactionDetail.appliedBy'
+                    )} ${transactionData.PSP})`}
                   </Typography>
                   <Typography fontWeight={600}>{transactionData.fee}</Typography>
                 </Stack>
