@@ -9,8 +9,8 @@ export const useReceiptData = (transactionId: string) => {
   const getData = async () => {
     try {
       const { data } = await utils.apiClient.transactions.getTransactionReceipt(transactionId);
-      if (data?.attachments?.length && data.attachments[0]?.url) {
-        setReceipt(data?.attachments[0]?.url);
+      if (data.attachments.length && data.attachments[0].url) {
+        setReceipt(data.attachments[0].url);
       } else {
         throw new Error('Receipt not found');
       }

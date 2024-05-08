@@ -32,6 +32,7 @@ export default function TransactionDetail({
             {t('app.transactionDetail.downloadQuiettance')}
           </Button>
           <Button
+            data-testid="receipt-download-btn"
             endIcon={<Download />}
             size="large"
             variant="contained"
