@@ -7,9 +7,8 @@ import { AxiosResponse } from 'axios';
 
 export default function Transaction() {
   const transactionDetail = useLoaderData();
-
   const transactionDetailData = utils.converters.prepareTransactionDetailData(
-    (transactionDetail as AxiosResponse<TransactionDetailResponse>).data
+    (transactionDetail as AxiosResponse<TransactionDetailResponse>).data,
   );
   return <TransactionDetail transactionData={transactionDetailData} />;
 }
