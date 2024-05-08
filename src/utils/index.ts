@@ -3,6 +3,7 @@ import config from './config';
 import hooks from './hooks';
 import converters from './converters';
 import { Api } from '../../generated/apiClient';
+import loaders from './loaders';
 
 export default {
   style,
@@ -10,5 +11,7 @@ export default {
   hooks,
   //** data transformers utility and formatters */
   converters,
-  apiClient: new Api({ baseURL: config.baseURL })
+  // TO DO: timeout as env variable?
+  apiClient: new Api({ baseURL: config.baseURL, timeout: 1000 }),
+  loaders
 };
