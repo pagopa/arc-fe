@@ -32,6 +32,4 @@ const prepareTransactionDetailData = (
   };
 };
 
-export default {
-  prepareTransactionDetailData
-};
+export default { prepareTransactionDetailData };
