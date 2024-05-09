@@ -46,7 +46,7 @@ describe('prepareRowsData function', () => {
         status: {
           label: 'Pagato',
           color: 'success'
-        },
+        }
       },
       {
         date: '10/08/2022',
@@ -59,7 +59,7 @@ describe('prepareRowsData function', () => {
         status: {
           label: 'Pagato',
           color: 'success'
-        },
+        }
       }
     ];
     expect(
