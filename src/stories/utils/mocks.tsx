@@ -10,7 +10,7 @@ const Transaction_dc379158: transactionProps = {
     altImg: 'Regione Lombardia'
   },
   id: 'dc379158',
-  date: '01/12/2023',
+  date: '1 dicembre 2023',
   status: {
     label: 'Pagato',
     color: 'success'
@@ -26,7 +26,7 @@ const Transaction_ffe1324e: transactionProps = {
     altImg: 'ACI'
   },
   id: 'ffe1324e',
-  date: '16/11/2023',
+  date: '16 novembre 2023',
   status: {
     label: 'Pagato',
     color: 'success'
@@ -40,7 +40,7 @@ const Transaction_a305f59a: transactionProps = {
     name: 'Avvisi multipli'
   },
   id: 'a305f59a',
-  date: '03/11/2023',
+  date: '3 novembre 2023',
   status: {
     label: 'Pagato',
     color: 'success'
@@ -54,7 +54,7 @@ const Transaction_3d40b8e0: transactionProps = {
     name: 'Avvisi multipli'
   },
   id: '3d40b8e0',
-  date: '12/08/2023',
+  date: '12 agosto 2023',
   status: {
     label: 'Errore',
     color: 'error'
