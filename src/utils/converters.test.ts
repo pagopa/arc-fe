@@ -47,7 +47,6 @@ describe('prepareRowsData function', () => {
           label: 'Pagato',
           color: 'success'
         },
-        action: jest.fn()
       },
       {
         date: '10/08/2022',
@@ -61,7 +60,6 @@ describe('prepareRowsData function', () => {
           label: 'Pagato',
           color: 'success'
         },
-        action: jest.fn()
       }
     ];
     expect(

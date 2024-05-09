@@ -1,5 +1,4 @@
 import { transactionProps } from 'components/Transactions/Transaction';
-import { fn } from '@storybook/test';
 import { TransactionDetail } from 'models/TransactionDetail';
 import { TransactionReceiptResponse } from '../../../generated/apiClient';
 
@@ -10,13 +9,12 @@ const Transaction_dc379158: transactionProps = {
     altImg: 'Regione Lombardia'
   },
   id: 'dc379158',
-  date: '1 dicembre 2023',
+  date: '01/12/2023',
   status: {
     label: 'Pagato',
     color: 'success'
   },
-  amount: '123,50 €',
-  action: fn()
+  amount: '123,50 €'
 };
 
 const Transaction_ffe1324e: transactionProps = {
@@ -26,13 +24,12 @@ const Transaction_ffe1324e: transactionProps = {
     altImg: 'ACI'
   },
   id: 'ffe1324e',
-  date: '16 novembre 2023',
+  date: '16/11/2023',
   status: {
     label: 'Pagato',
     color: 'success'
   },
-  amount: '100,00 €',
-  action: fn()
+  amount: '100,00 €'
 };
 
 const Transaction_a305f59a: transactionProps = {
@@ -40,13 +37,12 @@ const Transaction_a305f59a: transactionProps = {
     name: 'Avvisi multipli'
   },
   id: 'a305f59a',
-  date: '3 novembre 2023',
+  date: '03/11/2023',
   status: {
     label: 'Pagato',
     color: 'success'
   },
-  amount: '274,50 €',
-  action: fn()
+  amount: '274,50 €'
 };
 
 const Transaction_3d40b8e0: transactionProps = {
@@ -54,13 +50,12 @@ const Transaction_3d40b8e0: transactionProps = {
     name: 'Avvisi multipli'
   },
   id: '3d40b8e0',
-  date: '12 agosto 2023',
+  date: '12/08/2023',
   status: {
     label: 'Errore',
     color: 'error'
   },
-  amount: '392,00 €',
-  action: fn()
+  amount: '392,00 €'
 };
 
 const transactionDetail = {
@@ -73,7 +68,7 @@ const transactionDetail = {
   paymentMethod: 'Mastercard',
   cardNumber: '**** 1234',
   PSP: 'Nexi',
-  dateTime: 'string',
+  dateTime: '11/02/2023',
   subject: ' Bollo auto 2023',
   debtor: 'Matteo Rossi',
   debtorFiscalCode: 'MTTRSS74B23F205K',

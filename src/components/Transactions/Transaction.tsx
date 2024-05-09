@@ -21,7 +21,6 @@ export interface transactionProps {
   };
   amount: string;
   id: string;
-  action: (id: string) => void;
 }
 
 interface payeeIconProps {
