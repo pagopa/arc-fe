@@ -6,6 +6,7 @@ import { TransactionDetail } from '../../models/TransactionDetail';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useReceiptData } from 'hooks/useReceiptData';
+import humanDate from '../../utils/datetools';
 
 export default function TransactionDetail({
   transactionData
@@ -45,12 +46,10 @@ export default function TransactionDetail({
       </Stack>
 
       <Stack spacing={2} mt={3} width={'100%'}>
-        <Box>
+        <Box display={'flex'}>
+          <Typography>{t('app.transactionDetail.createdOn')}</Typography>
           <Typography fontWeight={600}>
-            {`${t('app.transactionDetail.createdOn')} ${new Intl.DateTimeFormat('it-IT', {
-              dateStyle: 'long',
-              timeStyle: 'short'
-            }).format(new Date(Date.parse(transactionData.dateTime) || 0))}`}
+            &nbsp;{humanDate(navigator.language, transactionData.dateTime)}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
@@ -147,10 +146,7 @@ export default function TransactionDetail({
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
                   <Typography fontWeight={600}>
-                    {new Intl.DateTimeFormat('it-IT', {
-                      dateStyle: 'long',
-                      timeStyle: 'short'
-                    }).format(new Date(Date.parse(transactionData.dateTime) || 0))}
+                    {humanDate(navigator.language, transactionData.dateTime)}
                   </Typography>
                 </Stack>
               </Stack>

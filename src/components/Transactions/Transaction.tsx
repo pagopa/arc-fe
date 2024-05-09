@@ -6,6 +6,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material/styles';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import style from 'utils/style';
+import { useNavigate } from 'react-router-dom';
 
 export interface transactionProps {
   payee: {
@@ -20,7 +21,6 @@ export interface transactionProps {
   };
   amount: string;
   id: string;
-  action: (id: string) => void;
 }
 
 interface payeeIconProps {
@@ -50,7 +50,8 @@ const PayeeIcon = (props: payeeIconProps) => (
 );
 
 const Transaction = (props: transactionProps) => {
-  const { payee, status, amount, id, date, action } = props;
+  const { payee, status, amount, id, date } = props;
+  const navigate = useNavigate();
   return (
     <TableRow>
       <StyledTableCell width={'60%'}>
@@ -76,7 +77,7 @@ const Transaction = (props: transactionProps) => {
       <StyledTableCell align="right">
         <Button
           variant="naked"
-          onClick={() => action(id)}
+          onClick={() => navigate(`/transaction/${id}`)}
           endIcon={<ArrowForwardIosIcon color="primary" />}
         />
       </StyledTableCell>
