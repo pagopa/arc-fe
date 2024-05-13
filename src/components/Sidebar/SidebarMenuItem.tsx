@@ -1,9 +1,9 @@
-import { alpha } from '@mui/material';
-import { SvgIconComponent } from '@mui/icons-material';
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { ISidebarMenuItem } from 'models/SidebarMenuItem';
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { SvgIconComponent } from '@mui/icons-material';
+import { alpha } from '@mui/material';
 
 type Props = {
   collapsed: boolean;
@@ -23,7 +23,6 @@ export const SidebarMenuItem = ({ collapsed, item }: Props) => {
         <ListItemButton
           component={NavLink}
           to={item.route}
-          role={'menuitem'}
           sx={{
             px: 3,
             '&.active': {
@@ -40,7 +39,7 @@ export const SidebarMenuItem = ({ collapsed, item }: Props) => {
               }
             }
           }}>
-          {item.icon && <ListItemIcon>{renderIcon(item.icon)}</ListItemIcon>}
+          {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
           {!collapsed && (
             <ListItemText
               id={`menu-item-${item.label.toLowerCase()}`}

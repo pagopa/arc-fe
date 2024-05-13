@@ -1,14 +1,15 @@
+import { ArcRoutes } from 'routes/routes';
 import { Box, Divider, Grid, IconButton, List } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { SidebarMenuItem } from './SidebarMenuItem';
 import { ISidebarMenuItem } from 'models/SidebarMenuItem';
+import { SidebarMenuItem } from './SidebarMenuItem';
+import { useTranslation } from 'react-i18next';
+import { visuallyHidden } from '@mui/utils';
 import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Tooltip from '@mui/material/Tooltip';
 import ViewSidebarIcon from '@mui/icons-material/ViewSidebar';
 import useCollapseMenu from './useCollapseMenu';
-import { ArcRoutes } from 'routes/routes';
 
 export const Sidebar = () => {
   const { t } = useTranslation();
@@ -46,7 +47,7 @@ export const Sidebar = () => {
           ))}
         </List>
         <Divider orientation="horizontal" flexItem />
-        <Box marginTop={'auto'} aria-hidden="true">
+        <Box marginTop={'auto'} sx={visuallyHidden}>
           <Divider orientation="horizontal" flexItem />
           <Box p={2}>
             <Tooltip

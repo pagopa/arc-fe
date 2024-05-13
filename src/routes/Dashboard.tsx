@@ -38,7 +38,9 @@ export default function Dashboard() {
         <IOAlert />
       </Stack>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="h6">{t('app.dashboard.lastTransactions')}</Typography>
+        <Typography variant="h6" component="h2">
+          {t('app.dashboard.lastTransactions')}
+        </Typography>
         <Button>{t('app.dashboard.seeAllTransactions')}</Button>
       </Stack>
       <Tabs

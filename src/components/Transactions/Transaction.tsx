@@ -1,12 +1,13 @@
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { styled } from '@mui/material/styles';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import style from 'utils/style';
+import { Box, Button, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export interface transactionProps {
   payee: {
@@ -42,7 +43,7 @@ const PayeeIcon = (props: payeeIconProps) => (
     display="flex"
     justifyContent="center">
     {props.src ? (
-      <img src={props.src} alt={props.alt} />
+      <img src={props.src} alt={`Logo ${props.alt || ''}`} aria-hidden="true" />
     ) : (
       <AccountBalanceIcon sx={{ color: style.theme.palette.grey[400] }} />
     )}
@@ -52,6 +53,7 @@ const PayeeIcon = (props: payeeIconProps) => (
 const Transaction = (props: transactionProps) => {
   const { payee, status, amount, id, date } = props;
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <TableRow>
       <StyledTableCell width={'60%'}>
@@ -76,6 +78,7 @@ const Transaction = (props: transactionProps) => {
       </StyledTableCell>
       <StyledTableCell align="right">
         <Button
+          aria-label={t('app.transactions.viewDetail')}
           variant="naked"
           onClick={() => navigate(`/transaction/${id}`)}
           endIcon={<ArrowForwardIosIcon color="primary" />}

@@ -1,7 +1,18 @@
 import React from 'react';
 import Tabs from 'components/Tabs';
 import Transactions from 'components/Transactions/Transactions';
-import { Box, Grid, InputAdornment, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 // TO BE REMOVED
@@ -41,42 +52,22 @@ export default function TransactionsList() {
           />
         </Grid>
         <Grid item xs={3}>
-          <Box>
-            <TextField
+          <FormControl sx={{ display: 'block', minWidth: '100%' }}>
+            <InputLabel id="transactions-filter-select">{t('app.transactions.orderBy')}</InputLabel>
+            <Select
               color="primary"
               size="small"
               fullWidth={true}
-              aria-label={t('app.transactions.orderBy')}
-              role="listbox"
-              label={t('app.transactions.orderBy')}
-              SelectProps={{
-                sx: {
-                  fontSize: theme.typography.body2,
-                  fontWeight: 600,
-                  background: 'white'
-                }
-              }}
-              InputLabelProps={{
-                sx: {
-                  color: theme.palette.text.secondary,
-                  fontWeight: 600
-                }
-              }}
-              select>
-              <MenuItem role="option" selected value="it-health-code">
+              labelId="transactions-filter-select"
+              label={t('app.transactions.orderBy')}>
+              <MenuItem selected value="it-health-code">
                 {t('app.transactions.mostRecent')}
               </MenuItem>
-              <MenuItem role="option" selected value="it-health-code">
-                {t('app.transactions.leastRecent')}
-              </MenuItem>
-              <MenuItem role="option" selected value="it-health-code">
-                {t('app.transactions.lowerAmount')}
-              </MenuItem>
-              <MenuItem role="option" selected value="it-health-code">
-                {t('app.transactions.higherAmount')}
-              </MenuItem>
-            </TextField>
-          </Box>
+              <MenuItem value="it-health-code">{t('app.transactions.leastRecent')}</MenuItem>
+              <MenuItem value="it-health-code">{t('app.transactions.lowerAmount')}</MenuItem>
+              <MenuItem value="it-health-code">{t('app.transactions.higherAmount')}</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
       <Tabs
