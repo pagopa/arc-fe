@@ -1,5 +1,4 @@
 import { transactionProps } from 'components/Transactions/Transaction';
-import { fn } from '@storybook/test';
 import { TransactionDetail } from 'models/TransactionDetail';
 import { TransactionReceiptResponse } from '../../../generated/apiClient';
 
@@ -15,8 +14,7 @@ const Transaction_dc379158: transactionProps = {
     label: 'Pagato',
     color: 'success'
   },
-  amount: '123,50 €',
-  action: fn()
+  amount: '123,50 €'
 };
 
 const Transaction_ffe1324e: transactionProps = {
@@ -31,8 +29,7 @@ const Transaction_ffe1324e: transactionProps = {
     label: 'Pagato',
     color: 'success'
   },
-  amount: '100,00 €',
-  action: fn()
+  amount: '100,00 €'
 };
 
 const Transaction_a305f59a: transactionProps = {
@@ -45,8 +42,7 @@ const Transaction_a305f59a: transactionProps = {
     label: 'Pagato',
     color: 'success'
   },
-  amount: '274,50 €',
-  action: fn()
+  amount: '274,50 €'
 };
 
 const Transaction_3d40b8e0: transactionProps = {
@@ -59,30 +55,29 @@ const Transaction_3d40b8e0: transactionProps = {
     label: 'Errore',
     color: 'error'
   },
-  amount: '392,00 €',
-  action: fn()
+  amount: '392,00 €'
 };
 
 const transactionDetail = {
   paidBy: 'Matteo Rossi',
-  authCode: 1234567890123456800,
+  authCode: '1234567890123456800',
   transactionId: 'F57E2F8E-25FF-4183-AB7B-4…',
-  PRN: 1234567890,
+  PRN: '1234567890',
   owedBy: 'Matteo Rossi',
   owedByFiscalCode: 'MTTRSS74B23F205K',
   paymentMethod: 'Mastercard',
   cardNumber: '**** 1234',
   PSP: 'Nexi',
-  dateTime: new Date(),
+  dateTime: '11/02/2023',
   subject: ' Bollo auto 2023',
   debtor: 'Matteo Rossi',
   debtorFiscalCode: 'MTTRSS74B23F205K',
   creditorEntity: 'ACI',
   creditorFiscalCode: '00000000',
   noticeCode: '0000 0000 0000 0000',
-  partialAmount: 250,
-  fee: 1,
-  total: 251,
+  partialAmount: '250',
+  fee: '1',
+  total: '251',
   status: 'Pagato'
 };
 

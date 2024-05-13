@@ -9,6 +9,17 @@ const dashoboard = () => {
   }
 };
 
+const transactionDetails = (id: string | undefined) => {
+  try {
+    if (!id) throw 'no id';
+    return id && utils.apiClient.transactions.getTransactionDetails(id);
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+};
+
 export default {
-  dashoboard
+  dashoboard,
+  transactionDetails
 };
