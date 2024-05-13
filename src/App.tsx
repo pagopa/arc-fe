@@ -51,6 +51,9 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.TRANSACTION,
         element: <TransactionRoute />,
+        loader: ({ params }) => utils.loaders.transactionDetails(params.id),
+        // TEMPORARY ERROR ELEMENT
+        errorElement: <p>Ops!... somethig went wrong</p>,
         handle: {
           crumbs: {
             backButton: false,

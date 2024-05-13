@@ -4,6 +4,7 @@ import hooks from './hooks';
 import converters from './converters';
 import { Api } from '../../generated/apiClient';
 import loaders from './loaders';
+import datetools from './datetools';
 
 export default {
   style,
@@ -13,5 +14,6 @@ export default {
   converters,
   // TO DO: timeout as env variable?
   apiClient: new Api({ baseURL: config.baseURL, timeout: 1000 }),
-  loaders
+  loaders,
+  datetools
 };

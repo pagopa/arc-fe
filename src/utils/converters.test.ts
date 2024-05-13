@@ -1,6 +1,8 @@
 import utils from '.';
 import { Transaction } from '../../generated/apiClient';
 import { transactionProps } from 'components/Transactions/Transaction';
+import { TransactionDetailResponse } from '../../generated/apiClient';
+import '@testing-library/jest-dom';
 
 describe('toEuro function', () => {
   it('should add correctly the euro symbol', () => {
@@ -44,8 +46,7 @@ describe('prepareRowsData function', () => {
         status: {
           label: 'Pagato',
           color: 'success'
-        },
-        action: jest.fn()
+        }
       },
       {
         date: '10/08/2022',
@@ -58,8 +59,7 @@ describe('prepareRowsData function', () => {
         status: {
           label: 'Pagato',
           color: 'success'
-        },
-        action: jest.fn()
+        }
       }
     ];
     expect(
@@ -72,5 +72,48 @@ describe('prepareRowsData function', () => {
         })
       )
     ).toBe(JSON.stringify(rows));
+  });
+});
+
+describe('return a transactiondetail object', () => {
+  it('should return a transaction detail object', () => {
+    const resp: TransactionDetailResponse = {
+      infoTransaction: {
+        transactionId: 'string',
+        authCode: 'string',
+        rrn: 'string',
+        transactionDate: 'string',
+        pspName: 'string',
+        walletInfo: { accountHolder: 'string', brand: 'string', blurredNumber: 'string' },
+        paymentMethod: 'BBT',
+        payer: { name: 'string', taxCode: 'string' },
+        amount: 'string',
+        fee: 'string',
+        origin: 'INTERNAL'
+      },
+      carts: [
+        {
+          subject: 'string',
+          amount: 'string',
+          payee: { name: 'string', taxCode: 'string' },
+          debtor: { name: 'string', taxCode: 'string' },
+          refNumberValue: 'string',
+          refNumberType: 'string'
+        }
+      ]
+    };
+
+    expect(utils.converters.prepareTransactionDetailData(resp)).toHaveProperty('transactionId');
+  });
+});
+
+describe('return a transactiondetail object even if the reponse is empty', () => {
+  it('should return a transaction detail object', () => {
+    const resp: TransactionDetailResponse = {
+      infoTransaction: {},
+      carts: [{}]
+    };
+
+    expect(utils.converters.prepareTransactionDetailData(resp)).toHaveProperty('transactionId');
   });
 });

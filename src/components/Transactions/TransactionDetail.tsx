@@ -6,6 +6,7 @@ import { TransactionDetail } from '../../models/TransactionDetail';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useReceiptData } from 'hooks/useReceiptData';
+import humanDate from '../../utils/datetools';
 
 export default function TransactionDetail({
   transactionData
@@ -45,9 +46,10 @@ export default function TransactionDetail({
       </Stack>
 
       <Stack spacing={2} mt={3} width={'100%'}>
-        <Box>
-          <Typography>
-            {t('app.transactionDetail.createdOn') + ' ' + transactionData.dateTime.toDateString()}
+        <Box display={'flex'}>
+          <Typography>{t('app.transactionDetail.createdOn')}</Typography>
+          <Typography fontWeight={600}>
+            &nbsp;{humanDate(navigator.language, transactionData.dateTime)}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
@@ -128,7 +130,7 @@ export default function TransactionDetail({
                         {t('app.transactionDetail.paymentMethod')}
                       </Typography>
                       <Typography fontWeight={600}>
-                        {transactionData.paymentMethod + ' ' + transactionData.cardNumber}
+                        {`${transactionData.paymentMethod} ${transactionData.cardNumber}`}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -144,7 +146,7 @@ export default function TransactionDetail({
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
                   <Typography fontWeight={600}>
-                    {transactionData.dateTime.toDateString()}
+                    {humanDate(navigator.language, transactionData.dateTime)}
                   </Typography>
                 </Stack>
               </Stack>
@@ -194,27 +196,22 @@ export default function TransactionDetail({
                   <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.partialAmount')}
                   </Typography>
-                  <Typography fontWeight={600}>
-                    {transactionData.partialAmount.toFixed(2)} €
-                  </Typography>
+                  <Typography fontWeight={600}>{transactionData.partialAmount}</Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
                   <Typography color={theme.palette.text.secondary}>
-                    {t('app.transactionDetail.commission') +
-                      ' (' +
-                      t('app.transactionDetail.appliedBy') +
-                      ' ' +
-                      transactionData.PSP +
-                      ')'}
+                    {`${t('app.transactionDetail.commission')} (${t(
+                      'app.transactionDetail.appliedBy'
+                    )} ${transactionData.PSP})`}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.fee.toFixed(2)} €</Typography>
+                  <Typography fontWeight={600}>{transactionData.fee}</Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
                   <Typography color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.total')}
                   </Typography>
                   <Typography variant="h6">
-                    <b>{transactionData.total.toFixed(2)} €</b>
+                    <b>{transactionData.total}</b>
                   </Typography>
                 </Stack>
               </Stack>
