@@ -28,9 +28,6 @@ export default function TransactionDetail({
         sx={{ width: '100%' }}>
         <Typography variant="h4">{transactionData.subject}</Typography>
         <Stack direction="row" spacing={0.6}>
-          <Button endIcon={<Download />} size="large" variant="outlined">
-            {t('app.transactionDetail.downloadQuiettance')}
-          </Button>
           <Button
             data-testid="receipt-download-btn"
             endIcon={<Download />}

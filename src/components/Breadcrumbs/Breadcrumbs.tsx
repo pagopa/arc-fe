@@ -24,7 +24,7 @@ const Breadcrumbs = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const show = crumbs && crumbs.elements.length > 1;
+  const show = crumbs.backButton || (crumbs.elements && crumbs.elements.length > 1);
 
   return (
     show && (

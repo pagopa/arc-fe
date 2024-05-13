@@ -29,7 +29,8 @@ interface payeeIconProps {
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  borderBottomColor: theme.palette.divider
+  borderBottomColor: theme.palette.divider,
+  cursor: 'pointer'
 }));
 
 const PayeeIcon = (props: payeeIconProps) => (
@@ -52,7 +53,7 @@ const PayeeIcon = (props: payeeIconProps) => (
 const Transaction = (props: transactionProps) => {
   const { payee, status, amount, id, date, action } = props;
   return (
-    <TableRow>
+    <TableRow onClick={() => action(id)}>
       <StyledTableCell width={'60%'}>
         <Stack direction="row" spacing={2} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
