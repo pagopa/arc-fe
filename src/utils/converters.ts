@@ -42,6 +42,7 @@ const prepareRowsData = (data: PrepareRowsData): transactionProps[] =>
 const prepareTransactionDetailData = (
   transactionDetail: TransactionDetailResponse
 ): TransactionDetail => {
+  const formatter = new Intl.NumberFormat('it-IT', { minimumFractionDigits: 2 });
   return {
     paidBy: transactionDetail.infoTransaction.payer?.name || '-',
     authCode: transactionDetail.infoTransaction.authCode || '-',
@@ -62,10 +63,10 @@ const prepareTransactionDetailData = (
     partialAmount: (transactionDetail.infoTransaction.amount || '-') + ' €',
     fee: (transactionDetail.infoTransaction.fee || '-') + ' €',
     total:
-      (
+      formatter.format(
         parseFloat(transactionDetail.infoTransaction.amount || '0') +
-        parseFloat(transactionDetail.infoTransaction.fee || '0')
-      ).toString() + ' €',
+          parseFloat(transactionDetail.infoTransaction.fee || '0')
+      ) + ' €',
     status: 'SUCCESS'
   };
 };
