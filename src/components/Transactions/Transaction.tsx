@@ -54,7 +54,7 @@ const Transaction = (props: transactionProps) => {
   const { payee, status, amount, id, date } = props;
   const navigate = useNavigate();
   return (
-    <TableRow onClick={() => action(id)}>
+    <TableRow onClick={() => navigate(`/transaction/${id}`)}>
       <StyledTableCell width={'60%'}>
         <Stack direction="row" spacing={2} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
@@ -76,11 +76,7 @@ const Transaction = (props: transactionProps) => {
         </Typography>
       </StyledTableCell>
       <StyledTableCell align="right">
-        <Button
-          variant="naked"
-          onClick={() => navigate(`/transaction/${id}`)}
-          endIcon={<ArrowForwardIosIcon color="primary" />}
-        />
+        <Button variant="naked" endIcon={<ArrowForwardIosIcon color="primary" />} />
       </StyledTableCell>
     </TableRow>
   );
