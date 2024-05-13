@@ -6,7 +6,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material/styles';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import style from 'utils/style';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export interface transactionProps {
   payee: {
@@ -29,8 +30,7 @@ interface payeeIconProps {
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  borderBottomColor: theme.palette.divider,
-  cursor: 'pointer'
+  borderBottomColor: theme.palette.divider
 }));
 
 const PayeeIcon = (props: payeeIconProps) => (
@@ -43,7 +43,7 @@ const PayeeIcon = (props: payeeIconProps) => (
     display="flex"
     justifyContent="center">
     {props.src ? (
-      <img src={props.src} alt={props.alt} />
+      <img src={props.src} alt={props.alt} style={{ width: 'inherit' }} />
     ) : (
       <AccountBalanceIcon sx={{ color: style.theme.palette.grey[400] }} />
     )}
@@ -51,32 +51,64 @@ const PayeeIcon = (props: payeeIconProps) => (
 );
 
 const Transaction = (props: transactionProps) => {
+  const { t } = useTranslation();
+
   const { payee, status, amount, id, date } = props;
-  const navigate = useNavigate();
   return (
-    <TableRow onClick={() => navigate(`/transaction/${id}`)}>
+    <TableRow>
       <StyledTableCell width={'60%'}>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
-          <Typography variant="body2" fontWeight={600}>
-            {payee.name}
-          </Typography>
-        </Stack>
-      </StyledTableCell>
-      <StyledTableCell align="center" width={'12%'}>
-        <Chip label={status.label} color={status.color} />
-      </StyledTableCell>
-      <StyledTableCell align="center" width={'12%'}>
-        {date}
+        <Link
+          aria-label={t('app.routes.transactionDetail')}
+          role="link"
+          style={{ textDecoration: 'none' }}
+          to={`/transaction/${id}`}>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
+            <Typography variant="body2" fontWeight={600}>
+              {payee.name}
+            </Typography>
+          </Stack>
+        </Link>
       </StyledTableCell>
 
       <StyledTableCell align="center" width={'12%'}>
-        <Typography variant="body2" fontWeight={600}>
-          {amount}
-        </Typography>
+        <Link
+          aria-label={t('app.routes.transactionDetail')}
+          role="link"
+          style={{ textDecoration: 'none' }}
+          to={`/transaction/${id}`}>
+          <Chip label={status.label} color={status.color} />
+        </Link>
+      </StyledTableCell>
+      <StyledTableCell align="center" width={'12%'}>
+        <Link
+          aria-label={t('app.routes.transactionDetail')}
+          role="link"
+          style={{ textDecoration: 'none' }}
+          to={`/transaction/${id}`}>
+          <Typography variant="body2">{date}</Typography>
+        </Link>
+      </StyledTableCell>
+
+      <StyledTableCell align="center" width={'12%'}>
+        <Link
+          aria-label={t('app.routes.transactionDetail')}
+          role="link"
+          style={{ textDecoration: 'none' }}
+          to={`/transaction/${id}`}>
+          <Typography variant="body2" fontWeight={600}>
+            {amount}
+          </Typography>
+        </Link>
       </StyledTableCell>
       <StyledTableCell align="right">
-        <Button variant="naked" endIcon={<ArrowForwardIosIcon color="primary" />} />
+        <Link
+          aria-label={t('app.routes.transactionDetail')}
+          role="link"
+          style={{ textDecoration: 'none' }}
+          to={`/transaction/${id}`}>
+          <Button variant="naked" endIcon={<ArrowForwardIosIcon color="primary" />} />
+        </Link>
       </StyledTableCell>
     </TableRow>
   );
