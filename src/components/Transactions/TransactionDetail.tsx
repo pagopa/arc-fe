@@ -82,7 +82,11 @@ export default function TransactionDetail({
                         {t('app.transactionDetail.transactionId')}
                       </Typography>
                       <Typography fontWeight={600} color={theme.palette.primary.main}>
-                        <u>{transactionData.transactionId.substring(0, 20)}...</u>
+                        <u>
+                          {transactionData.transactionId.length > 20
+                            ? transactionData.transactionId.substring(0, 20) + '…'
+                            : transactionData.transactionId}
+                        </u>
                       </Typography>
                     </Stack>
                   </Grid>
