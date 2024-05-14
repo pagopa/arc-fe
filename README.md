@@ -21,10 +21,11 @@ In order to build and run this project are required:
 
 The table below describes all the Environment variables needed by the application.
 
-| Variable name | Description      | type            |
-|---------------|------------------|-----------------|
-| APIHOST       | api service host | endpoint/string
-| ENV           | environment id   | string
+| Variable name    | Description       | type            |
+|------------------|-------------------|-----------------|
+| APIHOST          | api service host  | endpoint/string |
+| ENV              | environment id    | string          |
+| ENTITIES_LOGO_CDN| cdn link for logos| endpoint/string |
 
 ### Installation
 

@@ -30,7 +30,7 @@ const prepareRowsData = (data: PrepareRowsData): transactionProps[] =>
     payee: {
       name: element.payeeName || data.payee.multi,
       // update here the cdn host when avaiable
-      srcImg: element.payeeTaxCode ? `${ENTITIES_LOGO_CDN}${element.payeeTaxCode}.png` : undefined,
+      srcImg: element.payeeTaxCode ? `${ENTITIES_LOGO_CDN}/${element.payeeTaxCode}.png` : undefined,
       altImg: data.payee.altImg || `Logo Ente`
     },
     // needs to be updated when status can be different from success
