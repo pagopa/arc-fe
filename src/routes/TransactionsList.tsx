@@ -24,7 +24,7 @@ export default function TransactionsList() {
   });
   const paidByMe = utils.converters.prepareRowsData({
     transactions: (transactions as AxiosResponse<TransactionsResponse>).data.filter(
-      (t) => t.payedByMe == true
+      ({ payedByMe }) => payedByMe
     ),
     status: { label: t('app.transactions.payed') },
     payee: { multi: t('app.transactions.multiEntities') },
@@ -33,7 +33,7 @@ export default function TransactionsList() {
 
   const ownedByMe = utils.converters.prepareRowsData({
     transactions: (transactions as AxiosResponse<TransactionsResponse>).data.filter(
-      (t) => t.payedByMe == false
+      ({ payedByMe }) => !payedByMe
     ),
     status: { label: t('app.transactions.payed') },
     payee: { multi: t('app.transactions.multiEntities') },
