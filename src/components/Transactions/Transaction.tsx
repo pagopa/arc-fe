@@ -1,7 +1,7 @@
 import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
+import { Box, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material/styles';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -29,7 +29,8 @@ interface payeeIconProps {
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  borderBottomColor: theme.palette.divider
+  borderBottomColor: theme.palette.divider,
+  cursor: 'pointer'
 }));
 
 const PayeeIcon = (props: payeeIconProps) => (
@@ -42,7 +43,7 @@ const PayeeIcon = (props: payeeIconProps) => (
     display="flex"
     justifyContent="center">
     {props.src ? (
-      <img src={props.src} alt={props.alt} />
+      <img src={props.src} alt={props.alt} style={{ width: 'inherit' }} />
     ) : (
       <AccountBalanceIcon sx={{ color: style.theme.palette.grey[400] }} />
     )}
@@ -50,10 +51,14 @@ const PayeeIcon = (props: payeeIconProps) => (
 );
 
 const Transaction = (props: transactionProps) => {
-  const { payee, status, amount, id, date } = props;
   const navigate = useNavigate();
+
+  const { payee, status, amount, id, date } = props;
   return (
-    <TableRow>
+    <TableRow
+      role="button"
+      data-testid="transaction-details-button"
+      onClick={() => navigate(`/transaction/${id}`)}>
       <StyledTableCell width={'60%'}>
         <Stack direction="row" spacing={2} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
@@ -62,11 +67,12 @@ const Transaction = (props: transactionProps) => {
           </Typography>
         </Stack>
       </StyledTableCell>
+
       <StyledTableCell align="center" width={'12%'}>
         <Chip label={status.label} color={status.color} />
       </StyledTableCell>
       <StyledTableCell align="center" width={'12%'}>
-        {date}
+        <Typography variant="body2">{date}</Typography>
       </StyledTableCell>
 
       <StyledTableCell align="center" width={'12%'}>
@@ -75,11 +81,7 @@ const Transaction = (props: transactionProps) => {
         </Typography>
       </StyledTableCell>
       <StyledTableCell align="right">
-        <Button
-          variant="naked"
-          onClick={() => navigate(`/transaction/${id}`)}
-          endIcon={<ArrowForwardIosIcon color="primary" />}
-        />
+        <ArrowForwardIosIcon color="primary" />
       </StyledTableCell>
     </TableRow>
   );
