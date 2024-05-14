@@ -35,7 +35,7 @@ const router = createBrowserRouter([
               {
                 name: 'user',
                 fontWeight: 400,
-                color: theme.palette.text.disabled
+                color: theme.palette.grey[700]
               }
             ]
           }
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
               {
                 name: 'transactionDetail',
                 fontWeight: 400,
-                color: theme.palette.text.disabled
+                color: theme.palette.grey[700]
               }
             ]
           }
