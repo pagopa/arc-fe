@@ -41,7 +41,7 @@ describe('Transactions table component', () => {
       </BrowserRouter>
     );
 
-    const button = screen.getAllByRole('button')[0];
+    const button = screen.getByTestId('transaction-details-button');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
   });

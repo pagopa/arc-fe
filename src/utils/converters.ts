@@ -19,7 +19,7 @@ interface PrepareRowsData {
   action: (id: string) => void;
 }
 
-const CDN_URL = 'https://assets.cdn.io.italia.it/logos/organizations/';
+const { ENTITIES_LOGO_CDN } = process.env;
 
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
 const prepareRowsData = (data: PrepareRowsData): transactionProps[] =>
@@ -30,7 +30,7 @@ const prepareRowsData = (data: PrepareRowsData): transactionProps[] =>
     payee: {
       name: element.payeeName || data.payee.multi,
       // update here the cdn host when avaiable
-      srcImg: element.payeeTaxCode ? `${CDN_URL}${element.payeeTaxCode}.png` : undefined,
+      srcImg: element.payeeTaxCode ? `${ENTITIES_LOGO_CDN}${element.payeeTaxCode}.png` : undefined,
       altImg: data.payee.altImg || `Logo Ente`
     },
     // needs to be updated when status can be different from success

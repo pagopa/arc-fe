@@ -1,7 +1,7 @@
 import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
+import { Box, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material/styles';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -55,7 +55,10 @@ const Transaction = (props: transactionProps) => {
 
   const { payee, status, amount, id, date } = props;
   return (
-    <TableRow role="button" onClick={() => navigate(`/transaction/${id}`)}>
+    <TableRow
+      role="button"
+      data-testid="transaction-details-button"
+      onClick={() => navigate(`/transaction/${id}`)}>
       <StyledTableCell width={'60%'}>
         <Stack direction="row" spacing={2} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
@@ -78,7 +81,7 @@ const Transaction = (props: transactionProps) => {
         </Typography>
       </StyledTableCell>
       <StyledTableCell align="right">
-        <Button variant="naked" endIcon={<ArrowForwardIosIcon color="primary" />} />
+        <ArrowForwardIosIcon color="primary" />
       </StyledTableCell>
     </TableRow>
   );
