@@ -16,12 +16,6 @@ export default function TransactionsList() {
   const transactions = useLoaderData();
   const navigate = useNavigate();
 
-  const rows = utils.converters.prepareRowsData({
-    transactions: (transactions as AxiosResponse<TransactionsResponse>).data,
-    status: { label: t('app.transactions.payed') },
-    payee: { multi: t('app.transactions.multiEntities') },
-    action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
-  });
   const paidByMe = utils.converters.prepareRowsData({
     transactions: (transactions as AxiosResponse<TransactionsResponse>).data.filter(
       ({ payedByMe }) => payedByMe
@@ -114,7 +108,7 @@ export default function TransactionsList() {
         tabs={[
           {
             title: t('app.transactions.all'),
-            content: <Transactions rows={rows} />
+            content: <Transactions rows={paidByMe.concat(ownedByMe)} />
           },
           {
             title: t('app.transactions.paidByMe'),
