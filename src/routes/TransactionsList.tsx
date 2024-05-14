@@ -2,7 +2,6 @@ import React from 'react';
 import Tabs from 'components/Tabs';
 import Transactions from 'components/Transactions/Transactions';
 import {
-  Box,
   FormControl,
   Grid,
   InputAdornment,
