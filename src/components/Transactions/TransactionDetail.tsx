@@ -29,9 +29,6 @@ export default function TransactionDetail({
         sx={{ width: '100%' }}>
         <Typography variant="h4">{transactionData.subject}</Typography>
         <Stack direction="row" spacing={0.6}>
-          <Button endIcon={<Download />} size="large" variant="outlined">
-            {t('app.transactionDetail.downloadQuiettance')}
-          </Button>
           <Button
             data-testid="receipt-download-btn"
             endIcon={<Download />}
@@ -67,8 +64,11 @@ export default function TransactionDetail({
                     <Typography color={theme.palette.text.secondary}>
                       {t('app.transactionDetail.authCode')}
                     </Typography>
-                    <Typography fontWeight={600} color={theme.palette.primary.main}>
-                      <u>{transactionData.authCode}</u>
+                    <Typography
+                      fontWeight={600}
+                      color={theme.palette.primary.main}
+                      sx={{ textDecoration: 'underline' }}>
+                      {transactionData.authCode}
                     </Typography>
                   </Grid>
                   <Grid item xs={2} paddingTop={1}>
@@ -84,8 +84,13 @@ export default function TransactionDetail({
                       <Typography color={theme.palette.text.secondary}>
                         {t('app.transactionDetail.transactionId')}
                       </Typography>
-                      <Typography fontWeight={600} color={theme.palette.primary.main}>
-                        <u>{transactionData.transactionId.substring(0, 20)}...</u>
+                      <Typography
+                        fontWeight={600}
+                        color={theme.palette.primary.main}
+                        sx={{ textDecoration: 'underline' }}>
+                        {transactionData.transactionId.length > 20
+                          ? transactionData.transactionId.substring(0, 20) + '…'
+                          : transactionData.transactionId}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -100,8 +105,11 @@ export default function TransactionDetail({
                   <Grid item xs={9}>
                     <Stack>
                       <Typography color={theme.palette.text.secondary}>PRN</Typography>
-                      <Typography fontWeight={600} color={theme.palette.primary.main}>
-                        <u>{transactionData.PRN}</u>
+                      <Typography
+                        fontWeight={600}
+                        color={theme.palette.primary.main}
+                        sx={{ textDecoration: 'underline' }}>
+                        {transactionData.PRN}
                       </Typography>
                     </Stack>
                   </Grid>

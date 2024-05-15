@@ -40,7 +40,7 @@ describe('prepareRowsData function', () => {
         id: '1',
         payee: {
           name: 'Comune di Milano',
-          srcImg: 'http://cdn.com/MI_XXX.png',
+          srcImg: 'https://assets.cdn.io.italia.it/logos/organizations/MI_XXX.png',
           altImg: 'Logo Ente'
         },
         status: {

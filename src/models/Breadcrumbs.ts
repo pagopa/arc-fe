@@ -1,6 +1,6 @@
 export interface BreadcrumbPath {
   backButton?: boolean;
-  elements: BreadcrumbElement[];
+  elements?: BreadcrumbElement[];
   routeName?: string;
 }
 

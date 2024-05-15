@@ -4,10 +4,9 @@ import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import style from 'utils/style';
-import { Box, Button, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
+import { Box, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 export interface transactionProps {
   payee: {
@@ -30,7 +29,8 @@ interface payeeIconProps {
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  borderBottomColor: theme.palette.divider
+  borderBottomColor: theme.palette.divider,
+  cursor: 'pointer'
 }));
 
 const PayeeIcon = (props: payeeIconProps) => (
@@ -43,7 +43,12 @@ const PayeeIcon = (props: payeeIconProps) => (
     display="flex"
     justifyContent="center">
     {props.src ? (
-      <img src={props.src} alt={`Logo ${props.alt || ''}`} aria-hidden="true" />
+      <img
+        src={props.src}
+        alt={`Logo ${props.alt || ''}`}
+        aria-hidden="true"
+        style={{ width: 'inherit' }}
+      />
     ) : (
       <AccountBalanceIcon sx={{ color: style.theme.palette.grey[400] }} />
     )}
@@ -51,11 +56,14 @@ const PayeeIcon = (props: payeeIconProps) => (
 );
 
 const Transaction = (props: transactionProps) => {
-  const { payee, status, amount, id, date } = props;
   const navigate = useNavigate();
-  const { t } = useTranslation();
+
+  const { payee, status, amount, id, date } = props;
   return (
-    <TableRow>
+    <TableRow
+      role="button"
+      data-testid="transaction-details-button"
+      onClick={() => navigate(`/transaction/${id}`)}>
       <StyledTableCell width={'60%'}>
         <Stack direction="row" spacing={2} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
@@ -64,11 +72,12 @@ const Transaction = (props: transactionProps) => {
           </Typography>
         </Stack>
       </StyledTableCell>
+
       <StyledTableCell align="center" width={'12%'}>
         <Chip label={status.label} color={status.color} />
       </StyledTableCell>
       <StyledTableCell align="center" width={'12%'}>
-        {date}
+        <Typography variant="body2">{date}</Typography>
       </StyledTableCell>
 
       <StyledTableCell align="center" width={'12%'}>
@@ -77,12 +86,7 @@ const Transaction = (props: transactionProps) => {
         </Typography>
       </StyledTableCell>
       <StyledTableCell align="right">
-        <Button
-          aria-label={t('app.transactions.viewDetail')}
-          variant="naked"
-          onClick={() => navigate(`/transaction/${id}`)}
-          endIcon={<ArrowForwardIosIcon color="primary" />}
-        />
+        <ArrowForwardIosIcon color="primary" />
       </StyledTableCell>
     </TableRow>
   );

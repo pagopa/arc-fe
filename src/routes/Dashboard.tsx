@@ -4,7 +4,7 @@ import Transactions from 'components/Transactions/Transactions';
 import IOAlert from 'components/Alerts/IOAlert';
 import { Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import utils from 'utils';
 import { AxiosResponse } from 'axios';
 import { TransactionsResponse } from '../../generated/apiClient';
@@ -41,7 +41,9 @@ export default function Dashboard() {
         <Typography variant="h6" component="h2">
           {t('app.dashboard.lastTransactions')}
         </Typography>
-        <Button>{t('app.dashboard.seeAllTransactions')}</Button>
+        <Button component={Link} to={ArcRoutes.TRANSACTIONS}>
+          {t('app.dashboard.seeAllTransactions')}
+        </Button>
       </Stack>
       <Tabs
         initialActiveTab={0}

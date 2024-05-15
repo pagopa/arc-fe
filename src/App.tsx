@@ -29,15 +29,7 @@ const router = createBrowserRouter([
             visibile: false
           },
           crumbs: {
-            backButton: true,
-            elements: [
-              { name: 'home', fontWeight: 600, href: ArcRoutes.DASHBOARD },
-              {
-                name: 'user',
-                fontWeight: 400,
-                color: theme.palette.grey[700]
-              }
-            ]
+            backButton: true
           }
         } as RouteHandleObject
       },
