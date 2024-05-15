@@ -1,11 +1,15 @@
 import utils from 'utils';
 
-const dashoboard = () => {
+const dashoboard = async () => {
   try {
-    return utils.apiClient.transactions.getTransactionList();
+    const { data: transactions } = await utils.apiClient.transactions.getTransactionList();
+    // run-time validation of the getTransactionList's Response
+    utils.zodSchema.transactionsResponseSchema.parse(transactions);
+    return transactions;
   } catch (e) {
     console.error(e);
-    return [];
+    // will be catched by react-router-dom and an errorElement component shown as feedback
+    return e;
   }
 };
 

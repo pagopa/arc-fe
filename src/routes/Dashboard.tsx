@@ -6,8 +6,7 @@ import { Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import utils from 'utils';
-import { AxiosResponse } from 'axios';
-import { TransactionsResponse } from '../../generated/apiClient';
+import { TransactionsResponse } from '../../generated/data-contracts';
 import { ArcRoutes } from './routes';
 
 export default function Dashboard() {
@@ -16,7 +15,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const rows = utils.converters.prepareRowsData({
-    transactions: (transactions as AxiosResponse<TransactionsResponse>).data,
+    transactions: transactions as TransactionsResponse,
     status: { label: t('app.transactions.payed') },
     payee: { multi: t('app.transactions.multiEntities') },
     action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
