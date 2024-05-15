@@ -6,7 +6,10 @@
   "license": "MIT",
   "source": "src/index.html",
   "scripts": {
-    "generate": "swagger-typescript-api -p https://raw.githubusercontent.com/pagopa/pagopa-arc-be-mock/develop/openapi/arc_be_mock.yml -o ./generated -n apiClient --axios",
+    "generate-api-client": "swagger-typescript-api -p https://raw.githubusercontent.com/pagopa/pagopa-arc-be-mock/develop/openapi/arc_be_mock.yml -o ./generated -n apiClient --axios",
+    "generate-data-contracts": "swagger-typescript-api  --modular --no-client -p https://raw.githubusercontent.com/pagopa/pagopa-arc-be-mock/develop/openapi/arc_be_mock.yml -o ./generated",
+    "generate-zod-schema": "yarn ts-to-zod",
+    "generate": "yarn generate-api-client && yarn generate-data-contracts && yarn generate-zod-schema",
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
     "lint:fix": "eslint . -c .eslintrc.js --ext .ts,.tsx --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
@@ -53,6 +56,7 @@
     "swagger-typescript-api": "^13.0.3",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "ts-to-zod": "^3.8.5",
     "tsconfig.json": "^1.0.11",
     "typescript": "^5.4.3",
     "vite": "^5.2.8"

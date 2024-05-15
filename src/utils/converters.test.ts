@@ -1,7 +1,7 @@
 import utils from '.';
-import { Transaction } from '../../generated/apiClient';
+import { Transaction } from '../../generated/data-contracts';
 import { transactionProps } from 'components/Transactions/Transaction';
-import { TransactionDetailResponse } from '../../generated/apiClient';
+import { TransactionDetailResponse } from '../../generated/data-contracts';
 import '@testing-library/jest-dom';
 
 describe('toEuro function', () => {
