@@ -1,6 +1,6 @@
 import utils from 'utils';
 
-const dashoboard = async () => {
+const dashboard = async () => {
   try {
     const { data: transactions } = await utils.apiClient.transactions.getTransactionList();
     // run-time validation of the getTransactionList's Response
@@ -8,24 +8,24 @@ const dashoboard = async () => {
     return transactions;
   } catch (e) {
     console.error(e);
-    // will be catched by react-router-dom and an errorElement component shown as feedback
+    // react-router-dom will catch this error and an errorElement component shown as feedback
     return e;
   }
 };
 
-const transactionDetails = (id: string | undefined) => {
+const transactionDetails = async (id: string | undefined) => {
   try {
-    if (!id) throw 'no id';
-    return id && utils.apiClient.transactions.getTransactionDetails(id);
+    if (!id) throw new Error('no id');
+    return id && (await utils.apiClient.transactions.getTransactionDetails(id));
   } catch (e) {
     console.error(e);
     return [];
   }
 };
 
-const transactionList = () => {
+const transactionList = async () => {
   try {
-    return utils.apiClient.transactions.getTransactionList();
+    return await utils.apiClient.transactions.getTransactionList();
   } catch (e) {
     console.error(e);
     return [];
@@ -34,7 +34,7 @@ const transactionList = () => {
 //I kept the two loaders separate because they are named after the route, not the kind of data that they return.
 
 export default {
-  dashoboard,
+  dashboard,
   transactionDetails,
   transactionList
 };

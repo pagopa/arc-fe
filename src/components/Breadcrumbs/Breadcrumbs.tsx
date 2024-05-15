@@ -13,18 +13,17 @@ import { BreadcrumbPath } from 'models/Breadcrumbs';
 import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
 
-const Breadcrumbs = ({
-  separator,
-  crumbs
-}: {
+export type BreadcrumbsProps = {
   separator: React.ReactElement;
   crumbs: BreadcrumbPath;
-}) => {
+};
+
+const Breadcrumbs = ({ separator, crumbs }: BreadcrumbsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const show = crumbs.backButton || (crumbs.elements && crumbs.elements.length > 1);
+  const show = crumbs?.backButton || (crumbs?.elements && crumbs?.elements?.length > 1);
 
   return (
     show && (
@@ -65,7 +64,7 @@ const Breadcrumbs = ({
                   aria-label={t('app.routes.breadcrumbsElement')}
                   aria-current="page"
                   fontWeight={r.fontWeight}
-                  color={r.color || theme.palette.text.primary}>
+                  color={r?.color || theme.palette.text.primary}>
                   {t(`app.routes.${r.name}`)}
                 </Typography>
               );

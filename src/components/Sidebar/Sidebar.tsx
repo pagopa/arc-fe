@@ -9,7 +9,7 @@ import React from 'react';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Tooltip from '@mui/material/Tooltip';
 import ViewSidebarIcon from '@mui/icons-material/ViewSidebar';
-import useCollapseMenu from './useCollapseMenu';
+import useCollapseMenu from 'hooks/useCollapseMenu';
 
 export const Sidebar = () => {
   const { t } = useTranslation();

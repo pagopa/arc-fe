@@ -1,7 +1,7 @@
 import utils from '.';
-import { Transaction } from '../../generated/data-contracts';
-import { transactionProps } from 'components/Transactions/Transaction';
-import { TransactionDetailResponse } from '../../generated/data-contracts';
+import { Transaction } from '../../generated/apiClient';
+import { TransactionProps } from 'components/Transactions/Transaction';
+import { TransactionDetailResponse } from '../../generated/apiClient';
 import '@testing-library/jest-dom';
 
 describe('toEuro function', () => {
@@ -33,7 +33,7 @@ describe('prepareRowsData function', () => {
       }
     ];
 
-    const rows: transactionProps[] = [
+    const rows: TransactionProps[] = [
       {
         date: '27/03/2024',
         amount: '180,00 €',
@@ -75,7 +75,7 @@ describe('prepareRowsData function', () => {
   });
 });
 
-describe('return a transactiondetail object', () => {
+describe('return a transactionDetail object', () => {
   it('should return a transaction detail object', () => {
     const resp: TransactionDetailResponse = {
       infoTransaction: {
@@ -107,7 +107,7 @@ describe('return a transactiondetail object', () => {
   });
 });
 
-describe('return a transactiondetail object even if the reponse is empty', () => {
+describe('return a transactionDetail object even if the response is empty', () => {
   it('should return a transaction detail object', () => {
     const resp: TransactionDetailResponse = {
       infoTransaction: {},
