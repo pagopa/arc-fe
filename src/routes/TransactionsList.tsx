@@ -13,14 +13,37 @@ import {
   Typography
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
-// TO BE REMOVED
-import { dummyTransactionsData } from '../stories/utils/mocks';
 import { Search } from '@mui/icons-material';
 import { theme } from '@pagopa/mui-italia';
+import { AxiosResponse } from 'axios';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import utils from 'utils';
+import { TransactionsResponse } from '../../generated/apiClient';
+import { ArcRoutes } from './routes';
 
 export default function TransactionsList() {
   const { t } = useTranslation();
+  const transactions = useLoaderData();
+  const navigate = useNavigate();
+
+  const paidByMe = utils.converters.prepareRowsData({
+    transactions: (transactions as AxiosResponse<TransactionsResponse>).data.filter(
+      ({ payedByMe }) => payedByMe
+    ),
+    status: { label: t('app.transactions.payed') },
+    payee: { multi: t('app.transactions.multiEntities') },
+    action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+  });
+
+  const ownedByMe = utils.converters.prepareRowsData({
+    transactions: (transactions as AxiosResponse<TransactionsResponse>).data.filter(
+      ({ payedByMe }) => !payedByMe
+    ),
+    status: { label: t('app.transactions.payed') },
+    payee: { multi: t('app.transactions.multiEntities') },
+    action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+  });
+
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={7}>
@@ -75,15 +98,15 @@ export default function TransactionsList() {
         tabs={[
           {
             title: t('app.transactions.all'),
-            content: <Transactions rows={dummyTransactionsData.all} />
+            content: <Transactions rows={paidByMe.concat(ownedByMe)} />
           },
           {
             title: t('app.transactions.paidByMe'),
-            content: <Transactions rows={dummyTransactionsData.payedByMe} />
+            content: <Transactions rows={paidByMe} />
           },
           {
             title: t('app.transactions.ownedByMe'),
-            content: <Transactions rows={dummyTransactionsData.ownedByMe} />
+            content: <Transactions rows={ownedByMe} />
           }
         ]}
       />

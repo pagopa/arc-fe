@@ -19,7 +19,18 @@ const transactionDetails = (id: string | undefined) => {
   }
 };
 
+const transactionList = () => {
+  try {
+    return utils.apiClient.transactions.getTransactionList();
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+};
+//I kept the two loaders separate because they are named after the route, not the kind of data that they return.
+
 export default {
   dashoboard,
-  transactionDetails
+  transactionDetails,
+  transactionList
 };

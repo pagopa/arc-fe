@@ -62,7 +62,10 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.TRANSACTIONS,
-        element: <TransactionsList />
+        element: <TransactionsList />,
+        loader: utils.loaders.transactionList,
+        // TEMPORARY ERROR ELEMENT
+        errorElement: <p>Ops!... somethig went wrong</p>
       }
     ]
   }
