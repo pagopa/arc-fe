@@ -1,11 +1,11 @@
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Box, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { styled } from '@mui/material/styles';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import style from 'utils/style';
+import { Box, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
 export interface transactionProps {
@@ -43,7 +43,12 @@ const PayeeIcon = (props: payeeIconProps) => (
     display="flex"
     justifyContent="center">
     {props.src ? (
-      <img src={props.src} alt={props.alt} style={{ width: 'inherit' }} />
+      <img
+        src={props.src}
+        alt={`Logo ${props.alt || ''}`}
+        aria-hidden="true"
+        style={{ width: 'inherit' }}
+      />
     ) : (
       <AccountBalanceIcon sx={{ color: style.theme.palette.grey[400] }} />
     )}

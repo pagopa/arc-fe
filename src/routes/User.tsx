@@ -8,10 +8,10 @@ export default function UserRoute() {
 
   const UserRowInfo = ({ label, data }: { label: string; data: string }) => (
     <Stack direction="row" alignItems="center" gap={1}>
-      <Typography width="170px" variant="body2">
+      <Typography component="div" width="170px" variant="body2">
         {label}
       </Typography>
-      <Typography variant="subtitle1" fontSize="1rem">
+      <Typography component="div" variant="subtitle1" fontSize="1rem">
         {data}
       </Typography>
     </Stack>
@@ -21,8 +21,12 @@ export default function UserRoute() {
     <>
       <Stack direction="column" gap={3}>
         <Stack direction="column" gap={2}>
-          <Typography variant="h4">{t('app.user.title')}</Typography>
-          <Typography>{t('app.user.subtitle')}</Typography>
+          <Typography variant="h4" component="h1">
+            {t('app.user.title')}
+          </Typography>
+          <Typography variant="body1" component="h2">
+            {t('app.user.subtitle')}
+          </Typography>
         </Stack>
         <Stack gap={2}>
           <Stack bgcolor={theme.palette.background.paper} borderRadius={1} p={3}>

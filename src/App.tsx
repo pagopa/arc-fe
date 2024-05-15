@@ -54,7 +54,7 @@ const router = createBrowserRouter([
               {
                 name: 'transactionDetail',
                 fontWeight: 400,
-                color: theme.palette.text.disabled
+                color: theme.palette.grey[700]
               }
             ]
           }
