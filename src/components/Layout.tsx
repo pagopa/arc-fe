@@ -30,12 +30,12 @@ export function Layout() {
           <Header />
         </Grid>
         {sidebar?.visible ? <Sidebar /> : null}
-        <Grid item bgcolor={grey['100']} padding={4} xs >
+        <Grid item bgcolor={grey['100']} padding={4} xs>
           <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
           <Outlet />
         </Grid>
         <Grid item xs={12} zIndex={theme.zIndex.appBar}>
-          <Footer  />
+          <Footer />
         </Grid>
       </Grid>
     </Container>

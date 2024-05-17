@@ -1,11 +1,11 @@
 import { ArcRoutes } from 'routes/routes';
 import {
-  Backdrop,
   Box,
   Divider,
   Grid,
   IconButton,
   List,
+  Typography,
   useMediaQuery,
   useTheme
 } from '@mui/material';
@@ -13,6 +13,7 @@ import { ISidebarMenuItem } from 'models/SidebarMenuItem';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Tooltip from '@mui/material/Tooltip';
@@ -38,8 +39,10 @@ export const Sidebar = () => {
   ];
   const theme = useTheme();
   const lg = useMediaQuery(theme.breakpoints.up('lg'));
-  const sm = useMediaQuery(theme.breakpoints.up('sm'));
-  const overlay = !collapsed && sm && !lg;
+  const smOrMd = useMediaQuery(theme.breakpoints.between('sm', 'lg')); //had to make a separate variable because otherwise there would be a crash due to too many renders. Variable is true if current breakpoints are sm or md
+  const overlay = !collapsed && smOrMd;
+  const fullHeight = !collapsed || lg;
+  const showHamburger = lg || collapsed;
 
   return (
     <>
@@ -55,8 +58,9 @@ export const Sidebar = () => {
           display={'flex'}
           flexDirection={'column'}
           item
-          minHeight={!collapsed || lg ? '50vh' : '1vh'}
+          minHeight={fullHeight ? '50vh' : '1vh'}
           component={'nav'}
+          aria-expanded={!collapsed}
           aria-label={t('menu.navigationMenu')}
           role="navigation"
           sx={{
@@ -66,30 +70,56 @@ export const Sidebar = () => {
             [theme.breakpoints.up('sm')]: { width: collapsed ? '100%' : '300px' },
             [theme.breakpoints.up('lg')]: { width: collapsed ? '88px' : '300px' }
           }}>
-          {(!collapsed || lg) && (
+          {!showHamburger && (
+            <Box textAlign={'right'} pt={1} pr={2}>
+              <Tooltip
+                placement="left"
+                title={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}>
+                <IconButton
+                  data-testid="collapseClose"
+                  aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
+                  onClick={() => {
+                    changeMenuState(collapsed);
+                  }}
+                  size="large">
+                  <CloseIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
+          {
             <>
-              <List component="ol" aria-label={t('menu.description')}>
+              <List
+                component="ol"
+                aria-label={t('menu.description')}
+                hidden={collapsed && !lg}
+                aria-hidden={collapsed && !lg}>
                 {menuItems.map((item: ISidebarMenuItem, index: number) => (
                   <SidebarMenuItem collapsed={collapsed} item={item} key={index} />
                 ))}
               </List>
               <Divider orientation="horizontal" flexItem />
             </>
-          )}
-          <Box marginTop={!collapsed || lg ? 'auto' : 0}>
+          }
+          <Box marginTop={fullHeight ? 'auto' : 0} hidden={!showHamburger}>
             <Divider orientation="horizontal" flexItem />
             <Box p={2}>
               <Tooltip
-                aria-hidden="true"
                 placement="right"
                 title={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}>
                 <IconButton
+                  data-testid="hamburgerButton"
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
                   onClick={() => {
                     changeMenuState(collapsed);
                   }}
                   size="large">
                   <MenuIcon />
+                  {!lg && (
+                    <Typography variant="button" fontWeight={600} pl={1}>
+                      {t('menu.menu')}
+                    </Typography>
+                  )}
                 </IconButton>
               </Tooltip>
             </Box>

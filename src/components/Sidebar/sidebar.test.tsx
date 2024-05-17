@@ -38,10 +38,10 @@ describe('Sidebar component', () => {
     );
 
     expect(result.container.querySelector('#menu-item-homepage')).toBeInTheDocument();
-    fireEvent.click(screen.getByLabelText('Comprimi il menu'));
+    fireEvent.click(screen.getByTestId('collapseClose'));
     expect(result.container.querySelector('#menu-item-homepage')).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByLabelText('Espandi il menu'));
+    fireEvent.click(screen.getByTestId('hamburgerButton'));
     const button = result.container.querySelector('#menu-item-homepage');
     button && fireEvent.click(button);
   });
