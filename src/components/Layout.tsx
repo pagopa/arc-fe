@@ -23,7 +23,7 @@ export function Layout() {
   } as RouteHandleObject;
 
   return (
-    <Container maxWidth="lg" disableGutters>
+    <Container maxWidth={false} disableGutters>
       <Grid container>
         <Grid item xs={12}>
           <Header />

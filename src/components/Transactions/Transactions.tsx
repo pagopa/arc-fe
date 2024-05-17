@@ -21,7 +21,7 @@ const Transactions = (props: TransactionsProps) => {
       <Table aria-label="Storico table">
         <TableHead sx={{ display: mdUp ? 'table-head' : 'none' }}>
           <TableRow>
-            <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
+            <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} width="60%">
               {t('app.transactions.entityName')}
             </TableCell>
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
