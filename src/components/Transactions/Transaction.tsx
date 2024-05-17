@@ -4,9 +4,10 @@ import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import style from 'utils/style';
-import { Box, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
+import { Box, Chip, ChipOwnProps, Stack, Typography, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { theme } from '@pagopa/mui-italia';
 
 export interface TransactionProps {
   payee: {
@@ -26,6 +27,7 @@ export interface TransactionProps {
 interface payeeIconProps {
   src?: string;
   alt?: string;
+  visible?: boolean;
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -40,14 +42,14 @@ const PayeeIcon = (props: payeeIconProps) => (
     border={`solid 1px ${style.theme.palette.divider}`}
     borderRadius={6}
     alignItems="center"
-    display="flex"
+    display={props.visible ? 'flex' : 'none'}
     justifyContent="center">
     {props.src ? (
       <img
         src={props.src}
         alt={props?.alt ? `Logo ${props.alt}` : 'Logo'}
         aria-hidden="true"
-        style={{ width: 'inherit' }}
+        style={{ width: '55%' }}
       />
     ) : (
       <AccountBalanceIcon sx={{ color: style.theme.palette.grey[400] }} />
@@ -57,36 +59,48 @@ const PayeeIcon = (props: payeeIconProps) => (
 
 const Transaction = (props: TransactionProps) => {
   const navigate = useNavigate();
-
   const { payee, status, amount, id, date } = props;
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const tableCellCssDisplayProperty = mdUp ? 'table-cell' : 'none';
+
   return (
     <TableRow
       role="button"
       data-testid="transaction-details-button"
       onClick={() => navigate(`/transaction/${id}`)}>
-      <StyledTableCell width={'60%'}>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <PayeeIcon src={payee.srcImg} alt={payee.altImg} />
-          <Typography variant="body2" fontWeight={600}>
-            {payee.name}
-          </Typography>
+      <StyledTableCell>
+        <Stack direction="row" spacing={smUp ? 2 : 0} alignItems="center">
+          <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
+          <Box>
+            <Typography variant="body2" fontWeight={600}>
+              {payee.name}
+            </Typography>
+            {!mdUp && (
+              <Typography variant="caption" color="text.secondary">
+                {date}
+              </Typography>
+            )}
+          </Box>
         </Stack>
       </StyledTableCell>
 
-      <StyledTableCell align="center" width={'12%'}>
-        <Chip label={status.label} color={status.color} />
-      </StyledTableCell>
-      <StyledTableCell align="center" width={'12%'}>
+      <StyledTableCell sx={{ display: tableCellCssDisplayProperty }}>
         <Typography variant="body2">{date}</Typography>
       </StyledTableCell>
 
-      <StyledTableCell align="center" width={'12%'}>
-        <Typography variant="body2" fontWeight={600}>
+      <StyledTableCell align={!mdUp ? 'right' : 'left'}>
+        <Typography variant="body2" fontWeight={600} whiteSpace="nowrap">
           {amount}
         </Typography>
       </StyledTableCell>
-      <StyledTableCell align="right">
-        <ArrowForwardIosIcon color="primary" />
+
+      <StyledTableCell sx={{ display: tableCellCssDisplayProperty }}>
+        <Chip label={status.label} color={status.color} />
+      </StyledTableCell>
+
+      <StyledTableCell width="30px">
+        <ArrowForwardIosIcon color="primary" fontSize="small" />
       </StyledTableCell>
     </TableRow>
   );

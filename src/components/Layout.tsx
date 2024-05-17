@@ -29,7 +29,7 @@ export function Layout() {
           <Header />
         </Grid>
         {sidebar?.visible ? <Sidebar /> : null}
-        <Grid item bgcolor={grey['100']} padding={4} xs>
+        <Grid item bgcolor={grey['100']} padding={3} xs>
           <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
           <Outlet />
         </Grid>
