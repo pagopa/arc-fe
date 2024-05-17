@@ -6,6 +6,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const customTheme = createTheme({
   ...theme,
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536
+    }
+  },
   components: {
     MuiTab: {
       styleOverrides: {
