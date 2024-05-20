@@ -1,18 +1,20 @@
 import React from 'react';
-import Tabs from 'components/Tabs';
 import Transactions from 'components/Transactions/Transactions';
 import IOAlert from 'components/Alerts/IOAlert';
-import { Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import utils from 'utils';
 import { TransactionsResponse } from '../../generated/data-contracts';
 import { ArcRoutes } from './routes';
+import { grey } from '@mui/material/colors';
 
 export default function Dashboard() {
   const { t } = useTranslation();
   const transactions = useLoaderData();
   const navigate = useNavigate();
+  const theme = useTheme();
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const rows = utils.converters.prepareRowsData({
     transactions: transactions as TransactionsResponse,
@@ -44,16 +46,9 @@ export default function Dashboard() {
           {t('app.dashboard.seeAllTransactions')}
         </Button>
       </Stack>
-      <Tabs
-        initialActiveTab={0}
-        hideTabs
-        tabs={[
-          {
-            title: 'Last transactions',
-            content: <Transactions rows={rows} />
-          }
-        ]}
-      />
+      <Box bgcolor={grey['A200']} padding={mdUp ? 2 : 3} margin={!mdUp ? -3 : 0} marginTop={0}>
+        <Transactions rows={rows} />
+      </Box>
     </>
   );
 }
