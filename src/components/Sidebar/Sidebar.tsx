@@ -6,6 +6,7 @@ import {
   IconButton,
   List,
   Typography,
+  alpha,
   useMediaQuery,
   useTheme
 } from '@mui/material';
@@ -23,8 +24,6 @@ import useCollapseMenu from './useCollapseMenu';
 export const Sidebar = () => {
   const { t } = useTranslation();
 
-  const { collapsed, changeMenuState } = useCollapseMenu(false);
-
   const menuItems: Array<ISidebarMenuItem> = [
     {
       label: t('menu.homepage'),
@@ -39,7 +38,10 @@ export const Sidebar = () => {
   ];
   const theme = useTheme();
   const lg = useMediaQuery(theme.breakpoints.up('lg'));
+  const xs = useMediaQuery(theme.breakpoints.only('xs'));
   const smOrMd = useMediaQuery(theme.breakpoints.between('sm', 'lg')); //had to make a separate variable because otherwise there would be a crash due to too many renders. Variable is true if current breakpoints are sm or md
+  const { collapsed, changeMenuState } = useCollapseMenu(xs);
+
   const overlay = !collapsed && smOrMd;
   const fullHeight = !collapsed || lg;
   const showHamburger = lg || collapsed;
@@ -47,11 +49,17 @@ export const Sidebar = () => {
   return (
     <>
       <Box
-        zIndex={3}
+        zIndex={!lg && !collapsed ? 30000 : 3}
         sx={{
-          width: 'fit-content',
-          [theme.breakpoints.between('xs', 'lg')]: { width: collapsed ? '100%' : 'fit-content' },
-          [theme.breakpoints.only('xs')]: { width: '100%' }
+          position: !collapsed ? 'absolute' : 'relative',
+          width: '100%',
+          height: !collapsed ? '100%' : 'fit-content',
+          [theme.breakpoints.between('sm', 'lg')]: { width: collapsed ? '100%' : 'fit-content' },
+          [theme.breakpoints.up('lg')]: {
+            width: 'fit-content',
+            position: 'relative',
+            height: '100%'
+          }
         }}>
         <Grid
           alignItems={'normal'}
@@ -129,8 +137,8 @@ export const Sidebar = () => {
 
       {overlay && (
         <Box
-          bgcolor={'rgba(23, 50, 77, 0.7)'}
-          zIndex={1}
+          bgcolor={alpha(theme.palette.text.primary, 0.7)}
+          zIndex={5}
           position={'fixed'}
           top="0"
           left="0"

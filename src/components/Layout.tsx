@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, useTheme } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -16,7 +16,6 @@ const defaultRouteHandle: RouteHandleObject = {
 
 export function Layout() {
   const matches = useMatches();
-  const theme = useTheme();
 
   const { crumbs, sidebar } = {
     ...defaultRouteHandle,
@@ -26,7 +25,7 @@ export function Layout() {
   return (
     <Container maxWidth={false} disableGutters>
       <Grid container>
-        <Grid item xs={12} zIndex={theme.zIndex.appBar}>
+        <Grid item xs={12}>
           <Header />
         </Grid>
         {sidebar?.visible ? <Sidebar /> : null}
@@ -34,7 +33,7 @@ export function Layout() {
           <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
           <Outlet />
         </Grid>
-        <Grid item xs={12} zIndex={theme.zIndex.appBar}>
+        <Grid item xs={12}>
           <Footer />
         </Grid>
       </Grid>
