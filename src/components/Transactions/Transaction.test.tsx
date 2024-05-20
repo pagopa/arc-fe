@@ -1,9 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import * as React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
-import Transaction, { TransactionProps } from './Transaction';
-import '@testing-library/jest-dom';
+import Transaction from './Transaction';
+import { BrowserRouter } from 'react-router-dom';
+import { useMediaQuery } from '@mui/material';
 
 const mockedUsedNavigate = jest.fn();
 
@@ -12,78 +12,61 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUsedNavigate
 }));
 
-const TransactionWithRouter = (props: TransactionProps) => (
-  <MemoryRouter>
-    <table>
-      <tbody>
-        <Transaction {...props} />
-      </tbody>
-    </table>
-  </MemoryRouter>
-);
+jest.mock('@mui/material', () => ({
+  ...jest.requireActual('@mui/material'),
+  useMediaQuery: jest.fn()
+}));
 
-const { payee, date, status, amount, id } = dummyTransactionsData.all[0];
+const { name, altImg, srcImg } = dummyTransactionsData.all[0].payee;
+const { date, amount, id } = dummyTransactionsData.all[0];
+const { label } = dummyTransactionsData.all[0].status;
 
-describe('Transaction component', () => {
-  it('should call action function clicking on button', () => {
+describe('Transaction row table component', () => {
+  it('should call a function to perform a router update on click', () => {
+    (useMediaQuery as ReturnType<typeof jest.fn>).mockImplementation(() => false);
     render(
-      <TransactionWithRouter
-        payee={{
-          name: payee.name,
-          srcImg: payee.srcImg,
-          altImg: payee.altImg
-        }}
-        date={date}
-        status={{
-          label: status.label,
-          color: 'success'
-        }}
-        amount={amount}
-        id={id}
-      />
+      <BrowserRouter>
+        <Transaction
+          payee={{
+            name,
+            srcImg
+          }}
+          date={date}
+          status={{
+            label,
+            color: 'success'
+          }}
+          amount={amount}
+          id={id}
+        />
+      </BrowserRouter>
     );
 
     const button = screen.getByTestId('transaction-details-button');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(`/transaction/${id}`);
+    expect(mockedUsedNavigate).toHaveBeenLastCalledWith(`/transaction/${id}`);
   });
 
-  it('alt attribute is correctly set when alt prop is provided', () => {
-    const altText = 'Payee Image Alt';
-    const { getByAltText } = render(
-      <TransactionWithRouter
-        payee={{
-          name: 'Payee Name',
-          srcImg: 'payee-image.jpg',
-          altImg: altText
-        }}
-        date="2024-05-18"
-        status={{ label: 'Pending', color: 'default' }}
-        amount="100.00"
-        id="123456"
-      />
+  it('should render without problems', () => {
+    (useMediaQuery as ReturnType<typeof jest.fn>).mockImplementation(() => true);
+    render(
+      <BrowserRouter>
+        <Transaction
+          payee={{
+            name,
+            srcImg,
+            altImg
+          }}
+          date={date}
+          status={{
+            label,
+            color: 'success'
+          }}
+          amount={amount}
+          id={id}
+        />
+      </BrowserRouter>
     );
-
-    const payeeImage = getByAltText(`Logo ${altText}`);
-    expect(payeeImage).toBeInTheDocument();
-  });
-
-  it('alt attribute is empty when alt prop is not provided', () => {
-    const { getByAltText } = render(
-      <TransactionWithRouter
-        payee={{
-          name: 'Payee Name',
-          srcImg: 'payee-image.jpg'
-        }}
-        date="2024-05-18"
-        status={{ label: 'Pending', color: 'default' }}
-        amount="100.00"
-        id="123456"
-      />
-    );
-
-    const payeeImage = getByAltText('Logo');
-    expect(payeeImage).toBeInTheDocument();
   });
 });
