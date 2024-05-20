@@ -1,4 +1,4 @@
-import { transactionProps } from 'components/Transactions/Transaction';
+import { TransactionProps } from 'components/Transactions/Transaction';
 import { TransactionsResponse } from '../../generated/apiClient';
 import { TransactionDetailResponse } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
@@ -11,7 +11,7 @@ interface PrepareRowsData {
     color?: string;
   };
   payee: {
-    /** text to shown when more than an entities are in involed within a single transaction */
+    /** text to shown when more than an entities are in involved within a single transaction */
     multi: string;
     /** alt text for entity logo */
     altImg?: string;
@@ -22,14 +22,14 @@ interface PrepareRowsData {
 const { ENTITIES_LOGO_CDN } = process.env;
 
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
-const prepareRowsData = (data: PrepareRowsData): transactionProps[] =>
+const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
   data.transactions.map((element) => ({
     date: element.transactionDate,
     amount: toEuro(element.amount),
     id: element.transactionId,
     payee: {
       name: element.payeeName || data.payee.multi,
-      // update here the cdn host when avaiable
+      // update here the cdn host when available
       srcImg: element.payeeTaxCode ? `${ENTITIES_LOGO_CDN}/${element.payeeTaxCode}.png` : undefined,
       altImg: data.payee.altImg || `Logo Ente`
     },

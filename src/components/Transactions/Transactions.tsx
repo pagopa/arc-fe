@@ -1,5 +1,5 @@
 import React from 'react';
-import { transactionProps } from './Transaction';
+import { TransactionProps } from './Transaction';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -7,8 +7,8 @@ import Transaction from './Transaction';
 import { TableHead, TableRow, TableCell } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-interface TransactionsProps {
-  rows: transactionProps[];
+export interface TransactionsProps {
+  rows: TransactionProps[];
 }
 
 const Transactions = (props: TransactionsProps) => {

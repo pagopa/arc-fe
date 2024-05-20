@@ -1,7 +1,7 @@
 import { Tabs as MuiTabs, Tab } from '@mui/material';
 import React, { ReactElement } from 'react';
-import useTabs from './useTabs';
 import TabPanel from './TabPanel';
+import useTabs from 'hooks/useTabs';
 
 interface TabProps {
   title: string;
@@ -30,7 +30,7 @@ export const Tabs = (props: TabsProps) => {
         variant="fullWidth"
         onChange={(_, value: number) => changeActiveTab(value)}>
         {tabs.map(({ title, disabled }, index) => (
-          <Tab label={title} disabled={disabled} key={`${title}-${index}`} />
+          <Tab role="tab" label={title} disabled={disabled} key={`${title}-${index}`} />
         ))}
       </MuiTabs>
       {tabs.map((tab, index) => (

@@ -9,7 +9,7 @@ import { ArcRoutes } from 'routes/routes';
 /*
 User info
 */
-const mockUser: JwtUser = {
+export const mockUser: JwtUser = {
   id: '1',
   name: 'John',
   surname: 'Doe',

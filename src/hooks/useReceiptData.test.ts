@@ -4,12 +4,19 @@ import { dummyTransactionsData } from 'stories/utils/mocks';
 import utils from 'utils';
 
 jest.mock('utils');
-const mockedGetReceipt = jest.mocked(utils.apiClient.transactions.getTransactionReceipt);
-
-const { transactionReceipt } = dummyTransactionsData;
-const expectedReceipt = transactionReceipt.attachments[0];
 
 describe('useReceiptData hook', () => {
+  const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  const mockedGetReceipt = jest.mocked(utils.apiClient.transactions.getTransactionReceipt);
+
+  const { transactionReceipt } = dummyTransactionsData;
+  const expectedReceipt = transactionReceipt.attachments[0];
+
+  afterAll(() => {
+    // Restore console.error
+    consoleErrorSpy.mockRestore();
+  });
+
   it('should be pending while resolving the response', async () => {
     // @ts-expect-error mocked axios response
     mockedGetReceipt.mockResolvedValue({ data: transactionReceipt });
@@ -33,6 +40,7 @@ describe('useReceiptData hook', () => {
 
     await waitFor(() => {
       expect(result.current.error).toBeTruthy();
+      expect(consoleErrorSpy).toHaveBeenCalled();
     });
   });
 
@@ -46,6 +54,7 @@ describe('useReceiptData hook', () => {
 
     await waitFor(() => {
       expect(result.current.error).toBeTruthy();
+      expect(consoleErrorSpy).toHaveBeenCalled();
     });
   });
 

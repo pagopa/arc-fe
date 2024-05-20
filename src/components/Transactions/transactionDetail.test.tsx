@@ -3,23 +3,14 @@ import { render, screen } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import TransactionDetail from './TransactionDetail';
 import { useReceiptData } from 'hooks/useReceiptData';
+import i18n from 'translations/i18n';
+import '@testing-library/jest-dom';
 
 jest.mock('hooks/useReceiptData');
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      t: (str: string) => str,
-      i18n: {
-        changeLanguage: () => new Promise(() => {})
-      }
-    };
-  },
-  initReactI18next: {
-    type: '3rdParty',
-    init: () => {}
-  }
-}));
+
+void i18n.init({
+  resources: {}
+});
 
 const mockUseReceiptData = jest.mocked(useReceiptData);
 
@@ -34,14 +25,14 @@ describe('TransactionDetail component', () => {
     mockUseReceiptData.mockImplementation(() => ({ isPending: true, error: false, receipt: '' }));
     render(<TransactionDetail transactionData={dummyTransactionsData.transactionData} />);
     const button = screen.getByTestId(receiptDownloadBtnTestId);
-    expect(button.getAttribute('disabled')).toBe('');
+    expect(button).toBeDisabled();
   });
 
   it('Receipt download should be disabled in case of error', () => {
     mockUseReceiptData.mockImplementation(() => ({ isPending: false, error: true, receipt: '' }));
     render(<TransactionDetail transactionData={dummyTransactionsData.transactionData} />);
     const button = screen.getByTestId(receiptDownloadBtnTestId);
-    expect(button.getAttribute('disabled')).toBe('');
+    expect(button).toBeDisabled();
   });
 
   it('Receipt download should be enabled on request success', () => {
@@ -53,7 +44,34 @@ describe('TransactionDetail component', () => {
     }));
     render(<TransactionDetail transactionData={dummyTransactionsData.transactionData} />);
     const button = screen.getByTestId(receiptDownloadBtnTestId);
-    expect(button.getAttribute('disabled')).toBeNull();
+    expect(button).not.toBeDisabled();
     expect(button.getAttribute('href')).toBe(urlTest);
+  });
+
+  it('should truncate transactionId if longer than 20 ', () => {
+    mockUseReceiptData.mockImplementation(() => ({ isPending: false, error: false, receipt: '' }));
+    render(
+      <TransactionDetail
+        transactionData={{
+          ...dummyTransactionsData.transactionData,
+          transactionId: '123456789-123456789-123456789'
+        }}
+      />
+    );
+
+    const truncatedId = screen.getByText('123456789-123456789-…');
+    expect(truncatedId).toBeInTheDocument();
+
+    render(
+      <TransactionDetail
+        transactionData={{
+          ...dummyTransactionsData.transactionData,
+          transactionId: '123456789-123456789-'
+        }}
+      />
+    );
+
+    const renderedId = screen.getByText('123456789-123456789-');
+    expect(renderedId).toBeInTheDocument();
   });
 });

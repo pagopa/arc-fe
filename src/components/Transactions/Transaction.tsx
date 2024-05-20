@@ -8,7 +8,7 @@ import { Box, Chip, ChipOwnProps, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
-export interface transactionProps {
+export interface TransactionProps {
   payee: {
     name: string;
     srcImg?: string;
@@ -45,7 +45,7 @@ const PayeeIcon = (props: payeeIconProps) => (
     {props.src ? (
       <img
         src={props.src}
-        alt={`Logo ${props.alt || ''}`}
+        alt={props?.alt ? `Logo ${props.alt}` : 'Logo'}
         aria-hidden="true"
         style={{ width: 'inherit' }}
       />
@@ -55,7 +55,7 @@ const PayeeIcon = (props: payeeIconProps) => (
   </Box>
 );
 
-const Transaction = (props: transactionProps) => {
+const Transaction = (props: TransactionProps) => {
   const navigate = useNavigate();
 
   const { payee, status, amount, id, date } = props;

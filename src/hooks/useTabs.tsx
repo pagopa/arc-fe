@@ -1,5 +1,5 @@
+import { TabsProps } from 'components/Tabs';
 import { useState } from 'react';
-import { TabsProps } from '.';
 
 function useTabs(initialActiveTab: TabsProps['initialActiveTab']) {
   const [activeTab, setActiveTab] = useState(initialActiveTab || 0);
