@@ -32,14 +32,13 @@ describe('Sidebar component', () => {
   test('toggles sidebar collapse/expand button is clicked', () => {
     render(<SidebarWithRouter />);
 
-    const collapseButton = screen.getByLabelText('sidebar.collapse');
-    expect(collapseButton).toBeTruthy();
+    const hamburgerButton = screen.getByTestId('hamburgerButton');
+    expect(hamburgerButton).toBeTruthy();
 
-    fireEvent.click(collapseButton);
+    fireEvent.click(hamburgerButton);
     expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
 
-    fireEvent.click(screen.getByLabelText('Espandi il menu'));
-    const button = result.container.querySelector('#menu-item-homepage');
-    button && fireEvent.click(button);
+    fireEvent.click(hamburgerButton);
+    expect(screen.getByText('menu.homepage')).toBeTruthy();
   });
 });
