@@ -36,16 +36,16 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.DASHBOARD,
         element: <DashboardRoute />,
-        loader: utils.loaders.dashoboard,
+        loader: utils.loaders.dashboard,
         // TEMPORARY ERROR ELEMENT
-        errorElement: <p>Ops!... somethig went wrong</p>
+        errorElement: <p>Ops!... something went wrong</p>
       },
       {
         path: ArcRoutes.TRANSACTION,
         element: <TransactionRoute />,
         loader: ({ params }) => utils.loaders.transactionDetails(params.id),
         // TEMPORARY ERROR ELEMENT
-        errorElement: <p>Ops!... somethig went wrong</p>,
+        errorElement: <p>Ops!... something went wrong</p>,
         handle: {
           crumbs: {
             backButton: false,
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         element: <TransactionsList />,
         loader: utils.loaders.transactionList,
         // TEMPORARY ERROR ELEMENT
-        errorElement: <p>Ops!... somethig went wrong</p>
+        errorElement: <p>Ops!... something went wrong</p>
       }
     ]
   }
@@ -77,7 +77,7 @@ utils.config.env === 'LOCAL' &&
     try {
       await utils.apiClient.info.healthCheck();
     } catch (e) {
-      console.error(e, 'Mock not avaible or /info not reachable');
+      console.error(e, 'Mock not available or /info not reachable');
     }
   })();
 

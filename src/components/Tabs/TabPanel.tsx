@@ -10,7 +10,7 @@ interface TabPanelProps extends PropsWithChildren {
 const TabPanel = (props: TabPanelProps) => {
   const { children, value, activeValue } = props;
   return (
-    <Box hidden={value !== activeValue} padding={1.5} bgcolor={grey['A200']}>
+    <Box role="tabpanel" hidden={value !== activeValue} padding={1.5} bgcolor={grey['A200']}>
       {children}
     </Box>
   );

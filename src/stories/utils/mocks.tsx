@@ -1,8 +1,8 @@
-import { transactionProps } from 'components/Transactions/Transaction';
+import { TransactionProps } from 'components/Transactions/Transaction';
 import { TransactionDetail } from 'models/TransactionDetail';
 import { TransactionReceiptResponse } from '../../../generated/apiClient';
 
-const Transaction_dc379158: transactionProps = {
+const Transaction_dc379158: TransactionProps = {
   payee: {
     name: 'Regione Lombardia',
     srcImg: '/regione-lombardia.svg',
@@ -17,7 +17,7 @@ const Transaction_dc379158: transactionProps = {
   amount: '123,50 €'
 };
 
-const Transaction_ffe1324e: transactionProps = {
+const Transaction_ffe1324e: TransactionProps = {
   payee: {
     name: 'ACI',
     srcImg: '/aci.svg',
@@ -32,7 +32,7 @@ const Transaction_ffe1324e: transactionProps = {
   amount: '100,00 €'
 };
 
-const Transaction_a305f59a: transactionProps = {
+const Transaction_a305f59a: TransactionProps = {
   payee: {
     name: 'Avvisi multipli'
   },
@@ -45,7 +45,7 @@ const Transaction_a305f59a: transactionProps = {
   amount: '274,50 €'
 };
 
-const Transaction_3d40b8e0: transactionProps = {
+const Transaction_3d40b8e0: TransactionProps = {
   payee: {
     name: 'Avvisi multipli'
   },
@@ -92,9 +92,9 @@ const transactionReceipt = {
   ]
 };
 export const dummyTransactionsData: {
-  all: transactionProps[];
-  payedByMe: transactionProps[];
-  ownedByMe: transactionProps[];
+  all: TransactionProps[];
+  payedByMe: TransactionProps[];
+  ownedByMe: TransactionProps[];
   transactionData: TransactionDetail;
   transactionReceipt: TransactionReceiptResponse;
 } = {

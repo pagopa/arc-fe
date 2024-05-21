@@ -1,47 +1,44 @@
-import * as React from 'react';
-import { renderHook, act, render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import useCollapseMenu from './useCollapseMenu';
-import Sidebar from './';
-import { BrowserRouter } from 'react-router-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import '../../translations/i18n';
+import React from 'react';
+import Sidebar from './index';
+import i18n from '../../translations/i18n';
 
-describe('useCollapseMenu hook', () => {
-  it('should return the inital menu status', () => {
-    const { result } = renderHook(() => useCollapseMenu(false));
-    expect(result.current.collapsed).toBe(false);
-  });
-
-  it('should change correctly the menu status state calling the useCollapseMenu function', () => {
-    const { result } = renderHook(() => useCollapseMenu(false));
-    act(() => {
-      result.current.changeMenuState(false);
-    });
-    expect(result.current.collapsed).toBe(true);
-  });
+void i18n.init({
+  resources: {}
 });
 
+const SidebarWithRouter = () => (
+  <MemoryRouter>
+    <Sidebar />
+  </MemoryRouter>
+);
+
 describe('Sidebar component', () => {
-  it('should render as expecteed', () => {
-    render(
-      <BrowserRouter>
-        <Sidebar />
-      </BrowserRouter>
-    );
+  it('should render as expected', () => {
+    render(<SidebarWithRouter />);
   });
 
-  it('should collapse correctly', () => {
-    const result = render(
-      <BrowserRouter>
-        <Sidebar />
-      </BrowserRouter>
-    );
+  test('renders with correct menu items', () => {
+    render(<SidebarWithRouter />);
 
-    expect(result.container.querySelector('#menu-item-homepage')).toBeInTheDocument();
-    fireEvent.click(screen.getByTestId('collapseClose'));
-    expect(result.container.querySelector('#menu-item-homepage')).not.toBeInTheDocument();
+    // Check if menu items are rendered
+    expect(screen.getByText('menu.homepage')).toBeTruthy();
+    expect(screen.getByText('menu.receipts')).toBeTruthy();
+  });
 
-    fireEvent.click(screen.getByTestId('hamburgerButton'));
+  test('toggles sidebar collapse/expand button is clicked', () => {
+    render(<SidebarWithRouter />);
+
+    const collapseButton = screen.getByLabelText('sidebar.collapse');
+    expect(collapseButton).toBeTruthy();
+
+    fireEvent.click(collapseButton);
+    expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
+
+    fireEvent.click(screen.getByLabelText('Espandi il menu'));
     const button = result.container.querySelector('#menu-item-homepage');
     button && fireEvent.click(button);
   });
