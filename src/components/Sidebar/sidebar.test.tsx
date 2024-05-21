@@ -24,6 +24,9 @@ describe('Sidebar component', () => {
   test('renders with correct menu items', () => {
     render(<SidebarWithRouter />);
 
+    const hamburgerButton = screen.getByTestId('hamburgerButton');
+
+    fireEvent.click(hamburgerButton);
     // Check if menu items are rendered
     expect(screen.getByText('menu.homepage')).toBeTruthy();
     expect(screen.getByText('menu.receipts')).toBeTruthy();
@@ -32,13 +35,13 @@ describe('Sidebar component', () => {
   test('toggles sidebar collapse/expand button is clicked', () => {
     render(<SidebarWithRouter />);
 
-    const collapseButton = screen.getByLabelText('sidebar.collapse');
-    expect(collapseButton).toBeTruthy();
+    const hamburgerButton = screen.getByTestId('hamburgerButton');
+    expect(hamburgerButton).toBeTruthy();
 
-    fireEvent.click(collapseButton);
-    expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
-
-    fireEvent.click(screen.getByLabelText('sidebar.expand'));
+    fireEvent.click(hamburgerButton);
     expect(screen.getByText('menu.homepage')).toBeTruthy();
+
+    fireEvent.click(hamburgerButton);
+    expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
   });
 });

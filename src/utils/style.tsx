@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const customTheme = createTheme({
   ...theme,
+
   components: {
     MuiTab: {
       styleOverrides: {
