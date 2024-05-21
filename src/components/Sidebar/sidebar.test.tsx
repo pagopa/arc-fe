@@ -24,6 +24,9 @@ describe('Sidebar component', () => {
   test('renders with correct menu items', () => {
     render(<SidebarWithRouter />);
 
+    const hamburgerButton = screen.getByTestId('hamburgerButton');
+
+    fireEvent.click(hamburgerButton);
     // Check if menu items are rendered
     expect(screen.getByText('menu.homepage')).toBeTruthy();
     expect(screen.getByText('menu.receipts')).toBeTruthy();
@@ -36,9 +39,9 @@ describe('Sidebar component', () => {
     expect(hamburgerButton).toBeTruthy();
 
     fireEvent.click(hamburgerButton);
-    expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
+    expect(screen.getByText('menu.homepage')).toBeTruthy();
 
     fireEvent.click(hamburgerButton);
-    expect(screen.getByText('menu.homepage')).toBeTruthy();
+    expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
   });
 });
