@@ -19,7 +19,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "axe": "axe localhost:1234, localhost:1234/transactions, localhost:1234/transaction/1, localhost:1234/transaction/user,  --include '#root'"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.24.1",
@@ -62,6 +63,7 @@
     "vite": "^5.2.8"
   },
   "dependencies": {
+    "@axe-core/cli": "^4.9.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
