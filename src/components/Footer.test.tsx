@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Footer } from './Footer';
 import '@testing-library/jest-dom';
-import '@testing-library/jest-dom';
 import i18n from 'translations/i18n';
 
 void i18n.init({

@@ -47,7 +47,7 @@ const PayeeIcon = (props: payeeIconProps) => (
     {props.src ? (
       <img
         src={props.src}
-        alt={props?.alt ? `Logo ${props.alt}` : 'Logo'}
+        alt={props?.alt ? props.alt : 'Logo Ente'}
         aria-hidden="true"
         style={{ width: '55%' }}
       />

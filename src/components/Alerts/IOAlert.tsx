@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AlertTitle, Button, Stack, Typography } from '@mui/material';
+import { Alert, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import style from '../../utils/style';
 
@@ -18,7 +18,7 @@ const IOAlert = () => {
       <Typography variant="body2" marginInlineStart={1}>
         {t('app.dashboard.IOAlert.title')}
       </Typography>
-      <Button >{t('app.dashboard.IOAlert.cta')}</Button>
+      <Button>{t('app.dashboard.IOAlert.cta')}</Button>
     </Alert>
   );
 };

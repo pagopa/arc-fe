@@ -8,16 +8,18 @@ import { NavigateNext } from '@mui/icons-material';
 import { Outlet, useMatches } from 'react-router-dom';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import { Header } from './Header';
+import { BackButton } from './BackButton';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
-  crumbs: { backButton: false, routeName: '', elements: [] }
+  crumbs: { routeName: '', elements: [] },
+  backButton: false
 };
 
 export function Layout() {
   const matches = useMatches();
 
-  const { crumbs, sidebar } = {
+  const { crumbs, sidebar, backButton } = {
     ...defaultRouteHandle,
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
@@ -30,7 +32,8 @@ export function Layout() {
         </Grid>
         {sidebar?.visible ? <Sidebar /> : null}
         <Grid item bgcolor={grey['100']} padding={3} xs>
-          <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
+          {backButton && <BackButton />}
+          {crumbs && <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />}
           <Outlet />
         </Grid>
         <Grid item xs={12}>

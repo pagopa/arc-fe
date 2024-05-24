@@ -25,11 +25,9 @@ const router = createBrowserRouter([
         path: ArcRoutes.USER,
         element: <UserRoute />,
         handle: {
+          backButton: true,
           sidebar: {
             visibile: false
-          },
-          crumbs: {
-            backButton: true
           }
         } as RouteHandleObject
       },
@@ -48,7 +46,6 @@ const router = createBrowserRouter([
         errorElement: <p>Ops!... something went wrong</p>,
         handle: {
           crumbs: {
-            backButton: false,
             elements: [
               { name: 'transactions', fontWeight: 600, href: ArcRoutes.TRANSACTIONS },
               {
