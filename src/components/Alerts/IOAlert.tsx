@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AlertTitle, Button, Typography } from '@mui/material';
+import { Alert, AlertTitle, Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import style from '../../utils/style';
 
@@ -12,15 +12,13 @@ const IOAlert = () => {
       sx={{
         borderLeft: `solid 4px ${style.theme.palette.info.main}`,
         '& .MuiAlert-icon': {
-          color: 'info.contrastText',
           alignItems: 'center'
         }
       }}>
-      <AlertTitle sx={{ marginBottom: 0 }}>{t('app.dashboard.IOAlert.title')}</AlertTitle>
-      <Typography variant="body2" mb={1}>
-        {t('app.dashboard.IOAlert.description')}
+      <Typography variant="body2" marginInlineStart={1}>
+        {t('app.dashboard.IOAlert.title')}
       </Typography>
-      <Button>{t('app.dashboard.IOAlert.cta')}</Button>
+      <Button >{t('app.dashboard.IOAlert.cta')}</Button>
     </Alert>
   );
 };
