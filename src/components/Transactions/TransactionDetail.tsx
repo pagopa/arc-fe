@@ -19,27 +19,26 @@ export default function TransactionDetail({
 
   return (
     <Grid container>
-      <Grid item>
-        <Chip label={transactionData.status} color="success" />
-      </Grid>
       <Stack
-        direction="row"
+        direction={{ sm: 'row' }}
         justifyContent="space-between"
-        alignItems="center"
-        sx={{ width: '100%' }}>
-        <Typography variant="h4">{transactionData.subject}</Typography>
-        <Stack direction="row" spacing={0.6}>
-          <Button
-            data-testid="receipt-download-btn"
-            endIcon={<Download />}
-            size="large"
-            variant="contained"
-            disabled={receiptData.isPending || receiptData.error}
-            target="_blank"
-            href={receiptData.receipt}>
-            {t('app.transactionDetail.downloadReceipt')}
-          </Button>
+        alignItems={{ sm: 'center' }}
+        width="100%"
+        gap={3}>
+        <Stack direction={{ sm: 'row' }} alignItems={{ xs: 'flex-start', sm: 'center' }} gap={2}>
+          <Typography variant="h4">{transactionData.subject}</Typography>
+          <Chip label={transactionData.status} color="success" />
         </Stack>
+        <Button
+          data-testid="receipt-download-btn"
+          endIcon={<Download />}
+          size="large"
+          variant="contained"
+          disabled={receiptData.isPending || receiptData.error}
+          target="_blank"
+          href={receiptData.receipt}>
+          {t('app.transactionDetail.downloadReceipt')}
+        </Button>
       </Stack>
 
       <Stack spacing={2} mt={3} width={'100%'}>
