@@ -23,17 +23,22 @@ export function Layout() {
   } as RouteHandleObject;
 
   return (
-    <Container maxWidth={false} disableGutters>
-      <Grid container>
-        <Grid item xs={12}>
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={{ display: 'flex', height: '100vh', alignItems: 'baseline' }}>
+      <Grid container height={'100%'} flexDirection="column" flexWrap={'nowrap'}>
+        <Grid flexBasis={{ xs: 'fit-content' }} item xs={12} height="fit-content">
           <Header />
         </Grid>
-        {sidebar?.visible ? <Sidebar /> : null}
-        <Grid item bgcolor={grey['100']} padding={3} xs>
-          <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
-          <Outlet />
+        <Grid item display={'flex'} flexGrow={1} flexWrap={'wrap'}>
+          {sidebar?.visible ? <Sidebar /> : null}
+          <Grid item bgcolor={grey['100']} padding={3} xs>
+            <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
+            <Outlet />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height="fit-content" flexBasis={{xs:'fit-content'}} flexShrink={3}> {/*xs is specified to override mui class.*/ }
           <Footer />
         </Grid>
       </Grid>

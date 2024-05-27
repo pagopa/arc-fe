@@ -51,7 +51,7 @@ export const Sidebar = () => {
         sx={{
           position: !collapsed ? 'absolute' : 'relative',
           width: '100%',
-          height:'100vh',
+          top:'0',
           [theme.breakpoints.between('sm', 'lg')]: { width: collapsed ? '100%' : 'fit-content' }, //I couldn't define the height mobile first, because if I did, when not in mobile breakpoints, even if I set the height to 100%, it would still not cover the whole surface...
           [theme.breakpoints.up('lg')]: {
             width: 'fit-content',
