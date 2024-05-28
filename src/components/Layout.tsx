@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Portal } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -21,24 +21,32 @@ export function Layout() {
     ...defaultRouteHandle,
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
+  const container = React.useRef(null);
 
   return (
     <Container
       maxWidth={false}
       disableGutters
-      sx={{ display: 'flex', height: '100vh', alignItems: 'baseline' }}>
-      <Grid container height={'100%'} flexDirection="column" flexWrap={'nowrap'}>
+      sx={{ display: 'flex', height: '100%', minHeight: '100vh', alignItems: 'baseline' }}>
+      <Grid container height={'100%'} minHeight="100vh" flexDirection="column" flexWrap={'nowrap'}>
         <Grid flexBasis={{ xs: 'fit-content' }} item xs={12} height="fit-content">
           <Header />
         </Grid>
-        <Grid item display={'flex'} flexGrow={1} flexWrap={'wrap'}>
+        <Grid
+          item
+          display={'flex'}
+          flexGrow={1}
+          flexWrap={'wrap'}
+          alignContent={'flex-start'}
+          flexBasis={'50vh'}>
           {sidebar?.visible ? <Sidebar /> : null}
-          <Grid item bgcolor={grey['100']} padding={3} xs>
+          <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs>
             <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
             <Outlet />
           </Grid>
         </Grid>
-        <Grid item xs={12} height="fit-content" flexBasis={{xs:'fit-content'}} flexShrink={3}> {/*xs is specified to override mui class.*/ }
+        <Grid item xs={12} height="fit-content" flexBasis={{ xs: 'fit-content' }} flexShrink={3}>
+          {/*xs in flex basis is specified to override mui clas.*/}
           <Footer />
         </Grid>
       </Grid>
