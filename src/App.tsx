@@ -22,7 +22,6 @@ const router = createBrowserRouter([
       throw useRouteError();
     }
   },
-
   {
     path: '/',
     element: <Layout />,
@@ -44,14 +43,13 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.DASHBOARD,
         element: <DashboardRoute />,
-        loader: utils.loaders.dashboard,
         // TEMPORARY ERROR ELEMENT
         errorElement: <ErrorFallback />
       },
       {
         path: ArcRoutes.TRANSACTION,
         element: <TransactionRoute />,
-        loader: ({ params }) => utils.loaders.transactionDetails(params.id),
+        loader: ({ params }) => Promise.resolve(params.id),
         // TEMPORARY ERROR ELEMENT
         errorElement: <ErrorFallback />,
         handle: {
@@ -70,7 +68,6 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.TRANSACTIONS,
         element: <TransactionsList />,
-        loader: utils.loaders.transactionList,
         // TEMPORARY ERROR ELEMENT
         errorElement: <ErrorFallback />
       }

@@ -1,14 +1,21 @@
 import React from 'react';
 import TransactionDetail from '../components/Transactions/TransactionDetail';
 import { useLoaderData } from 'react-router-dom';
-import { TransactionDetailResponse } from '../../generated/apiClient';
 import utils from 'utils';
-import { AxiosResponse } from 'axios';
+import QueryLoader from 'components/QueryLoader';
 
 export default function Transaction() {
-  const transactionDetail = useLoaderData();
-  const transactionDetailData = utils.converters.prepareTransactionDetailData(
-    (transactionDetail as AxiosResponse<TransactionDetailResponse>).data
+  const id = useLoaderData();
+  const { data, isError } = utils.loaders.getTransactionDetails(id as string);
+  const transactionDetailData = data && utils.converters.prepareTransactionDetailData(data);
+
+  return (
+    <>
+      <QueryLoader
+        fallback={isError && <p>Ops! Something went wrong, please try again</p>}
+        queryKey="transactionDetail">
+        {transactionDetailData && <TransactionDetail transactionData={transactionDetailData} />}
+      </QueryLoader>
+    </>
   );
-  return <TransactionDetail transactionData={transactionDetailData} />;
 }
