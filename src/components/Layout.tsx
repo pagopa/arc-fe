@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Portal } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -21,7 +21,6 @@ export function Layout() {
     ...defaultRouteHandle,
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
-  const container = React.useRef(null);
 
   return (
     <Container

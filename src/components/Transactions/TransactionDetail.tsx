@@ -27,7 +27,9 @@ export default function TransactionDetail({
         justifyContent="space-between"
         alignItems="center"
         sx={{ width: '100%' }}>
-        <Typography variant="h4">{transactionData.subject}</Typography>
+        <Typography sx={{ wordBreak: 'break-word' }} variant="h4">
+          {transactionData.subject}
+        </Typography>
         <Stack direction="row" spacing={0.6}>
           <Button
             data-testid="receipt-download-btn"
@@ -44,30 +46,36 @@ export default function TransactionDetail({
 
       <Stack spacing={2} mt={3} width={'100%'}>
         <Box display={'flex'}>
-          <Typography>{t('app.transactionDetail.createdOn')}</Typography>
-          <Typography fontWeight={600}>
+          <Typography sx={{ wordBreak: 'break-word' }}>
+            {t('app.transactionDetail.createdOn')}
+          </Typography>
+          <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
             &nbsp;{humanDate(navigator.language, transactionData.dateTime)}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
           <Grid container>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Stack spacing={2} pt={1}>
                 <Stack>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.paidBy')}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.paidBy}</Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    {transactionData.paidBy}
+                  </Typography>
                 </Stack>
                 <Grid container>
                   <Grid item xs={9}>
-                    <Typography color={theme.palette.text.secondary}>
+                    <Typography
+                      sx={{ wordBreak: 'break-word' }}
+                      color={theme.palette.text.secondary}>
                       {t('app.transactionDetail.authCode')}
                     </Typography>
                     <Typography
                       fontWeight={600}
                       color={theme.palette.primary.main}
-                      sx={{ textDecoration: 'underline' }}>
+                      sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
                       {transactionData.authCode}
                     </Typography>
                   </Grid>
@@ -81,13 +89,15 @@ export default function TransactionDetail({
                 <Grid container>
                   <Grid item xs={9}>
                     <Stack>
-                      <Typography color={theme.palette.text.secondary}>
+                      <Typography
+                        sx={{ wordBreak: 'break-word' }}
+                        color={theme.palette.text.secondary}>
                         {t('app.transactionDetail.transactionId')}
                       </Typography>
                       <Typography
                         fontWeight={600}
                         color={theme.palette.primary.main}
-                        sx={{ textDecoration: 'underline' }}>
+                        sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
                         {transactionData.transactionId.length > 20
                           ? transactionData.transactionId.substring(0, 20) + '…'
                           : transactionData.transactionId}
@@ -104,11 +114,15 @@ export default function TransactionDetail({
                 <Grid container>
                   <Grid item xs={9}>
                     <Stack>
-                      <Typography color={theme.palette.text.secondary}>PRN</Typography>
+                      <Typography
+                        sx={{ wordBreak: 'break-word' }}
+                        color={theme.palette.text.secondary}>
+                        PRN
+                      </Typography>
                       <Typography
                         fontWeight={600}
                         color={theme.palette.primary.main}
-                        sx={{ textDecoration: 'underline' }}>
+                        sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
                         {transactionData.PRN}
                       </Typography>
                     </Stack>
@@ -119,14 +133,18 @@ export default function TransactionDetail({
                 </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Stack spacing={2} pt={1}>
                 <Stack>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.noticeOwner')}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
-                  <Typography fontWeight={600}>({transactionData.owedByFiscalCode})</Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    {transactionData.owedBy}
+                  </Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    ({transactionData.owedByFiscalCode})
+                  </Typography>
                 </Stack>
                 <Grid container pt={1}>
                   <Grid item xs={1} paddingTop={3.065} pr={2}>
@@ -134,26 +152,30 @@ export default function TransactionDetail({
                   </Grid>
                   <Grid item xs={10}>
                     <Stack pt={0.75} pb={0.75} pl={2}>
-                      <Typography color={theme.palette.text.secondary}>
+                      <Typography
+                        sx={{ wordBreak: 'break-word' }}
+                        color={theme.palette.text.secondary}>
                         {t('app.transactionDetail.paymentMethod')}
                       </Typography>
-                      <Typography fontWeight={600}>
+                      <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
                         {`${transactionData.paymentMethod} ${transactionData.cardNumber}`}
                       </Typography>
                     </Stack>
                   </Grid>
                 </Grid>
                 <Stack>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.PSP')}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.PSP}</Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    {transactionData.PSP}
+                  </Typography>
                 </Stack>
                 <Stack>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
-                  <Typography fontWeight={600}>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
                     {humanDate(navigator.language, transactionData.dateTime)}
                   </Typography>
                 </Stack>
@@ -163,36 +185,48 @@ export default function TransactionDetail({
               <Divider orientation="horizontal" />
             </Grid>
 
-            <Grid item xs={6} pt={4}>
+            <Grid item xs={12} sm={6} pt={4}>
               <Stack spacing={4}>
                 <Stack>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.subject')}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.subject}</Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    {transactionData.subject}
+                  </Typography>
                 </Stack>
                 <Stack>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.debtor')}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.owedBy}</Typography>
-                  <Typography fontWeight={600}>({transactionData.owedByFiscalCode})</Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    {transactionData.owedBy}
+                  </Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    ({transactionData.owedByFiscalCode})
+                  </Typography>
                 </Stack>
               </Stack>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Stack pt={4}>
-                <Typography color={theme.palette.text.secondary}>
+                <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                   {t('app.transactionDetail.creditorEntity')}
                 </Typography>
-                <Typography fontWeight={600}>{transactionData.creditorEntity}</Typography>
-                <Typography fontWeight={600}>{transactionData.creditorFiscalCode}</Typography>
+                <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                  {transactionData.creditorEntity}
+                </Typography>
+                <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                  {transactionData.creditorFiscalCode}
+                </Typography>
               </Stack>
               <Stack pt={2}>
-                <Typography color={theme.palette.text.secondary}>
+                <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                   {t('app.transactionDetail.noticeCode')}
                 </Typography>
-                <Typography fontWeight={600}>{transactionData.noticeCode}</Typography>
+                <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                  {transactionData.noticeCode}
+                </Typography>
               </Stack>
             </Grid>
             <Grid item xs={12} pt={3}>
@@ -201,24 +235,28 @@ export default function TransactionDetail({
             <Grid item xs={12}>
               <Stack pt={4} pb={4} alignItems={'end'} spacing={2}>
                 <Stack alignItems={'end'}>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.partialAmount')}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.partialAmount}</Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    {transactionData.partialAmount}
+                  </Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {`${t('app.transactionDetail.commission')} (${t(
                       'app.transactionDetail.appliedBy'
                     )} ${transactionData.PSP})`}
                   </Typography>
-                  <Typography fontWeight={600}>{transactionData.fee}</Typography>
+                  <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    {transactionData.fee}
+                  </Typography>
                 </Stack>
                 <Stack alignItems={'end'}>
-                  <Typography color={theme.palette.text.secondary}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.total')}
                   </Typography>
-                  <Typography variant="h6">
+                  <Typography sx={{ wordBreak: 'break-word' }} variant="h6">
                     <b>{transactionData.total}</b>
                   </Typography>
                 </Stack>
@@ -227,10 +265,14 @@ export default function TransactionDetail({
           </Grid>
         </Box>
         <Stack>
-          <Typography variant="body2" fontWeight={600}>
+          <Typography sx={{ wordBreak: 'break-word' }} variant="body2" fontWeight={600}>
             {t('app.transactionDetail.somethingDoesntAddUp')}
           </Typography>
-          <Typography variant="body2" fontWeight={600} color="primary">
+          <Typography
+            sx={{ wordBreak: 'break-word' }}
+            variant="body2"
+            fontWeight={600}
+            color="primary">
             <b>{t('app.transactionDetail.contactSupport')}</b>
           </Typography>
         </Stack>

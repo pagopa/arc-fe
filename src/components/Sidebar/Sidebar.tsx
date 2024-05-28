@@ -46,9 +46,9 @@ export const Sidebar = () => {
   const showHamburger = lg || collapsed;
 
   if (overlay || (xs && !collapsed)) {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'hidden';
   } else {
-    document.body.style.overflow = 'scroll';
+    document.body.style.overflowY = 'auto';
   }
 
   return (

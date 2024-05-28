@@ -11,9 +11,10 @@ const customTheme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "tomato"
+          backgroundColor: 'tomato'
         }
-      }},
+      }
+    },
     MuiTab: {
       styleOverrides: {
         root: {
