@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter, useRouteError } from 'react-router-dom';
 import { Theme } from './utils/style';
 import { Layout } from './components/Layout';
 import { ArcRoutes } from './routes/routes';
@@ -10,26 +10,34 @@ import UserRoute from 'routes/User';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import TransactionsList from 'routes/TransactionsList';
 import utils from 'utils';
+import { ErrorBoundary } from 'components/ErrorBoundary';
+import { ErrorFallback } from 'components/ErrorFallback';
+import { HealthCheck } from 'components/HealthCheck';
 
 const router = createBrowserRouter([
   {
     path: '*',
-    element: <Navigate replace to={ArcRoutes.DASHBOARD} />
+    element: <Navigate replace to={ArcRoutes.DASHBOARD} />,
+    ErrorBoundary: () => {
+      throw useRouteError();
+    }
   },
 
   {
     path: '/',
     element: <Layout />,
+    ErrorBoundary: () => {
+      throw useRouteError();
+    },
     children: [
       {
         path: ArcRoutes.USER,
         element: <UserRoute />,
+        errorElement: <ErrorFallback />,
         handle: {
+          backButton: true,
           sidebar: {
             visibile: false
-          },
-          crumbs: {
-            backButton: true
           }
         } as RouteHandleObject
       },
@@ -38,17 +46,16 @@ const router = createBrowserRouter([
         element: <DashboardRoute />,
         loader: utils.loaders.dashboard,
         // TEMPORARY ERROR ELEMENT
-        errorElement: <p>Ops!... something went wrong</p>
+        errorElement: <ErrorFallback />
       },
       {
         path: ArcRoutes.TRANSACTION,
         element: <TransactionRoute />,
         loader: ({ params }) => utils.loaders.transactionDetails(params.id),
         // TEMPORARY ERROR ELEMENT
-        errorElement: <p>Ops!... something went wrong</p>,
+        errorElement: <ErrorFallback />,
         handle: {
           crumbs: {
-            backButton: false,
             elements: [
               { name: 'transactions', fontWeight: 600, href: ArcRoutes.TRANSACTIONS },
               {
@@ -65,24 +72,17 @@ const router = createBrowserRouter([
         element: <TransactionsList />,
         loader: utils.loaders.transactionList,
         // TEMPORARY ERROR ELEMENT
-        errorElement: <p>Ops!... something went wrong</p>
+        errorElement: <ErrorFallback />
       }
     ]
   }
 ]);
 
-// INSTANT FEEDBACK WHEN DEVELOPING LOCALLY
-utils.config.env === 'LOCAL' &&
-  (async () => {
-    try {
-      await utils.apiClient.info.healthCheck();
-    } catch (e) {
-      console.error(e, 'Mock not available or /info not reachable');
-    }
-  })();
-
 export const App = () => (
-  <Theme>
-    <RouterProvider router={router} />
-  </Theme>
+  <ErrorBoundary fallback={<ErrorFallback onReset={() => window.location.replace('/')} />}>
+    <HealthCheck />
+    <Theme>
+      <RouterProvider router={router} />
+    </Theme>
+  </ErrorBoundary>
 );

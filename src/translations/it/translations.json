@@ -13,7 +13,7 @@
     },
     "dashboard": {
       "hello": "Ciao, John Doe",
-      "newPayment": "Nuovo Pagamento",
+      "newPayment": "Paga un avviso",
       "lastTransactions": "Ecco le tue ultime ricevute",
       "seeAllTransactions": "Vedi tutti",
       "IOAlert": {

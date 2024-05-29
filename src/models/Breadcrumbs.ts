@@ -1,17 +1,17 @@
 export interface BreadcrumbPath {
-  backButton?: boolean;
   elements?: BreadcrumbElement[];
   routeName?: string;
 }
 
 export interface BreadcrumbElement {
   name: string;
-  fontWeight: number;
+  fontWeight?: number;
   color?: string;
   href?: string;
 }
 
 export interface RouteHandleObject {
-  crumbs: BreadcrumbPath;
+  crumbs?: BreadcrumbPath;
   sidebar: { visible?: boolean };
+  backButton?: boolean;
 }
