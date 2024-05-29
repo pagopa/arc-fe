@@ -45,7 +45,7 @@ export function Layout() {
             {backButton && <BackButton />}
             {crumbs && (
               <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
-            )}{' '}
+            )}
             <Outlet />
           </Grid>
         </Grid>
