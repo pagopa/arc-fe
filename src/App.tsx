@@ -13,6 +13,7 @@ import utils from 'utils';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 import { ErrorFallback } from 'components/ErrorFallback';
 import { HealthCheck } from 'components/HealthCheck';
+import { CourtesyPage } from 'routes/CourtesyPage';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,10 @@ const router = createBrowserRouter([
       throw useRouteError();
     }
   },
-
+  {
+    path: ArcRoutes.COURTESY_PAGE,
+    element: <CourtesyPage />
+  },
   {
     path: '/',
     element: <Layout />,
