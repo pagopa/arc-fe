@@ -9,7 +9,6 @@ import { theme } from '@pagopa/mui-italia';
 import UserRoute from 'routes/User';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import TransactionsList from 'routes/TransactionsList';
-import utils from 'utils';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 import { ErrorFallback } from 'components/ErrorFallback';
 import { HealthCheck } from 'components/HealthCheck';
@@ -22,7 +21,6 @@ const router = createBrowserRouter([
       throw useRouteError();
     }
   },
-
   {
     path: '/',
     element: <Layout />,
@@ -44,14 +42,13 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.DASHBOARD,
         element: <DashboardRoute />,
-        loader: utils.loaders.dashboard,
         // TEMPORARY ERROR ELEMENT
         errorElement: <ErrorFallback />
       },
       {
         path: ArcRoutes.TRANSACTION,
         element: <TransactionRoute />,
-        loader: ({ params }) => utils.loaders.transactionDetails(params.id),
+        loader: ({ params }) => Promise.resolve(params.id),
         // TEMPORARY ERROR ELEMENT
         errorElement: <ErrorFallback />,
         handle: {
@@ -70,7 +67,6 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.TRANSACTIONS,
         element: <TransactionsList />,
-        loader: utils.loaders.transactionList,
         // TEMPORARY ERROR ELEMENT
         errorElement: <ErrorFallback />
       }

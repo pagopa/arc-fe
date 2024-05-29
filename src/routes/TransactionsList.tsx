@@ -15,101 +15,109 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Search } from '@mui/icons-material';
 import { theme } from '@pagopa/mui-italia';
-import { AxiosResponse } from 'axios';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import utils from 'utils';
-import { TransactionsResponse } from '../../generated/apiClient';
 import { ArcRoutes } from './routes';
+import QueryLoader from 'components/QueryLoader';
 
 export default function TransactionsList() {
   const { t } = useTranslation();
-  const transactions = useLoaderData();
+  const { data, isError } = utils.loaders.getTransactions();
   const navigate = useNavigate();
 
-  const paidByMe = utils.converters.prepareRowsData({
-    transactions: (transactions as AxiosResponse<TransactionsResponse>).data.filter(
-      ({ payedByMe }) => payedByMe
-    ),
-    status: { label: t('app.transactions.payed') },
-    payee: { multi: t('app.transactions.multiEntities') },
-    action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
-  });
+  const paidByMe =
+    data &&
+    utils.converters.prepareRowsData({
+      transactions: data.filter(({ payedByMe }) => payedByMe),
+      status: { label: t('app.transactions.payed') },
+      payee: { multi: t('app.transactions.multiEntities') },
+      action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+    });
 
-  const ownedByMe = utils.converters.prepareRowsData({
-    transactions: (transactions as AxiosResponse<TransactionsResponse>).data.filter(
-      ({ payedByMe }) => !payedByMe
-    ),
-    status: { label: t('app.transactions.payed') },
-    payee: { multi: t('app.transactions.multiEntities') },
-    action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
-  });
+  const ownedByMe =
+    data &&
+    utils.converters.prepareRowsData({
+      transactions: data.filter(({ payedByMe }) => !payedByMe),
+      status: { label: t('app.transactions.payed') },
+      payee: { multi: t('app.transactions.multiEntities') },
+      action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+    });
 
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={7}>
         <Typography variant="h3">{t('menu.receipts')}</Typography>
       </Stack>
-      <Grid container spacing={3} mb={3}>
-        <Grid item xs={9}>
-          <TextField
-            role="textbox"
-            aria-required="false"
-            aria-label={t('app.transactions.searchByName')}
-            size="small"
-            fullWidth={true}
-            label={t('app.transactions.searchByName')}
-            InputLabelProps={{
-              sx: {
-                color: theme.palette.text.secondary,
-                fontWeight: 600
-              }
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              )
-            }}
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <FormControl sx={{ display: 'block', minWidth: '100%' }}>
-            <InputLabel id="transactions-filter-select">{t('app.transactions.orderBy')}</InputLabel>
-            <Select
-              color="primary"
+      <QueryLoader
+        // TODO: fallback component of behavior be defined
+        fallback={isError && <p>Ops! Something went wrong, please try again</p>}
+        queryKey="transactions">
+        <Grid container spacing={3} mb={3}>
+          <Grid item xs={9}>
+            <TextField
+              role="textbox"
+              aria-required="false"
+              aria-label={t('app.transactions.searchByName')}
               size="small"
               fullWidth={true}
-              labelId="transactions-filter-select"
-              label={t('app.transactions.orderBy')}>
-              <MenuItem selected value="it-health-code">
-                {t('app.transactions.mostRecent')}
-              </MenuItem>
-              <MenuItem value="it-health-code">{t('app.transactions.leastRecent')}</MenuItem>
-              <MenuItem value="it-health-code">{t('app.transactions.lowerAmount')}</MenuItem>
-              <MenuItem value="it-health-code">{t('app.transactions.higherAmount')}</MenuItem>
-            </Select>
-          </FormControl>
+              label={t('app.transactions.searchByName')}
+              InputLabelProps={{
+                sx: {
+                  color: theme.palette.text.secondary,
+                  fontWeight: 600
+                }
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                )
+              }}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <FormControl sx={{ display: 'block', minWidth: '100%' }}>
+              <InputLabel id="transactions-filter-select">
+                {t('app.transactions.orderBy')}
+              </InputLabel>
+              <Select
+                color="primary"
+                size="small"
+                fullWidth={true}
+                labelId="transactions-filter-select"
+                label={t('app.transactions.orderBy')}>
+                <MenuItem selected value="it-health-code">
+                  {t('app.transactions.mostRecent')}
+                </MenuItem>
+                <MenuItem value="it-health-code">{t('app.transactions.leastRecent')}</MenuItem>
+                <MenuItem value="it-health-code">{t('app.transactions.lowerAmount')}</MenuItem>
+                <MenuItem value="it-health-code">{t('app.transactions.higherAmount')}</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
-      </Grid>
-      <Tabs
-        ariaLabel="tabs"
-        initialActiveTab={0}
-        tabs={[
-          {
-            title: t('app.transactions.all'),
-            content: <Transactions rows={paidByMe.concat(ownedByMe)} />
-          },
-          {
-            title: t('app.transactions.paidByMe'),
-            content: <Transactions rows={paidByMe} />
-          },
-          {
-            title: t('app.transactions.ownedByMe'),
-            content: <Transactions rows={ownedByMe} />
-          }
-        ]}
-      />
+        {ownedByMe && paidByMe && (
+          <Tabs
+            ariaLabel="tabs"
+            initialActiveTab={0}
+            tabs={[
+              {
+                title: t('app.transactions.all'),
+                content: <Transactions rows={paidByMe.concat(ownedByMe)} />
+              },
+              {
+                title: t('app.transactions.paidByMe'),
+                content: <Transactions rows={paidByMe} />
+              },
+              {
+                title: t('app.transactions.ownedByMe'),
+                content: <Transactions rows={ownedByMe} />
+              }
+            ]}
+          />
+        )}
+      </QueryLoader>
     </>
   );
 }
