@@ -9,7 +9,6 @@ import { theme } from '@pagopa/mui-italia';
 import UserRoute from 'routes/User';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import TransactionsList from 'routes/TransactionsList';
-import utils from 'utils';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 import { ErrorFallback } from 'components/ErrorFallback';
 import { HealthCheck } from 'components/HealthCheck';
