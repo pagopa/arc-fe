@@ -8,13 +8,14 @@ import { alpha } from '@mui/material';
 type Props = {
   collapsed: boolean;
   item: ISidebarMenuItem;
+  onClick: React.MouseEventHandler<HTMLAnchorElement> | undefined;
 };
 
 function renderIcon(Icon: SvgIconComponent | (() => JSX.Element)) {
   return <Icon></Icon>;
 }
 
-export const SidebarMenuItem = ({ collapsed, item }: Props) => {
+export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
   const theme = useTheme();
 
   function ListItemLink() {
@@ -23,6 +24,7 @@ export const SidebarMenuItem = ({ collapsed, item }: Props) => {
         <ListItemButton
           component={NavLink}
           to={item.route}
+          onClick={onClick}
           sx={{
             px: 3,
             '&.active': {

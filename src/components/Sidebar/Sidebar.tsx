@@ -111,7 +111,16 @@ export const Sidebar = () => {
                 hidden={collapsed && !lg}
                 aria-hidden={collapsed && !lg}>
                 {menuItems.map((item: ISidebarMenuItem, index: number) => (
-                  <SidebarMenuItem collapsed={collapsed} item={item} key={index} />
+                  <SidebarMenuItem
+                    onClick={() => {
+                      if (!lg) {
+                        changeMenuState(false);
+                      }
+                    }}
+                    collapsed={collapsed}
+                    item={item}
+                    key={index}
+                  />
                 ))}
               </List>
               <Divider orientation="horizontal" flexItem />
