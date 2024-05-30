@@ -1,4 +1,5 @@
 import React, { ErrorInfo, ReactNode } from 'react';
+import utils from 'utils';
 
 interface ErrorBoundaryProps {
   children?: ReactNode;
@@ -24,6 +25,15 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   render() {
+    utils.apiClient.instance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response.status === 401) {
+          this.setState({ hasError: true });
+          throw error;
+        }
+      }
+    );
     if (this.state.hasError) {
       // render fallback UI
       return this.props.fallback;
