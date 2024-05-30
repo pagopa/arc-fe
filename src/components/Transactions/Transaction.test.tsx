@@ -45,7 +45,7 @@ describe('Transaction row table component', () => {
     const button = screen.getByTestId('transaction-details-button');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUsedNavigate).toHaveBeenLastCalledWith(`/transaction/${id}`);
+    expect(mockedUsedNavigate).toHaveBeenLastCalledWith(`/transactions/${id}`);
   });
 
   it('should render without problems', () => {

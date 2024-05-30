@@ -1,6 +1,6 @@
 export enum ArcRoutes {
   DASHBOARD = '/',
-  TRANSACTION = '/transaction/:id',
+  TRANSACTION = '/transactions/:id',
   TRANSACTIONS = '/transactions/',
   USER = '/user',
   COURTESY_PAGE = '/courtesy'

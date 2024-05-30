@@ -37,6 +37,7 @@ export const Sidebar = () => {
   ];
   const theme = useTheme();
   const lg = useMediaQuery(theme.breakpoints.up('lg'));
+  const xs = useMediaQuery(theme.breakpoints.only('xs'));
   const smOrMd = useMediaQuery(theme.breakpoints.between('sm', 'lg')); //had to make a separate variable because otherwise there would be a crash due to too many renders. Variable is true if current breakpoints are sm or md
   const { collapsed, changeMenuState } = useCollapseMenu(!lg); //Should be collapsed on load if on mobile,  if lg is false, we're on mobile.
 
@@ -44,13 +45,21 @@ export const Sidebar = () => {
   const fullHeight = !collapsed || lg;
   const showHamburger = lg || collapsed;
 
+  if (overlay || (xs && !collapsed)) {
+    document.body.style.overflowY = 'hidden';
+  } else {
+    document.body.style.overflowY = 'auto';
+  }
+
   return (
     <>
       <Box
         zIndex={!lg && !collapsed ? 30000 : 3}
         sx={{
-          position: !collapsed ? 'absolute' : 'relative',
+          position: !collapsed ? 'fixed' : 'relative',
           width: '100%',
+          top: '0',
+          height: '100%',
           [theme.breakpoints.between('sm', 'lg')]: { width: collapsed ? '100%' : 'fit-content' }, //I couldn't define the height mobile first, because if I did, when not in mobile breakpoints, even if I set the height to 100%, it would still not cover the whole surface...
           [theme.breakpoints.up('lg')]: {
             width: 'fit-content',
@@ -102,7 +111,16 @@ export const Sidebar = () => {
                 hidden={collapsed && !lg}
                 aria-hidden={collapsed && !lg}>
                 {menuItems.map((item: ISidebarMenuItem, index: number) => (
-                  <SidebarMenuItem collapsed={collapsed} item={item} key={index} />
+                  <SidebarMenuItem
+                    onClick={() => {
+                      if (!lg) {
+                        changeMenuState(false);
+                      }
+                    }}
+                    collapsed={collapsed}
+                    item={item}
+                    key={index}
+                  />
                 ))}
               </List>
               <Divider orientation="horizontal" flexItem />

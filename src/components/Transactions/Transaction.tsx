@@ -8,6 +8,7 @@ import { Box, Chip, ChipOwnProps, Stack, Typography, useMediaQuery } from '@mui/
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { theme } from '@pagopa/mui-italia';
+import { ArcRoutes } from 'routes/routes';
 
 export interface TransactionProps {
   payee: {
@@ -68,7 +69,7 @@ const Transaction = (props: TransactionProps) => {
     <TableRow
       role="button"
       data-testid="transaction-details-button"
-      onClick={() => navigate(`/transaction/${id}`)}>
+      onClick={() => navigate(`${ArcRoutes.TRANSACTIONS}${id}`)}>
       <StyledTableCell>
         <Stack direction="row" spacing={smUp ? 2 : 0} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
