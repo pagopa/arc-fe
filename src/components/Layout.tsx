@@ -25,18 +25,32 @@ export function Layout() {
   } as RouteHandleObject;
 
   return (
-    <Container maxWidth={false} disableGutters>
-      <Grid container>
-        <Grid item xs={12}>
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={{ display: 'flex', height: '100%', minHeight: '100vh', alignItems: 'baseline' }}>
+      <Grid container height={'100%'} minHeight="100vh" flexDirection="column" flexWrap={'nowrap'}>
+        <Grid flexBasis={{ xs: 'fit-content' }} item xs={12} height="fit-content">
           <Header />
         </Grid>
-        {sidebar?.visible ? <Sidebar /> : null}
-        <Grid item bgcolor={grey['100']} padding={3} xs>
-          {backButton && <BackButton />}
-          {crumbs && <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />}
-          <Outlet />
+        <Grid
+          item
+          display={'flex'}
+          flexGrow={1}
+          flexWrap={'wrap'}
+          alignContent={'flex-start'}
+          flexBasis={'50vh'}>
+          {sidebar?.visible ? <Sidebar /> : null}
+          <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs>
+            {backButton && <BackButton />}
+            {crumbs && (
+              <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
+            )}
+            <Outlet />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height="fit-content" flexBasis={{ xs: 'fit-content' }} flexShrink={3}>
+          {/*xs in flex basis is specified to override mui clas.*/}
           <Footer />
         </Grid>
       </Grid>
