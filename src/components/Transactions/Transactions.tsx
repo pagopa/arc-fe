@@ -4,7 +4,7 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import Transaction from './Transaction';
-import { TableHead, TableRow, TableCell, useTheme, useMediaQuery } from '@mui/material';
+import { TableHead, TableRow, TableCell, useMediaQuery, Theme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 export interface TransactionsProps {
@@ -13,8 +13,7 @@ export interface TransactionsProps {
 
 const Transactions = (props: TransactionsProps) => {
   const { t } = useTranslation();
-  const theme = useTheme();
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   return (
     <TableContainer sx={{ bgcolor: 'transparent' }}>
