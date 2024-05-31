@@ -33,8 +33,6 @@ export default function UserRoute() {
             <UserRowInfo label={t('app.user.info.name')} data="Matteo" />
             <UserRowInfo label={t('app.user.info.surname')} data="Rossi" />
             <UserRowInfo label={t('app.user.info.identifier')} data="MTTRSS74B23F205K" />
-          </Stack>
-          <Stack bgcolor={theme.palette.background.paper} borderRadius={1} p={3}>
             <UserRowInfo label={t('app.user.info.email')} data="matteo.rossi@email.com" />
           </Stack>
         </Stack>

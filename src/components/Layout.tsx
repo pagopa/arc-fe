@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, useMediaQuery } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -9,6 +9,7 @@ import { Outlet, useMatches } from 'react-router-dom';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import { Header } from './Header';
 import { BackButton } from './BackButton';
+import { theme } from '@pagopa/mui-italia';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
@@ -23,6 +24,12 @@ export function Layout() {
     ...defaultRouteHandle,
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
+
+  const md = useMediaQuery(theme.breakpoints.only('md'));
+  const lg = useMediaQuery(theme.breakpoints.only('lg'));
+  const xl = useMediaQuery(theme.breakpoints.only('xl'));
+
+  const sidePadding = sidebar.visible ? 3 : xl ? 34.6 : lg ? 27.3 : md ? 12 : 3;
 
   return (
     <Container
@@ -41,7 +48,14 @@ export function Layout() {
           alignContent={'flex-start'}
           flexBasis={'50vh'}>
           {sidebar?.visible ? <Sidebar /> : null}
-          <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs>
+          <Grid
+            item
+            bgcolor={grey['100']}
+            padding={3}
+            height={'100%'}
+            xs
+            paddingLeft={sidePadding}
+            paddingRight={sidePadding}>
             {backButton && <BackButton />}
             {crumbs && (
               <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
