@@ -1,4 +1,5 @@
-import { ProductEntity, RootLinkType } from '@pagopa/mui-italia';
+import { LogoPagoPAProduct, ProductEntity, RootLinkType } from '@pagopa/mui-italia';
+import React from 'react';
 
 /** Useful default values  */
 /** APIHOST default value works in conjunction with the proxy server. See the .proxyrc file */
@@ -15,9 +16,10 @@ type Config = {
 
 const product: ProductEntity = {
   id: '0',
-  title: `Area Riservata Cittadini`,
-  productUrl: '#area-riservata-cittadini',
-  linkType: 'external'
+  title: ``,
+  productUrl: '#no-title',
+  linkType: 'external',
+  icon: <LogoPagoPAProduct color="default" title="PagoPA" />
 };
 
 const pagopaLink: RootLinkType = {
