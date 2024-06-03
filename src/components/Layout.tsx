@@ -24,6 +24,8 @@ export function Layout() {
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
 
+  const sidePadding = sidebar.visible ? 3 : { xs: 3, md: 12, lg: 27, xl: 34 };
+
   return (
     <Container
       maxWidth={false}
@@ -41,7 +43,7 @@ export function Layout() {
           alignContent={'flex-start'}
           flexBasis={'50vh'}>
           {sidebar?.visible ? <Sidebar /> : null}
-          <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs>
+          <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs paddingX={sidePadding}>
             {backButton && <BackButton />}
             {crumbs && (
               <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
