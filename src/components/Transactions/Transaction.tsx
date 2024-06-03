@@ -71,7 +71,7 @@ const Transaction = (props: TransactionProps) => {
       data-testid="transaction-details-button"
       onClick={() => navigate(`${ArcRoutes.TRANSACTIONS}${id}`)}>
       <StyledTableCell>
-        <Stack direction="row" spacing={smUp ? 2 : 0} alignItems="center">
+        <Stack direction="row" spacing={{ xs: 0, sm: 2 }} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
           <Box>
             <Typography variant="body2" fontWeight={600}>

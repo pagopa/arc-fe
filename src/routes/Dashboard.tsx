@@ -1,6 +1,6 @@
 import React from 'react';
 import IOAlert from 'components/Alerts/IOAlert';
-import { Box, Button, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import utils from 'utils';
@@ -14,7 +14,6 @@ const Dashboard = () => {
   const { data, isError } = utils.loaders.getTransactions();
   const navigate = useNavigate();
   const theme = useTheme();
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const rows =
     data &&
@@ -61,7 +60,11 @@ const Dashboard = () => {
           {t('app.dashboard.seeAllTransactions')}
         </Button>
       </Stack>
-      <Box bgcolor={grey['A200']} padding={mdUp ? 2 : 3} margin={!mdUp ? -3 : 0} marginTop={0}>
+      <Box
+        bgcolor={grey['A200']}
+        padding={{ xs: 3, md: 2 }}
+        margin={{ xs: -3, md: 0 }}
+        marginTop={0}>
         <QueryLoader
           queryKey="transactions"
           // TODO: fallback component of behavior be defined
