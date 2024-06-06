@@ -42,3 +42,7 @@ test_reports/
 *storybook.log
 storybook-static/
 storybook-static-develop/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
