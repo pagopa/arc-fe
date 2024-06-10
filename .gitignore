@@ -42,3 +42,6 @@ test_reports/
 *storybook.log
 storybook-static/
 storybook-static-develop/
+
+# Idea
+.idea
