@@ -6,7 +6,7 @@ trigger:
       - develop
       - uat
       - main
-      - P4PU-184/deploy-pipeline
+      - testdeploypipeline
   paths:
     include:
       - src/*
