@@ -6,6 +6,7 @@ trigger:
       - develop
       - uat
       - main
+      - chore/ci-cd
   paths:
     include:
       - src/*
