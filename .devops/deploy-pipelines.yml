@@ -74,7 +74,7 @@ stages:
           #     path: $(npm_config_cache)
           #   displayName: Cache npm
 
-          - bash: |
+          - script: |
             yarn build
           displayName: 'Build'
 #            env:
