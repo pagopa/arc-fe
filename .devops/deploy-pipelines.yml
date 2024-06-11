@@ -81,8 +81,8 @@ stages:
 #              EXECUTION_ID: '$(Build.BuildNumber) - $(Build.DefinitionName)($(Build.BuildId))'
 #                INLINE_RUNTIME_CHUNK: 'false'
 
-          - publish: mypay4-fe/dist
-            artifact: Bundle
+        - publish: mypay4-fe/dist
+          artifact: Bundle
 
   # Deploy bundle
   - stage: stage_deploy
