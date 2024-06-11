@@ -85,7 +85,7 @@ stages:
           - download: current
             artifact: Bundle
 
-          - ${{ each app in parameters.apps }}:
+#          - ${{ each app in parameters.apps }}:
           - task: AzureCLI@2
             displayName: 'Sync storage'
             inputs:
