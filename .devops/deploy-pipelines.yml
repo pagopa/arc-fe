@@ -56,7 +56,7 @@ pool:
   vmImage: '$(vmImageNameDefault)'
 
 stages:
-  - stage: stage_build
+  - stage: prepare_artifact
     displayName: 'Build ${{ variables.environment }} apps'
     jobs:
       - job: job_build
@@ -66,23 +66,11 @@ stages:
             parameters:
               nodeVersion: $(NODE_VERSION)
 
-          # - task: Cache@2
-          #   inputs:
-          #     key: 'npm | "$(Agent.OS)" | package.json'
-          #     restoreKeys: |
-          #       npm | "$(Agent.OS)"
-          #     path: $(npm_config_cache)
-          #   displayName: Cache npm
+          - script: yarn build
+            displayName: 'yarn build'
 
-          - script: |
-            yarn build
-          displayName: Build
-#            env:
-#              EXECUTION_ID: '$(Build.BuildNumber) - $(Build.DefinitionName)($(Build.BuildId))'
-#                INLINE_RUNTIME_CHUNK: 'false'
-
-        - publish: mypay4-fe/dist
-          artifact: Bundle
+          - publish: mypay4-fe/dist
+            artifact: Bundle
 
   # Deploy bundle
   - stage: stage_deploy
