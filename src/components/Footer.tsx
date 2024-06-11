@@ -4,13 +4,17 @@ import lang from '../translations/lang';
 import { Footer as MUIFooter } from '@pagopa/mui-italia';
 import utils from 'utils';
 
-export const Footer = () => {
+interface FooterProps {
+  loggedUser?: boolean;
+}
+export const Footer = (props: FooterProps) => {
   const { t } = useTranslation();
+  const { loggedUser = true } = props;
   const { language, changeLanguage } = utils.hooks.useLanguage();
 
   return (
     <MUIFooter
-      loggedUser
+      loggedUser={loggedUser}
       companyLink={{ ariaLabel: 'PagoPA SPA' }}
       legalInfo={
         <>
