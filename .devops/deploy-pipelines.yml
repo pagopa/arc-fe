@@ -76,7 +76,7 @@ stages:
 
           - script: |
             yarn build
-          displayName: 'Build'
+          displayName: Build
 #            env:
 #              EXECUTION_ID: '$(Build.BuildNumber) - $(Build.DefinitionName)($(Build.BuildId))'
 #                INLINE_RUNTIME_CHUNK: 'false'
