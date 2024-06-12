@@ -101,7 +101,7 @@ stages:
               scriptType: 'bash'
               scriptLocation: inlineScript
               inlineScript: |
-                az storage blob sync --container '$web' --account-name $(storage_account) --source "$(Pipeline.Workspace)/Bundle/"
+                az storage blob sync --container '$web' --account-name $(storage_account) --source "$(Pipeline.Workspace)/Bundle"
 
           - task: AzureCLI@1
             displayName: 'Purge CDN endpoint'
@@ -109,4 +109,4 @@ stages:
               azureSubscription: '$(AZURE_SUBSCRIPTION)'
               scriptLocation: inlineScript
               inlineScript: |
-                az cdn endpoint purge -g $(resource_group) -n $(cdn_endpoint) --profile-name $(cdn_profile) --content-paths "/$(blob_container)" "/$(blob_container)/*" "/"
+                az cdn endpoint purge -g $(resource_group) -n $(cdn_endpoint) --profile-name $(cdn_profile) --content-paths "/*"
