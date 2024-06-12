@@ -13,6 +13,7 @@ import {
   alpha,
   useTheme
 } from '@mui/material';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import { CieIcon } from '@pagopa/mui-italia/dist/icons/CieIcon';
 import { SpidIcon } from '@pagopa/mui-italia/dist/icons/SpidIcon';
 
@@ -75,10 +76,18 @@ const Login = () => {
                       size="large"
                       startIcon={<SpidIcon />}
                       fullWidth
+                      role="button"
+                      aria-label={t('app.login.spid')}
                       sx={{ paddingX: 11 }}>
                       {t('app.login.spid')}
                     </Button>
-                    <Button variant="contained" size="large" fullWidth startIcon={<CieIcon />}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      role="button"
+                      aria-label={t('app.login.cie')}
+                      fullWidth
+                      startIcon={<CieIcon />}>
                       {t('app.login.cie')}
                     </Button>
                   </Stack>
@@ -108,7 +117,9 @@ const Login = () => {
                     <Typography variant="body1" fontWeight={600} color={theme.palette.primary.main}>
                       {t('app.login.accessYourArea')}
                     </Typography>
-                    <Logout color="primary" />
+                    <ReactRouterLink to="" aria-label={t('app.login.accessYourArea')} role="link">
+                      <Logout color="primary" />
+                    </ReactRouterLink>
                   </Stack>
                 </CardContent>
               </Card>
