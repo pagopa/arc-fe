@@ -62,7 +62,8 @@ stages:
       - job: job_build
         displayName: Build
         steps:
-          - template: templates/node-job-setup/template.yaml@pagopaCommons
+#          - template: templates/node-job-setup/template.yaml@pagopaCommons
+          - template: local-templates/node-job-setup.yaml
 
           - script: yarn build
             displayName: 'yarn build'
