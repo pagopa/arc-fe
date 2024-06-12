@@ -50,11 +50,11 @@ const Login = () => {
         <Grid
           item
           display={'flex'}
-          flexGrow={1}
+          marginTop={16}
+          marginBottom={16}
           flexWrap={'wrap'}
-          alignContent={'center'} //Mettere center?
-          justifyContent={'center'}
-          flexBasis={'50vh'}>
+          justifyContent={'center'}>
+          {' '}
           <Box width={'100%'}>
             <Stack textAlign={'center'} justifyContent={'center'} alignItems={'center'} spacing={4}>
               <Stack spacing={2}>
