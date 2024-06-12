@@ -25,6 +25,11 @@ export function Layout() {
   } as RouteHandleObject;
 
   const sidePadding = sidebar.visible ? 3 : { xs: 3, md: 12, lg: 27, xl: 34 };
+  const { ASSISTANCE_MAIL } = process.env;
+
+  const onAssistanceClick = () => {
+    window.open(`mailto:${ASSISTANCE_MAIL}`);
+  };
 
   return (
     <Container
@@ -33,7 +38,7 @@ export function Layout() {
       sx={{ display: 'flex', height: '100%', minHeight: '100vh', alignItems: 'baseline' }}>
       <Grid container height={'100%'} minHeight="100vh" flexDirection="column" flexWrap={'nowrap'}>
         <Grid flexBasis={{ xs: 'fit-content' }} item xs={12} height="fit-content">
-          <Header />
+          <Header onAssistanceClick={onAssistanceClick} />
         </Grid>
         <Grid
           item
