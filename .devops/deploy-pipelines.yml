@@ -14,9 +14,10 @@ trigger:
 pr: none
 
 variables:
-  NODE_VERSION: '21.7.1'
+  NODE_VERSION: '18.14.0'
   npm_config_cache: $(Pipeline.Workspace)/.npm
   vmImageNameDefault: 'ubuntu-latest'
+  cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
 
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
     environment: 'UAT'
@@ -42,6 +43,7 @@ variables:
     cdn_profile: '$(DEV_CDN_PROFILE)'
     resource_group: '$(DEV_STORAGE_ACCOUNT_RG)'
     storage_account: '$(DEV_STORAGE_ACCOUNT_NAME)'
+    api_host: 'https://dev.apihost.pagopa.it/api'
 
 resources:
   repositories:
@@ -65,10 +67,17 @@ stages:
 #          - template: templates/node-job-setup/template.yaml@pagopaCommons
           - template: local-templates/node-job-setup.yaml
 
-          - script: yarn build
+          - template: local-templates/setup-env.yaml
+            parameters:
+              api_host: '$(api_host)'
+              env: '$(environment)'
+              cdn_logos: '$(cdn_logos)'
+
+          - script: |
+              yarn build
             displayName: 'yarn build'
 
-          - publish: mypay4-fe/dist
+          - publish: dist
             artifact: Bundle
 
   # Deploy bundle
