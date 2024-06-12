@@ -48,7 +48,7 @@ resources:
     - repository: pagopaCommons
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v18
+      ref: refs/tags/v19
       # Cannot use variables here!
       endpoint: 'azure-devops-github-ro'
 
@@ -63,8 +63,6 @@ stages:
         displayName: Build
         steps:
           - template: templates/node-job-setup/template.yaml@pagopaCommons
-            parameters:
-              nodeVersion: $(NODE_VERSION)
 
           - script: yarn build
             displayName: 'yarn build'
