@@ -54,10 +54,9 @@ const Login = () => {
           marginBottom={16}
           flexWrap={'wrap'}
           justifyContent={'center'}>
-          {' '}
           <Box width={'100%'}>
             <Stack textAlign={'center'} justifyContent={'center'} alignItems={'center'} spacing={4}>
-              <Stack spacing={2}>
+              <Stack spacing={2} paddingX={1}>
                 <Typography variant="h3">{t('app.login.title')}</Typography>
                 <Typography variant="body1">{t('app.login.description')}</Typography>
               </Stack>
@@ -67,7 +66,7 @@ const Login = () => {
                   borderRadius: '16px',
                   padding: 2,
                   width: '100%',
-                  maxWidth: '25%' //I used SEND's login page as a reference for sizes, since the design is in pixels.
+                  maxWidth: { lg: '25%', xs: '75%', sm: '50%' } //I used SEND's login page as a reference for sizes, since the design is in pixels.
                 }}>
                 <CardActions>
                   <Stack spacing={2} width={'100%'}>
@@ -75,11 +74,21 @@ const Login = () => {
                       variant="contained"
                       size="large"
                       startIcon={<SpidIcon />}
-                      fullWidth
                       role="button"
-                      aria-label={t('app.login.spid')}
-                      sx={{ paddingX: 11 }}>
-                      {t('app.login.spid')}
+                      sx={{
+                        borderRadius: '4px',
+                        width: '100%',
+                        marginBottom: '5px'
+                      }}
+                      aria-label={t('app.login.spid')}>
+                      <Typography
+                        sx={{
+                          fontWeight: 'fontWeightMedium',
+                          textAlign: 'center',
+                          color: theme.palette.primary.contrastText
+                        }}>
+                        {t('app.login.spid')}
+                      </Typography>
                     </Button>
                     <Button
                       variant="contained"
@@ -87,23 +96,37 @@ const Login = () => {
                       role="button"
                       aria-label={t('app.login.cie')}
                       fullWidth
+                      sx={{
+                        borderRadius: '4px',
+                        width: '100%',
+                        marginBottom: '5px'
+                      }}
                       startIcon={<CieIcon />}>
-                      {t('app.login.cie')}
+                      <Typography
+                        sx={{
+                          fontWeight: 'fontWeightMedium',
+                          textAlign: 'center',
+                          color: theme.palette.primary.contrastText
+                        }}>
+                        {t('app.login.cie')}
+                      </Typography>
                     </Button>
                   </Stack>
                 </CardActions>
               </Card>
-              <Typography variant="body1">
-                {`${t('app.login.terms1')}`} <Link fontWeight={700}>{t('app.login.terms2')}</Link>
-                {` ${t('app.login.terms3')}`}
-                <Link fontWeight={700}>{t('app.login.terms4')}</Link>
-              </Typography>
+              <Grid item maxWidth={{ lg: '25%', xs: '75%', sm: '50%' }}>
+                <Typography variant="body1">
+                  {`${t('app.login.terms1')}`} <Link fontWeight={600}>{t('app.login.terms2')}</Link>
+                  {` ${t('app.login.terms3')}`}
+                  <Link fontWeight={600}>{t('app.login.terms4')}</Link>
+                </Typography>
+              </Grid>
               <Card
                 sx={{
                   backgroundColor: alpha('rgba(250, 250, 250)', 1),
                   borderRadius: 1,
                   width: '100%',
-                  maxWidth: '25%',
+                  maxWidth: { lg: '25%', xs: '75%', sm: '50%' },
 
                   borderLeft: 'solid',
                   borderLeftWidth: 4,

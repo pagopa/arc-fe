@@ -43,34 +43,109 @@ export const Footer = (props: FooterProps) => {
         aboutUs: {
           links: [
             {
-              label: 'string',
-              /** the url to witch the user will be redirect */
-              ariaLabel: 'string',
+              label: t('ui.footer.who'),
+              ariaLabel: t('ui.footer.who'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.pnrr'),
+              ariaLabel: t('ui.footer.pnrr'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.media'),
+              ariaLabel: t('ui.footer.media'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.products'),
+              ariaLabel: t('ui.footer.products'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.workWithUs'),
+              ariaLabel: t('ui.footer.workWithUs'),
               linkType: 'internal'
             }
           ]
         },
         resources: {
+          title: t('ui.footer.resources'),
           links: [
             {
-              label: 'string',
-              /** the url to witch the user will be redirect */
-              ariaLabel: 'string',
+              label: t('ui.footer.privacy'),
+              ariaLabel: t('ui.footer.privacy'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.terms'),
+              ariaLabel: t('ui.footer.terms'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.certifications'),
+              ariaLabel: t('ui.footer.certifications'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.security'),
+              ariaLabel: t('ui.footer.security'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.dataProtectionRights'),
+              ariaLabel: t('ui.footer.dataProtectionRights'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.cookie'),
+              ariaLabel: t('ui.footer.cookie'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.transparentCompany'),
+              ariaLabel: t('ui.footer.transparentCompany'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.dislosurePolicy'),
+              ariaLabel: t('ui.footer.dislosurePolicy'),
+              linkType: 'internal'
+            },
+            {
+              label: t('ui.footer.231'),
+              ariaLabel: t('ui.footer.231'),
               linkType: 'internal'
             }
           ]
         },
         followUs: {
-          title: 'string',
+          title: t('ui.footer.followUs'),
           socialLinks: [
             {
-              icon: 'string',
-              /** the url to witch the user will be redirect */
-              title: 'string',
-              ariaLabel: 'string'
+              icon: 'linkedin',
+              title: 'Linkedin',
+              ariaLabel: 'Linkedin'
+            },
+            {
+              icon: 'instagram',
+              title: 'Instagram',
+              ariaLabel: 'Instagram'
+            },
+            {
+              icon: 'twitter',
+              title: 'Twitter',
+              ariaLabel: 'Twitter'
+            },
+            {
+              icon: 'medium',
+              title: 'Medium',
+              ariaLabel: 'Medium'
             }
           ],
-          links: [{ label: 'string', ariaLabel: 'string', linkType: 'internal' }]
+          links: [
+            { label: t('ui.footer.a11y'), ariaLabel: t('ui.footer.a11y'), linkType: 'internal' }
+          ]
         }
       }}
       currentLangCode={language}
