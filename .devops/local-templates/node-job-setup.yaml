@@ -71,6 +71,6 @@ steps:
 
 - bash: |
     echo "current folder: $(pwd)"
-    yarn install --frozen-lockfile --immutable-cache
+    yarn install --immutable-cache
   workingDirectory: ${{ parameters.projectDir }}    
   displayName: 'Install node modules'
