@@ -14,9 +14,11 @@ parameters:
 
 steps:
 - bash: |
+    chmod +x env.sh
     env -i \
-      APIHOST=${{ parameters.api_host }} \
-      ENV=${{ parameters.env }} \
-      ENTITIES_LOGO_CDN=${{ parameters.cdn_logos }} \
+      ARC_FE_APIHOST=${{ parameters.api_host }} \
+      ARC_FE_ENV=${{ parameters.env }} \
+      ARC_FE_ENTITIES_LOGO_CDN=${{ parameters.cdn_logos }} \
+      bash env.sh
 
   displayName: 'Populate environment file'
