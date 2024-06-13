@@ -11,6 +11,18 @@
         "email": "Mail"
       }
     },
+    "login":{
+      "title": "Accedi a pagoPA",
+      "description": "La tua area personale in cui gestire i pagamenti pagoPA e scaricare le ricevute.",
+      "terms1":"Accedendo accetti i",
+      "terms2": "Termini e condizioni d’uso",
+      "terms3": "del servizio e confermi di avere letto l'",
+      "terms4": "Informativa Privacy.",
+      "areYouAnEnterprise": "Sei un'impresa?",
+      "accessYourArea": "Accedi alla tua area",
+      "spid": "Entra con SPID",
+      "cie": "Entra con CIE"
+    },
     "dashboard": {
       "hello": "Ciao, John Doe",
       "newPayment": "Paga un avviso",
@@ -76,7 +88,8 @@
     }
   },
   "aria": {
-    "a11y": "Accessibilità"
+    "a11y": "Accessibilità",
+    "help": "Aiuto"
   },
   "general": {
     "and": "e",
@@ -99,10 +112,27 @@
     },
     "footer": {
       "disclaimer": "",
+      "a11y": "Accessibilità",
+      "help": "Aiuto",
       "privacy": "Informativa Privacy",
+      "who": "Chi siamo",
+      "pnrr": "PNRR",
+      "media": "Media",
+      "workWithUs": "Lavora con noi",
+      "products": "Prodotti e servizi",
       "personalData": "Diritto alla protezione dei dati personali",
       "termsAndConditions": "Termini e condizioni d'uso",
-      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009"
+      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009",
+      "resources": "Risorse",
+      "terms":"Termini e condizioni",
+      "certifications":"Certificazioni",
+      "security":"Sicurezza delle informazioni",
+      "dataProtectionRights": "Diritto alla protezione dei dati personali",
+      "cookie": "Preferenze cookie",
+      "transparentCompany": "Società trasparente",
+      "dislosurePolicy": "Responsabile Disclosure Policy",
+      "231": "Modello 231",
+      "followUs": "Seguici su"
     }
   }
 }
