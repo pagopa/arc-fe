@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
@@ -21,17 +21,13 @@ const Assistance = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const { ASSISTANCE_LINK } = process.env;
-
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
-
   const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
-
   const emailError = !reg.test(email) && email.length > 0;
   const emailConfirmError = email !== emailConfirm;
 
-  useEffect(() => {}, []);
   const openModal = () => {
     setOpen(true);
   };
