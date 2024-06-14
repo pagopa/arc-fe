@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { theme } from '@pagopa/mui-italia';
 import { ArcRoutes } from 'routes/routes';
+import utils from 'utils';
 
 export interface TransactionProps {
   payee: {
@@ -96,9 +97,11 @@ const Transaction = (props: TransactionProps) => {
         </Typography>
       </StyledTableCell>
 
-      <StyledTableCell sx={{ display: tableCellCssDisplayProperty }}>
-        <Chip label={status.label} color={status.color} />
-      </StyledTableCell>
+      {utils.config.showStatusInfo && (
+        <StyledTableCell sx={{ display: tableCellCssDisplayProperty }}>
+          <Chip label={status.label} color={status.color} />
+        </StyledTableCell>
+      )}
 
       <StyledTableCell width="30px">
         <ArrowForwardIosIcon color="primary" fontSize="small" />
