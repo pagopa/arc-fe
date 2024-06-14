@@ -26,6 +26,8 @@ The table below describes all the Environment variables needed by the applicatio
 | APIHOST          | api service host  | endpoint/string |
 | ENV              | environment id    | string          |
 | ENTITIES_LOGO_CDN| cdn link for logos| endpoint/string |
+| ASSISTANCE_LINK  | Link for assist-  | endpoint/string <|
+                     ance page.        |                 |
 
 ### Installation
 
