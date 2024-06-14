@@ -4,19 +4,25 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-export const BackButton = () => {
+interface BackButtonProps {
+  text?: string;
+}
+
+export const BackButton = (props: BackButtonProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { text = 'back' } = props;
+
   return (
     <Button
       role="button"
-      aria-label={t('app.routes.back')}
+      aria-label={text}
       size="medium"
       startIcon={<ArrowBack />}
       variant="text"
       onClick={() => navigate(-1)}
       sx={{ marginBottom: 3 }}>
-      {t('app.routes.back')}
+      {t(`app.routes.${text}`)}
     </Button>
   );
 };

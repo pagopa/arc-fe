@@ -14,4 +14,5 @@ export interface RouteHandleObject {
   crumbs?: BreadcrumbPath;
   sidebar: { visible?: boolean };
   backButton?: boolean;
+  backButtonText?: string;
 }

@@ -11,6 +11,20 @@
         "email": "Mail"
       }
     },
+    "assistance": {
+      "title": "Come possiamo aiutarti?",
+      "description": "Se hai bisogno di supporto sull’utilizzo del portale, puoi aprire una richiesta di assistenza.",
+      "cardTitle": "Il tuo indirizzo email",
+      "cardDescription": "Indica l’indirizzo email su cui desideri ricevere le risposte dell’assistenza.",
+      "input1Placeholder": "Inserisci l'indirizzo email",
+      "input2Placeholder": "Conferma l'indirizzo email",
+      "privacy1":"Proseguendo dichiari di aver letto la",
+      "privacy2": "Privacy Policy",
+      "privacy3": "del servizio di Assistenza al Cittadino.",
+      "confirm": "Conferma",
+      "modalTitle": "Vuoi davvero uscire?",
+      "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
+    },
     "login":{
       "title": "Accedi a pagoPA",
       "description": "La tua area personale in cui gestire i pagamenti pagoPA e scaricare le ricevute.",
@@ -56,6 +70,8 @@
 
     "routes": {
       "back": "Indietro",
+      "exit": "Esci",
+      "cancel": "Annulla",
       "breadcrumbs": "breadcrumbs",
       "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
       "breadcrumbsElement": "Elemento breadcrumbs",
