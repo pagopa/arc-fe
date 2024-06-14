@@ -108,7 +108,7 @@ const Assistance = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  sx={{ width: '20vw' }}
+                  sx={{ maxWidth: { lg: '20vw', md: '25vw', sm: '35vw', xs: '100%' } }}
                   label={t('app.assistance.input1Placeholder')}
                   InputLabelProps={{
                     sx: {
@@ -127,7 +127,7 @@ const Assistance = () => {
                     setEmailConfirm(e.target.value);
                   }}
                   size="small"
-                  sx={{ width: '20vw' }}
+                  sx={{ maxWidth: { lg: '20vw', md: '25vw', sm: '35vw', xs: '100%' } }}
                   label={t('app.assistance.input2Placeholder')}
                   InputLabelProps={{
                     sx: {
@@ -141,7 +141,7 @@ const Assistance = () => {
           </CardActions>
         </Card>
         <Typography variant="body1">
-          {`${t('app.assistance.privacy1')}`}
+          {`${t('app.assistance.privacy1')} `}
           <Link fontWeight={700}>{t('app.assistance.privacy2')}</Link>
           {` ${t('app.assistance.privacy3')}`}
         </Typography>
