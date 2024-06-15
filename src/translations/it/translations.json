@@ -53,7 +53,13 @@
       "payed": "Pagato",
       "viewDetail": "Visualizza il dettaglio per la transazione"
     },
-
+    "paymentNotice": {
+      "preview": {
+        "title": "Cerca i tuoi avvisi di pagamento pagoPA",
+        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome predisposti dagli enti aderenti al servizio",
+        "action": "Cerca i tuoi avvisi"
+      }
+    },
     "routes": {
       "back": "Indietro",
       "breadcrumbs": "breadcrumbs",
