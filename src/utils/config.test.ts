@@ -71,7 +71,7 @@ describe('environmental variables SHOW_STATUS_INFO', () => {
   });
 });
 
-describe('environmental variables APIHOST', () => {
+describe('environmental variables default values', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -114,5 +114,13 @@ describe('environmental variables APIHOST', () => {
         })
       ])
     );
+  });
+
+  test('ENV process.env variables has rigth default value ("LOCAL")', () => {
+    // Set the variables
+    process.env.ENV = undefined;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const utils = require('.').default;
+    expect(utils.config.env).toBe('LOCAL');
   });
 });
