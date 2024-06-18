@@ -21,13 +21,13 @@ In order to build and run this project are required:
 
 The table below describes all the Environment variables needed by the application.
 
-| Variable name    | Description       | type            |
-|------------------|-------------------|-----------------|
-| APIHOST          | api service host  | endpoint/string |
-| ENV              | environment id    | string          |
-| ENTITIES_LOGO_CDN| cdn link for logos| endpoint/string |
-| ASSISTANCE_LINK  | Link for assist-  | endpoint/string <|
-                     ance page.        |                 |
+| Variable name     | Description                                           | type                          |
+|-------------------|-------------------------------------------------------|-------------------------------|
+| APIHOST           | api service host                                      | url                           |
+| ENV               | environment id                                        | "LOCAL", "DEV", "UAT", "PROD" |
+| ASSISTANCE_LINK   | Link for assistance page                              | url                           |
+| ENTITIES_LOGO_CDN | cdn link for logos                                    | url                           |
+| SHOW_STATUS_INFO  | hide or show the status info in the whole application | 'false', 'true'               |
 
 ### Installation
 

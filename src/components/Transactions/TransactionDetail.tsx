@@ -7,6 +7,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useReceiptData } from 'hooks/useReceiptData';
 import humanDate from '../../utils/datetools';
+import utils from 'utils';
 
 export default function TransactionDetail({
   transactionData
@@ -27,7 +28,7 @@ export default function TransactionDetail({
         gap={3}>
         <Stack direction={{ sm: 'row' }} alignItems={{ xs: 'flex-start', sm: 'center' }} gap={2}>
           <Typography variant="h4">{transactionData.subject}</Typography>
-          <Chip label={transactionData.status} color="success" />
+          {utils.config.showStatusInfo && <Chip label={transactionData.status} color="success" />}
         </Stack>
         <Button
           data-testid="receipt-download-btn"
