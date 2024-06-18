@@ -25,7 +25,10 @@ import { Logout } from '@mui/icons-material';
 
 const Login = () => {
   const { t } = useTranslation();
-  const onAssistanceClick = () => {};
+  const { ASSISTANCE_MAIL } = process.env;
+  const onAssistanceClick = () => {
+    window.open(`mailto:${ASSISTANCE_MAIL}`);
+  };
   const theme = useTheme();
 
   return (
