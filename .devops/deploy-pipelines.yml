@@ -43,7 +43,7 @@ variables:
     cdn_profile: '$(DEV_CDN_PROFILE)'
     resource_group: '$(DEV_STORAGE_ACCOUNT_RG)'
     storage_account: '$(DEV_STORAGE_ACCOUNT_NAME)'
-    api_host: 'https://dev.apihost.pagopa.it/api'
+    api_host: 'https://api.dev.cittadini-p4pa.pagopa.it/v1/transactions'
 
 resources:
   repositories:
