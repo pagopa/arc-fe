@@ -14,6 +14,7 @@ import { ErrorFallback } from 'components/ErrorFallback';
 import { HealthCheck } from 'components/HealthCheck';
 import { CourtesyPage } from 'routes/CourtesyPage';
 import Login from 'routes/Login';
+import Assistance from 'routes/Assistance';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,18 @@ const router = createBrowserRouter([
       throw useRouteError();
     },
     children: [
+      {
+        path: ArcRoutes.ASSISTANCE,
+        element: <Assistance />,
+        errorElement: <ErrorFallback />,
+        handle: {
+          backButton: true,
+          backButtonText: 'exit',
+          sidebar: {
+            visibile: false
+          }
+        } as RouteHandleObject
+      },
       {
         path: ArcRoutes.USER,
         element: <UserRoute />,
