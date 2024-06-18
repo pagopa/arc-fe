@@ -8,6 +8,7 @@ import { ArcRoutes } from './routes';
 import { grey } from '@mui/material/colors';
 import Transactions from 'components/Transactions/Transactions';
 import QueryLoader from 'components/QueryLoader';
+import { PaymentNotice } from 'components/PaymentNotice';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -42,23 +43,24 @@ const Dashboard = () => {
           {t('app.dashboard.newPayment')}
         </Button>
       </Stack>
-      <Stack mb={3}>
+      <Stack gap={5}>
         <IOAlert />
-      </Stack>
-      <Stack
-        direction={{ sm: 'row' }}
-        justifyContent="space-between"
-        alignItems={{ sm: 'center' }}
-        mb={2}>
-        <Typography variant="h6" component="h2" marginInlineStart={{ xs: 1, sm: 0 }}>
-          {t('app.dashboard.lastTransactions')}
-        </Typography>
-        <Button
-          component={Link}
-          to={ArcRoutes.TRANSACTIONS}
-          sx={{ width: theme.spacing(10), justifyContent: 'flex-start' }}>
-          {t('app.dashboard.seeAllTransactions')}
-        </Button>
+        <PaymentNotice.Preview />
+        <Stack
+          direction={{ sm: 'row' }}
+          justifyContent="space-between"
+          alignItems={{ sm: 'center' }}
+          mb={2}>
+          <Typography variant="h6" component="h2" marginInlineStart={{ xs: 1, sm: 0 }}>
+            {t('app.dashboard.lastTransactions')}
+          </Typography>
+          <Button
+            component={Link}
+            to={ArcRoutes.TRANSACTIONS}
+            sx={{ width: theme.spacing(10), justifyContent: 'flex-start' }}>
+            {t('app.dashboard.seeAllTransactions')}
+          </Button>
+        </Stack>
       </Stack>
       <Box
         bgcolor={grey['A200']}
