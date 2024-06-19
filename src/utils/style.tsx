@@ -18,9 +18,9 @@ const customTheme = createTheme({
   components: {
     MuiTab: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           borderBottom: `solid 2px ${theme.palette.grey[300]}`
-        }
+        })
       }
     },
     MuiChip: {
@@ -34,9 +34,9 @@ const customTheme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
-        sizeLarge: {
+        sizeLarge: ({ theme }) => ({
           minHeight: theme.spacing(6)
-        }
+        })
       }
     }
   }

@@ -46,7 +46,7 @@ export const PaymentNotices = () => {
   const { t } = useTranslation();
 
   return (
-    <Stack height="100%" justifyContent="space-between">
+    <Stack height="100%" justifyContent={{ lg: 'space-between' }}>
       <Stack gap={5}>
         <Typography paddingTop={3} variant="h4">
           {t('app.paymentNotices.title')}
@@ -68,7 +68,7 @@ export const PaymentNotices = () => {
           </Stack>
         </Stack>
       </Stack>
-      <Stack padding={1.3} gap={1} justifyContent="flex-start">
+      <Stack padding={1.3} gap={1} justifyContent="flex-start" marginTop={{ xs: 10, lg: 0 }}>
         <Typography variant="body1">{t('app.paymentNotices.alert.info')}</Typography>
         <Typography color="error">
           <ButtonNaked variant="text" size="medium" color="inherit" startIcon={<ErrorOutline />}>
