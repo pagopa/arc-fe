@@ -42,6 +42,8 @@ const paymentNoticesMock: CardProps[] = [
   }
 ];
 
+const updatedDate = new Date();
+
 export const PaymentNotices = () => {
   const { t } = useTranslation();
 
@@ -58,7 +60,12 @@ export const PaymentNotices = () => {
             </Typography>
             <Typography display="flex" variant="body1" flexDirection="row" gap="5px">
               <Typography color="text.secondary">{t('app.paymentNotices.updated')}</Typography>
-              <Typography sx={{ fontWeight: 600 }}>14 giugno 2020, 15:50</Typography>
+              <Typography sx={{ fontWeight: 600 }}>
+                {updatedDate.toLocaleString(navigator.language, {
+                  timeStyle: 'short',
+                  dateStyle: 'medium'
+                })}
+              </Typography>
             </Typography>
           </Stack>
           <Stack gap={3}>
