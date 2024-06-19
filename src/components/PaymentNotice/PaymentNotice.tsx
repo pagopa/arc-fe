@@ -1,5 +1,5 @@
-import { _Preview } from './Preview';
 import { _Card } from './Card';
+import { _Preview } from './Preview';
 
 /**
  * PaymentNotice is the main component for handling payment notices.
