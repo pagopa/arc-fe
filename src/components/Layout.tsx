@@ -41,7 +41,13 @@ export function Layout() {
             }}
           />
         </Grid>
-        <Grid item display={'flex'} flexGrow={1} alignContent={'flex-start'} flexBasis={'50vh'}>
+        <Grid
+          item
+          display={'flex'}
+          flexGrow={1}
+          flexWrap={'wrap'}
+          alignContent={'flex-start'}
+          flexBasis={'50vh'}>
           {sidebar?.visible ? <Sidebar /> : null}
           <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs paddingX={sidePadding}>
             {backButton && <BackButton text={backButtonText} />}
