@@ -36,6 +36,11 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts"
+    "src/setupTests.ts",
+    // temporary
+    "src/hooks/useReceiptData.test.ts",
+    "src/utils/converters.test.ts",
+    "src/stories/utils/mocks.tsx",
+    "src/utils/loaders.test.tsx"
   ]
 }

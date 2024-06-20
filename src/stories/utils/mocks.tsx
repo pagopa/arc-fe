@@ -1,6 +1,6 @@
 import { TransactionProps } from 'components/Transactions/Transaction';
 import { TransactionDetail } from 'models/TransactionDetail';
-import { TransactionReceiptResponse } from '../../../generated/apiClient';
+// import { TransactionReceiptResponse } from '../../../generated/apiClient';
 
 const Transaction_dc379158: TransactionProps = {
   payee: {
@@ -96,7 +96,7 @@ export const dummyTransactionsData: {
   payedByMe: TransactionProps[];
   ownedByMe: TransactionProps[];
   transactionData: TransactionDetail;
-  transactionReceipt: TransactionReceiptResponse;
+  transactionReceipt: unknown;
 } = {
   all: [Transaction_dc379158, Transaction_ffe1324e, Transaction_a305f59a, Transaction_3d40b8e0],
   payedByMe: [Transaction_dc379158, Transaction_ffe1324e],

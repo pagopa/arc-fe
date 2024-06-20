@@ -28,7 +28,7 @@ export default function TransactionsList() {
   const paidByMe =
     data &&
     utils.converters.prepareRowsData({
-      transactions: data.filter(({ payedByMe }) => payedByMe),
+      transactions: data.transactions?.filter(({ payedByMe }) => payedByMe),
       status: { label: t('app.transactions.payed') },
       payee: { multi: t('app.transactions.multiEntities') },
       action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
@@ -37,7 +37,7 @@ export default function TransactionsList() {
   const ownedByMe =
     data &&
     utils.converters.prepareRowsData({
-      transactions: data.filter(({ payedByMe }) => !payedByMe),
+      transactions: data.transactions?.filter(({ payedByMe }) => !payedByMe),
       status: { label: t('app.transactions.payed') },
       payee: { multi: t('app.transactions.multiEntities') },
       action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
