@@ -75,7 +75,7 @@ stages:
               env: '$(environment)'
               cdn_logos: '$(cdn_logos)'
               assistance_link: '$(asistance_link)'
-              show_status_info: '$(show_status_info)'
+              show_status_info: $(show_status_info)
 
           - script: |
               yarn build
