@@ -7,6 +7,7 @@ import { PayeeIcon } from 'components/PayeeIcon';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Theme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
+import { Paper } from '@mui/material';
 
 type InfoProps = { label: string; data: string };
 
@@ -38,47 +39,57 @@ const isMultiPayment = (option: CardPropsOption): option is { multiPayment: bool
 const hasDate = (option: CardPropsOption): option is { expiringDate: string } =>
   'expiringDate' in option && !!option.expiringDate;
 
+/**
+ * This component is considered private and should not be used directly.
+ * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
+ *
+ * @component
+ * @private
+ */
 export const _Card = ({ payee, amount, paymentInfo, ...rest }: CardProps) => {
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   return (
-    <Stack
-      borderRadius={1}
-      padding={3}
-      gap={3}
-      direction="row"
-      justifyContent="space-between"
-      sx={{
-        backgroundColor: 'background.paper',
-        boxShadow:
-          '0px 6px 30px 5px #002B551A, 0px 16px 24px 2px #002B550D, 0px 8px 10px -5px #002B551A'
-      }}>
-      <Stack direction="row" alignItems="center" gap={2}>
-        <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
-        <Stack maxWidth={{ xs: 100, sm: 150, md: 480, lg: 900 }}>
-          <Typography component="div" variant="subtitle1" noWrap>
-            {payee.name}
-          </Typography>
-          <Typography>{paymentInfo}</Typography>
+    <Paper elevation={16}>
+      <Stack
+        component="section"
+        borderRadius={1}
+        padding={3}
+        gap={3}
+        direction="row"
+        height="152px"
+        justifyContent="space-between">
+        <Stack direction="row" alignItems="center" gap={2} component="header">
+          <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
+          <Stack maxWidth={{ xs: 110, sm: 150, md: 480, lg: 460, xl: 600 }}>
+            <Typography component="h2" variant="subtitle1" noWrap>
+              {payee.name}
+            </Typography>
+            <Typography component="p">{paymentInfo}</Typography>
+          </Stack>
+        </Stack>
+        <Stack direction="row" gap={2} alignItems="center" component="div">
+          <Divider orientation="vertical" flexItem variant="fullWidth" />
+          <Stack width="12rem" component="aside">
+            <Info label={t('app.paymentNotice.card.amount')} data={amount} />
+            {isMultiPayment(rest) && (
+              <Stack
+                borderRadius="4px"
+                alignItems="center"
+                sx={{ backgroundColor: '#E1F5FE' }}
+                component="div">
+                <Typography padding="3px" variant="subtitle2" lineHeight="18px">
+                  {t('app.paymentNotice.card.multiPayment')}
+                </Typography>
+              </Stack>
+            )}
+            {hasDate(rest) && (
+              <Info label={t('app.paymentNotice.card.expiring')} data={rest.expiringDate} />
+            )}
+          </Stack>
+          <ArrowForwardIosIcon color="primary" fontSize="small" />
         </Stack>
       </Stack>
-      <Stack direction="row" gap={2} alignItems="center">
-        <Divider orientation="vertical" flexItem variant="fullWidth" />
-        <Stack width="12rem">
-          <Info label={t('app.paymentNotice.card.amount')} data={amount} />
-          {isMultiPayment(rest) && (
-            <Stack borderRadius="4px" alignItems="center" sx={{ backgroundColor: '#E1F5FE' }}>
-              <Typography padding="3px" variant="subtitle2" lineHeight="18px">
-                {t('app.paymentNotice.card.multiPayment')}
-              </Typography>
-            </Stack>
-          )}
-          {hasDate(rest) && (
-            <Info label={t('app.paymentNotice.card.expiring')} data={rest.expiringDate} />
-          )}
-        </Stack>
-        <ArrowForwardIosIcon color="primary" fontSize="small" />
-      </Stack>
-    </Stack>
+    </Paper>
   );
 };
