@@ -1,0 +1,111 @@
+# Azure DevOps pipeline to release a new version and deploy to production.
+
+trigger:
+  branches:
+    include:
+      - develop
+      - uat
+      - main
+  paths:
+    include:
+      - src/*
+
+pr: none
+
+variables:
+  NODE_VERSION: '18.14.0'
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+  vmImageNameDefault: 'ubuntu-latest'
+  cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
+
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
+    environment: 'UAT'
+    azure_subscription: '$(UAT_AZURE_SUBSCRIPTION)'
+    cdn_endpoint: '$(UAT_CDN_ENDPOINT)'
+    cdn_profile: '$(UAT_CDN_PROFILE)'
+    resource_group: '$(UAT_STORAGE_ACCOUNT_RG)'
+    storage_account: '$(UAT_STORAGE_ACCOUNT_NAME)'
+
+  ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+    environment: 'PROD'
+    azure_subscription: '$(PROD_AZURE_SUBSCRIPTION)'
+    cdn_endpoint: '$(PROD_CDN_ENDPOINT)'
+    cdn_profile: '$(PROD_CDN_PROFILE)'
+    resource_group: '$(PROD_STORAGE_ACCOUNT_RG)'
+    storage_account: '$(PROD_STORAGE_ACCOUNT_NAME)'
+
+  # every branch different from past will be considered as DEV
+  ${{ else }}:
+    environment: 'DEV'
+    azure_subscription: '$(DEV_AZURE_SUBSCRIPTION)'
+    cdn_endpoint: '$(DEV_CDN_ENDPOINT)'
+    cdn_profile: '$(DEV_CDN_PROFILE)'
+    resource_group: '$(DEV_STORAGE_ACCOUNT_RG)'
+    storage_account: '$(DEV_STORAGE_ACCOUNT_NAME)'
+    api_host: 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1'
+
+resources:
+  repositories:
+    - repository: pagopaCommons
+      type: github
+      name: pagopa/azure-pipeline-templates
+      ref: refs/tags/v19
+      # Cannot use variables here!
+      endpoint: 'azure-devops-github-ro'
+
+pool:
+  vmImage: '$(vmImageNameDefault)'
+
+stages:
+  - stage: prepare_artifact
+    displayName: 'Build ${{ variables.environment }} apps'
+    jobs:
+      - job: job_build
+        displayName: Build
+        steps:
+#          - template: templates/node-job-setup/template.yaml@pagopaCommons
+          - template: local-templates/node-job-setup.yaml
+
+          - template: local-templates/setup-env.yaml
+            parameters:
+              api_host: '$(api_host)'
+              env: '$(environment)'
+              cdn_logos: '$(cdn_logos)'
+
+          - script: |
+              yarn build
+            displayName: 'yarn build'
+
+          - publish: dist
+            artifact: Bundle
+
+  # Deploy bundle
+  - stage: stage_deploy
+    displayName: 'Deploy to ${{ variables.environment }} storage'
+    condition: succeeded()
+    jobs:
+      - job: job_deploy
+        displayName: 'Deploy'
+        steps:
+          - checkout: none
+
+          - download: current
+            artifact: Bundle
+
+#          - ${{ each app in parameters.apps }}:
+          - task: AzureCLI@2
+            displayName: 'Sync storage'
+            inputs:
+              azureSubscription: '$(AZURE_SUBSCRIPTION)'
+              scriptType: 'bash'
+              scriptLocation: inlineScript
+              inlineScript: |
+                az storage blob sync --container '$web' --account-name $(storage_account) --source "$(Pipeline.Workspace)/Bundle"
+
+          - task: AzureCLI@1
+            displayName: 'Purge CDN endpoint'
+            inputs:
+              azureSubscription: '$(AZURE_SUBSCRIPTION)'
+              scriptLocation: inlineScript
+              inlineScript: |
+                az cdn endpoint purge -g $(resource_group) -n $(cdn_endpoint) --profile-name $(cdn_profile) --content-paths "/*"

@@ -1,0 +1,24 @@
+# Azure DevOps pipeline template used to build bundle.
+parameters:
+  - name: 'api_host'
+    type: string
+    default: ''
+
+  - name: 'env'
+    type: string
+    default: ''
+
+  - name: 'cdn_logos'
+    type: string
+    default: ''
+
+steps:
+- bash: |
+    chmod +x env.sh
+    env -i \
+      ARC_FE_APIHOST=${{ parameters.api_host }} \
+      ARC_FE_ENV=${{ parameters.env }} \
+      ARC_FE_ENTITIES_LOGO_CDN=${{ parameters.cdn_logos }} \
+      bash env.sh
+
+  displayName: 'Populate environment file'
