@@ -15,12 +15,12 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
 import { alpha } from '@mui/material';
+import utils from 'utils';
 
 const Assistance = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const theme = useTheme();
-  const { ASSISTANCE_LINK } = process.env;
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
@@ -150,7 +150,7 @@ const Assistance = () => {
             onClick={openModal}>
             {t('app.routes.exit')}
           </Button>
-          <Button variant="contained" size="large" href={ASSISTANCE_LINK}>
+          <Button variant="contained" size="large" href={utils.config.assistanceLink}>
             {t('app.assistance.confirm')}
           </Button>
         </Stack>
