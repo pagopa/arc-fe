@@ -137,7 +137,8 @@
     "homepage": "Homepage",
     "receipts": "Ricevute",
     "navigationMenu": "Menù di navigazione",
-    "menu": "Menu"
+    "menu": "Menu",
+    "paymentNotices": "Avvisi di pagamento"
   },
   "sidebar": {
     "collapse": "Comprimi il menu",
