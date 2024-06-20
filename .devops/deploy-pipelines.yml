@@ -73,7 +73,7 @@ stages:
               cdn_logos: '$(cdn_logos)'
 
           - script: |
-              yarn build
+              yarn build --no-optimize
             displayName: 'yarn build'
 
           - publish: dist
