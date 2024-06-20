@@ -5,6 +5,13 @@ import { IllusSharingInfo } from '@pagopa/mui-italia';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * This component is considered private and should not be used directly.
+ * Instead, use `PaymentNotice.Preview` for rendering the payment notice preview.
+ *
+ * @component
+ * @private
+ */
 export const _Preview = () => {
   const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));

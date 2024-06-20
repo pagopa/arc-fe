@@ -15,8 +15,33 @@ const meta: Meta<typeof PaymentNotice.Preview> = {
 };
 
 export default meta;
-type StoryTabs = StoryObj<typeof PaymentNotice.Preview>;
+type StoryPreview = StoryObj<typeof PaymentNotice.Preview>;
+type StoryCard = StoryObj<typeof PaymentNotice.Card>;
 
-export const Preview: StoryTabs = {
+export const Preview: StoryPreview = {
   render: PaymentNotice.Preview
+};
+
+export const CardSinglePayment: StoryCard = {
+  render: PaymentNotice.Card,
+  args: {
+    payee: {
+      name: 'Politecnico di Milano'
+    },
+    paymentInfo: 'RATA 1 - Anno Accademico 2023/2024',
+    amount: '171,00 €',
+    expiringDate: '31/01/2099'
+  }
+};
+
+export const CardMultiPayment: StoryCard = {
+  render: PaymentNotice.Card,
+  args: {
+    payee: {
+      name: 'Politecnico di Milano'
+    },
+    paymentInfo: 'RATA 1 - Anno Accademico 2023/2024',
+    amount: '171,00 €',
+    multiPayment: true
+  }
 };
