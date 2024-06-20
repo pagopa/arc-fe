@@ -19,7 +19,7 @@ const Dashboard = () => {
   const rows =
     data &&
     utils.converters.prepareRowsData({
-      transactions: data,
+      transactions: data.transactions,
       status: { label: t('app.transactions.payed') },
       payee: { multi: t('app.transactions.multiEntities') },
       action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))

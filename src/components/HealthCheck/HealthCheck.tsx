@@ -5,11 +5,10 @@ export const HealthCheck = () => {
   useEffect(() => {
     if (utils.config.env === 'LOCAL') {
       const checkHealth = async () => {
-        try {
-          await utils.apiClient.info.healthCheck();
-        } catch (e) {
-          console.error(e, 'Mock not available or /info not reachable');
-        }
+        // apiClient doesn't expose a testing endpoit anymore
+        // but I like the idea to have a this kind of component to setup or check
+        // important stuffs in the future
+        // await utils.apiClient.info.healthCheck();
       };
       checkHealth();
     }

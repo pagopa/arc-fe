@@ -1,11 +1,13 @@
 import { TransactionProps } from 'components/Transactions/Transaction';
-import { TransactionsResponse } from '../../generated/apiClient';
-import { TransactionDetailResponse } from '../../generated/apiClient';
+import { TransactionsListDTO } from '../../generated/apiClient';
+// import { TransactionDetailResponse } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
-const toEuro = (amount: string): string => `${amount} €`;
+import utils from 'utils';
+
+const toEuro = (amount?: number): string => `${amount} €`;
 
 interface PrepareRowsData {
-  transactions: TransactionsResponse;
+  transactions: TransactionsListDTO['transactions'];
   status: {
     label: string;
     color?: string;
@@ -19,18 +21,18 @@ interface PrepareRowsData {
   action: (id: string) => void;
 }
 
-const { ENTITIES_LOGO_CDN } = process.env;
-
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
 const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
-  data.transactions.map((element) => ({
-    date: element.transactionDate,
+  data.transactions?.map((element) => ({
+    date: element.transactionDate || '',
     amount: toEuro(element.amount),
-    id: element.transactionId,
+    id: element.transactionId || '',
     payee: {
       name: element.payeeName || data.payee.multi,
       // update here the cdn host when available
-      srcImg: element.payeeTaxCode ? `${ENTITIES_LOGO_CDN}/${element.payeeTaxCode}.png` : undefined,
+      srcImg: element.payeeTaxCode
+        ? `${utils.config.entitiesLogoCdn}/${element.payeeTaxCode}.png`
+        : undefined,
       altImg: data.payee.altImg || `Logo Ente`
     },
     // needs to be updated when status can be different from success
@@ -39,11 +41,10 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
       color: 'success'
     },
     action: data.action
-  }));
+  })) || [];
 
-const prepareTransactionDetailData = (
-  transactionDetail: TransactionDetailResponse
-): TransactionDetail => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail => {
   const formatter = new Intl.NumberFormat('it-IT', { minimumFractionDigits: 2 });
   return {
     paidBy: transactionDetail.infoTransaction.payer?.name || '-',
