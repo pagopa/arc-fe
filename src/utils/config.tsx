@@ -35,7 +35,7 @@ type Config = {
   product: ProductEntity;
   pagopaLink: RootLinkType;
   showStatusInfo: boolean;
-  entitiesLogoCdn: string;
+  entitiesLogoCdn?: string;
   assistanceLink: string;
 };
 
@@ -72,7 +72,7 @@ const config: Config = {
    * Type checking with Zod ensure that the values are the expected one ('true', 'false')
    */
   showStatusInfo: SHOW_STATUS_INFO !== false && SHOW_STATUS_INFO === 'true',
-  entitiesLogoCdn: ENTITIES_LOGO_CDN as string,
+  entitiesLogoCdn: ENTITIES_LOGO_CDN,
   assistanceLink
 };
 

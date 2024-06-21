@@ -17,6 +17,8 @@ variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
   vmImageNameDefault: 'ubuntu-latest'
   cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
+  assistance_link: 'https://pagopa.gov.it'
+  show_status_info: false
 
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
     environment: 'UAT'
@@ -43,6 +45,7 @@ variables:
     resource_group: '$(DEV_STORAGE_ACCOUNT_RG)'
     storage_account: '$(DEV_STORAGE_ACCOUNT_NAME)'
     api_host: 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1'
+
 
 resources:
   repositories:
@@ -71,6 +74,8 @@ stages:
               api_host: '$(api_host)'
               env: '$(environment)'
               cdn_logos: '$(cdn_logos)'
+              assistance_link: '$(assistance_link)'
+              show_status_info: false
 
           - script: |
               yarn build
