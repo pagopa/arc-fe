@@ -17,7 +17,7 @@ variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
   vmImageNameDefault: 'ubuntu-latest'
   cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
-  asistance_link: 'https://pagopa.gov.it'
+  assistance_link: 'https://pagopa.gov.it'
   show_status_info: false
 
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
@@ -74,7 +74,7 @@ stages:
               api_host: '$(api_host)'
               env: '$(environment)'
               cdn_logos: '$(cdn_logos)'
-              assistance_link: '$(asistance_link)'
+              assistance_link: '$(assistance_link)'
               show_status_info: false
 
           - script: |
