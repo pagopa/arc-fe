@@ -16,6 +16,7 @@ import {
 import { ISidebarMenuItem } from 'models/SidebarMenuItem';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { useTranslation } from 'react-i18next';
+import { Payments } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
@@ -37,6 +38,11 @@ export const Sidebar: React.FC = () => {
       label: t('menu.homepage'),
       icon: ViewSidebarIcon,
       route: '/'
+    },
+    {
+      label: t('menu.paymentNotices'),
+      icon: Payments,
+      route: ArcRoutes.PAYMENT_NOTICES
     },
     {
       label: t('menu.receipts'),
