@@ -15,6 +15,7 @@ import { HealthCheck } from 'components/HealthCheck';
 import { CourtesyPage } from 'routes/CourtesyPage';
 import Login from 'routes/Login';
 import Assistance from 'routes/Assistance';
+import { PaymentNotices } from 'routes/PaymentNotices';
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,11 @@ const router = createBrowserRouter([
         path: ArcRoutes.TRANSACTIONS,
         element: <TransactionsList />,
         // TEMPORARY ERROR ELEMENT
+        errorElement: <ErrorFallback />
+      },
+      {
+        path: ArcRoutes.PAYMENT_NOTICES,
+        element: <PaymentNotices />,
         errorElement: <ErrorFallback />
       }
     ]

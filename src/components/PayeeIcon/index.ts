@@ -1,0 +1,1 @@
+export { PayeeIcon } from './PayeeIcon';

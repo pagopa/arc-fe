@@ -67,7 +67,28 @@
       "payed": "Pagato",
       "viewDetail": "Visualizza il dettaglio per la transazione"
     },
-
+    "paymentNotice": {
+      "preview": {
+        "title": "Cerca i tuoi avvisi di pagamento pagoPA",
+        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome predisposti dagli enti aderenti al servizio",
+        "action": "Cerca i tuoi avvisi"
+      },
+      "card": {
+        "amount": "Importo",
+        "multiPayment": "Altre opzioni di pagamento",
+        "expiring": "Rata unica entro il"
+      }
+    },
+    "paymentNotices": {
+      "title": "I tuoi avvisi di pagamento",
+      "found": "Abbiamo trovato",
+      "notice": "avvisi",
+      "updated": "Aggiornato il",
+      "alert": {
+        "info": "Gli avvisi sono stati recuperati dagli archivi degli enti creditori aderenti al servizio.",
+        "action": "Segnala un problema"
+      }
+    },
     "routes": {
       "back": "Indietro",
       "exit": "Esci",
