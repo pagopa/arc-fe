@@ -36,6 +36,7 @@ type Config = {
   pagopaLink: RootLinkType;
   showStatusInfo: boolean;
   entitiesLogoCdn: string;
+  assistanceLink: string;
 };
 
 const product: ProductEntity = {
@@ -45,6 +46,8 @@ const product: ProductEntity = {
   linkType: 'external',
   icon: <LogoPagoPAProduct color="default" title="PagoPA" />
 };
+
+const assistanceLink: string = 'nomeprodotto@assistenza.pagopa.it';
 
 const pagopaLink: RootLinkType = {
   label: 'PagoPA S.p.A.',
@@ -69,7 +72,8 @@ const config: Config = {
    * Type checking with Zod ensure that the values are the expected one ('true', 'false')
    */
   showStatusInfo: SHOW_STATUS_INFO !== false && SHOW_STATUS_INFO === 'true',
-  entitiesLogoCdn: ENTITIES_LOGO_CDN as string
+  entitiesLogoCdn: ENTITIES_LOGO_CDN as string,
+  assistanceLink
 };
 
 export default config;
