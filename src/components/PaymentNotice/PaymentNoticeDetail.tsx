@@ -137,7 +137,7 @@ export default function PaymentNoticeDetail({
                           {t('app.paymentNoticeDetail.card1.field2')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
-                          {paymentNoticeDetail.creditorEntity}
+                          {paymentNoticeDetail.paFullName}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -177,7 +177,7 @@ export default function PaymentNoticeDetail({
                           {t('app.paymentNoticeDetail.card1.field4')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
-                          {paymentNoticeDetail.due}
+                          {paymentNoticeDetail.dueDate}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -195,15 +195,15 @@ export default function PaymentNoticeDetail({
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                          {paymentNoticeDetail.noticeCode}
+                          {paymentNoticeDetail.iupd}
                         </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton
-                        value={paymentNoticeDetail.noticeCode}
+                        value={paymentNoticeDetail.iupd}
                         color="primary"
-                      />{' '}
+                      />
                     </Grid>
                   </Grid>
                   <Divider />
@@ -219,13 +219,13 @@ export default function PaymentNoticeDetail({
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                          {paymentNoticeDetail.entityFiscalCode}
+                          {paymentNoticeDetail.paTaxCode}
                         </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton
-                        value={paymentNoticeDetail.entityFiscalCode}
+                        value={paymentNoticeDetail.paTaxCode}
                         color="primary"
                       />
                     </Grid>
@@ -252,7 +252,7 @@ export default function PaymentNoticeDetail({
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
                       <Typography variant="body1" fontWeight={700}>
-                        {paymentNoticeDetail.firstInstallmentDate}{' '}
+                        {paymentNoticeDetail.firstInstallmentDate}
                       </Typography>
                     </Grid>
                   </Grid>

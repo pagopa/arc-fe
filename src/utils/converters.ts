@@ -79,12 +79,12 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
 const preparePaymentNoticeDetailData = (paymentNoticeDetail: any): PaymentNoticeDetail => {
   return {
     amount: (paymentNoticeDetail.amount || '-') + ' €',
-    creditorEntity: paymentNoticeDetail.amount || '-',
-    subject: paymentNoticeDetail.amount || '-',
-    due: paymentNoticeDetail.amount || '-',
-    noticeCode: paymentNoticeDetail.amount || '-',
-    entityFiscalCode: paymentNoticeDetail.amount || '-',
-    firstInstallmentDate: paymentNoticeDetail.amount || '-',
+    paFullName: paymentNoticeDetail.paFullName || '-',
+    subject: paymentNoticeDetail.subject || '-',
+    dueDate: paymentNoticeDetail.dueDate || '-',
+    iupd: paymentNoticeDetail.iupd || '-',
+    paTaxCode: paymentNoticeDetail.paTaxCode || '-',
+    firstInstallmentDate: paymentNoticeDetail.firstInstallmentDate || '-',
     firstInstallmentAmount: (paymentNoticeDetail.firstInstallmentAmount || '-') + ' €'
   };
 };

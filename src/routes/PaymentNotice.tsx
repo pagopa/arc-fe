@@ -4,14 +4,14 @@ import utils from 'utils';
 
 export default function PaymentNotice() {
   const paymentNoticeDetail = utils.converters.preparePaymentNoticeDetailData({
-    amount: 'string',
-    creditorEntity: 'string',
-    subject: 'string',
-    due: 'string',
-    noticeCode: 'string',
-    entityFiscalCode: 'string',
-    firstInstallmentDate: 'string',
-    firstInstallmentAmount: 'string'
+    amount: '10',
+    paFullName: 'paFullName',
+    subject: 'subject',
+    dueDate: 'dueDate',
+    iupd: 'iupd',
+    paTaxCode: 'paTaxCode',
+    firstInstallmentDate: 'firstInstallmentDate',
+    firstInstallmentAmount: '0'
   });
   return (
     <>

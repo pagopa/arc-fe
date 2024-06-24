@@ -1,10 +1,10 @@
 export interface PaymentNoticeDetail {
   amount: string;
-  creditorEntity: string;
+  paFullName: string;
   subject: string;
-  due: string;
-  noticeCode: string;
-  entityFiscalCode: string;
+  dueDate: string;
+  iupd: string;
+  paTaxCode: string;
   firstInstallmentDate: string;
   firstInstallmentAmount: string;
 }
