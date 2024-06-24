@@ -28,8 +28,14 @@ import {
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 
-export default function PaymentNoticeDetail() {
+export default function PaymentNoticeDetail({
+  paymentNoticeDetail
+}: {
+  paymentNoticeDetail: PaymentNoticeDetail;
+}) {
+  console.log(paymentNoticeDetail);
   const theme = useTheme();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -47,37 +53,35 @@ export default function PaymentNoticeDetail() {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        >
+        aria-describedby="modal-modal-description">
         <Backdrop
-          sx={{ background: alpha(theme.palette.text.primary, 0.7),justifyContent:'flex-end' }}
+          sx={{ background: alpha(theme.palette.text.primary, 0.7), justifyContent: 'flex-end' }}
           open={open}
           onClick={handleClose}>
           <Box
             sx={{ background: theme.palette.background.default }}
-            width={{xs:'100%', sm:'50%', }}
+            width={{ xs: '100%', sm: '50%' }}
             height={'100%'}
             alignSelf={'end'}>
             <Grid container pl={3}>
               <Grid item xs={12} textAlign={'end'} pr={2} pt={2}>
-              <IconButton
-                data-testid="collapseModal"
-                aria-label={t('app.modal.close')}
-                onClick={() => handleClose()}
-                size="large">
-                <Close />
-              </IconButton>
-             
+                <IconButton
+                  data-testid="collapseModal"
+                  aria-label={t('app.modal.close')}
+                  onClick={() => handleClose()}
+                  size="large">
+                  <Close />
+                </IconButton>
               </Grid>
               <Grid item>
-              <Typography variant="h6" fontWeight={700}>
-                {t('app.paymentNoticeDetail.modal.title')}
-              </Typography>
-              <Typography mt={3} variant="body1">
-                {t('app.paymentNoticeDetail.modal.description')}
-              </Typography>
+                <Typography variant="h6" fontWeight={700}>
+                  {t('app.paymentNoticeDetail.modal.title')}
+                </Typography>
+                <Typography mt={3} variant="body1">
+                  {t('app.paymentNoticeDetail.modal.description')}
+                </Typography>
               </Grid>
-              </Grid>
+            </Grid>
           </Box>
         </Backdrop>
       </Modal>
@@ -101,7 +105,7 @@ export default function PaymentNoticeDetail() {
                       </Grid>
                       <Grid item xs={1} ml={2}>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
-                          800€
+                          {paymentNoticeDetail.amount}
                         </Typography>
                         <Typography
                           color={theme.palette.text.secondary}
@@ -137,7 +141,7 @@ export default function PaymentNoticeDetail() {
                           {t('app.paymentNoticeDetail.card1.field2')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
-                          800€
+                          {paymentNoticeDetail.creditorEntity}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -157,7 +161,7 @@ export default function PaymentNoticeDetail() {
                           {t('app.paymentNoticeDetail.card1.field3')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
-                          800€
+                          {paymentNoticeDetail.subject}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -177,7 +181,7 @@ export default function PaymentNoticeDetail() {
                           {t('app.paymentNoticeDetail.card1.field4')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
-                          800€
+                          {paymentNoticeDetail.due}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -195,13 +199,13 @@ export default function PaymentNoticeDetail() {
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                          {'transactionData.authCode'}
+                          {paymentNoticeDetail.noticeCode}
                         </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton
-                        value={'transactionData.authCode.toString()'}
+                        value={paymentNoticeDetail.noticeCode}
                         color="primary"
                       />{' '}
                     </Grid>
@@ -219,15 +223,15 @@ export default function PaymentNoticeDetail() {
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                          {'transactionData.authCode'}
+                          {paymentNoticeDetail.entityFiscalCode}
                         </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton
-                        value={'transactionData.authCode.toString()'}
+                        value={paymentNoticeDetail.entityFiscalCode}
                         color="primary"
-                      />{' '}
+                      />
                     </Grid>
                   </Grid>
                 </Stack>
@@ -252,7 +256,7 @@ export default function PaymentNoticeDetail() {
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
                       <Typography variant="body1" fontWeight={700}>
-                        31/01/1999
+                        {paymentNoticeDetail.firstInstallmentDate}{' '}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -264,7 +268,7 @@ export default function PaymentNoticeDetail() {
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
                       <Typography variant="body1" fontWeight={700}>
-                        31/01/1999
+                        {paymentNoticeDetail.firstInstallmentAmount}
                       </Typography>
                     </Grid>
                   </Grid>
