@@ -16,7 +16,7 @@ import { CourtesyPage } from 'routes/CourtesyPage';
 import Login from 'routes/Login';
 import Assistance from 'routes/Assistance';
 import { PaymentNotices } from 'routes/PaymentNotices';
-import PaymentNotice from 'routes/PaymentNotice';
+import PaymentNoticeDetail from 'routes/PaymentNoticeDetail';
 
 const router = createBrowserRouter([
   {
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
-        element: <PaymentNotice />,
+        element: <PaymentNoticeDetail />,
         errorElement: <ErrorFallback />,
         handle: {
           crumbs: {

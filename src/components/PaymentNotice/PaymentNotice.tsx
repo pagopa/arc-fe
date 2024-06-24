@@ -1,5 +1,6 @@
 import { _Preview } from './Preview';
 import { _Card } from './Card';
+import { _Detail } from './Detail';
 
 /**
  * PaymentNotice is the main component for handling payment notices.
@@ -23,3 +24,10 @@ PaymentNotice.Preview = _Preview;
  * @type {React.ComponentType}
  */
 PaymentNotice.Card = _Card;
+
+/**
+ * Detail component for PaymentNotices.
+ * Use <PaymentNotice._Detail /> instead of direct use.
+ * @type {React.ComponentType}
+ */
+PaymentNotice.Detail = _Detail;

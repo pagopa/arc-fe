@@ -1,8 +1,8 @@
 import React from 'react';
-import PaymentNoticeDetail from '../components/PaymentNotice/PaymentNoticeDetail';
 import utils from 'utils';
+import { PaymentNotice } from 'components/PaymentNotice';
 
-export default function PaymentNotice() {
+export default function PaymentNoticeDetail() {
   const paymentNoticeDetail = utils.converters.preparePaymentNoticeDetailData({
     amount: '10',
     paFullName: 'paFullName',
@@ -15,7 +15,7 @@ export default function PaymentNotice() {
   });
   return (
     <>
-      <PaymentNoticeDetail paymentNoticeDetail={paymentNoticeDetail} />
+      <PaymentNotice.Detail paymentNoticeDetail={paymentNoticeDetail} />
     </>
   );
 }

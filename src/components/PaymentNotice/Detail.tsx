@@ -27,11 +27,14 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 
-export default function PaymentNoticeDetail({
-  paymentNoticeDetail
-}: {
-  paymentNoticeDetail: PaymentNoticeDetail;
-}) {
+/**
+ * This component is considered private and should not be used directly.
+ * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
+ *
+ * @component
+ * @private
+ */
+export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentNoticeDetail }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -301,4 +304,4 @@ export default function PaymentNoticeDetail({
       </Stack>
     </Grid>
   );
-}
+};
