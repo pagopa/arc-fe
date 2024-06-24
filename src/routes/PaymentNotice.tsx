@@ -3,7 +3,7 @@ import PaymentNoticeDetail from '../components/PaymentNotice/PaymentNoticeDetail
 import utils from 'utils';
 
 export default function PaymentNotice() {
-  const paymentNoticeDetail = utils.converters.preparePaymentNoticeDetailData( {
+  const paymentNoticeDetail = utils.converters.preparePaymentNoticeDetailData({
     amount: 'string',
     creditorEntity: 'string',
     subject: 'string',
@@ -12,7 +12,7 @@ export default function PaymentNotice() {
     entityFiscalCode: 'string',
     firstInstallmentDate: 'string',
     firstInstallmentAmount: 'string'
-  })
+  });
   return (
     <>
       <PaymentNoticeDetail paymentNoticeDetail={paymentNoticeDetail} />
