@@ -1,13 +1,10 @@
 import {
   AccountBalance,
-  CalendarMonth,
-  CalendarToday,
   Close,
   DateRange,
   Download,
   Euro,
   InfoOutlined,
-  Receipt,
   ReceiptLong
 } from '@mui/icons-material';
 import {
@@ -35,7 +32,6 @@ export default function PaymentNoticeDetail({
 }: {
   paymentNoticeDetail: PaymentNoticeDetail;
 }) {
-  console.log(paymentNoticeDetail);
   const theme = useTheme();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -103,7 +99,7 @@ export default function PaymentNoticeDetail({
                       <Grid item alignContent={'center'}>
                         <Euro htmlColor={theme.palette.grey[700]} />
                       </Grid>
-                      <Grid item xs={1} ml={2}>
+                      <Grid item xs={8} sm={2} ml={2}>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
                           {paymentNoticeDetail.amount}
                         </Typography>

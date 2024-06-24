@@ -3,6 +3,7 @@ import { TransactionsListDTO } from '../../generated/apiClient';
 // import { TransactionDetailResponse } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
 import utils from 'utils';
+import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 
 const toEuro = (amount?: number): string => `${amount} €`;
 
@@ -74,8 +75,23 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const preparePaymentNoticeDetailData = (paymentNoticeDetail: any): PaymentNoticeDetail => {
+  return {
+    amount: (paymentNoticeDetail.amount || "-" )+ " €",
+    creditorEntity: paymentNoticeDetail.amount || "-",
+    subject: paymentNoticeDetail.amount || "-",
+    due: paymentNoticeDetail.amount || "-",
+    noticeCode: paymentNoticeDetail.amount || "-",
+    entityFiscalCode: paymentNoticeDetail.amount || "-",
+    firstInstallmentDate: paymentNoticeDetail.amount || "-",
+    firstInstallmentAmount: (paymentNoticeDetail.firstInstallmentAmount || "-" )+ " €",
+};
+}
+
 export default {
   prepareRowsData,
   toEuro,
-  prepareTransactionDetailData
+  prepareTransactionDetailData,
+  preparePaymentNoticeDetailData
 };
