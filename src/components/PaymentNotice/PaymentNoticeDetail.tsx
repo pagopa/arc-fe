@@ -116,7 +116,7 @@ export default function PaymentNoticeDetail({
                         data-testid="infoButton"
                         aria-label={t('app.info')}
                         onClick={() => {
-                          openModal(true);
+                          openModal();
                         }}
                         size="small">
                         <InfoOutlined color="primary" sx={{ fontSize: 24 }} />
@@ -200,10 +200,7 @@ export default function PaymentNoticeDetail({
                       </Stack>
                     </Grid>
                     <Grid item xs={2} sm={1}>
-                      <CopyToClipboardButton
-                        value={paymentNoticeDetail.iupd}
-                        color="primary"
-                      />
+                      <CopyToClipboardButton value={paymentNoticeDetail.iupd} color="primary" />
                     </Grid>
                   </Grid>
                   <Divider />
