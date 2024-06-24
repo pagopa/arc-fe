@@ -2,33 +2,85 @@ import {
   AccountBalance,
   CalendarMonth,
   CalendarToday,
+  Close,
   DateRange,
+  Download,
   Euro,
   InfoOutlined,
   Receipt,
   ReceiptLong
 } from '@mui/icons-material';
 import {
+  Backdrop,
+  Box,
   Button,
   Card,
   CardActions,
   Divider,
   Grid,
   IconButton,
+  Modal,
   Stack,
   Typography,
+  alpha,
   useTheme
 } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function PaymentNoticeDetail() {
   const theme = useTheme();
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
 
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Grid container>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        >
+        <Backdrop
+          sx={{ background: alpha(theme.palette.text.primary, 0.7),justifyContent:'flex-end' }}
+          open={open}
+          onClick={handleClose}>
+          <Box
+            sx={{ background: theme.palette.background.default }}
+            width={{xs:'100%', sm:'50%', }}
+            height={'100%'}
+            alignSelf={'end'}>
+            <Grid container pl={3}>
+              <Grid item xs={12} textAlign={'end'} pr={2} pt={2}>
+              <IconButton
+                data-testid="collapseModal"
+                aria-label={t('app.modal.close')}
+                onClick={() => handleClose()}
+                size="large">
+                <Close />
+              </IconButton>
+             
+              </Grid>
+              <Grid item>
+              <Typography variant="h6" fontWeight={700}>
+                {t('app.paymentNoticeDetail.modal.title')}
+              </Typography>
+              <Typography mt={3} variant="body1">
+                {t('app.paymentNoticeDetail.modal.description')}
+              </Typography>
+              </Grid>
+              </Grid>
+          </Box>
+        </Backdrop>
+      </Modal>
       <Stack width={'100%'} spacing={3}>
         <Typography variant="h4">{t('app.paymentNoticeDetail.title')}</Typography>
         <Grid container rowGap={3}>
@@ -51,7 +103,10 @@ export default function PaymentNoticeDetail() {
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
                           800€
                         </Typography>
-                        <Typography color={theme.palette.text.secondary}>
+                        <Typography
+                          color={theme.palette.text.secondary}
+                          variant="body1"
+                          fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field1')}
                         </Typography>
                       </Grid>
@@ -60,7 +115,9 @@ export default function PaymentNoticeDetail() {
                       <IconButton
                         data-testid="infoButton"
                         aria-label={t('app.info')}
-                        onClick={() => {}}
+                        onClick={() => {
+                          openModal(true);
+                        }}
                         size="small">
                         <InfoOutlined color="primary" sx={{ fontSize: 24 }} />
                       </IconButton>
@@ -73,7 +130,10 @@ export default function PaymentNoticeDetail() {
                         <AccountBalance htmlColor={theme.palette.grey[700]} />
                       </Grid>
                       <Grid item xs={8} ml={2}>
-                        <Typography color={theme.palette.text.secondary}>
+                        <Typography
+                          color={theme.palette.text.secondary}
+                          variant="body1"
+                          fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field2')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
@@ -86,11 +146,14 @@ export default function PaymentNoticeDetail() {
 
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
                     <Grid container item xs={9} flexGrow={1} maxWidth={'100%'}>
-                      <Grid item alignContent={'center'} xs={2}>
+                      <Grid item alignContent={'center'}>
                         <ReceiptLong htmlColor={theme.palette.grey[700]} />
                       </Grid>
                       <Grid item xs={9} ml={2}>
-                        <Typography color={theme.palette.text.secondary}>
+                        <Typography
+                          color={theme.palette.text.secondary}
+                          variant="body1"
+                          fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field3')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
@@ -102,14 +165,15 @@ export default function PaymentNoticeDetail() {
                   <Divider />
 
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
-                    <Grid container item xs={9}>
+                    <Grid container item xs={9} flexGrow={1} maxWidth={'100%'}>
                       <Grid item alignContent={'center'}>
                         <DateRange htmlColor={theme.palette.grey[700]} />
                       </Grid>
-                      <Divider />
-
-                      <Grid item xs={10} ml={2}>
-                        <Typography color={theme.palette.text.secondary}>
+                      <Grid item xs={9} ml={2}>
+                        <Typography
+                          color={theme.palette.text.secondary}
+                          variant="body1"
+                          fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field4')}
                         </Typography>
                         <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
@@ -120,46 +184,50 @@ export default function PaymentNoticeDetail() {
                   </Grid>
                   <Divider />
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
-                    <Grid item xs={10}>
-                      <Typography
-                        sx={{ wordBreak: 'break-word' }}
-                        color={theme.palette.text.secondary}>
-                        {t('app.paymentNoticeDetail.card1.field5')}
-                      </Typography>
-                      <Typography
-                        fontWeight={600}
-                        color={theme.palette.primary.main}
-                        sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                        {'transactionData.authCode'}
-                      </Typography>
+                    <Grid container item xs={9}>
+                      <Stack>
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          color={theme.palette.text.secondary}>
+                          {t('app.paymentNoticeDetail.card1.field5')}
+                        </Typography>
+                        <Typography
+                          fontWeight={600}
+                          color={theme.palette.primary.main}
+                          sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
+                          {'transactionData.authCode'}
+                        </Typography>
+                      </Stack>
                     </Grid>
-                    <Grid item paddingTop={1}>
+                    <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton
                         value={'transactionData.authCode.toString()'}
                         color="primary"
-                      />
+                      />{' '}
                     </Grid>
                   </Grid>
                   <Divider />
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
-                    <Grid item xs={10}>
-                      <Typography
-                        sx={{ wordBreak: 'break-word' }}
-                        color={theme.palette.text.secondary}>
-                        {t('app.paymentNoticeDetail.card1.field6')}
-                      </Typography>
-                      <Typography
-                        fontWeight={600}
-                        color={theme.palette.primary.main}
-                        sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                        {'transactionData.authCode'}
-                      </Typography>
+                    <Grid container item xs={9}>
+                      <Stack>
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          color={theme.palette.text.secondary}>
+                          {t('app.paymentNoticeDetail.card1.field6')}
+                        </Typography>
+                        <Typography
+                          fontWeight={600}
+                          color={theme.palette.primary.main}
+                          sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
+                          {'transactionData.authCode'}
+                        </Typography>
+                      </Stack>
                     </Grid>
-                    <Grid item paddingTop={1}>
+                    <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton
                         value={'transactionData.authCode.toString()'}
                         color="primary"
-                      />
+                      />{' '}
                     </Grid>
                   </Grid>
                 </Stack>
@@ -176,32 +244,58 @@ export default function PaymentNoticeDetail() {
                   <Typography variant="body1" fontWeight={700}>
                     {t('app.paymentNoticeDetail.card2.title').toUpperCase()}
                   </Typography>
-                  <Stack direction={'row'} justifyContent={'space-between'}>
-                    <Typography variant="body1">
-                      {t('app.paymentNoticeDetail.card2.field1')}
-                    </Typography>
-                    <Typography variant="body1" fontWeight={700}>
-                      31/01/1999
-                    </Typography>
-                  </Stack>
-                  <Stack direction={'row'} justifyContent={'space-between'}>
-                    <Typography variant="body1">
-                      {t('app.paymentNoticeDetail.card2.field2')}
-                    </Typography>
-                    <Typography variant="h6" fontWeight={700}>
-                      900
-                    </Typography>
-                  </Stack>
-                  <Button variant="contained">
-                    <Typography
-                      sx={{
-                        fontWeight: 'fontWeightMedium',
-                        textAlign: 'center',
-                        color: theme.palette.primary.contrastText
-                      }}>
-                      {t('app.paymentNoticeDetail.card2.button1')}
-                    </Typography>{' '}
-                  </Button>
+                  <Grid container>
+                    <Grid item xs={12} sm={6}>
+                      <Typography variant="body1">
+                        {t('app.paymentNoticeDetail.card2.field1')}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
+                      <Typography variant="body1" fontWeight={700}>
+                        31/01/1999
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container>
+                    <Grid item xs={12} sm={6}>
+                      <Typography variant="body1">
+                        {t('app.paymentNoticeDetail.card2.field2')}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
+                      <Typography variant="body1" fontWeight={700}>
+                        31/01/1999
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Button variant="contained" fullWidth>
+                        <Typography
+                          sx={{
+                            fontWeight: 'fontWeightMedium',
+                            textAlign: 'center',
+                            color: theme.palette.primary.contrastText
+                          }}>
+                          {t('app.paymentNoticeDetail.card2.button1')}
+                        </Typography>
+                      </Button>
+                    </Grid>
+                    <Grid item xs={12} mt={3}>
+                      <Divider>
+                        <Typography variant="caption" color="GrayText">
+                          {t('app.paymentNoticeDetail.card2.label1')}
+                        </Typography>
+                      </Divider>
+                    </Grid>
+                    <Grid item mt={2} xs={12}>
+                      <Button startIcon={<Download />} fullWidth>
+                        <Typography variant="body1" fontWeight={700} color="primary">
+                          {t('app.paymentNoticeDetail.card2.button2')}
+                        </Typography>
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </Stack>
               </CardActions>
             </Card>

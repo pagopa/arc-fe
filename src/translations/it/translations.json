@@ -2,6 +2,9 @@
   "app": {
     "title": "PagoPa - Checkout Evoluto",
     "info": "Informazioni",
+    "modal": {
+      "close": "Chiudi modale"
+    },
     "user": {
       "title": "I tuoi dati",
       "subtitle": "Questi dati vengono utilizzati per generare le ricevute.",
@@ -146,6 +149,10 @@
         "label1": "Oppure",
         "button2": "Scarica l'avviso pagoPA"
 
+      },
+      "modal": {
+        "title": "Vedi un importo diverso?",
+        "description": "pagoPA aggiorna automaticamente l'importo per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi."
       }
     }
   },
