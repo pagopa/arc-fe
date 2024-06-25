@@ -9,6 +9,7 @@ import { grey } from '@mui/material/colors';
 import Transactions from 'components/Transactions/Transactions';
 import QueryLoader from 'components/QueryLoader';
 import { PaymentNotice } from 'components/PaymentNotice';
+import TransactionsSkeleton from 'components/Skeleton/transactionsList';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -69,6 +70,7 @@ const Dashboard = () => {
         marginTop={0}>
         <QueryLoader
           queryKey="transactions"
+          loaderComponent={<TransactionsSkeleton />}
           // TODO: fallback component of behavior be defined
           fallback={isError && <p>Ops! Something went wrong, please try again</p>}>
           {rows && <Transactions rows={rows} />}

@@ -1,9 +1,11 @@
+import { CircularProgress } from '@mui/material';
 import { useIsFetching } from '@tanstack/react-query';
 
 interface Loader {
   queryKey: string;
   children: React.ReactNode;
   fallback?: React.ReactNode;
+  loaderComponent?: React.ReactNode;
 }
 
 /**
@@ -12,10 +14,11 @@ interface Loader {
  * fallback can be used when something goes wrong with the fetch
  */
 const QueryLoader = (props: Loader) => {
+  const { loaderComponent } = props;
+  const loader = loaderComponent || <CircularProgress />;
   const isFetching = useIsFetching({ queryKey: [props.queryKey] });
   if (props.fallback) return props.fallback;
-  // NOTE: the simlpe Loading... text to be removed when a proper loader is defined
-  return <>{isFetching ? <p>Loading...</p> : props.children}</>;
+  return <>{isFetching ? loader : props.children}</>;
 };
 
 export default QueryLoader;

@@ -1,6 +1,7 @@
 {
   "/api": {
-    "target": "http://localhost:8080/",
+    "target": "https://api.dev.cittadini-p4pa.pagopa.it/arc/v1",
+    "changeOrigin": true,
     "pathRewrite": {
       "^/api": ""
     }

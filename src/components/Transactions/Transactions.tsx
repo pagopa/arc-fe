@@ -35,6 +35,7 @@ const Transactions = (props: TransactionsProps) => {
                 {t('app.transactions.status')}
               </TableCell>
             )}
+            <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} />
           </TableRow>
         </TableHead>
         <TableBody sx={{ bgcolor: 'background.paper' }}>
