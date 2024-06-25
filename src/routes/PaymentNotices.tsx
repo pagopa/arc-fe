@@ -3,50 +3,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { ButtonNaked } from '@pagopa/mui-italia';
 import { PaymentNotice } from 'components/PaymentNotice';
-import { CardProps } from 'components/PaymentNotice/Card';
 import QueryLoader from 'components/QueryLoader';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
-
-const paymentNoticesMock: Array<CardProps & { id: number }> = [
-  {
-    payee: {
-      name: 'Politecnico di Milano'
-    },
-    id: 1,
-    paymentInfo: 'RATA 1 - Anno Accademico 2023/2024',
-    amount: '171,00 €',
-    expiringDate: '31/01/2099'
-  },
-  {
-    payee: {
-      name: 'Comune di Milano'
-    },
-    id: 2,
-    paymentInfo: 'TARI 2024',
-    amount: '171,00 €',
-    multiPayment: true
-  },
-  {
-    payee: {
-      name: 'Comune di Milano'
-    },
-    id: 3,
-    paymentInfo: 'Violazione CDS Verbale 0123456',
-    amount: '28,70 €',
-    multiPayment: true
-  },
-  {
-    payee: {
-      name: 'Istituto d’Istruzione Superiore con un nome Molto Lungo che può andare su più righe'
-    },
-    id: 4,
-    paymentInfo: 'Iscrizione Anno Accademico 2023/2024',
-    amount: '171,00 €',
-    expiringDate: '31/01/2099'
-  }
-];
 
 const updatedDate = new Date();
 
@@ -64,7 +24,7 @@ export const PaymentNotices = () => {
           <Typography paddingTop={3} variant="h4" component="h1">
             {t('app.paymentNotices.title')}
           </Typography>
-          {paymentNoticesMock.length > 0 ? (
+          {data.length > 0 ? (
             <Stack gap={3}>
               <Stack
                 direction="row"
@@ -72,7 +32,7 @@ export const PaymentNotices = () => {
                 alignItems="center"
                 component="header">
                 <Typography variant="h6" component="h2">
-                  {`${t('app.paymentNotices.found')} ${paymentNoticesMock.length} ${t('app.paymentNotices.notice')}`}
+                  {`${t('app.paymentNotices.found')} ${data.length} ${t('app.paymentNotices.notice')}`}
                 </Typography>
                 <Typography
                   display="flex"
@@ -95,7 +55,7 @@ export const PaymentNotices = () => {
                 </Typography>
               </Stack>
               <Stack gap={3} component="section">
-                {paymentNoticesMock.map((paymentNotice) => (
+                {data.map((paymentNotice) => (
                   <PaymentNotice.Card key={paymentNotice.id} {...paymentNotice} />
                 ))}
               </Stack>
