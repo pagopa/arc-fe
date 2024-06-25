@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -42,5 +42,13 @@ describe('Detail Component', () => {
     expect(screen.getByText('iupd')).toBeInTheDocument();
     expect(screen.getByText('firstInstallmentDate')).toBeInTheDocument();
     expect(screen.getByText('0')).toBeInTheDocument();
+  });
+
+  it('should open and close the modal correctly', () => {
+    renderWithTheme(<PaymentNotice.Detail paymentNoticeDetail={paymentNoticeDetail} />);
+    fireEvent.click(screen.getByTestId('infoButton'));
+    expect(screen.getByRole('presentation')).toBeInTheDocument();
+    fireEvent.click(screen.getByTestId('collapseModal'));
+    expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
   });
 });
