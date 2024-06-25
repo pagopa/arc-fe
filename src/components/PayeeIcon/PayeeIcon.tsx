@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import React, { SyntheticEvent, useRef } from 'react';
+import React, { SyntheticEvent } from 'react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import style from 'utils/style';
 
