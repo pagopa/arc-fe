@@ -1,3 +1,4 @@
-import TransactionListSkeleton from './transactionsList';
+import TransactionListSkeleton from './TransactionsList';
+import TransactionDetailsSkeleton from './TransactionDetails';
 
-export default TransactionListSkeleton;
+export { TransactionListSkeleton, TransactionDetailsSkeleton };

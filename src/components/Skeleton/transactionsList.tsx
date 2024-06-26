@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   borderBottomColor: theme.palette.divider
 }));
 
-const TransactionRowSkeleton = () => {
+const TransactionRow = () => {
   const smUp = useMediaQuery(theme.breakpoints.up('sm'));
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
   const tableCellCssDisplayProperty = mdUp ? 'table-cell' : 'none';
@@ -57,7 +57,7 @@ const TransactionRowSkeleton = () => {
   );
 };
 
-const TransactionsSkeleton = () => {
+const TransactionsList = () => {
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   return (
@@ -84,14 +84,13 @@ const TransactionsSkeleton = () => {
         </TableHead>
 
         <TableBody sx={{ bgcolor: 'background.paper' }}>
-          <TransactionRowSkeleton />
-          <TransactionRowSkeleton />
-          <TransactionRowSkeleton />
-          <TransactionRowSkeleton />
+          {Array.from({ length: 4 }, (_, i) => (
+            <TransactionRow key={i} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 };
 
-export default TransactionsSkeleton;
+export default TransactionsList;
