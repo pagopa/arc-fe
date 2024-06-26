@@ -64,7 +64,7 @@ export const PaymentNotices = () => {
             <PaymentNotice.Empty />
           )}
         </Stack>
-        {data?.length && data?.length > 0 && (
+        {data?.length > 0 && (
           <Stack
             padding={1.3}
             gap={1}
