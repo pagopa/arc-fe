@@ -29,6 +29,7 @@ export const PayeeIcon = (props: payeeIconProps) => {
           src={props.src}
           alt={props?.alt ? props.alt : 'Logo Ente'}
           aria-hidden="true"
+          data-testid="payeelogoimg"
           style={{ width: '55%' }}
           onError={(e) => {
             onErrorImage(e);
