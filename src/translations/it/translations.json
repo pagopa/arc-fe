@@ -73,6 +73,15 @@
         "description": "Qui puoi trovare gli avvisi da pagare a tuo nome predisposti dagli enti aderenti al servizio",
         "action": "Cerca i tuoi avvisi"
       },
+      "empty": {
+        "title": "Non abbiamo trovato avvisi da pagare",
+        "description": "Se hai ricevuto un avviso pagoPA, premi su ‘Paga un avviso’ e inserisci i dati.",
+        "button":"Paga un avviso"
+      },
+      "error": {
+        "description":"Non riusciamo a recuperare i dati a causa di un problema.",
+        "button": "Riprova"
+      },
       "card": {
         "amount": "Importo",
         "multiPayment": "Altre opzioni di pagamento",
