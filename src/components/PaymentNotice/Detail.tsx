@@ -219,7 +219,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                   <Divider />
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
                     <Grid container item xs={9}>
-                    <Grid item xs={9} component={'dl'}>
+                      <Grid item xs={9} component={'dl'}>
                         <Typography
                           sx={{ wordBreak: 'break-word' }}
                           component="dt"
@@ -242,7 +242,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                   <Divider />
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
                     <Grid container item xs={9}>
-                    <Grid item xs={9} component={'dl'}>
+                      <Grid item xs={9} component={'dl'}>
                         <Typography
                           component="dt"
                           sx={{ wordBreak: 'break-word' }}
