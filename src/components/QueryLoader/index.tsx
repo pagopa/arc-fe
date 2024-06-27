@@ -15,10 +15,10 @@ interface Loader {
  * fallback can be used when something goes wrong with the fetch
  */
 const QueryLoader = (props: Loader) => {
-  if (props.fallback) return props.fallback;
-  const { loaderComponent, queryKey, children } = props;
+  const { loaderComponent, queryKey, children, fallback } = props;
   const loader = loaderComponent || <CircularProgress />;
   const isFetching = useIsFetching({ queryKey: [queryKey] });
+  if (fallback && !isFetching) return fallback;
   return <>{isFetching ? loader : children}</>;
 };
 

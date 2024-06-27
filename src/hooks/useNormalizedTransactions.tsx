@@ -7,7 +7,8 @@ import { ArcRoutes } from 'routes/routes';
 export const useNormalizedTransactions = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { data, isError } = utils.loaders.getTransactions();
+  const queryResult = utils.loaders.getTransactions();
+  const { data } = queryResult;
 
   const getTransactions = (filter?: (transaction: TransactionDTO) => boolean | undefined) =>
     data
@@ -24,7 +25,7 @@ export const useNormalizedTransactions = () => {
     // TODO typo should be fixed on the backend payedByMe -> paidByMe
     paidByMe: getTransactions((transaction) => transaction.payedByMe),
     registeredToMe: getTransactions((transaction) => transaction.registeredToMe),
-    error: isError
+    queryResult
   };
 
   return transactions;

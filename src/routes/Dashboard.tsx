@@ -10,10 +10,13 @@ import Transactions from 'components/Transactions/Transactions';
 import QueryLoader from 'components/QueryLoader';
 import { PaymentNotice } from 'components/PaymentNotice';
 import { TransactionListSkeleton } from 'components/Skeleton';
+import PaymentButton from 'components/PaymentButton';
+import Empty from 'components/Transactions/Empty';
+import Retry from 'components/Transactions/Retry';
 
 const Dashboard = () => {
   const { t } = useTranslation();
-  const { data, isError } = utils.loaders.getTransactions();
+  const { data, isError, refetch } = utils.loaders.getTransactions();
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -36,13 +39,7 @@ const Dashboard = () => {
         gap={3}
         mb={5}>
         <Typography variant="h3">{t('app.dashboard.hello')}</Typography>
-        <Button
-          variant="contained"
-          size="large"
-          href="https://uat.checkout.pagopa.it/"
-          target="_blank">
-          {t('app.dashboard.newPayment')}
-        </Button>
+        <PaymentButton />
       </Stack>
       <Stack gap={5}>
         <IOAlert />
@@ -71,9 +68,8 @@ const Dashboard = () => {
         <QueryLoader
           queryKey="transactions"
           loaderComponent={<TransactionListSkeleton />}
-          // TODO: fallback component of behavior be defined
-          fallback={isError && <p>Ops! Something went wrong, please try again</p>}>
-          {rows && <Transactions rows={rows} />}
+          fallback={isError && <Retry action={refetch} />}>
+          {rows && rows.length > 0 ? <Transactions rows={rows} /> : <Empty />}
         </QueryLoader>
       </Box>
     </>

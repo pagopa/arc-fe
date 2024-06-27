@@ -48,7 +48,7 @@ describe('Query Loader component', () => {
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockeduseIsFetching).toHaveBeenCalledTimes(0);
+    expect(mockeduseIsFetching).toHaveBeenCalledTimes(1);
     expect(screen.queryByText('test children')).toBeNull();
     expect(screen.getByText('test fallback')).toBeInTheDocument();
   });
