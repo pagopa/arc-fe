@@ -96,7 +96,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
               }}>
               <CardActions>
                 <Stack spacing={2} width={'100%'} alignContent={'center'}>
-                  <Typography variant="body1" fontWeight={700}>
+                  <Typography variant="body1" component={'h2'} fontWeight={700}>
                     {t('app.paymentNoticeDetail.card1.title').toUpperCase()}
                   </Typography>
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
@@ -104,15 +104,29 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                       <Grid item alignContent={'center'}>
                         <Euro htmlColor={theme.palette.grey[700]} />
                       </Grid>
-                      <Grid item xs={8} sm={2} ml={2}>
-                        <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
-                          {paymentNoticeDetail.amount}
-                        </Typography>
+                      <Grid
+                        item
+                        xs={8}
+                        sm={2}
+                        ml={2}
+                        component={'dl'}
+                        display={'flex'}
+                        flexDirection={'column'}>
                         <Typography
+                          component="dt"
+                          order="2"
                           color={theme.palette.text.secondary}
                           variant="body1"
                           fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field1')}
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          fontSize={'16px'}
+                          order="1"
+                          component="dd"
+                          fontWeight={700}>
+                          {paymentNoticeDetail.amount}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -134,14 +148,19 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                       <Grid item alignContent={'center'}>
                         <AccountBalance htmlColor={theme.palette.grey[700]} />
                       </Grid>
-                      <Grid item xs={8} ml={2}>
+                      <Grid item xs={8} ml={2} component={'dl'}>
                         <Typography
                           color={theme.palette.text.secondary}
                           variant="body1"
+                          component="dt"
                           fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field2')}
                         </Typography>
-                        <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
+                        <Typography
+                          variant="body1"
+                          component="dd"
+                          fontSize={'16px'}
+                          fontWeight={700}>
                           {paymentNoticeDetail.paFullName}
                         </Typography>
                       </Grid>
@@ -154,14 +173,19 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                       <Grid item alignContent={'center'}>
                         <ReceiptLong htmlColor={theme.palette.grey[700]} />
                       </Grid>
-                      <Grid item xs={9} ml={2}>
+                      <Grid item xs={9} ml={2} component={'dl'}>
                         <Typography
+                          component="dt"
                           color={theme.palette.text.secondary}
                           variant="body1"
                           fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field3')}
                         </Typography>
-                        <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
+                        <Typography
+                          variant="body1"
+                          fontSize={'16px'}
+                          component="dd"
+                          fontWeight={700}>
                           {paymentNoticeDetail.subject}
                         </Typography>
                       </Grid>
@@ -174,14 +198,19 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                       <Grid item alignContent={'center'}>
                         <DateRange htmlColor={theme.palette.grey[700]} />
                       </Grid>
-                      <Grid item xs={9} ml={2}>
+                      <Grid item xs={9} ml={2} component={'dl'}>
                         <Typography
                           color={theme.palette.text.secondary}
                           variant="body1"
+                          component="dt"
                           fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field4')}
                         </Typography>
-                        <Typography variant="body1" fontSize={'16px'} fontWeight={700}>
+                        <Typography
+                          variant="body1"
+                          fontSize={'16px'}
+                          component="dd"
+                          fontWeight={700}>
                           {paymentNoticeDetail.dueDate}
                         </Typography>
                       </Grid>
@@ -190,19 +219,21 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                   <Divider />
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
                     <Grid container item xs={9}>
-                      <Stack>
+                    <Grid item xs={9} component={'dl'}>
                         <Typography
                           sx={{ wordBreak: 'break-word' }}
+                          component="dt"
                           color={theme.palette.text.secondary}>
                           {t('app.paymentNoticeDetail.card1.field5')}
                         </Typography>
                         <Typography
+                          component="dd"
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
                           {paymentNoticeDetail.iupd}
                         </Typography>
-                      </Stack>
+                      </Grid>
                     </Grid>
                     <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton value={paymentNoticeDetail.iupd} color="primary" />
@@ -211,19 +242,21 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                   <Divider />
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
                     <Grid container item xs={9}>
-                      <Stack>
+                    <Grid item xs={9} component={'dl'}>
                         <Typography
+                          component="dt"
                           sx={{ wordBreak: 'break-word' }}
                           color={theme.palette.text.secondary}>
                           {t('app.paymentNoticeDetail.card1.field6')}
                         </Typography>
                         <Typography
+                          component="dd"
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
                           {paymentNoticeDetail.paTaxCode}
                         </Typography>
-                      </Stack>
+                      </Grid>
                     </Grid>
                     <Grid item xs={2} sm={1}>
                       <CopyToClipboardButton
@@ -238,34 +271,35 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
           </Grid>
           <Grid item xs={12} md={5} paddingLeft={{ xs: 0, md: 3 }}>
             <Card
+              component="aside"
               sx={{
                 padding: 2
               }}>
               <CardActions>
                 <Stack spacing={2} width={'100%'} alignContent={'center'}>
-                  <Typography variant="body1" fontWeight={700}>
+                  <Typography variant="body1" fontWeight={700} component={'h2'}>
                     {t('app.paymentNoticeDetail.card2.title').toUpperCase()}
                   </Typography>
-                  <Grid container>
+                  <Grid container component={'dl'}>
                     <Grid item xs={12} sm={6}>
-                      <Typography variant="body1">
+                      <Typography variant="body1" component="dt">
                         {t('app.paymentNoticeDetail.card2.field1')}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
-                      <Typography variant="body1" fontWeight={700}>
+                      <Typography variant="body1" fontWeight={700} component="dd">
                         {paymentNoticeDetail.firstInstallmentDate}
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid container>
+                  <Grid container component={'dl'}>
                     <Grid item xs={12} sm={6}>
-                      <Typography variant="body1">
+                      <Typography variant="body1" component="dt">
                         {t('app.paymentNoticeDetail.card2.field2')}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
-                      <Typography variant="body1" fontWeight={700}>
+                      <Typography variant="body1" fontWeight={700} component="dd">
                         {paymentNoticeDetail.firstInstallmentAmount}
                       </Typography>
                     </Grid>
