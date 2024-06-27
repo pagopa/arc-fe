@@ -8,8 +8,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 
-const updatedDate = new Date();
-
 export const PaymentNotices = () => {
   const { t } = useTranslation();
   const { data, isError } = utils.loaders.getPaymentNotices();
@@ -25,41 +23,7 @@ export const PaymentNotices = () => {
             {t('app.paymentNotices.title')}
           </Typography>
           {data.length > 0 ? (
-            <Stack gap={3}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-                component="header">
-                <Typography variant="h6" component="h2">
-                  {`${t('app.paymentNotices.found')} ${data.length} ${t('app.paymentNotices.notice')}`}
-                </Typography>
-                <Typography
-                  display="flex"
-                  variant="body1"
-                  component="div"
-                  flexDirection="row"
-                  gap="5px">
-                  <Typography color="text.secondary" component="span">
-                    {t('app.paymentNotices.updated')}
-                  </Typography>
-                  <Typography
-                    sx={{ fontWeight: 600 }}
-                    component="time"
-                    dateTime={updatedDate.toISOString()}>
-                    {updatedDate.toLocaleString(navigator.language, {
-                      timeStyle: 'short',
-                      dateStyle: 'medium'
-                    })}
-                  </Typography>
-                </Typography>
-              </Stack>
-              <Stack gap={3} component="section">
-                {data.map((paymentNotice) => (
-                  <PaymentNotice.Card key={paymentNotice.id} {...paymentNotice} />
-                ))}
-              </Stack>
-            </Stack>
+            <PaymentNotice.List paymentNoticesList={data} />
           ) : (
             <PaymentNotice.Empty />
           )}
