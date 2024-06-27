@@ -73,7 +73,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                 </IconButton>
               </Grid>
               <Grid item>
-                <Typography variant="h6" fontWeight={700}>
+                <Typography variant="h6" fontWeight={700} component={'h1'}>
                   {t('app.paymentNoticeDetail.modal.title')}
                 </Typography>
                 <Typography mt={3} variant="body1">
@@ -130,7 +130,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                   <Grid container item columnGap={2} justifyContent={'space-between'}>
                     <Grid container item xs={9}>
                       <Grid item alignContent={'center'}>
-                        <AccountBalance htmlColor={theme.palette.grey[700]} />
+                          <AccountBalance htmlColor={theme.palette.grey[700]} />
                       </Grid>
                       <Grid item xs={8} ml={2}>
                         <Typography
