@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Grid, Card, CardContent, Skeleton, Stack, Box } from '@mui/material';
 
 const TransactionDetails = () => (
