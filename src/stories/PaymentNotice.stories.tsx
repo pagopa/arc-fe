@@ -33,15 +33,3 @@ export const CardSinglePayment: StoryCard = {
     expiringDate: '31/01/2099'
   }
 };
-
-export const CardMultiPayment: StoryCard = {
-  render: PaymentNotice.Card,
-  args: {
-    payee: {
-      name: 'Politecnico di Milano'
-    },
-    paymentInfo: 'RATA 1 - Anno Accademico 2023/2024',
-    amount: '171,00 €',
-    multiPayment: true
-  }
-};

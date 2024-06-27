@@ -23,8 +23,7 @@ const paymentNoticesMock: Array<CardProps & { id: number }> = [
     },
     id: 2,
     paymentInfo: 'TARI 2024',
-    amount: '171,00 €',
-    multiPayment: true
+    amount: '171,00 €'
   },
   {
     payee: {
@@ -32,8 +31,7 @@ const paymentNoticesMock: Array<CardProps & { id: number }> = [
     },
     id: 3,
     paymentInfo: 'Violazione CDS Verbale 0123456',
-    amount: '28,70 €',
-    multiPayment: true
+    amount: '28,70 €'
   },
   {
     payee: {
