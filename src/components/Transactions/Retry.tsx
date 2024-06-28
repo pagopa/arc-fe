@@ -1,3 +1,4 @@
+import React from 'react';
 import { Paper, Typography, Stack, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@mui/material';

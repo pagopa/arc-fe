@@ -1,3 +1,4 @@
+import React from 'react';
 import { Paper, Typography, Stack } from '@mui/material';
 import PaymentButton from 'components/PaymentButton';
 import { useTranslation } from 'react-i18next';
