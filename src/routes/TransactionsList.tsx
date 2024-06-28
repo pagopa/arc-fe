@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabs from 'components/Tabs';
-import Transactions from 'components/Transactions/Transactions';
+import { TransactionsList, TransactionProps } from 'components/Transactions';
 import {
   FormControl,
   Grid,
@@ -20,9 +20,8 @@ import { useNormalizedTransactions } from 'hooks/useNormalizedTransactions';
 import Empty from 'components/Transactions/Empty';
 import Retry from 'components/Transactions/Retry';
 import { TransactionListSkeleton } from 'components/Skeleton';
-import { TransactionProps } from 'components/Transactions/Transaction';
 
-export default function TransactionsList() {
+export default function TransactionsListPage() {
   const { t } = useTranslation();
   const transactions = useNormalizedTransactions();
 
@@ -46,15 +45,15 @@ export default function TransactionsList() {
         tabs={[
           {
             title: t('app.transactions.all'),
-            content: <Transactions rows={all} />
+            content: <TransactionsList rows={all} />
           },
           {
             title: t('app.transactions.paidByMe'),
-            content: <Transactions rows={paidByMe} />
+            content: <TransactionsList rows={paidByMe} />
           },
           {
             title: t('app.transactions.ownedByMe'),
-            content: <Transactions rows={registeredToMe} />
+            content: <TransactionsList rows={registeredToMe} />
           }
         ]}
       />

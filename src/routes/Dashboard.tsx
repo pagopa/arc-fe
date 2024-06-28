@@ -6,13 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import utils from 'utils';
 import { ArcRoutes } from './routes';
 import { grey } from '@mui/material/colors';
-import Transactions from 'components/Transactions/Transactions';
 import QueryLoader from 'components/QueryLoader';
 import { PaymentNotice } from 'components/PaymentNotice';
 import { TransactionListSkeleton } from 'components/Skeleton';
 import PaymentButton from 'components/PaymentButton';
-import Empty from 'components/Transactions/Empty';
-import Retry from 'components/Transactions/Retry';
+import { Empty, Retry, TransactionsList } from 'components/Transactions';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -69,7 +67,7 @@ const Dashboard = () => {
           queryKey="transactions"
           loaderComponent={<TransactionListSkeleton />}
           fallback={isError && <Retry action={refetch} />}>
-          {rows && rows.length > 0 ? <Transactions rows={rows} /> : <Empty />}
+          {rows && rows.length > 0 ? <TransactionsList rows={rows} /> : <Empty />}
         </QueryLoader>
       </Box>
     </>

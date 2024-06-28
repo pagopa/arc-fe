@@ -32,7 +32,7 @@ interface PrepareRowsData {
 const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
   data.transactions?.map((element) => ({
     date: element.transactionDate || '',
-    amount: toEuro(element.amount),
+    amount: element.amount ? toEuro(element.amount) : '',
     id: element.transactionId || '',
     payee: {
       name: element.payeeName || data.payee.multi,
