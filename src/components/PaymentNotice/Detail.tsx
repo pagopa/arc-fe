@@ -123,7 +123,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                         </Typography>
                         <Typography
                           variant="body1"
-                          fontSize={'16px'}
+                          fontSize={16}
                           order="1"
                           component="dd"
                           fontWeight={700}>
