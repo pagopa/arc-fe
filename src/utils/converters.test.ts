@@ -5,8 +5,32 @@ import { TransactionDetailResponse } from '../../generated/apiClient';
 import '@testing-library/jest-dom';
 
 describe('toEuro function', () => {
-  it('should add correctly the euro symbol', () => {
-    expect(utils.converters.toEuro('108,22')).toBe('108,22 €');
+  it('should format correctly', () => {
+    expect(utils.converters.toEuro(50)).toEqual('0,50\xa0€');
+
+    expect(utils.converters.toEuro(501)).toEqual('5,01\xa0€');
+
+    expect(utils.converters.toEuro(0)).toEqual('0,00\xa0€');
+
+    expect(utils.converters.toEuro(-0)).toEqual('0,00\xa0€');
+
+    expect(utils.converters.toEuro(0, 2)).toEqual('0,00\xa0€');
+
+    expect(utils.converters.toEuro(550)).toEqual('5,50\xa0€');
+
+    expect(utils.converters.toEuro(550, 2)).toEqual('5,50\xa0€');
+
+    expect(utils.converters.toEuro(55.67, 2, 3)).toEqual('0,557\xa0€');
+
+    expect(utils.converters.toEuro(55.67, 2)).toEqual('0,56\xa0€');
+
+    expect(utils.converters.toEuro(127, 2, 3)).toEqual('1,270\xa0€');
+
+    expect(utils.converters.toEuro(1, 0)).toEqual('1,00\xa0€');
+
+    expect(utils.converters.toEuro(-55)).toEqual('-0,55\xa0€');
+
+    expect(utils.converters.toEuro(-5, 0)).toEqual('-5,00\xa0€');
   });
 });
 
