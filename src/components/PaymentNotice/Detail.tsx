@@ -42,6 +42,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
   const openModal = () => {
     setOpen(true);
   };
+  document.body.style.overflowY = open ? 'hidden' : 'auto';
 
   const handleClose = () => {
     setOpen(false);
@@ -59,8 +60,9 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
           onClick={handleClose}>
           <Box
             sx={{ background: theme.palette.background.default }}
-            width={{ xs: '100%', sm: '50%' }}
-            height={'100%'}
+            width={{ xs: '100%', sm: '69.5%', md: '46.5%', lg: '34.75%', xl: '27.5%' }}
+            borderRadius={{ xs: 2, sm: 0 }}
+            height={{ xs: '75%', sm: '100%' }}
             alignSelf={'end'}>
             <Grid container pl={3}>
               <Grid item xs={12} textAlign={'end'} pr={2} pt={2}>
