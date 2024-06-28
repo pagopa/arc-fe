@@ -22,7 +22,7 @@ const Info = (props: InfoProps) => (
   </Stack>
 );
 
-type CardPropsOption = { expiringDate: string } | { multiPayment: boolean };
+type CardPropsOption = { expiringDate: string };
 export type CardProps = {
   payee: {
     name: string;
@@ -32,9 +32,6 @@ export type CardProps = {
   paymentInfo: string;
   amount: string;
 } & CardPropsOption;
-
-const isMultiPayment = (option: CardPropsOption): option is { multiPayment: boolean } =>
-  'multiPayment' in option && option.multiPayment === true;
 
 const hasDate = (option: CardPropsOption): option is { expiringDate: string } =>
   'expiringDate' in option && !!option.expiringDate;
@@ -72,17 +69,7 @@ export const _Card = ({ payee, amount, paymentInfo, ...rest }: CardProps) => {
           <Divider orientation="vertical" flexItem variant="fullWidth" />
           <Stack width="12rem" component="aside">
             <Info label={t('app.paymentNotice.card.amount')} data={amount} />
-            {isMultiPayment(rest) && (
-              <Stack
-                borderRadius="4px"
-                alignItems="center"
-                sx={{ backgroundColor: '#E1F5FE' }}
-                component="div">
-                <Typography padding="3px" variant="subtitle2" lineHeight="18px">
-                  {t('app.paymentNotice.card.multiPayment')}
-                </Typography>
-              </Stack>
-            )}
+
             {hasDate(rest) && (
               <Info label={t('app.paymentNotice.card.expiring')} data={rest.expiringDate} />
             )}

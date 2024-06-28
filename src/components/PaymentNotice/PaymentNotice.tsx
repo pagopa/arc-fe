@@ -1,6 +1,9 @@
 import { _Preview } from './Preview';
 import { _Card } from './Card';
 import { _Detail } from './Detail';
+import { _Empty } from './Empty';
+import { _Error } from './Error';
+import { _List } from './List';
 
 /**
  * PaymentNotice is the main component for handling payment notices.
@@ -19,6 +22,20 @@ export const PaymentNotice = () => {};
 PaymentNotice.Preview = _Preview;
 
 /**
+ * Empty component for PaymentNotice.
+ * Use <PaymentNotice.Empty /> instead of direct use.
+ * @type {React.ComponentType}
+ */
+PaymentNotice.Empty = _Empty;
+
+/**
+ * Error component for PaymentNotice.
+ * Use <PaymentNotice.Error /> instead of direct use.
+ * @type {React.ComponentType}
+ */
+PaymentNotice.Error = _Error;
+
+/**
  * Card component for PaymentNotice.
  * Use <PaymentNotice.Card /> instead of direct use.
  * @type {React.ComponentType}
@@ -31,3 +48,9 @@ PaymentNotice.Card = _Card;
  * @type {React.ComponentType}
  */
 PaymentNotice.Detail = _Detail;
+
+/* * List component for PaymentNotice.
+ * Use <PaymentNotice.List /> instead of direct use.
+ * @type {React.ComponentType}
+ */
+PaymentNotice.List = _List;
