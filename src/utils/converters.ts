@@ -4,7 +4,13 @@ import { TransactionsListDTO } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
 import utils from 'utils';
 
-const toEuro = (amount?: number): string => `${amount} €`;
+const toEuro = (amount?: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>
+  new Intl.NumberFormat('it-IT', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits
+  }).format(amount ? amount / Math.pow(10, decimalDigits) : 0);
 
 interface PrepareRowsData {
   transactions: TransactionsListDTO['transactions'];

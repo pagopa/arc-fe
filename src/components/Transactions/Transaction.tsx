@@ -74,7 +74,7 @@ const Transaction = (props: TransactionProps) => {
         </StyledTableCell>
       )}
 
-      <StyledTableCell width="30px">
+      <StyledTableCell width="56px">
         <ArrowForwardIosIcon color="primary" fontSize="small" />
       </StyledTableCell>
     </TableRow>
