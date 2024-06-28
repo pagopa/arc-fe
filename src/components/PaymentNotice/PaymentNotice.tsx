@@ -1,5 +1,6 @@
 import { _Preview } from './Preview';
 import { _Card } from './Card';
+import { _Detail } from './Detail';
 import { _Empty } from './Empty';
 import { _Error } from './Error';
 import { _List } from './List';
@@ -42,7 +43,13 @@ PaymentNotice.Error = _Error;
 PaymentNotice.Card = _Card;
 
 /**
- * List component for PaymentNotice.
+ * Detail component for PaymentNotices.
+ * Use <PaymentNotice._Detail /> instead of direct use.
+ * @type {React.ComponentType}
+ */
+PaymentNotice.Detail = _Detail;
+
+/* * List component for PaymentNotice.
  * Use <PaymentNotice.List /> instead of direct use.
  * @type {React.ComponentType}
  */
