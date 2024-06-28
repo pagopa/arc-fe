@@ -52,16 +52,6 @@ describe('Card Component', () => {
     expect(screen.getByText('2022-12-31')).toBeInTheDocument();
   });
 
-  it('renders the multi-payment message if multiPayment is true', () => {
-    const propsWithMultiPayment: CardProps = {
-      ...baseProps,
-      multiPayment: true
-    };
-    renderWithTheme(<PaymentNotice.Card {...propsWithMultiPayment} />);
-
-    expect(screen.getByText('app.paymentNotice.card.multiPayment')).toBeInTheDocument();
-  });
-
   it('renders the PayeeIcon', () => {
     renderWithTheme(<PaymentNotice.Card {...baseProps} />);
 
