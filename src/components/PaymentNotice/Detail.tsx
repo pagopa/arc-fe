@@ -156,11 +156,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field2')}
                         </Typography>
-                        <Typography
-                          variant="body1"
-                          component="dd"
-                          fontSize={'16px'}
-                          fontWeight={700}>
+                        <Typography variant="body1" component="dd" fontSize={16} fontWeight={700}>
                           {paymentNoticeDetail.paFullName}
                         </Typography>
                       </Grid>
@@ -181,11 +177,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field3')}
                         </Typography>
-                        <Typography
-                          variant="body1"
-                          fontSize={'16px'}
-                          component="dd"
-                          fontWeight={700}>
+                        <Typography variant="body1" fontSize={16} component="dd" fontWeight={700}>
                           {paymentNoticeDetail.subject}
                         </Typography>
                       </Grid>
@@ -206,11 +198,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           fontSize={15}>
                           {t('app.paymentNoticeDetail.card1.field4')}
                         </Typography>
-                        <Typography
-                          variant="body1"
-                          fontSize={'16px'}
-                          component="dd"
-                          fontWeight={700}>
+                        <Typography variant="body1" fontSize={16} component="dd" fontWeight={700}>
                           {paymentNoticeDetail.dueDate}
                         </Typography>
                       </Grid>
