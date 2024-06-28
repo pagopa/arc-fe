@@ -34,10 +34,10 @@ export default function TransactionsList() {
       action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
     });
 
-  const ownedByMe =
+  const registeredToMe =
     data &&
     utils.converters.prepareRowsData({
-      transactions: data.transactions?.filter(({ payedByMe }) => !payedByMe),
+      transactions: data.transactions?.filter(({ registeredToMe }) => registeredToMe),
       status: { label: t('app.transactions.payed') },
       payee: { multi: t('app.transactions.multiEntities') },
       action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
@@ -97,14 +97,14 @@ export default function TransactionsList() {
             </FormControl>
           </Grid>
         </Grid>
-        {ownedByMe && paidByMe && (
+        {registeredToMe && paidByMe && (
           <Tabs
             ariaLabel="tabs"
             initialActiveTab={0}
             tabs={[
               {
                 title: t('app.transactions.all'),
-                content: <Transactions rows={paidByMe.concat(ownedByMe)} />
+                content: <Transactions rows={paidByMe.concat(registeredToMe)} />
               },
               {
                 title: t('app.transactions.paidByMe'),
@@ -112,7 +112,7 @@ export default function TransactionsList() {
               },
               {
                 title: t('app.transactions.ownedByMe'),
-                content: <Transactions rows={ownedByMe} />
+                content: <Transactions rows={registeredToMe} />
               }
             ]}
           />
