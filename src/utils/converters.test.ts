@@ -31,6 +31,8 @@ describe('toEuro function', () => {
     expect(utils.converters.toEuro(-55)).toEqual('-0,55\xa0€');
 
     expect(utils.converters.toEuro(-5, 0)).toEqual('-5,00\xa0€');
+
+    expect(utils.converters.toEuro(undefined, 0)).toEqual('');
   });
 });
 

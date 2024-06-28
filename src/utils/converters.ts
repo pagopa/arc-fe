@@ -6,12 +6,14 @@ import utils from 'utils';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 
 const toEuro = (amount?: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>
-  new Intl.NumberFormat('it-IT', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: fractionDigits,
-    maximumFractionDigits: fractionDigits
-  }).format(amount ? amount / Math.pow(10, decimalDigits) : 0);
+  amount
+    ? new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits
+      }).format(amount / Math.pow(10, decimalDigits))
+    : '';
 
 interface PrepareRowsData {
   transactions: TransactionsListDTO['transactions'];
@@ -32,7 +34,7 @@ interface PrepareRowsData {
 const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
   data.transactions?.map((element) => ({
     date: element.transactionDate || '',
-    amount: element.amount ? toEuro(element.amount) : '',
+    amount: toEuro(element.amount),
     id: element.transactionId || '',
     payee: {
       name: element.payeeName || data.payee.multi,
