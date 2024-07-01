@@ -8,7 +8,8 @@ const {
   APIHOST = 'http://localhost:1234/api',
   ENV = 'LOCAL',
   SHOW_STATUS_INFO = false,
-  ENTITIES_LOGO_CDN
+  ENTITIES_LOGO_CDN,
+  CHECKOUT_HOST = 'https://dev.checkout.pagopa.it'
 } = process.env;
 
 type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
@@ -19,12 +20,14 @@ const ENV_Schema: z.ZodType<ENVIRONMENT> = z.enum(['LOCAL', 'DEV', 'UAT', 'PROD'
 const APIHOST_schema = z.string().url();
 const SHOW_STATUS_INFO_schema: z.ZodType<BOOLISH> = z.enum(['true', 'false']);
 const ENTITIES_LOGO_CDN_schema = z.string().url();
+const CHECKOUT_HOST_schema = z.string().url();
 
 try {
   ENV_Schema.parse(process.env.ENV);
   APIHOST_schema.parse(process.env.APIHOST);
   SHOW_STATUS_INFO_schema.parse(process.env.SHOW_STATUS_INFO);
   ENTITIES_LOGO_CDN_schema.parse(process.env.ENTITIES_LOGO_CDN);
+  CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
 } catch (e) {
   console.error('ENV variables validation fails', (e as ZodError).issues);
 }
@@ -37,6 +40,7 @@ type Config = {
   showStatusInfo: boolean;
   entitiesLogoCdn?: string;
   assistanceLink: string;
+  checkoutHost: string;
 };
 
 const product: ProductEntity = {
@@ -73,7 +77,8 @@ const config: Config = {
    */
   showStatusInfo: SHOW_STATUS_INFO !== false && SHOW_STATUS_INFO === 'true',
   entitiesLogoCdn: ENTITIES_LOGO_CDN,
-  assistanceLink
+  assistanceLink,
+  checkoutHost: CHECKOUT_HOST
 };
 
 export default config;

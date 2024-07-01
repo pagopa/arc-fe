@@ -27,6 +27,7 @@ variables:
     cdn_profile: '$(UAT_CDN_PROFILE)'
     resource_group: '$(UAT_STORAGE_ACCOUNT_RG)'
     storage_account: '$(UAT_STORAGE_ACCOUNT_NAME)'
+    checkout_host: 'https://uat.checkout.pagopa.it'
 
   ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
     environment: 'PROD'
@@ -35,6 +36,7 @@ variables:
     cdn_profile: '$(PROD_CDN_PROFILE)'
     resource_group: '$(PROD_STORAGE_ACCOUNT_RG)'
     storage_account: '$(PROD_STORAGE_ACCOUNT_NAME)'
+    checkout_host: 'https://prod.checkout.pagopa.it'
 
   # every branch different from past will be considered as DEV
   ${{ else }}:
@@ -45,6 +47,7 @@ variables:
     resource_group: '$(DEV_STORAGE_ACCOUNT_RG)'
     storage_account: '$(DEV_STORAGE_ACCOUNT_NAME)'
     api_host: 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1'
+    checkout_host: 'https://dev.checkout.pagopa.it'
 
 
 resources:
@@ -75,6 +78,7 @@ stages:
               env: '$(environment)'
               cdn_logos: '$(cdn_logos)'
               assistance_link: '$(assistance_link)'
+              checkout_host: '$(checkout_host)'
               show_status_info: false
 
           - script: |
