@@ -12,7 +12,6 @@ import { PaymentNotice } from './PaymentNotice';
  * @private
  */
 
-type PaymentNoticeOptions = { expiringDate: string } | { multiPayment: boolean };
 export type PaymentNotices = {
   id: number;
   payee: {
@@ -22,7 +21,8 @@ export type PaymentNotices = {
   };
   paymentInfo: string;
   amount: string;
-} & PaymentNoticeOptions;
+  expiringDate: string;
+};
 
 export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotices[] }) => {
   const { t } = useTranslation();
