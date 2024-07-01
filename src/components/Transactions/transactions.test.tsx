@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { dummyTransactionsData } from 'stories/utils/mocks';
-import Transactions, { TransactionsProps } from './Transactions';
+import { TransactionsList, TransactionsListProps } from '.';
 import '@testing-library/jest-dom';
 import i18n from 'translations/i18n';
 import { useMediaQuery } from '@mui/material';
@@ -16,9 +16,9 @@ jest.mock('@mui/material', () => ({
   useMediaQuery: jest.fn()
 }));
 
-const TransactionsWithRouter = (props: TransactionsProps) => (
+const TransactionsWithRouter = (props: TransactionsListProps) => (
   <MemoryRouter>
-    <Transactions {...props} />
+    <TransactionsList {...props} />
   </MemoryRouter>
 );
 

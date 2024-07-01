@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
-import Transaction from './Transaction';
+import { Transaction } from './';
 import { BrowserRouter } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 
