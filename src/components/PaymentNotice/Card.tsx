@@ -40,7 +40,7 @@ export type CardProps = {
  * @component
  * @private
  */
-export const _Card = ({ payee, amount, paymentInfo, ...rest }: CardProps) => {
+export const _Card = ({ payee, amount, paymentInfo, expiringDate }: CardProps) => {
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   return (
@@ -66,7 +66,7 @@ export const _Card = ({ payee, amount, paymentInfo, ...rest }: CardProps) => {
           <Divider orientation="vertical" flexItem variant="fullWidth" />
           <Stack width="12rem" component="aside">
             <Info label={t('app.paymentNotice.card.amount')} data={amount} />
-            <Info label={t('app.paymentNotice.card.expiring')} data={rest.expiringDate} />
+            <Info label={t('app.paymentNotice.card.expiring')} data={expiringDate} />
           </Stack>
           <ArrowForwardIosIcon color="primary" fontSize="small" />
         </Stack>
