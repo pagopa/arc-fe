@@ -13,7 +13,7 @@ export const useNormalizedTransactions = () => {
     data
       ? utils.converters.prepareRowsData({
           transactions: filter ? data.transactions?.filter(filter) : data.transactions,
-          status: { label: t('app.transactions.payed') },
+          status: { label: t('app.transactions.paid') },
           payee: { multi: t('app.transactions.multiEntities') },
           action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
         })
@@ -21,6 +21,7 @@ export const useNormalizedTransactions = () => {
 
   const transactions = {
     all: getTransactions(),
+    // TODO typo should be fixed on the backend payedByMe -> paidByMe
     paidByMe: getTransactions((transaction) => transaction.payedByMe),
     registeredToMe: getTransactions((transaction) => transaction.registeredToMe),
     error: isError

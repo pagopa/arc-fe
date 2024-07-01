@@ -66,7 +66,7 @@ export const TransactionsTabs: StoryTabs = {
       },
       {
         title: 'Pagate da me',
-        content: <Transactions rows={dummyTransactionsData.payedByMe} />
+        content: <Transactions rows={dummyTransactionsData.paidByMe} />
       },
       {
         title: 'instestate a me',

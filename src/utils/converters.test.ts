@@ -40,7 +40,7 @@ describe('prepareRowsData function', () => {
       {
         amount: '180,00',
         isCart: true,
-        payedByMe: true,
+        paidByMe: true,
         payeeName: 'Comune di Milano',
         payeeTaxCode: 'MI_XXX',
         registeredToMe: true,
@@ -50,7 +50,7 @@ describe('prepareRowsData function', () => {
       {
         amount: '65,20',
         isCart: true,
-        payedByMe: false,
+        paidByMe: false,
         registeredToMe: true,
         transactionDate: '10/08/2022',
         transactionId: '2'

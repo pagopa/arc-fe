@@ -68,7 +68,7 @@
       "higherAmount": "importo più alto",
       "lowerAmount": "importo più basso",
       "multiEntities": "Avvisi Multipli",
-      "payed": "Pagato",
+      "paid": "Pagato",
       "viewDetail": "Visualizza il dettaglio per la transazione"
     },
     "paymentNotice": {

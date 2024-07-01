@@ -36,6 +36,7 @@ describe('useNormalizedTransactions', () => {
 
   it('returns transactions and processes data correctly', async () => {
     const mockTransactions = {
+      // TODO typo should be fixed on the backend payedByMe -> paidByMe
       transactions: [
         { id: '1', payedByMe: true, registeredToMe: false },
         { id: '2', payedByMe: false, registeredToMe: true }
@@ -47,7 +48,9 @@ describe('useNormalizedTransactions', () => {
       data: mockTransactions,
       isError: false
     });
-    (utils.converters.prepareRowsData as jest.Mock).mockReturnValue(preparedData);
+
+    const mockPrepareRowsData = jest.fn().mockReturnValue(preparedData);
+    utils.converters.prepareRowsData = mockPrepareRowsData;
 
     const { result } = renderHook(() => useNormalizedTransactions());
 
@@ -57,16 +60,29 @@ describe('useNormalizedTransactions', () => {
       expect(result.current.registeredToMe).toEqual(preparedData);
       expect(result.current.error).toBe(false);
 
-      expect(utils.loaders.getTransactions).toHaveBeenCalled();
-      expect(utils.converters.prepareRowsData).toHaveBeenCalledWith({
+      // Verify correct filters are applied
+      expect(mockPrepareRowsData).toHaveBeenCalledWith({
         transactions: mockTransactions.transactions,
-        status: { label: 'app.transactions.payed' },
+        status: { label: 'app.transactions.paid' },
         payee: { multi: 'app.transactions.multiEntities' },
         action: expect.any(Function)
       });
 
-      const actionCallback = (utils.converters.prepareRowsData as jest.Mock).mock.calls[0][0]
-        .action;
+      expect(mockPrepareRowsData).toHaveBeenCalledWith({
+        transactions: [mockTransactions.transactions[0]], // paidByMe
+        status: { label: 'app.transactions.paid' },
+        payee: { multi: 'app.transactions.multiEntities' },
+        action: expect.any(Function)
+      });
+
+      expect(mockPrepareRowsData).toHaveBeenCalledWith({
+        transactions: [mockTransactions.transactions[1]], // registeredToMe
+        status: { label: 'app.transactions.paid' },
+        payee: { multi: 'app.transactions.multiEntities' },
+        action: expect.any(Function)
+      });
+
+      const actionCallback = mockPrepareRowsData.mock.calls[0][0].action;
       actionCallback('1');
       expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.TRANSACTION.replace(':ID', '1'));
     });
