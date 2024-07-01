@@ -43,6 +43,7 @@ const getPaymentNotices = () => ({
       id: 2,
       paymentInfo: 'TARI 2024',
       amount: '171,00 €',
+      expiringDate: '31/01/2099',
       multiPayment: true
     },
     {
@@ -51,6 +52,7 @@ const getPaymentNotices = () => ({
       },
       id: 3,
       paymentInfo: 'Violazione CDS Verbale 0123456',
+      expiringDate: '31/01/2099',
       amount: '28,70 €',
       multiPayment: true
     },

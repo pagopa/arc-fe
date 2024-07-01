@@ -22,7 +22,6 @@ const Info = (props: InfoProps) => (
   </Stack>
 );
 
-type CardPropsOption = { expiringDate: string };
 export type CardProps = {
   payee: {
     name: string;
@@ -30,11 +29,9 @@ export type CardProps = {
     altImg?: string;
   };
   paymentInfo: string;
+  expiringDate: string;
   amount: string;
-} & CardPropsOption;
-
-const hasDate = (option: CardPropsOption): option is { expiringDate: string } =>
-  'expiringDate' in option && !!option.expiringDate;
+};
 
 /**
  * This component is considered private and should not be used directly.
@@ -69,10 +66,7 @@ export const _Card = ({ payee, amount, paymentInfo, ...rest }: CardProps) => {
           <Divider orientation="vertical" flexItem variant="fullWidth" />
           <Stack width="12rem" component="aside">
             <Info label={t('app.paymentNotice.card.amount')} data={amount} />
-
-            {hasDate(rest) && (
-              <Info label={t('app.paymentNotice.card.expiring')} data={rest.expiringDate} />
-            )}
+            <Info label={t('app.paymentNotice.card.expiring')} data={rest.expiringDate} />
           </Stack>
           <ArrowForwardIosIcon color="primary" fontSize="small" />
         </Stack>
