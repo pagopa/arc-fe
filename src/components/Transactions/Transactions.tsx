@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 
 export interface TransactionsProps {
-  rows: TransactionProps[];
+  rows?: TransactionProps[];
 }
 
 const Transactions = (props: TransactionsProps) => {
@@ -17,7 +17,7 @@ const Transactions = (props: TransactionsProps) => {
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   return (
-    <TableContainer sx={{ bgcolor: 'transparent' }}>
+    <TableContainer sx={(theme) => ({ bgcolor: 'transparent', height: theme.spacing(100) })}>
       <Table aria-label="Storico table">
         <TableHead sx={{ display: mdUp ? 'table-head' : 'none' }}>
           <TableRow>
@@ -39,9 +39,7 @@ const Transactions = (props: TransactionsProps) => {
           </TableRow>
         </TableHead>
         <TableBody sx={{ bgcolor: 'background.paper' }}>
-          {props.rows.map((row) => (
-            <Transaction {...row} key={row.id} />
-          ))}
+          {props?.rows && props.rows.map((row) => <Transaction {...row} key={row.id} />)}
         </TableBody>
       </Table>
     </TableContainer>

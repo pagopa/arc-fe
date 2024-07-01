@@ -15,33 +15,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Search } from '@mui/icons-material';
 import { theme } from '@pagopa/mui-italia';
-import { useNavigate } from 'react-router-dom';
-import utils from 'utils';
-import { ArcRoutes } from './routes';
 import QueryLoader from 'components/QueryLoader';
+import { useNormalizedTransactions } from 'hooks/useNormalizedTransactions';
 
 export default function TransactionsList() {
   const { t } = useTranslation();
-  const { data, isError } = utils.loaders.getTransactions();
-  const navigate = useNavigate();
-
-  const paidByMe =
-    data &&
-    utils.converters.prepareRowsData({
-      transactions: data.transactions?.filter(({ payedByMe }) => payedByMe),
-      status: { label: t('app.transactions.payed') },
-      payee: { multi: t('app.transactions.multiEntities') },
-      action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
-    });
-
-  const registeredToMe =
-    data &&
-    utils.converters.prepareRowsData({
-      transactions: data.transactions?.filter(({ registeredToMe }) => registeredToMe),
-      status: { label: t('app.transactions.payed') },
-      payee: { multi: t('app.transactions.multiEntities') },
-      action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
-    });
+  const transactions = useNormalizedTransactions();
 
   return (
     <>
@@ -50,7 +29,7 @@ export default function TransactionsList() {
       </Stack>
       <QueryLoader
         // TODO: fallback component of behavior be defined
-        fallback={isError && <p>Ops! Something went wrong, please try again</p>}
+        fallback={transactions.error && <p>Ops! Something went wrong, please try again</p>}
         queryKey="transactions">
         <Grid container spacing={3} mb={3}>
           <Grid item xs={9}>
@@ -97,26 +76,24 @@ export default function TransactionsList() {
             </FormControl>
           </Grid>
         </Grid>
-        {registeredToMe && paidByMe && (
-          <Tabs
-            ariaLabel="tabs"
-            initialActiveTab={0}
-            tabs={[
-              {
-                title: t('app.transactions.all'),
-                content: <Transactions rows={paidByMe.concat(registeredToMe)} />
-              },
-              {
-                title: t('app.transactions.paidByMe'),
-                content: <Transactions rows={paidByMe} />
-              },
-              {
-                title: t('app.transactions.ownedByMe'),
-                content: <Transactions rows={registeredToMe} />
-              }
-            ]}
-          />
-        )}
+        <Tabs
+          ariaLabel="tabs"
+          initialActiveTab={0}
+          tabs={[
+            {
+              title: t('app.transactions.all'),
+              content: <Transactions rows={transactions.all} />
+            },
+            {
+              title: t('app.transactions.paidByMe'),
+              content: <Transactions rows={transactions.paidByMe} />
+            },
+            {
+              title: t('app.transactions.ownedByMe'),
+              content: <Transactions rows={transactions.registeredToMe} />
+            }
+          ]}
+        />
       </QueryLoader>
     </>
   );

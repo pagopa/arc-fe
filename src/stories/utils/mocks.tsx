@@ -93,13 +93,13 @@ const transactionReceipt = {
 };
 export const dummyTransactionsData: {
   all: TransactionProps[];
-  payedByMe: TransactionProps[];
+  paidByMe: TransactionProps[];
   ownedByMe: TransactionProps[];
   transactionData: TransactionDetail;
   transactionReceipt: unknown;
 } = {
   all: [Transaction_dc379158, Transaction_ffe1324e, Transaction_a305f59a, Transaction_3d40b8e0],
-  payedByMe: [Transaction_dc379158, Transaction_ffe1324e],
+  paidByMe: [Transaction_dc379158, Transaction_ffe1324e],
   ownedByMe: [Transaction_a305f59a, Transaction_3d40b8e0],
   transactionData: transactionDetail,
   transactionReceipt
