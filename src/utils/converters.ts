@@ -13,7 +13,7 @@ const toEuro = (amount?: number, decimalDigits: number = 2, fractionDigits: numb
         minimumFractionDigits: fractionDigits,
         maximumFractionDigits: fractionDigits
       }).format(amount / Math.pow(10, decimalDigits))
-    : '';
+    : '-';
 
 interface PrepareRowsData {
   transactions: TransactionsListDTO['transactions'];
