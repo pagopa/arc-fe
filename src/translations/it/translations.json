@@ -69,7 +69,15 @@
       "lowerAmount": "importo più basso",
       "multiEntities": "Avvisi Multipli",
       "paid": "Pagato",
-      "viewDetail": "Visualizza il dettaglio per la transazione"
+      "viewDetail": "Visualizza il dettaglio per la transazione",
+      "empty": {
+        "title": "Qui vedrai le tue ricevute pagoPA",
+        "subtitle": "Paga un avviso presso un qualsiasi canale abilitato a pagoPA."
+      },
+      "error": {
+        "title": "Non riusciamo a recuperare i dati a causa di un problema.",
+        "retry": "Riprova"
+      }
     },
     "paymentNotice": {
       "preview": {

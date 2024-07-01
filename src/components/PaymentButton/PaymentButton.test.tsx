@@ -8,7 +8,7 @@ describe('Payment Button Component', () => {
     render(<PaymentButton />);
 
     const button = screen.getByRole('link');
-    expect(button).toHaveAttribute('href', 'https://uat.checkout.pagopa.it/');
+    expect(button).toHaveAttribute('href', 'https://dev.checkout.pagopa.it');
     expect(button).toHaveAttribute('target', '_blank');
   });
 });
