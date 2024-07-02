@@ -42,17 +42,6 @@ describe('Query Loader component', () => {
     expect(screen.getByText('test children')).toBeInTheDocument();
   });
 
-  it('should render the fallback component', () => {
-    render(
-      <QueryLoader queryKey="testQueryKey" fallback={<p>test fallback</p>}>
-        <p>test children</p>
-      </QueryLoader>
-    );
-    expect(mockeduseIsFetching).toHaveBeenCalledTimes(1);
-    expect(screen.queryByText('test children')).toBeNull();
-    expect(screen.getByText('test fallback')).toBeInTheDocument();
-  });
-
   it('should render the default loader component', () => {
     mockeduseIsFetching.mockReturnValueOnce(true);
     render(

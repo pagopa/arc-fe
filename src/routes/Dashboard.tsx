@@ -63,11 +63,12 @@ const Dashboard = () => {
         padding={{ xs: 3, md: 2 }}
         margin={{ xs: -3, md: 0 }}
         marginTop={0}>
-        <QueryLoader
-          queryKey="transactions"
-          loaderComponent={<TransactionListSkeleton />}
-          fallback={isError && <Retry action={refetch} />}>
-          {rows && rows.length > 0 ? <TransactionsList rows={rows} /> : <Empty />}
+        <QueryLoader queryKey="transactions" loaderComponent={<TransactionListSkeleton />}>
+          {(() => {
+            if (isError || !rows) return <Retry action={refetch} />;
+            if (rows.length === 0) return <Empty />;
+            return <TransactionsList rows={rows} />;
+          })()}
         </QueryLoader>
       </Box>
     </>

@@ -108,19 +108,18 @@ export default function TransactionsListPage() {
           </FormControl>
         </Grid>
       </Grid>
-      <QueryLoader
-        loaderComponent={<TransactionListSkeleton />}
-        fallback={error && <Retry action={refetch} />}
-        queryKey="transactions">
-        {data && data.transactions && data.transactions?.length > 0 ? (
-          <MainContent
-            all={transactions.all}
-            paidByMe={transactions.paidByMe}
-            registeredToMe={transactions.registeredToMe}
-          />
-        ) : (
-          <Empty />
-        )}
+      <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="transactions">
+        {(() => {
+          if (error || !data || !data.transactions) return <Retry action={refetch} />;
+          if (data.transactions.length === 0) return <Empty />;
+          return (
+            <MainContent
+              all={transactions.all}
+              paidByMe={transactions.paidByMe}
+              registeredToMe={transactions.registeredToMe}
+            />
+          );
+        })()}
       </QueryLoader>
     </>
   );
