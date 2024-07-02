@@ -12,4 +12,25 @@ const humanDate = (lang = navigator.language, unformattedDate: string): string =
   }
 };
 
-export default humanDate;
+const isoToHumanDateRome = (isoDateString?: string, locale = navigator.language) => {
+  if (!isoDateString) {
+    return '';
+  }
+
+  const date = new Date(isoDateString);
+
+  // Check if the date is invalid
+  if (isNaN(date.getTime())) {
+    console.warn('Invalid Date', date);
+    return '';
+  }
+
+  return date.toLocaleString(locale, {
+    timeZone: 'Europe/Rome',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+};
+
+export const datetools = { humanDate, isoToHumanDateRome };
