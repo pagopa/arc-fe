@@ -138,10 +138,10 @@ export default function TransactionDetail({
                     {t('app.transactionDetail.noticeOwner')}
                   </Typography>
                   <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                    {transactionData.owedBy}
+                    {transactionData.debtor}
                   </Typography>
                   <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                    ({transactionData.owedByFiscalCode})
+                    ({transactionData.debtorFiscalCode})
                   </Typography>
                 </Stack>
                 <Grid container pt={1}>
@@ -198,10 +198,10 @@ export default function TransactionDetail({
                     {t('app.transactionDetail.debtor')}
                   </Typography>
                   <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                    {transactionData.owedBy}
+                    {transactionData.debtor}
                   </Typography>
                   <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                    ({transactionData.owedByFiscalCode})
+                    ({transactionData.debtorFiscalCode})
                   </Typography>
                 </Stack>
               </Stack>

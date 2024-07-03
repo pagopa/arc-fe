@@ -1,7 +1,7 @@
-const humanDate = (lang = navigator.language, unformattedDate: string): string => {
+const humanDate = (lang = navigator.language, unformattedDateTime: string): string => {
   try {
-    const splittedDate = unformattedDate.split('/');
-    console.log(splittedDate)
+    const unformattedDate = unformattedDateTime.split('T');
+    const splittedDate = unformattedDate[0].split('-');
     const castDate = new Date(`${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`);
     const humanFriendlyDate = new Intl.DateTimeFormat(lang, {
       dateStyle: 'long'

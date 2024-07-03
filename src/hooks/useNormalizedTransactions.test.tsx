@@ -58,7 +58,7 @@ describe('useNormalizedTransactions', () => {
       expect(result.current.all).toEqual(preparedData);
       expect(result.current.paidByMe).toEqual(preparedData);
       expect(result.current.registeredToMe).toEqual(preparedData);
-      expect(result.current.error).toBe(false);
+      expect(result.current.queryResult.isError).toBe(false);
 
       // Verify correct filters are applied
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
@@ -97,7 +97,7 @@ describe('useNormalizedTransactions', () => {
       expect(result.current.all).toEqual([]);
       expect(result.current.paidByMe).toEqual([]);
       expect(result.current.registeredToMe).toEqual([]);
-      expect(result.current.error).toBe(true);
+      expect(result.current.queryResult.isError).toBe(true);
     });
   });
 });

@@ -11,12 +11,12 @@ const getTransactions = () =>
     }
   });
 
-const getTransactionDetails = (id: string) => 
+const getTransactionDetails = (id: string) =>
   useQuery({
     queryKey: ['transactionDetail'],
     queryFn: async () => {
       const { data: transaction } = await utils.apiClient.transactions.getTransactionDetails(id);
-      console.log(transaction)
+      console.log(transaction);
       utils.zodSchema.transactionDetailsDTOSchema.parse(transaction);
       return transaction;
     }
