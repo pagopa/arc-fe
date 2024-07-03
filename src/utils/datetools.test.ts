@@ -2,7 +2,7 @@ import humanDate from './datetools';
 
 describe('humanDate function', () => {
   it('formats the date correctly with default language', () => {
-    const unformattedDate = '31/12/2023';
+    const unformattedDate = '31-12-2023T01:01';
 
     const result = humanDate(undefined, unformattedDate);
 
@@ -10,7 +10,7 @@ describe('humanDate function', () => {
   });
 
   it('formats the date correctly with specified language', () => {
-    const unformattedDate = '31/12/2023';
+    const unformattedDate = '31-12-2023T01:01';
     const lang = 'en-GB'; // British English
 
     const result = humanDate(lang, unformattedDate);
