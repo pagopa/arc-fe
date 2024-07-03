@@ -54,14 +54,11 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail => {
-  const formatter = new Intl.NumberFormat('it-IT', { minimumFractionDigits: 2 });
   return {
     paidBy: transactionDetail.infoTransaction.payer?.name || '-',
     authCode: transactionDetail.infoTransaction.authCode || '-',
     transactionId: transactionDetail.infoTransaction.transactionId || '-',
     PRN: transactionDetail.infoTransaction.rrn || '-',
-    owedBy: transactionDetail.carts[0].debtor?.name || '-',
-    owedByFiscalCode: transactionDetail.carts[0].debtor?.taxCode || '-',
     paymentMethod: transactionDetail.infoTransaction.paymentMethod || '-',
     cardNumber: transactionDetail.infoTransaction.walletInfo?.blurredNumber || '-',
     PSP: transactionDetail.infoTransaction.pspName || '-',
@@ -72,13 +69,9 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
     creditorEntity: transactionDetail.carts[0].payee?.name || '-',
     creditorFiscalCode: transactionDetail.carts[0].payee?.taxCode || '-',
     noticeCode: transactionDetail.carts[0].refNumberValue || '-',
-    partialAmount: (transactionDetail.infoTransaction.amount || '-') + ' €',
-    fee: (transactionDetail.infoTransaction.fee || '-') + ' €',
-    total:
-      formatter.format(
-        parseFloat(transactionDetail.infoTransaction.amount || '0') +
-          parseFloat(transactionDetail.infoTransaction.fee || '0')
-      ) + ' €',
+    partialAmount: toEuro(transactionDetail.infoTransaction.amount, 2),
+    fee: toEuro(transactionDetail.infoTransaction.fee, 2),
+    total: toEuro(transactionDetail.infoTransaction.amount + transactionDetail.infoTransaction.fee),
     status: 'SUCCESS'
   };
 };
