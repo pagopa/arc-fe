@@ -11,6 +11,17 @@ export const PaymentNotices = () => {
   const { t } = useTranslation();
   const { data, isError } = utils.loaders.getPaymentNotices();
 
+  const Content = () => {
+    if (isError || !data) return <PaymentNotice.Error />;
+    if (!data.length) return <PaymentNotice.Empty />;
+    return (
+      <Stack gap={5} component="section">
+        <PaymentNotice.List paymentNoticesList={data} />
+        <PaymentNotice.Info />
+      </Stack>
+    );
+  };
+
   return (
     <>
       <Typography mb={3} variant="h3" component="h1">
@@ -21,16 +32,7 @@ export const PaymentNotices = () => {
           queryKey="paymentNotices"
           loaderComponent={<PaymentNoticesListSkeleton />}
           atLeast={5000}>
-          {(() => {
-            if (isError || !data) return <PaymentNotice.Error />;
-            if (!data.length) return <PaymentNotice.Empty />;
-            return (
-              <Stack gap={5} component="section">
-                <PaymentNotice.List paymentNoticesList={data} />
-                <PaymentNotice.Info />
-              </Stack>
-            );
-          })()}
+          <Content />
         </QueryLoader>
       </Stack>
     </>

@@ -27,6 +27,12 @@ const Dashboard = () => {
       action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
     });
 
+  const Content = () => {
+    if (isError || !rows) return <Retry action={refetch} />;
+    if (rows.length === 0) return <Empty />;
+    return <TransactionsList rows={rows} />;
+  };
+
   return (
     <>
       <Stack
@@ -64,11 +70,7 @@ const Dashboard = () => {
         margin={{ xs: -3, md: 0 }}
         marginTop={0}>
         <QueryLoader queryKey="transactions" loaderComponent={<TransactionListSkeleton />}>
-          {(() => {
-            if (isError || !rows) return <Retry action={refetch} />;
-            if (rows.length === 0) return <Empty />;
-            return <TransactionsList rows={rows} />;
-          })()}
+          <Content />
         </QueryLoader>
       </Box>
     </>
