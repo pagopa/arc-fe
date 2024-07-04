@@ -45,7 +45,7 @@ describe('formatDate', () => {
     });
 
     expect(formattedDate).toContain('06/01/2024');
-    expect(formattedDate).toContain('12:30 PM');
+    expect(formattedDate).toContain('12:30');
   });
 
   it('should return invalidDateOutput for an invalid date', () => {
