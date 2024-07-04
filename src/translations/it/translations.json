@@ -105,6 +105,7 @@
       "found": "Abbiamo trovato",
       "notice": "avvisi",
       "updated": "Aggiornato il",
+      "loading": "Stiamo cercando tra gli archivi degli enti creditori aderenti al servizio...",
       "alert": {
         "info": "Gli avvisi sono stati recuperati dagli archivi degli enti creditori aderenti al servizio.",
         "action": "Segnala un problema"
