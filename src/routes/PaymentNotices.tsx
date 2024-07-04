@@ -11,8 +11,6 @@ export const PaymentNotices = () => {
   const { t } = useTranslation();
   const { data, isError } = utils.loaders.getPaymentNotices();
 
-  console.log(data);
-
   return (
     <>
       <Typography mb={3} variant="h3" component="h1">
