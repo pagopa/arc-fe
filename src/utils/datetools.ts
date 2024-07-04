@@ -29,6 +29,31 @@ const defaultOptions = {
   withTime: false
 };
 
+/**
+ * Formats a given date string according to specified options.
+ *
+ * @param {string} [date] - The date string to format. If not provided, the function will return the `invalidDateOutput`.
+ * @param {FormatDateOptions} [options] - An object containing optional formatting settings.
+ * @param {DateFormat} [options.format=DateFormat.MEDIUM] - The date format, either `long` or `medium`.
+ * @param {string} [options.invalidDateOutput=''] - The output string if the provided date is invalid.
+ * @param {Intl.LocalesArgument} [options.locale=defaultLocale] - The locale for the date formatting.
+ * @param {string} [options.timeZone='Europe/Rome'] - The time zone to use for formatting the date.
+ * @param {boolean} [options.withTime=false] - Whether to include time in the formatted output.
+ *
+ * @returns {string} The formatted date string.
+ *
+ * @example
+ * // returns '01/06/2024'
+ * formatDate('2024-06-01T00:00:00');
+ *
+ * @example
+ * // returns 'July 4, 2024'
+ * formatDate('2024-07-04', { format: DateFormat.LONG });
+ *
+ * @example
+ * // returns 'Invalid date'
+ * formatDate('invalid-date', { invalidDateOutput: 'Invalid date' });
+ */
 const formatDate = (date?: string, options?: FormatDateOptions): string => {
   // This duplication is here so to make the options
   // object argument optional and with default values
@@ -41,8 +66,8 @@ const formatDate = (date?: string, options?: FormatDateOptions): string => {
     ...userOptions
   }: FormatDateOptions = options || defaultOptions;
 
-  const parsedDate = date ? new Date(date) : null;
-  if (!parsedDate || isNaN(parsedDate.getTime())) {
+  const parsedDate = date ? new Date(date) : NaN;
+  if (isNaN(parsedDate as number)) {
     console.warn(`Invalid date provided ${date}`);
     return invalidDateOutput;
   }

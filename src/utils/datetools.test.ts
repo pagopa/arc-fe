@@ -25,15 +25,15 @@ describe('formatDate', () => {
   });
 
   it('should format a date string in Italian format with long format and time', () => {
-    const dateStr = '2023-06-01T12:34:56';
+    const dateStr = '2024-06-01T12:30:00';
     const formattedDate = formatDate(dateStr, {
       format: DateFormat.LONG,
       withTime: true,
       locale: 'it-IT'
     });
 
-    expect(formattedDate).toContain('1 giu 2023');
-    expect(formattedDate).toContain('12:34');
+    expect(formattedDate).toContain('1 giu 2024');
+    expect(formattedDate).toContain('12:30');
   });
 
   it('should return invalidDateOutput for an invalid date', () => {
