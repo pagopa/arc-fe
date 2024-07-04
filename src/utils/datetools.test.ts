@@ -25,7 +25,7 @@ describe('formatDate', () => {
   });
 
   it('should format a date string in Italian format with long format and time', () => {
-    const dateStr = '2024-06-01T12:30:00';
+    const dateStr = '2024-06-01T12:30:00Z';
     const formattedDate = formatDate(dateStr, {
       format: DateFormat.LONG,
       withTime: true,
@@ -33,7 +33,19 @@ describe('formatDate', () => {
     });
 
     expect(formattedDate).toContain('1 giu 2024');
-    expect(formattedDate).toContain('12:30');
+    expect(formattedDate).toContain('14:30');
+  });
+
+  it('Should converts time correctly', () => {
+    const dateStr = '2024-06-01T12:30:00Z';
+    const formattedDate = formatDate(dateStr, {
+      withTime: true,
+      timeZone: 'utc',
+      locale: 'en-US'
+    });
+
+    expect(formattedDate).toContain('06/01/2024');
+    expect(formattedDate).toContain('12:30 PM');
   });
 
   it('should return invalidDateOutput for an invalid date', () => {
