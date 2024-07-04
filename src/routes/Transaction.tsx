@@ -1,5 +1,4 @@
 import React from 'react';
-// import TransactionDetail from '../components/Transactions/TransactionDetail';
 import { useLoaderData } from 'react-router-dom';
 import utils from 'utils';
 import QueryLoader from 'components/QueryLoader';

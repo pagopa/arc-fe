@@ -16,7 +16,6 @@ const getTransactionDetails = (id: string) =>
     queryKey: ['transactionDetail'],
     queryFn: async () => {
       const { data: transaction } = await utils.apiClient.transactions.getTransactionDetails(id);
-      console.log(transaction);
       utils.zodSchema.transactionDetailsDTOSchema.parse(transaction);
       return transaction;
     }
