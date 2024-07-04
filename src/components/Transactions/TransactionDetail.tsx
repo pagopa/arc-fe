@@ -48,7 +48,7 @@ export default function TransactionDetail({
             {t('app.transactionDetail.createdOn')}
           </Typography>
           <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-            &nbsp;{datetools.humanDate(navigator.language, transactionData.dateTime)}
+            &nbsp;{datetools.formatDate(transactionData.dateTime)}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
@@ -174,7 +174,7 @@ export default function TransactionDetail({
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
                   <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                    {datetools.humanDate(navigator.language, transactionData.dateTime)}
+                    {datetools.formatDate(transactionData.dateTime)}
                   </Typography>
                 </Stack>
               </Stack>

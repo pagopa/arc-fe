@@ -1,9 +1,9 @@
-export enum Format {
+export enum DateFormat {
   LONG = 'long',
   MEDIUM = 'medium'
 }
 
-export enum InputFormat {
+export enum DateInputFormat {
   IT = 'it-IT',
   US = 'en-US',
   ISO = 'iso8601'
@@ -11,13 +11,16 @@ export enum InputFormat {
 
 interface FormatDateOptions extends Intl.DateTimeFormatOptions {
   withTime?: boolean;
-  format?: Format;
-  inputFormat?: InputFormat;
+  format?: DateFormat;
+  inputFormat?: DateInputFormat;
   invalidDateOutput?: string;
   locale?: Intl.LocalesArgument;
 }
 
-const dateOptions: { [key in Format]: Intl.DateTimeFormatOptions } = {
+const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const defaultLocale = navigator.language;
+
+const dateOptions: { [key in DateFormat]: Intl.DateTimeFormatOptions } = {
   long: { day: 'numeric', month: 'long', year: 'numeric' },
   medium: { day: '2-digit', month: '2-digit', year: 'numeric' }
 };
@@ -32,12 +35,12 @@ const parseItalianDate = (dateStr: string): Date | null => {
   return null;
 };
 
-const parseDate = (dateStr: string, format: InputFormat): Date | null => {
+const parseDate = (dateStr: string, format: DateInputFormat): Date | null => {
   switch (format) {
-    case InputFormat.IT:
+    case DateInputFormat.IT:
       return parseItalianDate(dateStr);
-    case InputFormat.ISO:
-    case InputFormat.US:
+    case DateInputFormat.ISO:
+    case DateInputFormat.US:
       return new Date(dateStr);
     default:
       console.warn(`Unsupported date format ${format} for date ${dateStr}`);
@@ -45,14 +48,14 @@ const parseDate = (dateStr: string, format: InputFormat): Date | null => {
   }
 };
 
-const getFormatOptions = (format: Format, withTime: boolean): Intl.DateTimeFormatOptions =>
+const getFormatOptions = (format: DateFormat, withTime: boolean): Intl.DateTimeFormatOptions =>
   withTime ? { ...dateOptions[format], hour: '2-digit', minute: '2-digit' } : dateOptions[format];
 
 const defaultOptions = {
-  format: Format.MEDIUM,
-  inputFormat: InputFormat.ISO,
+  format: DateFormat.MEDIUM,
+  inputFormat: DateInputFormat.ISO,
   invalidDateOutput: '',
-  locale: navigator.language,
+  locale: defaultLocale,
   timeZone: 'Europe/Rome',
   withTime: false
 };
@@ -61,10 +64,10 @@ const formatDate = (date?: string, options?: FormatDateOptions): string => {
   // This duplication is here so to make the options
   // object argument optional and with default values
   const {
-    format = Format.MEDIUM,
-    inputFormat = InputFormat.ISO,
+    format = DateFormat.MEDIUM,
+    inputFormat = DateInputFormat.ISO,
     invalidDateOutput = '',
-    locale = navigator.language,
+    locale = defaultLocale,
     timeZone = 'Europe/Rome',
     withTime = false,
     ...userOptions
@@ -82,4 +85,10 @@ const formatDate = (date?: string, options?: FormatDateOptions): string => {
   return parsedDate.toLocaleString(locale, finalOptions);
 };
 
-export const datetools = { formatDate, parseDate, parseItalianDate };
+export const datetools = {
+  defaultLocale,
+  formatDate,
+  localTimeZone,
+  parseDate,
+  parseItalianDate
+};

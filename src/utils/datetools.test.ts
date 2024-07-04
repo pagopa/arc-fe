@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { Format, InputFormat, datetools } from './datetools';
+import { DateFormat, DateInputFormat, datetools } from './datetools';
 
 const { formatDate, parseItalianDate } = datetools;
 
@@ -27,8 +27,8 @@ describe('formatDate', () => {
   it('should format a date string in Italian format with medium format and without time', () => {
     const dateStr = '01-06-2024';
     const formattedDate = formatDate(dateStr, {
-      inputFormat: InputFormat.IT,
-      format: Format.MEDIUM,
+      inputFormat: DateInputFormat.IT,
+      format: DateFormat.MEDIUM,
       locale: 'it-IT'
     });
 
@@ -38,7 +38,7 @@ describe('formatDate', () => {
   it('should format a date string in Italian format with long format and time', () => {
     const dateStr = '2023-06-01T12:34:56';
     const formattedDate = formatDate(dateStr, {
-      format: Format.LONG,
+      format: DateFormat.LONG,
       withTime: true,
       locale: 'it-IT'
     });
