@@ -1,67 +1,111 @@
-import { datetools } from './datetools';
+import '@testing-library/jest-dom';
+import { Format, InputFormat, datetools } from './datetools';
 
-describe('humanDate function', () => {
-  it('formats the date correctly with default language', () => {
-    const unformattedDate = '31/12/2023';
+const { formatDate, parseItalianDate } = datetools;
 
-    const result = datetools.humanDate(undefined, unformattedDate);
-
-    expect(result).toEqual('December 31, 2023');
+describe('formatDate', () => {
+  const originalNavigatorLanguage = navigator.language;
+  beforeAll(() => {
+    Object.defineProperty(navigator, 'language', {
+      value: 'en-US',
+      configurable: true
+    });
   });
 
-  it('formats the date correctly with specified language', () => {
-    const unformattedDate = '31/12/2023';
-    const lang = 'en-GB'; // British English
-
-    const result = datetools.humanDate(lang, unformattedDate);
-
-    expect(result).toEqual('31 December 2023');
+  afterAll(() => {
+    Object.defineProperty(navigator, 'language', {
+      value: originalNavigatorLanguage,
+      configurable: true
+    });
   });
 
-  it('handles invalid date format', () => {
-    const unformattedDate = 'Invalid Date';
+  it('should use default options when options is undefined', () => {
+    const formattedDate = formatDate('2024-04-06T09:48:17.080Z');
+    expect(formattedDate).toEqual('04/06/2024');
+  });
 
-    const result = datetools.humanDate(undefined, unformattedDate);
+  it('should format a date string in Italian format with medium format and without time', () => {
+    const dateStr = '01-06-2024';
+    const formattedDate = formatDate(dateStr, {
+      inputFormat: InputFormat.IT,
+      format: Format.MEDIUM,
+      locale: 'it-IT'
+    });
 
-    // Expect the function to return 'Invalid Date'
-    expect(result).toEqual('Invalid Date');
+    expect(formattedDate).toBe('01/06/2024');
+  });
+
+  it('should format a date string in Italian format with long format and time', () => {
+    const dateStr = '2023-06-01T12:34:56';
+    const formattedDate = formatDate(dateStr, {
+      format: Format.LONG,
+      withTime: true,
+      locale: 'it-IT'
+    });
+
+    expect(formattedDate).toContain('1 giugno 2023');
+    expect(formattedDate).toContain('12:34');
+  });
+
+  it('should return invalidDateOutput for an invalid date', () => {
+    const dateStr = 'invalid-date';
+    const formattedDate = formatDate(dateStr, {
+      invalidDateOutput: 'Invalid Date',
+      locale: 'it-IT'
+    });
+
+    expect(formattedDate).toBe('Invalid Date');
+  });
+
+  it('should return invalidDateOutput for missing date', () => {
+    const dateStr = '';
+    const formattedDate = formatDate(dateStr, {
+      invalidDateOutput: 'Invalid Date'
+    });
+
+    expect(formattedDate).toBe('Invalid Date');
+  });
+
+  it('should warn and return empty string for unsupported inputFormat', () => {
+    const dateStr = '2023-06-01';
+    const spyWarn = jest.spyOn(console, 'warn').mockImplementation(() => {}); // Mock console.warn
+
+    const formattedDate = formatDate(dateStr, {
+      // @ts-expect-error testing
+      inputFormat: 'unsupported-format'
+    });
+
+    expect(formattedDate).toBe('');
+    expect(spyWarn).toHaveBeenCalledWith(
+      'Unsupported date format unsupported-format for date 2023-06-01'
+    );
+
+    spyWarn.mockRestore(); // Restore console.warn
   });
 });
 
-describe('isoToHumanDateRome', () => {
-  const { isoToHumanDateRome } = datetools;
-
-  it('should format a valid ISO date string to a human-readable date in Rome timezone', () => {
-    const isoDateString = '2023-05-29T12:34:56Z';
-    const formattedDate = isoToHumanDateRome(isoDateString, 'it-IT');
-
-    const expectedDate = '29/05/2023'; // 'dd/mm/yyyy' format
-
-    expect(formattedDate).toBe(expectedDate);
+describe('parseItalianDate function', () => {
+  it('should parse valid DD/MM/YYYY date format', () => {
+    const dateStr = '01/05/2023';
+    const parsedDate = parseItalianDate(dateStr);
+    expect(parsedDate).toEqual(new Date('2023-05-01T00:00:00'));
   });
 
-  it('should format a date to the rome timezone', () => {
-    const isoDateString = '2023-06-01T23:00:00Z';
-    const formattedDate = isoToHumanDateRome(isoDateString, 'it-IT');
-
-    const expectedDate = '02/06/2023'; // 'dd/mm/yyyy' format
-
-    expect(formattedDate).toBe(expectedDate);
+  it('should return null for invalid date format', () => {
+    const dateStr = '2023/05/01';
+    const parsedDate = parseItalianDate(dateStr);
+    expect(parsedDate).toBeNull();
   });
 
-  it('should return an empty string for an undefined input', () => {
-    const formattedDate = isoToHumanDateRome(undefined);
-    expect(formattedDate).toBe('');
+  it('should return null for empty date string', () => {
+    const dateStr = '';
+    const parsedDate = parseItalianDate(dateStr);
+    expect(parsedDate).toBeNull();
   });
 
-  it('should return an empty string for an invalid ISO date string', () => {
-    const invalidIsoDateString = 'invalid-date';
-    const formattedDate = isoToHumanDateRome(invalidIsoDateString);
-    expect(formattedDate).toBe('');
-  });
-
-  it('should return an empty string for an empty string input', () => {
-    const formattedDate = isoToHumanDateRome('');
-    expect(formattedDate).toBe('');
+  it('should return null for invalid date values', () => {
+    const dateStr = '99/99/9999'; // Invalid day/month/year
+    const parsedDate = parseItalianDate(dateStr);
+    expect(parsedDate).toBeNull();
   });
 });

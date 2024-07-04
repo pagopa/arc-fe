@@ -1,36 +1,85 @@
-const humanDate = (lang = navigator.language, unformattedDate: string): string => {
-  try {
-    const splittedDate = unformattedDate.split('/');
-    const castDate = new Date(`${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`);
-    const humanFriendlyDate = new Intl.DateTimeFormat(lang, {
-      dateStyle: 'long'
-    }).format(castDate);
+export enum Format {
+  LONG = 'long',
+  MEDIUM = 'medium'
+}
 
-    return humanFriendlyDate;
-  } catch (error) {
-    return 'Invalid Date';
+export enum InputFormat {
+  IT = 'it-IT',
+  US = 'en-US',
+  ISO = 'iso8601'
+}
+
+interface FormatDateOptions extends Intl.DateTimeFormatOptions {
+  withTime?: boolean;
+  format?: Format;
+  inputFormat?: InputFormat;
+  invalidDateOutput?: string;
+  locale?: Intl.LocalesArgument;
+}
+
+const dateOptions: { [key in Format]: Intl.DateTimeFormatOptions } = {
+  long: { day: 'numeric', month: 'long', year: 'numeric' },
+  medium: { day: '2-digit', month: '2-digit', year: 'numeric' }
+};
+
+const parseItalianDate = (dateStr: string): Date | null => {
+  const parts = dateStr.split(/[-/]/);
+  if (parts.length === 3) {
+    const [day, month, year] = parts;
+    const parsed = new Date(`${year}-${month}-${day}T00:00:00`);
+    return isNaN(parsed.getTime()) ? null : parsed;
+  }
+  return null;
+};
+
+const parseDate = (dateStr: string, format: InputFormat): Date | null => {
+  switch (format) {
+    case InputFormat.IT:
+      return parseItalianDate(dateStr);
+    case InputFormat.ISO:
+    case InputFormat.US:
+      return new Date(dateStr);
+    default:
+      console.warn(`Unsupported date format ${format} for date ${dateStr}`);
+      return null;
   }
 };
 
-const isoToHumanDateRome = (isoDateString?: string, locale = navigator.language) => {
-  if (!isoDateString) {
-    return '';
-  }
+const getFormatOptions = (format: Format, withTime: boolean): Intl.DateTimeFormatOptions =>
+  withTime ? { ...dateOptions[format], hour: '2-digit', minute: '2-digit' } : dateOptions[format];
 
-  const date = new Date(isoDateString);
-
-  // Check if the date is invalid
-  if (isNaN(date.getTime())) {
-    console.warn('Invalid Date', date);
-    return '';
-  }
-
-  return date.toLocaleString(locale, {
-    timeZone: 'Europe/Rome',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  });
+const defaultOptions = {
+  format: Format.MEDIUM,
+  inputFormat: InputFormat.ISO,
+  invalidDateOutput: '',
+  locale: navigator.language,
+  timeZone: 'Europe/Rome',
+  withTime: false
 };
 
-export const datetools = { humanDate, isoToHumanDateRome };
+const formatDate = (date?: string, options?: FormatDateOptions): string => {
+  // This duplication is here so to make the options
+  // object argument optional and with default values
+  const {
+    format = Format.MEDIUM,
+    inputFormat = InputFormat.ISO,
+    invalidDateOutput = '',
+    locale = navigator.language,
+    timeZone = 'Europe/Rome',
+    withTime = false,
+    ...userOptions
+  }: FormatDateOptions = options || defaultOptions;
+
+  const parsedDate = date ? parseDate(date, inputFormat) : null;
+  if (!parsedDate || isNaN(parsedDate.getTime())) {
+    console.warn(`Invalid date provided ${date}`);
+    return invalidDateOutput;
+  }
+
+  const formatOptions = getFormatOptions(format, withTime);
+  const finalOptions: Intl.DateTimeFormatOptions = { ...formatOptions, timeZone, ...userOptions };
+
+  return parsedDate.toLocaleString(locale, finalOptions);
+};
+
+export const datetools = { formatDate, parseDate, parseItalianDate };
