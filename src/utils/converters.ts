@@ -4,6 +4,7 @@ import { TransactionsListDTO } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
 import utils from 'utils';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
+import { datetools } from './datetools';
 
 const toEuro = (amount?: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>
   amount
@@ -33,7 +34,7 @@ interface PrepareRowsData {
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
 const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
   data.transactions?.map((element) => ({
-    date: element.transactionDate || '',
+    date: datetools.formatDate(element.transactionDate),
     amount: toEuro(element.amount),
     id: element.transactionId || '',
     payee: {
@@ -65,7 +66,7 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
     paymentMethod: transactionDetail.infoTransaction.paymentMethod || '-',
     cardNumber: transactionDetail.infoTransaction.walletInfo?.blurredNumber || '-',
     PSP: transactionDetail.infoTransaction.pspName || '-',
-    dateTime: transactionDetail.infoTransaction.transactionDate || '-',
+    dateTime: datetools.formatDate(transactionDetail.infoTransaction.transactionDate),
     subject: transactionDetail.carts[0].subject || '-',
     debtor: transactionDetail.carts[0].debtor?.name || '-',
     debtorFiscalCode: transactionDetail.carts[0].debtor?.taxCode || '-',
@@ -89,10 +90,12 @@ const preparePaymentNoticeDetailData = (paymentNoticeDetail: any): PaymentNotice
     amount: (paymentNoticeDetail.amount || '-') + ' €',
     paFullName: paymentNoticeDetail.paFullName || '-',
     subject: paymentNoticeDetail.subject || '-',
-    dueDate: paymentNoticeDetail.dueDate || '-',
+    dueDate: datetools.formatDate(paymentNoticeDetail.dueDate, { invalidDateOutput: '-' }),
     iupd: paymentNoticeDetail.iupd || '-',
     paTaxCode: paymentNoticeDetail.paTaxCode || '-',
-    firstInstallmentDate: paymentNoticeDetail.firstInstallmentDate || '-',
+    firstInstallmentDate: datetools.formatDate(paymentNoticeDetail.firstInstallmentDate, {
+      invalidDateOutput: '-'
+    }),
     firstInstallmentAmount: (paymentNoticeDetail.firstInstallmentAmount || '-') + ' €'
   };
 };
