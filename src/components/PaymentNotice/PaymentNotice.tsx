@@ -4,6 +4,7 @@ import { _Detail } from './Detail';
 import { _Empty } from './Empty';
 import { _Error } from './Error';
 import { _List } from './List';
+import { _Info } from './Info';
 
 /**
  * PaymentNotice is the main component for handling payment notices.
@@ -54,3 +55,9 @@ PaymentNotice.Detail = _Detail;
  * @type {React.ComponentType}
  */
 PaymentNotice.List = _List;
+
+/* * Info  component for PaymentNotice list.
+ * Use <PaymentNotice.Info /> instead of direct use.
+ * @type {React.ComponentType}
+ */
+PaymentNotice.Info = _Info;
