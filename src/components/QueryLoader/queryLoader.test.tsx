@@ -5,9 +5,9 @@ import QueryLoader from '.';
 import { QueryFilters } from '@tanstack/react-query';
 import { CircularProgress } from '@mui/material';
 
-const mockeduseIsFetching = jest.fn();
+const mockedUseIsFetching = jest.fn();
 jest.mock('@tanstack/react-query', () => ({
-  useIsFetching: (filters?: QueryFilters) => mockeduseIsFetching(filters)
+  useIsFetching: (filters?: QueryFilters) => mockedUseIsFetching(filters)
 }));
 
 jest.mock('@mui/material', () => ({
@@ -16,40 +16,52 @@ jest.mock('@mui/material', () => ({
 
 describe('Query Loader component', () => {
   it('should not render the children when fetching', () => {
-    mockeduseIsFetching.mockReturnValueOnce(true);
+    mockedUseIsFetching.mockReturnValue(1);
     render(
       <QueryLoader queryKey="testQueryKey" loaderComponent={<p>test loader</p>}>
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockeduseIsFetching).toHaveBeenCalledTimes(1);
-    expect(mockeduseIsFetching).toHaveBeenCalledWith({ queryKey: ['testQueryKey'] });
+    expect(mockedUseIsFetching).toHaveBeenCalledTimes(1);
+    expect(mockedUseIsFetching).toHaveBeenCalledWith({ queryKey: ['testQueryKey'] });
     expect(CircularProgress).not.toHaveBeenCalled();
     expect(screen.getByText('test loader')).toBeInTheDocument();
     expect(screen.queryByText('test children')).toBeNull();
   });
 
   it('should render the children when not fetching', () => {
-    mockeduseIsFetching.mockReturnValueOnce(false);
+    mockedUseIsFetching.mockReturnValue(0);
     render(
       <QueryLoader queryKey="testQueryKey" loaderComponent={<p>test loader</p>}>
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockeduseIsFetching).toHaveBeenCalledTimes(1);
-    expect(mockeduseIsFetching).toHaveBeenCalledWith({ queryKey: ['testQueryKey'] });
+    expect(mockedUseIsFetching).toHaveBeenCalledTimes(1);
     expect(screen.queryByText('test loader')).toBeNull();
     expect(screen.getByText('test children')).toBeInTheDocument();
   });
 
   it('should render the default loader component', () => {
-    mockeduseIsFetching.mockReturnValueOnce(true);
+    mockedUseIsFetching.mockReturnValue(1);
     render(
       <QueryLoader queryKey="testQueryKey">
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockeduseIsFetching).toHaveBeenCalledTimes(1);
+    expect(mockedUseIsFetching).toHaveBeenCalledTimes(1);
     expect(CircularProgress).toHaveBeenCalled();
+  });
+
+  it('should not render children because a minum delay (5000) is provided', () => {
+    mockedUseIsFetching.mockReturnValue(1);
+    render(
+      <QueryLoader queryKey="testQueryKey" atLeast={5000}>
+        <p>test children</p>
+      </QueryLoader>
+    );
+    expect(mockedUseIsFetching).toHaveBeenCalled();
+    expect(mockedUseIsFetching).toHaveBeenCalledWith({ queryKey: ['testQueryKey'] });
+    expect(CircularProgress).toHaveBeenCalled();
+    expect(screen.queryByText('test children')).toBeNull();
   });
 });

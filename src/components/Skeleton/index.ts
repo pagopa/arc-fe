@@ -1,5 +1,5 @@
 import TransactionListSkeleton from './TransactionsList';
 import TransactionDetailsSkeleton from './TransactionDetails';
-import PaymentNoticesList from './PaymentNoticesList';
+import PaymentNoticesListSkeleton from './PaymentNoticesList';
 
-export { TransactionListSkeleton, TransactionDetailsSkeleton, PaymentNoticesList };
+export { TransactionListSkeleton, TransactionDetailsSkeleton, PaymentNoticesListSkeleton };

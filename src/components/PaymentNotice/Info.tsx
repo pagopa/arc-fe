@@ -1,3 +1,4 @@
+import React from 'react';
 import { ErrorOutline } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { ButtonNaked } from '@pagopa/mui-italia';
