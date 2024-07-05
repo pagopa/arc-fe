@@ -10,11 +10,9 @@ describe('toEuro function', () => {
 
     expect(utils.converters.toEuro(501)).toEqual('5,01\xa0€');
 
-    expect(utils.converters.toEuro(0)).toEqual('-');
+    expect(utils.converters.toEuro(0)).toEqual('0,00\xa0€');
 
-    expect(utils.converters.toEuro(-0)).toEqual('-');
-
-    expect(utils.converters.toEuro(0, 2)).toEqual('-');
+    expect(utils.converters.toEuro(0, 2)).toEqual('0,00\xa0€');
 
     expect(utils.converters.toEuro(550)).toEqual('5,50\xa0€');
 
@@ -31,8 +29,6 @@ describe('toEuro function', () => {
     expect(utils.converters.toEuro(-55)).toEqual('-0,55\xa0€');
 
     expect(utils.converters.toEuro(-5, 0)).toEqual('-5,00\xa0€');
-
-    expect(utils.converters.toEuro(undefined, 0)).toEqual('-');
   });
 });
 

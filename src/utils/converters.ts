@@ -6,16 +6,13 @@ import utils from 'utils';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 import { datetools } from './datetools';
 
-const toEuro = (amount?: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>
-  amount
-    ? new Intl.NumberFormat('it-IT', {
-        style: 'currency',
-        currency: 'EUR',
-        minimumFractionDigits: fractionDigits,
-        maximumFractionDigits: fractionDigits
-      }).format(amount / Math.pow(10, decimalDigits))
-    : '-';
-
+const toEuro = (amount: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>
+  new Intl.NumberFormat('it-IT', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits
+  }).format(amount / Math.pow(10, decimalDigits));
 interface PrepareRowsData {
   transactions: TransactionsListDTO['transactions'];
   status: {
@@ -32,26 +29,29 @@ interface PrepareRowsData {
 }
 
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
-const prepareRowsData = (data: PrepareRowsData): TransactionProps[] =>
-  data.transactions?.map((element) => ({
-    date: datetools.formatDate(element.transactionDate),
-    amount: toEuro(element.amount),
-    id: element.transactionId || '',
-    payee: {
-      name: element.payeeName || data.payee.multi,
-      // update here the cdn host when available
-      srcImg: element.payeeTaxCode
-        ? `${utils.config.entitiesLogoCdn}/${element.payeeTaxCode}.png`
-        : undefined,
-      altImg: data.payee.altImg || `Logo Ente`
-    },
-    // needs to be updated when status can be different from success
-    status: {
-      label: data.status.label,
-      color: 'success'
-    },
-    action: data.action
-  })) || [];
+const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
+  return (
+    data.transactions?.map((element) => ({
+      date: datetools.formatDate(element.transactionDate),
+      amount: element.amount != undefined ? toEuro(element.amount) : '-',
+      id: element.transactionId || '',
+      payee: {
+        name: element.payeeName || data.payee.multi,
+        // update here the cdn host when available
+        srcImg: element.payeeTaxCode
+          ? `${utils.config.entitiesLogoCdn}/${element.payeeTaxCode}.png`
+          : undefined,
+        altImg: data.payee.altImg || `Logo Ente`
+      },
+      // needs to be updated when status can be different from success
+      status: {
+        label: data.status.label,
+        color: 'success'
+      },
+      action: data.action
+    })) || []
+  );
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail => {
