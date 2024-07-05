@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentNotice } from './PaymentNotice';
+import { DateFormat, datetools } from 'utils/datetools';
 
 /**
  * This component is considered private and should not be used directly.
@@ -26,7 +27,7 @@ export type PaymentNotices = {
 
 export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotices[] }) => {
   const { t } = useTranslation();
-  const updatedDate = new Date();
+  const updatedDate = new Date().toISOString();
 
   return (
     <Stack gap={3}>
@@ -38,13 +39,11 @@ export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotic
           <Typography color="text.secondary" component="span">
             {t('app.paymentNotices.updated')}
           </Typography>
-          <Typography
-            sx={{ fontWeight: 600 }}
-            component="time"
-            dateTime={updatedDate.toISOString()}>
-            {updatedDate.toLocaleString(navigator.language, {
-              timeStyle: 'short',
-              dateStyle: 'medium'
+          <Typography sx={{ fontWeight: 600 }} component="time" dateTime={updatedDate}>
+            {datetools.formatDate(updatedDate, {
+              format: DateFormat.LONG,
+              withTime: true,
+              timeZone: datetools.localTimeZone
             })}
           </Typography>
         </Typography>

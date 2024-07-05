@@ -1,29 +1,69 @@
-import humanDate from './datetools';
+import '@testing-library/jest-dom';
+import { DateFormat, datetools } from './datetools';
 
-describe('humanDate function', () => {
-  it('formats the date correctly with default language', () => {
-    const unformattedDate = '31-12-2023T01:01';
+const { formatDate } = datetools;
 
-    const result = humanDate(undefined, unformattedDate);
-
-    expect(result).toEqual('December 31, 2023');
+describe('formatDate', () => {
+  const originalNavigatorLanguage = navigator.language;
+  beforeAll(() => {
+    Object.defineProperty(navigator, 'language', {
+      value: 'en-US',
+      configurable: true
+    });
   });
 
-  it('formats the date correctly with specified language', () => {
-    const unformattedDate = '31-12-2023T01:01';
-    const lang = 'en-GB'; // British English
-
-    const result = humanDate(lang, unformattedDate);
-
-    expect(result).toEqual('31 December 2023');
+  afterAll(() => {
+    Object.defineProperty(navigator, 'language', {
+      value: originalNavigatorLanguage,
+      configurable: true
+    });
   });
 
-  it('handles invalid date format', () => {
-    const unformattedDate = 'Invalid Date';
+  it('should use default options when options is undefined', () => {
+    const formattedDate = formatDate('2024-04-06T09:48:17.080Z');
+    expect(formattedDate).toEqual('04/06/2024');
+  });
 
-    const result = humanDate(undefined, unformattedDate);
+  it('should format a date string in Italian format with long format and time', () => {
+    const dateStr = '2024-06-01T12:30:00Z';
+    const formattedDate = formatDate(dateStr, {
+      format: DateFormat.LONG,
+      withTime: true,
+      locale: 'it-IT'
+    });
 
-    // Expect the function to return 'Invalid Date'
-    expect(result).toEqual('Invalid Date');
+    expect(formattedDate).toContain('1 giu 2024');
+    expect(formattedDate).toContain('14:30');
+  });
+
+  it('Should converts time correctly', () => {
+    const dateStr = '2024-06-01T12:30:00Z';
+    const formattedDate = formatDate(dateStr, {
+      withTime: true,
+      timeZone: 'utc',
+      locale: 'en-US'
+    });
+
+    expect(formattedDate).toContain('06/01/2024');
+    expect(formattedDate).toContain('12:30');
+  });
+
+  it('should return invalidDateOutput for an invalid date', () => {
+    const dateStr = 'invalid-date';
+    const formattedDate = formatDate(dateStr, {
+      invalidDateOutput: 'Invalid Date',
+      locale: 'it-IT'
+    });
+
+    expect(formattedDate).toBe('Invalid Date');
+  });
+
+  it('should return invalidDateOutput for missing date', () => {
+    const dateStr = '';
+    const formattedDate = formatDate(dateStr, {
+      invalidDateOutput: 'Invalid Date'
+    });
+
+    expect(formattedDate).toBe('Invalid Date');
   });
 });
