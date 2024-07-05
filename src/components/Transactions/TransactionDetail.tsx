@@ -6,7 +6,7 @@ import { TransactionDetail } from '../../models/TransactionDetail';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useReceiptData } from 'hooks/useReceiptData';
-import { datetools } from '../../utils/datetools';
+import { DateFormat, datetools } from '../../utils/datetools';
 import utils from 'utils';
 
 export default function TransactionDetail({
@@ -48,7 +48,11 @@ export default function TransactionDetail({
             {t('app.transactionDetail.createdOn')}
           </Typography>
           <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-            &nbsp;{datetools.formatDate(transactionData.dateTime)}
+            &nbsp;
+            {datetools.formatDate(transactionData.dateTime, {
+              format: DateFormat.LONG,
+              timeZone: datetools.localTimeZone
+            })}
           </Typography>
         </Box>
         <Box bgcolor={theme.palette.background.paper} borderRadius={1.5} pt={4} pl={3} pr={3}>
@@ -174,7 +178,12 @@ export default function TransactionDetail({
                     {t('app.transactionDetail.dateAndTime')}
                   </Typography>
                   <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                    {datetools.formatDate(transactionData.dateTime)}
+                    &nbsp;
+                    {datetools.formatDate(transactionData.dateTime, {
+                      format: DateFormat.LONG,
+                      withTime: true,
+                      timeZone: datetools.localTimeZone
+                    })}
                   </Typography>
                 </Stack>
               </Stack>

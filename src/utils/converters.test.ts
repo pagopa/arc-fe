@@ -46,7 +46,7 @@ describe('prepareRowsData function', () => {
         payeeName: 'Comune di Milano',
         payeeTaxCode: 'MI_XXX',
         registeredToMe: true,
-        transactionDate: '27/03/2024',
+        transactionDate: '2024-03-27T15:52:15Z',
         transactionId: '1'
       },
       {
@@ -54,14 +54,14 @@ describe('prepareRowsData function', () => {
         isCart: true,
         payedByMe: true,
         registeredToMe: true,
-        transactionDate: '10/08/2022',
+        transactionDate: '2022-08-10T15:52:15Z',
         transactionId: '2'
       }
     ];
 
     const rows: TransactionProps[] = [
       {
-        date: '27/03/2024',
+        date: '03/27/2024',
         amount: '180,00\xa0€',
         id: '1',
         payee: {
@@ -75,7 +75,7 @@ describe('prepareRowsData function', () => {
         }
       },
       {
-        date: '10/08/2022',
+        date: '08/10/2022',
         amount: '65,20\xa0€',
         id: '2',
         payee: {
