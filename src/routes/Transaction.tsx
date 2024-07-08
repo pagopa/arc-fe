@@ -9,12 +9,14 @@ export default function Transaction() {
   const id = useLoaderData();
   const { data, isError } = utils.loaders.getTransactionDetails(id as string);
   const transactionDetailData = data && utils.converters.prepareTransactionDetailData(data);
+
+  if (isError) {
+    return <p>Ops! Something went wrong, please try again</p>;
+  }
+
   return (
     <>
-      <QueryLoader
-        loaderComponent={<TransactionDetailsSkeleton />}
-        fallback={isError && <p>Ops! Something went wrong, please try again</p>}
-        queryKey="transactionDetail">
+      <QueryLoader loaderComponent={<TransactionDetailsSkeleton />} queryKey="transactionDetail">
         {transactionDetailData && <TransactionDetails transactionData={transactionDetailData} />}
       </QueryLoader>
     </>
