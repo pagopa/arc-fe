@@ -149,7 +149,7 @@ export default function TransactionDetail({
                   <Divider orientation="horizontal" />
                 </Grid>
                 <Grid item xs={12}>
-                  <Stack pt={4} pb={4} alignItems={'end'} spacing={2}>
+                  <Stack pt={4.5} pb={4} alignItems={'end'} spacing={2}>
                     <Grid container justifyContent={'space-between'}>
                       <Grid item xs={9}>
                         <Typography

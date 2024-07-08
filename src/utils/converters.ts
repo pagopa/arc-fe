@@ -58,7 +58,7 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
   return {
     payer: {
       name: transactionDetail.infoTransaction.payer?.name || '-',
-      taxCode: transactionDetail.infoTransaction.payer.taxCode || '-'
+      taxCode: transactionDetail.infoTransaction.payer?.taxCode || '-'
     },
     authCode: transactionDetail.infoTransaction.authCode || '-',
     transactionId: transactionDetail.infoTransaction.transactionId || '-',
