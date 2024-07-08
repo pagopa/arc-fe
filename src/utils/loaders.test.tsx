@@ -11,15 +11,15 @@ jest.mock('utils', () => {
     ...originalModule,
     apiClient: {
       transactions: {
-        getTransactionList: jest.fn(),
+        getTransactionsList: jest.fn(),
         getTransactionDetails: jest.fn()
       }
     },
     zodSchema: {
-      transactionsResponseSchema: {
+      transactionDetailsDTOSchema: {
         parse: jest.fn()
       },
-      transactionDetailResponseSchema: {
+      transactionsListDTOSchema: {
         parse: jest.fn()
       }
     }
@@ -38,9 +38,8 @@ describe('transactionsApi', () => {
 
   it('getTransactions calls API and schema parser correctly', async () => {
     const mockTransactions = [{ id: 1, amount: 100 }];
-    const mockTransactionList = utils.apiClient.transactions.getTransactionList as jest.Mock;
-    const mockZodTransactionResponse = utils.zodSchema.transactionsResponseSchema
-      .parse as jest.Mock;
+    const mockTransactionList = utils.apiClient.transactions.getTransactionsList as jest.Mock;
+    const mockZodTransactionResponse = utils.zodSchema.transactionsListDTOSchema.parse as jest.Mock;
 
     mockTransactionList.mockResolvedValue({ data: mockTransactions });
 
@@ -57,7 +56,7 @@ describe('transactionsApi', () => {
     const mockTransaction = { id: 1, amount: 100 };
     const transactionId = '1';
     const mockTransactionDetails = utils.apiClient.transactions.getTransactionDetails as jest.Mock;
-    const mockZodTransactionDetailResponse = utils.zodSchema.transactionDetailResponseSchema
+    const mockZodTransactionDetailResponse = utils.zodSchema.transactionDetailsDTOSchema
       .parse as jest.Mock;
 
     mockTransactionDetails.mockResolvedValue({ data: mockTransaction });

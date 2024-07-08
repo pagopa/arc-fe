@@ -3,8 +3,6 @@ export interface TransactionDetail {
   authCode: string;
   transactionId: string;
   PRN: string;
-  owedBy: string;
-  owedByFiscalCode: string;
   paymentMethod: string;
   cardNumber: string;
   PSP: string;

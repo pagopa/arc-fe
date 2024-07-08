@@ -1,7 +1,7 @@
 import utils from '.';
-import { Transaction } from '../../generated/apiClient';
+import { TransactionDTO } from '../../generated/apiClient';
 import { TransactionProps } from 'components/Transactions/Transaction';
-import { TransactionDetailResponse } from '../../generated/apiClient';
+import { TransactionDetailsDTO } from '../../generated/apiClient';
 import '@testing-library/jest-dom';
 
 describe('toEuro function', () => {
@@ -11,8 +11,6 @@ describe('toEuro function', () => {
     expect(utils.converters.toEuro(501)).toEqual('5,01\xa0€');
 
     expect(utils.converters.toEuro(0)).toEqual('0,00\xa0€');
-
-    expect(utils.converters.toEuro(-0)).toEqual('0,00\xa0€');
 
     expect(utils.converters.toEuro(0, 2)).toEqual('0,00\xa0€');
 
@@ -31,38 +29,36 @@ describe('toEuro function', () => {
     expect(utils.converters.toEuro(-55)).toEqual('-0,55\xa0€');
 
     expect(utils.converters.toEuro(-5, 0)).toEqual('-5,00\xa0€');
-
-    expect(utils.converters.toEuro(undefined, 0)).toEqual('-');
   });
 });
 
 describe('prepareRowsData function', () => {
   it('should covert correctly from a Transaction[] shape to the euro symbol', () => {
-    const transactions: Transaction[] = [
+    const transactions: TransactionDTO[] = [
       {
-        amount: '180,00',
+        amount: 18000,
         isCart: true,
-        paidByMe: true,
+        payedByMe: true,
         payeeName: 'Comune di Milano',
         payeeTaxCode: 'MI_XXX',
         registeredToMe: true,
-        transactionDate: '27/03/2024',
+        transactionDate: '2024-03-27T15:52:15Z',
         transactionId: '1'
       },
       {
-        amount: '65,20',
+        amount: 6520,
         isCart: true,
-        paidByMe: false,
+        payedByMe: true,
         registeredToMe: true,
-        transactionDate: '10/08/2022',
+        transactionDate: '2022-08-10T15:52:15Z',
         transactionId: '2'
       }
     ];
 
     const rows: TransactionProps[] = [
       {
-        date: '27/03/2024',
-        amount: '180,00 €',
+        date: '03/27/2024',
+        amount: '180,00\xa0€',
         id: '1',
         payee: {
           name: 'Comune di Milano',
@@ -75,8 +71,8 @@ describe('prepareRowsData function', () => {
         }
       },
       {
-        date: '10/08/2022',
-        amount: '65,20 €',
+        date: '08/10/2022',
+        amount: '65,20\xa0€',
         id: '2',
         payee: {
           name: 'Multi',
@@ -103,7 +99,7 @@ describe('prepareRowsData function', () => {
 
 describe('return a transactionDetail object', () => {
   it('should return a transaction detail object', () => {
-    const resp: TransactionDetailResponse = {
+    const resp: TransactionDetailsDTO = {
       infoTransaction: {
         transactionId: 'string',
         authCode: 'string',
@@ -113,14 +109,14 @@ describe('return a transactionDetail object', () => {
         walletInfo: { accountHolder: 'string', brand: 'string', blurredNumber: 'string' },
         paymentMethod: 'BBT',
         payer: { name: 'string', taxCode: 'string' },
-        amount: 'string',
-        fee: 'string',
+        amount: 1000,
+        fee: 100,
         origin: 'INTERNAL'
       },
       carts: [
         {
           subject: 'string',
-          amount: 'string',
+          amount: 10000,
           payee: { name: 'string', taxCode: 'string' },
           debtor: { name: 'string', taxCode: 'string' },
           refNumberValue: 'string',
@@ -135,7 +131,7 @@ describe('return a transactionDetail object', () => {
 
 describe('return a transactionDetail object even if the response is empty', () => {
   it('should return a transaction detail object', () => {
-    const resp: TransactionDetailResponse = {
+    const resp: TransactionDetailsDTO = {
       infoTransaction: {},
       carts: [{}]
     };

@@ -11,18 +11,15 @@ const getTransactions = () =>
     }
   });
 
-const getTransactionDetails = (id: string) => {
-  console.log(id);
-  return {};
-};
-// useQuery({
-//   queryKey: ['transactionDetail'],
-//   queryFn: async () => {
-//     const { data: transaction } = await utils.apiClient.transactions.getTransactionDetails(id);
-//     utils.zodSchema.transactionDetailResponseSchema.parse(transaction);
-//     return transaction;
-//   }
-// });
+const getTransactionDetails = (id: string) =>
+  useQuery({
+    queryKey: ['transactionDetail'],
+    queryFn: async () => {
+      const { data: transaction } = await utils.apiClient.transactions.getTransactionDetails(id);
+      utils.zodSchema.transactionDetailsDTOSchema.parse(transaction);
+      return transaction;
+    }
+  });
 
 const getPaymentNotices = () =>
   useQuery({

@@ -1,25 +1,23 @@
 import React from 'react';
-// import TransactionDetail from '../components/Transactions/TransactionDetail';
 import { useLoaderData } from 'react-router-dom';
-// import utils from 'utils';
+import utils from 'utils';
 import QueryLoader from 'components/QueryLoader';
 import { TransactionDetailsSkeleton } from 'components/Skeleton';
+import { TransactionDetails } from 'components/Transactions';
 
 export default function Transaction() {
   const id = useLoaderData();
-  console.log(id);
-  const isError = false;
-  // const { data, isError } = utils.loaders.getTransactionDetails(id as string);
-  // const transactionDetailData = data && utils.converters.prepareTransactionDetailData(data);
+  const { data, isError } = utils.loaders.getTransactionDetails(id as string);
+  const transactionDetailData = data && utils.converters.prepareTransactionDetailData(data);
+
+  if (isError) {
+    return <p>Ops! Something went wrong, please try again</p>;
+  }
 
   return (
     <>
-      <QueryLoader
-        loaderComponent={<TransactionDetailsSkeleton />}
-        fallback={isError && <p>Ops! Something went wrong, please try again</p>}
-        queryKey="transactionDetail">
-        {/* {transactionDetailData && <TransactionDetail transactionData={transactionDetailData} />} */}
-        <TransactionDetailsSkeleton />
+      <QueryLoader loaderComponent={<TransactionDetailsSkeleton />} queryKey="transactionDetail">
+        {transactionDetailData && <TransactionDetails transactionData={transactionDetailData} />}
       </QueryLoader>
     </>
   );
