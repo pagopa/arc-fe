@@ -68,9 +68,10 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
     accountHolder: transactionDetail.infoTransaction.walletInfo?.accountHolder || '-',
     PSP: transactionDetail.infoTransaction.pspName || '-',
     dateTime: datetools.formatDate(transactionDetail.infoTransaction.transactionDate, {
-      format: DateFormat.MEDIUM,
+      format: DateFormat.LONG,
       withTime: true,
-      month: 'long'
+      month: 'long',
+      second: '2-digit'
     }),
     subject: transactionDetail.carts[0].subject || '-',
     debtor: transactionDetail.carts[0].debtor?.name || '-',
