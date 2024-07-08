@@ -207,9 +207,11 @@ export default function TransactionDetail({
                   <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
                     {transactionData.payer.name}
                   </Typography>
-                  <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                    ({transactionData.payer.taxCode})
-                  </Typography>
+                  {transactionData.payer.taxCode !== '-' && (
+                    <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
+                      ({transactionData.payer.taxCode})
+                    </Typography>
+                  )}
                 </Stack>
               </Grid>
               <Grid item xs={12} sm={12}>
