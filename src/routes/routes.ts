@@ -7,5 +7,5 @@ export enum ArcRoutes {
   COURTESY_PAGE = '/courtesy',
   LOGIN = '/login',
   ASSISTANCE = '/assistance',
-  PAYMENT_NOTICE_DETAIL = '/payment-notice-detail'
+  PAYMENT_NOTICE_DETAIL = '/payment-notices/:id'
 }
