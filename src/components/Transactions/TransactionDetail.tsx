@@ -25,10 +25,7 @@ export default function TransactionDetail({
         alignItems={{ md: 'center' }}
         width="100%"
         gap={3}>
-        <Stack
-          direction={{ sm: 'row' }}
-          alignItems={{ xs: 'flex-start', sm: 'flex-start', md: 'center' }}
-          gap={2}>
+        <Stack direction={{ sm: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} gap={2}>
           <Typography variant="h2" fontSize={{ xs: 28, md: 32 }}>
             {t('app.transactionDetail.title')}
           </Typography>
