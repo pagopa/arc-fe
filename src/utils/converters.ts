@@ -70,7 +70,6 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
     dateTime: datetools.formatDate(transactionDetail.infoTransaction.transactionDate, {
       format: DateFormat.LONG,
       withTime: true,
-      month: 'long',
       second: '2-digit'
     }),
     subject: transactionDetail.carts[0].subject || '-',
