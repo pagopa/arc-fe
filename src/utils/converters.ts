@@ -4,7 +4,7 @@ import { TransactionsListDTO } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
 import utils from 'utils';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
-import { datetools } from './datetools';
+import { DateFormat, datetools } from './datetools';
 
 const toEuro = (amount: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>
   new Intl.NumberFormat('it-IT', {
@@ -56,14 +56,22 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail => {
   return {
-    paidBy: transactionDetail.infoTransaction.payer?.name || '-',
+    payer: {
+      name: transactionDetail.infoTransaction.payer?.name || '-',
+      taxCode: transactionDetail.infoTransaction.payer?.taxCode || '-'
+    },
     authCode: transactionDetail.infoTransaction.authCode || '-',
     transactionId: transactionDetail.infoTransaction.transactionId || '-',
     PRN: transactionDetail.infoTransaction.rrn || '-',
     paymentMethod: transactionDetail.infoTransaction.paymentMethod || '-',
     cardNumber: transactionDetail.infoTransaction.walletInfo?.blurredNumber || '-',
+    accountHolder: transactionDetail.infoTransaction.walletInfo?.accountHolder || '-',
     PSP: transactionDetail.infoTransaction.pspName || '-',
-    dateTime: datetools.formatDate(transactionDetail.infoTransaction.transactionDate),
+    dateTime: datetools.formatDate(transactionDetail.infoTransaction.transactionDate, {
+      format: DateFormat.LONG,
+      withTime: true,
+      second: '2-digit'
+    }),
     subject: transactionDetail.carts[0].subject || '-',
     debtor: transactionDetail.carts[0].debtor?.name || '-',
     debtorFiscalCode: transactionDetail.carts[0].debtor?.taxCode || '-',

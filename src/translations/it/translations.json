@@ -119,7 +119,7 @@
       "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
       "breadcrumbsElement": "Elemento breadcrumbs",
       "home": "Homepage",
-      "transactionDetail": "Dettaglio ricevute",
+      "transactionDetail": "Dettaglio operazione",
       "transactions": "Ricevute",
       "user": "I tuoi dati",
       "paymentNotices": "Avvisi di pagamento",
@@ -127,26 +127,31 @@
 
     },
     "transactionDetail": {
+      "title": "Dettaglio operazione",
+      "card2": {
+        "title":"Informazioni sulla transazione"
+      },
       "downloadReceipt": "Scarica ricevuta",
       "downloadQuiettance": "Scarica quietanza",
       "createdOn": "Creato il",
-      "paidBy": "Pagato da",
+      "paidBy": "Eseguito da",
       "authCode": "Codice autorizzativo",
       "transactionId": "ID Transazione",
-      "noticeOwner": "Intestato a",
+      "accountHolder": "Intestato a",
       "paymentMethod": "Metodo di pagamento",
       "PSP": "Gestore della transazione (PSP)",
       "dateAndTime": "Data e ora",
       "subject": "Oggetto",
       "creditorEntity": "Ente creditore",
+      "creditorFiscalCode": "Codice Fiscale Ente",
       "debtor": "Debitore",
       "noticeCode": "Codice avviso",
       "partialAmount": "Importo parziale",
       "commission": "Commissione",
-      "appliedBy": "applicata da",
       "total": "Totale",
       "somethingDoesntAddUp": "Qualcosa non torna?",
-      "contactSupport": "Contatta l'assistenza"
+      "contactSupport": "Contatta l'assistenza",
+      "totalLabel": "Il totale comprende <strong>{{fee}}</strong> di commissione, applicata da {{psp}}"
     },
     "paymentNoticeDetail": {
       "title": "Dettaglio avviso",
