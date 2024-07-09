@@ -52,6 +52,12 @@ describe('prepareRowsData function', () => {
         registeredToMe: true,
         transactionDate: '2022-08-10T15:52:15Z',
         transactionId: '2'
+      },
+      {
+        isCart: true,
+        payedByMe: true,
+        registeredToMe: true,
+        transactionDate: '2022-08-10T15:52:15Z'
       }
     ];
 
@@ -82,6 +88,19 @@ describe('prepareRowsData function', () => {
           label: 'Pagato',
           color: 'success'
         }
+      },
+      {
+        date: '08/10/2022',
+        amount: '-',
+        id: '',
+        payee: {
+          name: 'Multi',
+          altImg: 'Logo Ente'
+        },
+        status: {
+          label: 'Pagato',
+          color: 'success'
+        }
       }
     ];
     expect(
@@ -94,6 +113,19 @@ describe('prepareRowsData function', () => {
         })
       )
     ).toBe(JSON.stringify(rows));
+  });
+
+  it('should output an empty array when no data', () => {
+    expect(
+      JSON.stringify(
+        utils.converters.prepareRowsData({
+          transactions: undefined,
+          status: { label: 'Pagato' },
+          payee: { multi: 'Multi' },
+          action: jest.fn()
+        })
+      )
+    ).toBe('[]');
   });
 });
 

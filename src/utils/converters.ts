@@ -1,6 +1,5 @@
 import { TransactionProps } from 'components/Transactions/Transaction';
-import { TransactionsListDTO } from '../../generated/apiClient';
-// import { TransactionDetailResponse } from '../../generated/apiClient';
+import { TransactionDetailsDTO, TransactionsListDTO } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
 import utils from 'utils';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
@@ -13,6 +12,7 @@ const toEuro = (amount: number, decimalDigits: number = 2, fractionDigits: numbe
     minimumFractionDigits: fractionDigits,
     maximumFractionDigits: fractionDigits
   }).format(amount / Math.pow(10, decimalDigits));
+
 interface PrepareRowsData {
   transactions: TransactionsListDTO['transactions'];
   status: {
@@ -53,9 +53,10 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail => {
-  return {
+const prepareTransactionDetailData = (
+  transactionDetail: TransactionDetailsDTO
+): TransactionDetail | undefined =>
+  transactionDetail.infoTransaction && {
     payer: {
       name: transactionDetail.infoTransaction.payer?.name || '-',
       taxCode: transactionDetail.infoTransaction.payer?.taxCode || '-'
@@ -72,18 +73,24 @@ const prepareTransactionDetailData = (transactionDetail: any): TransactionDetail
       withTime: true,
       second: '2-digit'
     }),
-    subject: transactionDetail.carts[0].subject || '-',
-    debtor: transactionDetail.carts[0].debtor?.name || '-',
-    debtorFiscalCode: transactionDetail.carts[0].debtor?.taxCode || '-',
-    creditorEntity: transactionDetail.carts[0].payee?.name || '-',
-    creditorFiscalCode: transactionDetail.carts[0].payee?.taxCode || '-',
-    noticeCode: transactionDetail.carts[0].refNumberValue || '-',
-    partialAmount: toEuro(transactionDetail.infoTransaction.amount, 2),
-    fee: toEuro(transactionDetail.infoTransaction.fee, 2),
-    total: toEuro(transactionDetail.infoTransaction.amount + transactionDetail.infoTransaction.fee),
+    subject: transactionDetail.carts?.[0].subject || '-',
+    debtor: transactionDetail.carts?.[0].debtor?.name || '-',
+    debtorFiscalCode: transactionDetail.carts?.[0].debtor?.taxCode || '-',
+    creditorEntity: transactionDetail.carts?.[0].payee?.name || '-',
+    creditorFiscalCode: transactionDetail.carts?.[0].payee?.taxCode || '-',
+    noticeCode: transactionDetail.carts?.[0].refNumberValue || '-',
+    partialAmount: transactionDetail.infoTransaction.amount
+      ? toEuro(transactionDetail.infoTransaction.amount, 2)
+      : '-',
+    fee: transactionDetail.infoTransaction.fee
+      ? toEuro(transactionDetail.infoTransaction.fee, 2)
+      : '-',
+    total:
+      transactionDetail.infoTransaction.amount && transactionDetail.infoTransaction.fee
+        ? toEuro(transactionDetail.infoTransaction.amount + transactionDetail.infoTransaction.fee)
+        : '-',
     status: 'SUCCESS'
   };
-};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const preparePaymentNoticeDetailData = (paymentNoticeDetail: any): PaymentNoticeDetail => {
