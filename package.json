@@ -20,7 +20,8 @@
     "build-storybook": "storybook build",
     "test": "jest",
     "coverage": "jest --coverage",
-    "axe": "axe localhost:1234, localhost:1234/transactions, localhost:1234/transaction/1, localhost:1234/user,  --include '#root'"
+    "axe": "axe localhost:1234, localhost:1234/transactions, localhost:1234/transaction/1, localhost:1234/user,  --include '#root'",
+    "serve-coverage-html-report": "npx serve coverage/lcov-report -c ./../../serve.json"
   },
   "devDependencies": {
     "@axe-core/cli": "^4.9.1",

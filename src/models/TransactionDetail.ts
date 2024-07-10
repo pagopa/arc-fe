@@ -1,10 +1,14 @@
 export interface TransactionDetail {
-  paidBy: string;
+  payer: {
+    name: string;
+    taxCode: string;
+  };
   authCode: string;
   transactionId: string;
   PRN: string;
   paymentMethod: string;
   cardNumber: string;
+  accountHolder: string;
   PSP: string;
   dateTime: string;
   subject: string;

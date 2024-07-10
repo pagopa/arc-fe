@@ -59,7 +59,11 @@ const Transaction_3d40b8e0: TransactionProps = {
 };
 
 const transactionDetail = {
-  paidBy: 'Matteo Rossi',
+  payer: {
+    name: 'Matteo Rossi',
+    taxCode: 'MTTRSS74B23F205K'
+  },
+  accountHolder: 'Matteo Rossi',
   authCode: '1234567890123456800',
   transactionId: 'F57E2F8E-25FF-4183-AB7B-4…',
   PRN: '1234567890',
