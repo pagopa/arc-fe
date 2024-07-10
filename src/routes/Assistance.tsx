@@ -11,7 +11,7 @@ import {
   Modal,
   Backdrop
 } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
 import { alpha } from '@mui/material';
@@ -137,9 +137,12 @@ const Assistance = () => {
           </CardActions>
         </Card>
         <Typography variant="body1">
-          {`${t('app.assistance.privacy1')} `}
-          <Link fontWeight={700}>{t('app.assistance.privacy2')}</Link>
-          {` ${t('app.assistance.privacy3')}`}
+          <Trans
+            i18nKey={t('app.assistance.privacy')}
+            components={{
+              link1: <Link href="#" fontWeight={800} />
+            }}
+          />
         </Typography>
         <Stack direction={'row'} justifyContent={'space-between'}>
           <Button

@@ -33,7 +33,7 @@ export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotic
     <Stack gap={3}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" component="header">
         <Typography variant="h6" component="h2">
-          {`${t('app.paymentNotices.found')} ${paymentNoticesList.length} ${t('app.paymentNotices.notice')}`}
+          {`${t('app.paymentNotices.found', { count: paymentNoticesList.length })}`}
         </Typography>
         <Typography display="flex" variant="body1" component="div" flexDirection="row" gap="5px">
           <Typography color="text.secondary" component="span">

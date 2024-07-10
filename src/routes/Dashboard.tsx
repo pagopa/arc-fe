@@ -42,7 +42,7 @@ const Dashboard = () => {
         alignItems={{ sm: 'center' }}
         gap={3}
         mb={5}>
-        <Typography variant="h3">{t('app.dashboard.hello')}</Typography>
+        <Typography variant="h3">{t('app.dashboard.title', { username: 'John Doe' })}</Typography>
         <PaymentButton />
       </Stack>
       <Stack gap={5}>
