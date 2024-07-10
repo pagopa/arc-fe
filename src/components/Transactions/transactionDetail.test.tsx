@@ -74,4 +74,49 @@ describe('TransactionDetails component', () => {
     const renderedId = screen.getByText('123456789-123456789-');
     expect(renderedId).toBeInTheDocument();
   });
+
+  it('should not render the payer, and card holder section when the info are not avaiable', () => {
+    render(
+      <TransactionDetails
+        transactionData={{
+          ...dummyTransactionsData.transactionData,
+          payer: {
+            name: '-',
+            taxCode: '-'
+          },
+          cardNumber: '-',
+          accountHolder: '-'
+        }}
+      />
+    );
+    expect(screen.queryByText('app.transactionDetail.paidBy')).toBeNull();
+    expect(screen.queryByText('app.transactionDetail.paymentMethod')).toBeNull();
+    expect(screen.queryByText('app.transactionDetail.accountHolder')).toBeNull();
+  });
+
+  it('should render the payer, and card holder section when the info are avaiable', () => {
+    render(
+      <TransactionDetails
+        transactionData={{
+          ...dummyTransactionsData.transactionData,
+          payer: {
+            name: 'John Doe',
+            taxCode: '9999'
+          },
+          paymentMethod: 'cc',
+          cardNumber: '1234567',
+          accountHolder: 'Mario Rossi'
+        }}
+      />
+    );
+    expect(screen.queryByText('app.transactionDetail.paidBy')).toBeInTheDocument();
+    expect(screen.queryByText('John Doe')).toBeInTheDocument();
+    expect(screen.queryByText('(9999)')).toBeInTheDocument();
+
+    expect(screen.queryByText('app.transactionDetail.paymentMethod')).toBeInTheDocument();
+    expect(screen.queryByText('cc 1234567')).toBeInTheDocument();
+
+    expect(screen.queryByText('app.transactionDetail.accountHolder')).toBeInTheDocument();
+    expect(screen.queryByText('Mario Rossi')).toBeInTheDocument();
+  });
 });
