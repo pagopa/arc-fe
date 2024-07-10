@@ -7,12 +7,13 @@
     },
     "user": {
       "title": "I tuoi dati",
-      "subtitle": "Questi dati vengono utilizzati per generare le ricevute.",
+      "subtitle": "Questi dati vengono ricavati dal tuo SPID o CIE e non sono modificabili.",
       "info": {
         "name": "Nome",
         "surname": "Cognome",
-        "identifier": "Codice fiscale",
-        "email": "Mail"
+        "identifier": "Codice Fiscale",
+        "email": "Indirizzo email",
+        "channelCode": "Codice Canale"
       }
     },
     "assistance": {
