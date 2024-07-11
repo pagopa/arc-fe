@@ -1,9 +1,9 @@
 import { TransactionProps } from 'components/Transactions/Transaction';
 import { TransactionDetailsDTO, TransactionsListDTO } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
-import utils from 'utils';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 import { DateFormat, datetools } from './datetools';
+import utils from 'utils';
 
 const toEuro = (amount: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>
   new Intl.NumberFormat('it-IT', {
@@ -55,42 +55,54 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
 
 const prepareTransactionDetailData = (
   transactionDetail: TransactionDetailsDTO
-): TransactionDetail | undefined =>
-  transactionDetail.infoTransaction && {
-    payer: {
-      name: transactionDetail.infoTransaction.payer?.name || '-',
-      taxCode: transactionDetail.infoTransaction.payer?.taxCode || '-'
-    },
-    authCode: transactionDetail.infoTransaction.authCode || '-',
-    transactionId: transactionDetail.infoTransaction.transactionId || '-',
-    PRN: transactionDetail.infoTransaction.rrn || '-',
-    paymentMethod: transactionDetail.infoTransaction.paymentMethod || '-',
-    cardNumber: transactionDetail.infoTransaction.walletInfo?.blurredNumber || '-',
-    accountHolder: transactionDetail.infoTransaction.walletInfo?.accountHolder || '-',
-    PSP: transactionDetail.infoTransaction.pspName || '-',
-    dateTime: datetools.formatDate(transactionDetail.infoTransaction.transactionDate, {
-      format: DateFormat.LONG,
-      withTime: true,
-      second: '2-digit'
-    }),
-    subject: transactionDetail.carts?.[0].subject || '-',
-    debtor: transactionDetail.carts?.[0].debtor?.name || '-',
-    debtorFiscalCode: transactionDetail.carts?.[0].debtor?.taxCode || '-',
-    creditorEntity: transactionDetail.carts?.[0].payee?.name || '-',
-    creditorFiscalCode: transactionDetail.carts?.[0].payee?.taxCode || '-',
-    noticeCode: transactionDetail.carts?.[0].refNumberValue || '-',
-    partialAmount: transactionDetail.infoTransaction.amount
-      ? toEuro(transactionDetail.infoTransaction.amount, 2)
-      : '-',
-    fee: transactionDetail.infoTransaction.fee
-      ? toEuro(transactionDetail.infoTransaction.fee, 2)
-      : '-',
-    total:
-      transactionDetail.infoTransaction.amount && transactionDetail.infoTransaction.fee
-        ? toEuro(transactionDetail.infoTransaction.amount + transactionDetail.infoTransaction.fee)
-        : '-',
-    status: 'SUCCESS'
-  };
+): TransactionDetail | undefined => {
+  const { infoTransaction, carts } = transactionDetail;
+  const { missingValue } = utils.config;
+  return (
+    infoTransaction && {
+      ...(infoTransaction.payer &&
+        infoTransaction.payer.name && {
+          payer: {
+            name: infoTransaction.payer.name,
+            taxCode: infoTransaction.payer.taxCode || missingValue
+          }
+        }),
+      ...(infoTransaction.walletInfo &&
+        infoTransaction.walletInfo.accountHolder &&
+        infoTransaction.walletInfo.blurredNumber &&
+        infoTransaction.walletInfo.brand && {
+          walletInfo: {
+            accountHolder: infoTransaction.walletInfo.accountHolder,
+            brand: infoTransaction.walletInfo.brand,
+            cardNumber: infoTransaction.walletInfo.blurredNumber
+          }
+        }),
+      paymentMethod: infoTransaction.paymentMethod || missingValue,
+      authCode: infoTransaction.authCode || missingValue,
+      transactionId: infoTransaction.transactionId || missingValue,
+      PRN: infoTransaction.rrn || missingValue,
+      PSP: infoTransaction.pspName || missingValue,
+      dateTime: datetools.formatDate(infoTransaction.transactionDate, {
+        format: DateFormat.LONG,
+        withTime: true,
+        second: '2-digit'
+      }),
+      subject: carts?.[0].subject || missingValue,
+      debtor: carts?.[0].debtor?.name || missingValue,
+      debtorFiscalCode: carts?.[0].debtor?.taxCode || missingValue,
+      creditorEntity: carts?.[0].payee?.name || missingValue,
+      creditorFiscalCode: carts?.[0].payee?.taxCode || missingValue,
+      noticeCode: carts?.[0].refNumberValue || missingValue,
+      partialAmount: infoTransaction.amount ? toEuro(infoTransaction.amount, 2) : missingValue,
+      fee: infoTransaction.fee ? toEuro(infoTransaction.fee, 2) : missingValue,
+      total:
+        infoTransaction.amount && infoTransaction.fee
+          ? toEuro(infoTransaction.amount + infoTransaction.fee)
+          : missingValue,
+      status: 'SUCCESS'
+    }
+  );
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const preparePaymentNoticeDetailData = (paymentNoticeDetail: any): PaymentNoticeDetail => {

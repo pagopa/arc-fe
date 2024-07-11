@@ -189,60 +189,73 @@ export default function TransactionDetail({
               pb={4}
               ml={{ md: 3 }}
               pr={3}>
-              <Stack>
+              <Stack mb={3}>
                 <Typography fontWeight={700} variant="caption">
                   {t('app.transactionDetail.card2.title').toUpperCase()}
                 </Typography>
               </Stack>
-              <Grid item xs={12} sm={12} pt={3}>
-                <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
-                  {t('app.transactionDetail.paidBy')}
-                </Typography>
-                <Stack
-                  direction={{ xs: 'column', sm: 'row', md: 'column' }}
-                  spacing={{ xs: 0, sm: 1, md: 0 }}>
-                  <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                    {transactionData.payer.name}
+
+              {transactionData.payer && (
+                <Grid item xs={12} sm={12}>
+                  <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
+                    {t('app.transactionDetail.paidBy')}
                   </Typography>
-                  {transactionData.payer.taxCode !== '-' && (
+                  <Stack
+                    direction={{ xs: 'column', sm: 'row', md: 'column' }}
+                    spacing={{ xs: 0, sm: 1, md: 0 }}
+                    pb={2}>
                     <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                      ({transactionData.payer.taxCode})
+                      {transactionData.payer.name}
                     </Typography>
-                  )}
-                </Stack>
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <Stack spacing={2} pt={2}>
+                    {transactionData.payer.taxCode && (
+                      <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
+                        ({transactionData.payer.taxCode})
+                      </Typography>
+                    )}
+                  </Stack>
                   <Divider />
-                  <Grid container>
-                    <Grid item xs={1} paddingTop={3.065} pr={2}>
-                      <img src={MasterCard} />
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Stack pt={0.75} pl={2}>
+                </Grid>
+              )}
+
+              <Grid item xs={12} sm={12}>
+                <Stack spacing={2}>
+                  {transactionData.walletInfo && (
+                    <>
+                      <Grid container>
+                        <Grid item xs={1} paddingTop={3.065} pr={2}>
+                          <img src={MasterCard} />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Stack pt={0.75} pl={2}>
+                            <Typography
+                              sx={{ wordBreak: 'break-word' }}
+                              color={theme.palette.text.secondary}>
+                              {t('app.transactionDetail.paymentMethod')}
+                            </Typography>
+                            <Typography
+                              sx={{ wordBreak: 'break-word' }}
+                              fontSize={16}
+                              fontWeight={600}>
+                              {`${transactionData.paymentMethod} ${transactionData.walletInfo.cardNumber}`}
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                      <Divider />
+                      <Stack>
                         <Typography
                           sx={{ wordBreak: 'break-word' }}
                           color={theme.palette.text.secondary}>
-                          {t('app.transactionDetail.paymentMethod')}
+                          {t('app.transactionDetail.accountHolder')}
                         </Typography>
                         <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                          {`${transactionData.paymentMethod} ${transactionData.cardNumber}`}
+                          {transactionData.walletInfo.accountHolder}
                         </Typography>
                       </Stack>
-                    </Grid>
-                  </Grid>
-                  <Divider />
-                  <Stack>
-                    <Typography
-                      sx={{ wordBreak: 'break-word' }}
-                      color={theme.palette.text.secondary}>
-                      {t('app.transactionDetail.accountHolder')}
-                    </Typography>
-                    <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                      {transactionData.accountHolder}
-                    </Typography>
-                  </Stack>
-                  <Divider />
+                      <Divider />
+                    </>
+                  )}
+
                   <Stack>
                     <Typography
                       sx={{ wordBreak: 'break-word' }}

@@ -58,17 +58,38 @@ const Transaction_3d40b8e0: TransactionProps = {
   amount: '392,00 €'
 };
 
-const transactionDetail = {
+const transactionDetail: TransactionDetail = {
   payer: {
     name: 'Matteo Rossi',
     taxCode: 'MTTRSS74B23F205K'
   },
-  accountHolder: 'Matteo Rossi',
+  walletInfo: {
+    accountHolder: 'Luigi Bianchi',
+    cardNumber: '****1234',
+    brand: 'Mastercard'
+  },
+  paymentMethod: 'cc',
   authCode: '1234567890123456800',
   transactionId: 'F57E2F8E-25FF-4183-AB7B-4…',
   PRN: '1234567890',
-  paymentMethod: 'Mastercard',
-  cardNumber: '**** 1234',
+  PSP: 'Nexi',
+  dateTime: '11/02/2023',
+  subject: ' Bollo auto 2023',
+  debtor: 'Aldo Baldo',
+  debtorFiscalCode: 'ALDOBALDO4B23F205K',
+  creditorEntity: 'ACI',
+  creditorFiscalCode: '00000000',
+  noticeCode: '0000 0000 0000 0000',
+  partialAmount: '250',
+  fee: '1',
+  total: '251',
+  status: 'Pagato'
+};
+
+const shortTransactionDetail: TransactionDetail = {
+  authCode: '1234567890123456800',
+  transactionId: 'F57E2F8E-25FF-4183-AB7B-4…',
+  PRN: '1234567890',
   PSP: 'Nexi',
   dateTime: '11/02/2023',
   subject: ' Bollo auto 2023',
@@ -98,11 +119,13 @@ export const dummyTransactionsData: {
   paidByMe: TransactionProps[];
   ownedByMe: TransactionProps[];
   transactionData: TransactionDetail;
+  shortTransactionData: TransactionDetail;
   transactionReceipt: unknown;
 } = {
   all: [Transaction_dc379158, Transaction_ffe1324e, Transaction_a305f59a, Transaction_3d40b8e0],
   paidByMe: [Transaction_dc379158, Transaction_ffe1324e],
   ownedByMe: [Transaction_a305f59a, Transaction_3d40b8e0],
   transactionData: transactionDetail,
+  shortTransactionData: shortTransactionDetail,
   transactionReceipt
 };
