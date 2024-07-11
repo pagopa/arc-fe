@@ -195,7 +195,7 @@ export default function TransactionDetail({
                 </Typography>
               </Stack>
 
-              {transactionData.payer.name !== '-' && (
+              {transactionData.payer && (
                 <Grid item xs={12} sm={12}>
                   <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.paidBy')}
@@ -207,7 +207,7 @@ export default function TransactionDetail({
                     <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
                       {transactionData.payer.name}
                     </Typography>
-                    {transactionData.payer.taxCode !== '-' && (
+                    {transactionData.payer.taxCode && (
                       <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
                         ({transactionData.payer.taxCode})
                       </Typography>
@@ -219,7 +219,7 @@ export default function TransactionDetail({
 
               <Grid item xs={12} sm={12}>
                 <Stack spacing={2}>
-                  {transactionData.cardNumber !== '-' && (
+                  {transactionData.walletInfo && (
                     <>
                       <Grid container>
                         <Grid item xs={1} paddingTop={3.065} pr={2}>
@@ -236,16 +236,12 @@ export default function TransactionDetail({
                               sx={{ wordBreak: 'break-word' }}
                               fontSize={16}
                               fontWeight={600}>
-                              {`${transactionData.paymentMethod} ${transactionData.cardNumber}`}
+                              {`${transactionData.paymentMethod} ${transactionData.walletInfo.cardNumber}`}
                             </Typography>
                           </Stack>
                         </Grid>
                       </Grid>
                       <Divider />
-                    </>
-                  )}
-                  {transactionData.accountHolder !== '-' && (
-                    <>
                       <Stack>
                         <Typography
                           sx={{ wordBreak: 'break-word' }}
@@ -253,7 +249,7 @@ export default function TransactionDetail({
                           {t('app.transactionDetail.accountHolder')}
                         </Typography>
                         <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                          {transactionData.accountHolder}
+                          {transactionData.walletInfo.accountHolder}
                         </Typography>
                       </Stack>
                       <Divider />
