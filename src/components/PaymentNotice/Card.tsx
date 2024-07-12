@@ -7,7 +7,9 @@ import { PayeeIcon } from 'components/PayeeIcon';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Theme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { Paper } from '@mui/material';
+import { IconButton, Paper } from '@mui/material';
+import { ArcRoutes } from 'routes/routes';
+import { useNavigate } from 'react-router-dom';
 
 type InfoProps = { label: string; data: string };
 
@@ -31,6 +33,7 @@ export type CardProps = {
   paymentInfo: string;
   expiringDate: string;
   amount: string;
+  id: string;
 };
 
 /**
@@ -40,9 +43,11 @@ export type CardProps = {
  * @component
  * @private
  */
-export const _Card = ({ payee, amount, paymentInfo, expiringDate }: CardProps) => {
+export const _Card = ({ payee, amount, paymentInfo, expiringDate, id }: CardProps) => {
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+  const navigate = useNavigate();
+
   return (
     <Paper elevation={16}>
       <Stack
@@ -68,7 +73,9 @@ export const _Card = ({ payee, amount, paymentInfo, expiringDate }: CardProps) =
             <Info label={t('app.paymentNotice.card.amount')} data={amount} />
             <Info label={t('app.paymentNotice.card.expiringDate')} data={expiringDate} />
           </Stack>
-          <ArrowForwardIosIcon color="primary" fontSize="small" />
+          <IconButton onClick={() => navigate(`${ArcRoutes.PAYMENT_NOTICES}${id}`)}>
+            <ArrowForwardIosIcon color="primary" fontSize="small" />
+          </IconButton>
         </Stack>
       </Stack>
     </Paper>

@@ -14,7 +14,7 @@ import { DateFormat, datetools } from 'utils/datetools';
  */
 
 export type PaymentNotices = {
-  id: number;
+  id: string;
   payee: {
     name: string;
     srcImg?: string;

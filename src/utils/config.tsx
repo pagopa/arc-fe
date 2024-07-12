@@ -41,6 +41,7 @@ type Config = {
   entitiesLogoCdn?: string;
   assistanceLink: string;
   checkoutHost: string;
+  missingValue: string;
 };
 
 const product: ProductEntity = {
@@ -78,7 +79,11 @@ const config: Config = {
   showStatusInfo: SHOW_STATUS_INFO !== false && SHOW_STATUS_INFO === 'true',
   entitiesLogoCdn: ENTITIES_LOGO_CDN,
   assistanceLink,
-  checkoutHost: CHECKOUT_HOST
+  checkoutHost: CHECKOUT_HOST,
+  /** a global character to be shown
+   * when a info is missing
+   */
+  missingValue: '-'
 };
 
 export default config;
