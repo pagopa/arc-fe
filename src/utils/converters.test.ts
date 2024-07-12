@@ -127,6 +127,31 @@ describe('prepareRowsData function', () => {
       )
     ).toBe('[]');
   });
+
+  it('should return the correct png when given a tax code with leading zeroes', () => {
+    const transactions: TransactionDTO[] = [
+      {
+        amount: 18000,
+        isCart: true,
+        payedByMe: true,
+        payeeName: 'Comune di Milano',
+        payeeTaxCode: '00493410583',
+        registeredToMe: true,
+        transactionDate: '2024-03-27T15:52:15Z',
+        transactionId: '1'
+      }
+    ];
+    const result = utils.converters.prepareRowsData({
+      transactions,
+      status: { label: 'Pagato' },
+      payee: { multi: 'Multi' },
+      action: jest.fn()
+    });
+
+    expect(result[0].payee.srcImg).toBe(
+      'https://assets.cdn.io.italia.it/logos/organizations/493410583.png'
+    );
+  });
 });
 
 describe('return a transactionDetail object', () => {

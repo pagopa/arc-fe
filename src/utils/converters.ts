@@ -39,7 +39,7 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
         name: element.payeeName || data.payee.multi,
         // update here the cdn host when available
         srcImg: element.payeeTaxCode
-          ? `${utils.config.entitiesLogoCdn}/${element.payeeTaxCode}.png`
+          ? `${utils.config.entitiesLogoCdn}/${element.payeeTaxCode.replace(/^0+/, '')}.png`
           : undefined,
         altImg: data.payee.altImg || `Logo Ente`
       },
