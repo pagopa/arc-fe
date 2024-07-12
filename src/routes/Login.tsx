@@ -19,7 +19,7 @@ import { SpidIcon } from '@pagopa/mui-italia/dist/icons/SpidIcon';
 
 import { HeaderAccount } from '@pagopa/mui-italia';
 import utils from 'utils';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Footer } from 'components/Footer';
 import { Logout } from '@mui/icons-material';
 
@@ -119,9 +119,15 @@ const Login = () => {
               </Card>
               <Grid item maxWidth={{ lg: '25%', xs: '75%', sm: '50%' }}>
                 <Typography variant="body1">
-                  {`${t('app.login.terms1')}`} <Link fontWeight={600}>{t('app.login.terms2')}</Link>
-                  {` ${t('app.login.terms3')}`}
-                  <Link fontWeight={600}>{t('app.login.terms4')}</Link>
+                  <Trans
+                    i18nKey={t('app.login.terms')}
+                    components={{
+                      link1: (
+                        <Link href="#" fontWeight={800} />
+                      ) /* I've kept two separate components because in the future we will have two different destination addresses which will be defined here. */,
+                      link2: <Link href="#" fontWeight={800} />
+                    }}
+                  />
                 </Typography>
               </Grid>
               <Card

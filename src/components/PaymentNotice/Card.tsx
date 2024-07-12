@@ -71,7 +71,7 @@ export const _Card = ({ payee, amount, paymentInfo, expiringDate, id }: CardProp
           <Divider orientation="vertical" flexItem variant="fullWidth" />
           <Stack width="12rem" component="aside">
             <Info label={t('app.paymentNotice.card.amount')} data={amount} />
-            <Info label={t('app.paymentNotice.card.expiring')} data={expiringDate} />
+            <Info label={t('app.paymentNotice.card.expiringDate')} data={expiringDate} />
           </Stack>
           <IconButton onClick={() => navigate(`${ArcRoutes.PAYMENT_NOTICES}${id}`)}>
             <ArrowForwardIosIcon color="primary" fontSize="small" />

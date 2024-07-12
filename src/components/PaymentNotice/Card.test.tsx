@@ -62,7 +62,7 @@ describe('Card Component', () => {
         <PaymentNotice.Card {...baseProps} />
       </BrowserRouter>
     );
-    expect(screen.getByText('app.paymentNotice.card.expiring')).toBeInTheDocument();
+    expect(screen.getByText('app.paymentNotice.card.expiringDate')).toBeInTheDocument();
     expect(screen.getByText('2022-12-31')).toBeInTheDocument();
   });
 

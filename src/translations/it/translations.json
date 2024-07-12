@@ -23,9 +23,7 @@
       "cardDescription": "Indica l’indirizzo email su cui desideri ricevere le risposte dell’assistenza.",
       "input1Placeholder": "Inserisci l'indirizzo email",
       "input2Placeholder": "Conferma l'indirizzo email",
-      "privacy1":"Proseguendo dichiari di aver letto la",
-      "privacy2": "Privacy Policy",
-      "privacy3": "del servizio di Assistenza al Cittadino.",
+      "privacy": "Proseguendo dichiari di aver letto la <link1> Privacy Policy </link1> del servizio di assistenza al cittadino",
       "confirm": "Conferma",
       "modalTitle": "Vuoi davvero uscire?",
       "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
@@ -33,17 +31,14 @@
     "login":{
       "title": "Accedi a pagoPA",
       "description": "La tua area personale in cui gestire i pagamenti pagoPA e scaricare le ricevute.",
-      "terms1":"Accedendo accetti i",
-      "terms2": "Termini e condizioni d’uso",
-      "terms3": "del servizio e confermi di avere letto l'",
-      "terms4": "Informativa Privacy.",
+      "terms":"Accedendo accetti i <link1>Termini e condizioni d’uso</link1> del servizio e confermi di avere letto l'<link2>Informativa Privacy </link2> ",
       "areYouAnEnterprise": "Sei un'impresa?",
       "accessYourArea": "Accedi alla tua area",
       "spid": "Entra con SPID",
       "cie": "Entra con CIE"
     },
     "dashboard": {
-      "hello": "Ciao, John Doe",
+      "title": "Ciao, {{username}}",
       "newPayment": "Paga un avviso",
       "lastTransactions": "Ecco le tue ultime ricevute",
       "seeAllTransactions": "Vedi tutti",
@@ -62,7 +57,7 @@
       "orderBy": "Ordina per",
       "mostRecent": "più recente",
       "leastRecent": "meno recente",
-      "entityName": "Ente",
+      "payee": "Ente",
       "status": "Stato",
       "date": "In data",
       "amount": "Importo",
@@ -98,12 +93,13 @@
       "card": {
         "amount": "Importo",
         "multiPayment": "Altre opzioni di pagamento",
-        "expiring": "Rata unica entro il"
+        "expiringDate": "Rata unica entro il"
       }
     },
     "paymentNotices": {
       "title": "I tuoi avvisi di pagamento",
-      "found": "Abbiamo trovato",
+      "found_one": "Abbiamo trovato {{count}} avviso",
+      "found_other": "Abbiamo trovato {{count}} avvisi",
       "notice": "avvisi",
       "updated": "Aggiornato il",
       "loading": "Stiamo cercando tra gli archivi degli enti creditori aderenti al servizio...",
@@ -158,17 +154,17 @@
       "title": "Dettaglio avviso",
       "card1": {
         "title": "Dati del pagamento",
-        "field1":"Importo",
-        "field2": "Ente creditore",
-        "field3": "Oggetto del pagamento",
-        "field4": "Entro il",
-        "field5": "Codice avviso",
-        "field6": "Codice fiscale ente"
+        "amount":"Importo",
+        "paFullname": "Ente creditore",
+        "subject": "Oggetto del pagamento",
+        "dueDate": "Entro il",
+        "iupd": "Codice avviso",
+        "paTaxCode": "Codice fiscale ente"
       },
       "card2": {
         "title": "Quanto e quando pagare?",
-        "field1": "Rata unica entro",
-        "field2": "Importo",
+        "firstInstallmentDate": "Rata unica entro",
+        "firstInstallmentAmount": "Importo",
         "button1":"Paga ora",
         "label1": "Oppure",
         "button2": "Scarica l'avviso pagoPA"

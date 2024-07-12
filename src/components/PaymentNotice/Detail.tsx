@@ -119,7 +119,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           color={theme.palette.text.secondary}
                           variant="body1"
                           fontSize={15}>
-                          {t('app.paymentNoticeDetail.card1.field1')}
+                          {t('app.paymentNoticeDetail.card1.amount')}
                         </Typography>
                         <Typography
                           variant="body1"
@@ -155,7 +155,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           variant="body1"
                           component="dt"
                           fontSize={15}>
-                          {t('app.paymentNoticeDetail.card1.field2')}
+                          {t('app.paymentNoticeDetail.card1.paFullname')}
                         </Typography>
                         <Typography variant="body1" component="dd" fontSize={16} fontWeight={700}>
                           {paymentNoticeDetail.paFullName}
@@ -176,7 +176,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           color={theme.palette.text.secondary}
                           variant="body1"
                           fontSize={15}>
-                          {t('app.paymentNoticeDetail.card1.field3')}
+                          {t('app.paymentNoticeDetail.card1.subject')}
                         </Typography>
                         <Typography variant="body1" fontSize={16} component="dd" fontWeight={700}>
                           {paymentNoticeDetail.subject}
@@ -197,7 +197,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           variant="body1"
                           component="dt"
                           fontSize={15}>
-                          {t('app.paymentNoticeDetail.card1.field4')}
+                          {t('app.paymentNoticeDetail.card1.dueDate')}
                         </Typography>
                         <Typography variant="body1" fontSize={16} component="dd" fontWeight={700}>
                           {paymentNoticeDetail.dueDate}
@@ -213,7 +213,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           sx={{ wordBreak: 'break-word' }}
                           component="dt"
                           color={theme.palette.text.secondary}>
-                          {t('app.paymentNoticeDetail.card1.field5')}
+                          {t('app.paymentNoticeDetail.card1.iupd')}
                         </Typography>
                         <Typography
                           component="dd"
@@ -236,7 +236,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           component="dt"
                           sx={{ wordBreak: 'break-word' }}
                           color={theme.palette.text.secondary}>
-                          {t('app.paymentNoticeDetail.card1.field6')}
+                          {t('app.paymentNoticeDetail.card1.paTaxCode')}
                         </Typography>
                         <Typography
                           component="dd"
@@ -272,7 +272,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                   <Grid container component={'dl'}>
                     <Grid item xs={12} sm={6}>
                       <Typography variant="body1" component="dt">
-                        {t('app.paymentNoticeDetail.card2.field1')}
+                        {t('app.paymentNoticeDetail.card2.firstInstallmentDate')}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
@@ -284,7 +284,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                   <Grid container component={'dl'}>
                     <Grid item xs={12} sm={6}>
                       <Typography variant="body1" component="dt">
-                        {t('app.paymentNoticeDetail.card2.field2')}
+                        {t('app.paymentNoticeDetail.card2.firstInstallmentAmount')}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
