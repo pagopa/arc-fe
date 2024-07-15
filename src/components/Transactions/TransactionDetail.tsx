@@ -36,10 +36,10 @@ export default function TransactionDetail({
           endIcon={<Download />}
           sx={{ width: { xs: '100%', sm: 'fit-content' } }}
           size="large"
-          variant="contained"
-          disabled={receiptData.isPending || receiptData.error}
           target="_blank"
-          href={receiptData.receipt}>
+          href={receiptData.receipt || ''}
+          variant="contained"
+          disabled={receiptData.isPending || receiptData.error}>
           {t('app.transactionDetail.downloadReceipt')}
         </Button>
       </Stack>

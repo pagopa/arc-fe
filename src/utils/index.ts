@@ -14,7 +14,7 @@ export default {
   //** data transformers utility and formatters */
   converters,
   // TO DO: timeout as env variable?
-  apiClient: new Api({ baseURL: config.baseURL, timeout: 1000 }),
+  apiClient: new Api({ baseURL: config.baseURL, timeout: 5000 }),
   loaders,
   zodSchema,
   datetools
