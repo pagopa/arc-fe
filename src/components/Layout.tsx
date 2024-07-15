@@ -10,6 +10,7 @@ import { RouteHandleObject } from 'models/Breadcrumbs';
 import { Header } from './Header';
 import { BackButton } from './BackButton';
 import { ArcRoutes } from 'routes/routes';
+import { ModalSystem } from './Modals';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
@@ -29,39 +30,46 @@ export function Layout() {
   const navigate = useNavigate();
 
   return (
-    <Container
-      maxWidth={false}
-      disableGutters
-      sx={{ display: 'flex', height: '100%', minHeight: '100vh', alignItems: 'baseline' }}>
-      <Grid container height={'100%'} minHeight="100vh" flexDirection="column" flexWrap={'nowrap'}>
-        <Grid flexBasis={{ xs: 'fit-content' }} item xs={12} height="fit-content">
-          <Header
-            onAssistanceClick={() => {
-              navigate(ArcRoutes.ASSISTANCE);
-            }}
-          />
-        </Grid>
+    <ModalSystem>
+      <Container
+        maxWidth={false}
+        disableGutters
+        sx={{ display: 'flex', height: '100%', minHeight: '100vh', alignItems: 'baseline' }}>
         <Grid
-          item
-          display={'flex'}
-          flexGrow={1}
-          flexWrap={'wrap'}
-          alignContent={'flex-start'}
-          flexBasis={'50vh'}>
-          {sidebar?.visible ? <Sidebar /> : null}
-          <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs paddingX={sidePadding}>
-            {backButton && <BackButton text={backButtonText} />}
-            {crumbs && (
-              <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
-            )}
-            <Outlet />
+          container
+          height={'100%'}
+          minHeight="100vh"
+          flexDirection="column"
+          flexWrap={'nowrap'}>
+          <Grid flexBasis={{ xs: 'fit-content' }} item xs={12} height="fit-content">
+            <Header
+              onAssistanceClick={() => {
+                navigate(ArcRoutes.ASSISTANCE);
+              }}
+            />
+          </Grid>
+          <Grid
+            item
+            display={'flex'}
+            flexGrow={1}
+            flexWrap={'wrap'}
+            alignContent={'flex-start'}
+            flexBasis={'50vh'}>
+            {sidebar?.visible ? <Sidebar /> : null}
+            <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs paddingX={sidePadding}>
+              {backButton && <BackButton text={backButtonText} />}
+              {crumbs && (
+                <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
+              )}
+              <Outlet />
+            </Grid>
+          </Grid>
+          <Grid item xs={12} height="fit-content" flexBasis={{ xs: 'fit-content' }} flexShrink={3}>
+            {/*xs in flex basis is specified to override mui clas.*/}
+            <Footer />
           </Grid>
         </Grid>
-        <Grid item xs={12} height="fit-content" flexBasis={{ xs: 'fit-content' }} flexShrink={3}>
-          {/*xs in flex basis is specified to override mui clas.*/}
-          <Footer />
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </ModalSystem>
   );
 }

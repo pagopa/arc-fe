@@ -2,6 +2,7 @@ import { Box, Button, Theme, useMediaQuery } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { IllusSharingInfo } from '@pagopa/mui-italia';
+import { Modalcontext } from 'components/Modals';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 export const _Preview = () => {
   const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
-
+  const contex = React.useContext(Modalcontext);
   return (
     <Stack
       sx={{ backgroundColor: 'background.paper' }}
@@ -30,7 +31,7 @@ export const _Preview = () => {
           <Typography>{t('app.paymentNotice.preview.description')}</Typography>
         </Stack>
         <Box display="flex" justifyContent={{ xs: 'stretch', sm: 'flex-start' }}>
-          <Button size="large" variant="contained">
+          <Button size="large" variant="contained" onClick={() => contex.open()}>
             {t('app.paymentNotice.preview.action')}
           </Button>
         </Box>
