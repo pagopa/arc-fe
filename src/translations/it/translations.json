@@ -109,7 +109,8 @@
       },
       "optin": {
         "title": "Consenti a PagoPA di ricercare i tuoi avvisi?",
-        "body": "Se confermi, consenti a PagoPA di ricercare gli avvisi di pagamento a tuo nome tra gli archivi degli enti aderenti al servizio. Proseguendo accetti l’Informativa Privacy e i Termini e Condizioni d’uso del servizio.",
+        "body": "Se confermi, consenti a PagoPA di ricercare gli avvisi di pagamento a tuo nome tra gli archivi degli enti aderenti al servizio.",
+        "privacy": "Proseguendo accetti l’<a1>Informativa Privacy</a1> e i <a2>Termini e Condizioni d’uso</a2> del servizio."
       }
     },
     "routes": {
@@ -117,6 +118,7 @@
       "exit": "Esci",
       "cancel": "Annulla",
       "continue": "Continua",
+      "consent": "Consenti",
       "breadcrumbs": "breadcrumbs",
       "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
       "breadcrumbsElement": "Elemento breadcrumbs",
