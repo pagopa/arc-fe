@@ -4,3 +4,14 @@ process.env.ENTITIES_LOGO_CDN="https://assets.cdn.io.italia.it/logos/organizatio
 process.env.ASSISTANCE_LINK="https://pagopa.gov.it"
 process.env.SHOW_STATUS_INFO='true';
 process.env.CHECKOUT_HOST='https://dev.checkout.pagopa.it';
+
+jest.mock('@preact/signals-react', () => {
+  return {
+      __esModule: true,
+      signal:  jest.fn().mockImplementation(() => {
+        return {};
+    })
+  };
+});
+
+
