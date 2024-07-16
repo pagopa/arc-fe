@@ -7,6 +7,7 @@ import loaders from './loaders';
 import { datetools } from './datetools';
 import * as zodSchema from '../../generated/zod-schema';
 import storage from './storage';
+import modal from './modal';
 
 export default {
   style,
@@ -19,5 +20,6 @@ export default {
   loaders,
   zodSchema,
   datetools,
-  storage
+  storage,
+  modal
 };

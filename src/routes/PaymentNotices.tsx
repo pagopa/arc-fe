@@ -6,7 +6,6 @@ import { PaymentNoticesListSkeleton } from 'components/Skeleton';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
-import { useSignals } from '@preact/signals-react/runtime';
 
 const Notices = () => {
   const { data, isError } = utils.loaders.getPaymentNotices();
@@ -34,7 +33,6 @@ const Notices = () => {
 export const PaymentNotices = () => {
   const { t } = useTranslation();
   const optIn = utils.storage.pullPaymentsOptIn.get();
-  useSignals();
 
   return (
     <>

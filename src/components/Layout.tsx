@@ -30,7 +30,8 @@ export function Layout() {
   const navigate = useNavigate();
 
   return (
-    <ModalSystem>
+    <>
+      <ModalSystem />
       <Container
         maxWidth={false}
         disableGutters
@@ -70,6 +71,6 @@ export function Layout() {
           </Grid>
         </Grid>
       </Container>
-    </ModalSystem>
+    </>
   );
 }

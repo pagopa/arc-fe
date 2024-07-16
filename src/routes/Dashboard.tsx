@@ -11,7 +11,6 @@ import { PaymentNotice } from 'components/PaymentNotice';
 import { TransactionListSkeleton } from 'components/Skeleton';
 import PaymentButton from 'components/PaymentButton';
 import { Empty, Retry, TransactionsList } from 'components/Transactions';
-import { useSignals } from '@preact/signals-react/runtime';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -19,7 +18,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const optIn = utils.storage.pullPaymentsOptIn.get();
-  useSignals();
 
   const rows =
     data &&

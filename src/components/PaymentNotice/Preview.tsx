@@ -2,9 +2,9 @@ import { Box, Button, Theme, useMediaQuery } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { IllusSharingInfo } from '@pagopa/mui-italia';
-import { Modalcontext } from 'components/Modals';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import utils from 'utils';
 
 /**
  * This component is considered private and should not be used directly.
@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 export const _Preview = () => {
   const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
-  const { open } = React.useContext(Modalcontext);
+  const open = () => utils.modal.open(utils.modal.ModalId.OPTIN);
 
   return (
     <Stack

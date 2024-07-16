@@ -7,72 +7,23 @@ import {
   TextField,
   Typography,
   useTheme,
-  Link,
-  Modal,
-  Backdrop
+  Link
 } from '@mui/material';
 import { Trans, useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
-import { alpha } from '@mui/material';
 import utils from 'utils';
 
 const Assistance = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
   const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
   const emailError = !reg.test(email) && email.length > 0;
   const emailConfirmError = email !== emailConfirm;
 
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <Backdrop
-          sx={{ background: alpha(theme.palette.text.primary, 0.7) }}
-          open={open}
-          onClick={handleClose}>
-          <Card
-            sx={{
-              padding: 3,
-              width: '50%'
-            }}>
-            <CardActions>
-              <Stack spacing={2} width={'100%'}>
-                <Typography variant="h4">{t('app.assistance.modalTitle')}</Typography>
-                <Typography variant="body1">{t('app.assistance.modalDescription')}</Typography>
-                <Stack pt={2} direction={'row'} spacing={2} justifyContent={'end'}>
-                  <Button variant="outlined" size="large" color="primary" onClick={handleClose}>
-                    {t('app.routes.cancel')}
-                  </Button>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => {
-                      navigate(-1);
-                    }}>
-                    {t('app.routes.exit')}
-                  </Button>
-                </Stack>
-              </Stack>
-            </CardActions>
-          </Card>
-        </Backdrop>
-      </Modal>
       <Stack spacing={3}>
         <Stack
           flex={1}
@@ -150,7 +101,7 @@ const Assistance = () => {
             size="large"
             color="primary"
             startIcon={<ArrowBack />}
-            onClick={openModal}>
+            onClick={() => utils.modal.open(utils.modal.ModalId.ASSISTANCEBACK)}>
             {t('app.routes.exit')}
           </Button>
           <Button variant="contained" size="large" href={utils.config.assistanceLink}>
