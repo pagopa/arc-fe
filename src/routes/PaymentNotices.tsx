@@ -6,9 +6,9 @@ import { PaymentNoticesListSkeleton } from 'components/Skeleton';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
+import { useSignals } from '@preact/signals-react/runtime';
 
-export const PaymentNotices = () => {
-  const { t } = useTranslation();
+const Notices = () => {
   const { data, isError } = utils.loaders.getPaymentNotices();
 
   const Content = () => {
@@ -21,19 +21,29 @@ export const PaymentNotices = () => {
       </Stack>
     );
   };
+  return (
+    <QueryLoader
+      queryKey="paymentNotices"
+      loaderComponent={<PaymentNoticesListSkeleton />}
+      atLeast={5000}>
+      <Content />
+    </QueryLoader>
+  );
+};
+
+export const PaymentNotices = () => {
+  const { t } = useTranslation();
+  const optIn = utils.storage.pullPaymentsOptIn.get();
+  useSignals();
 
   return (
     <>
       <Typography mb={3} variant="h3" component="h1">
         {t('app.paymentNotices.title')}
       </Typography>
+      <p>{optIn}</p>
       <Stack height="100%" justifyContent={{ lg: 'space-between' }} component="main">
-        <QueryLoader
-          queryKey="paymentNotices"
-          loaderComponent={<PaymentNoticesListSkeleton />}
-          atLeast={5000}>
-          <Content />
-        </QueryLoader>
+        {optIn.value ? <Notices /> : <PaymentNotice.Preview />}
       </Stack>
     </>
   );

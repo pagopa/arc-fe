@@ -6,6 +6,7 @@ import { Api } from '../../generated/apiClient';
 import loaders from './loaders';
 import { datetools } from './datetools';
 import * as zodSchema from '../../generated/zod-schema';
+import storage from './storage';
 
 export default {
   style,
@@ -17,5 +18,6 @@ export default {
   apiClient: new Api({ baseURL: config.baseURL, timeout: 1000 }),
   loaders,
   zodSchema,
-  datetools
+  datetools,
+  storage
 };

@@ -16,7 +16,8 @@ import { useTranslation } from 'react-i18next';
 export const _Preview = () => {
   const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
-  const contex = React.useContext(Modalcontext);
+  const { open } = React.useContext(Modalcontext);
+
   return (
     <Stack
       sx={{ backgroundColor: 'background.paper' }}
@@ -31,7 +32,7 @@ export const _Preview = () => {
           <Typography>{t('app.paymentNotice.preview.description')}</Typography>
         </Stack>
         <Box display="flex" justifyContent={{ xs: 'stretch', sm: 'flex-start' }}>
-          <Button size="large" variant="contained" onClick={() => contex.open()}>
+          <Button size="large" variant="contained" onClick={open}>
             {t('app.paymentNotice.preview.action')}
           </Button>
         </Box>

@@ -2,6 +2,7 @@ import { Button, Card, CardActions, Modal, Stack, Typography } from '@mui/materi
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
+import utils from 'utils';
 
 interface IContex {
   show: boolean;
@@ -43,8 +44,12 @@ const Modale = () => {
                 variant="contained"
                 size="large"
                 onClick={() => {
+                  if (utils.storage.pullPaymentsOptIn.set()) {
+                    navigate(ArcRoutes.PAYMENT_NOTICES);
+                  } else {
+                    console.warn('Something went wrong trying to set a session storage item');
+                  }
                   close();
-                  navigate(ArcRoutes.PAYMENT_NOTICES);
                 }}>
                 continua
               </Button>

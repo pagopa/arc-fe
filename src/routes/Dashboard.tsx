@@ -11,12 +11,15 @@ import { PaymentNotice } from 'components/PaymentNotice';
 import { TransactionListSkeleton } from 'components/Skeleton';
 import PaymentButton from 'components/PaymentButton';
 import { Empty, Retry, TransactionsList } from 'components/Transactions';
+import { useSignals } from '@preact/signals-react/runtime';
 
 const Dashboard = () => {
   const { t } = useTranslation();
   const { data, isError, refetch } = utils.loaders.getTransactions();
   const navigate = useNavigate();
   const theme = useTheme();
+  const optIn = utils.storage.pullPaymentsOptIn.get();
+  useSignals();
 
   const rows =
     data &&
@@ -47,7 +50,7 @@ const Dashboard = () => {
       </Stack>
       <Stack gap={5}>
         <IOAlert />
-        <PaymentNotice.Preview />
+        {!optIn.value && <PaymentNotice.Preview />}
         <Stack
           direction={{ sm: 'row' }}
           justifyContent="space-between"
