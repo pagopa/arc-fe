@@ -16,40 +16,13 @@ const mockUseReceiptData = jest.mocked(useReceiptData);
 
 describe('TransactionDetails component', () => {
   it('should render as expected', () => {
-    mockUseReceiptData.mockImplementation(() => ({ isPending: false, error: false, receipt: '' }));
+    mockUseReceiptData.mockImplementation(jest.fn());
     render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
-  });
-
-  const receiptDownloadBtnTestId = 'receipt-download-btn';
-  it('Receipt download should be disabled while the request is pending', () => {
-    mockUseReceiptData.mockImplementation(() => ({ isPending: true, error: false, receipt: '' }));
-    render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
-    const button = screen.getByTestId(receiptDownloadBtnTestId);
-    expect(button).toBeDisabled();
-  });
-
-  it('Receipt download should be disabled in case of error', () => {
-    mockUseReceiptData.mockImplementation(() => ({ isPending: false, error: true, receipt: '' }));
-    render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
-    const button = screen.getByTestId(receiptDownloadBtnTestId);
-    expect(button).toBeDisabled();
-  });
-
-  it('Receipt download should be enabled on request success', () => {
-    const urlTest = 'test-url';
-    mockUseReceiptData.mockImplementation(() => ({
-      isPending: false,
-      error: false,
-      receipt: urlTest
-    }));
-    render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
-    const button = screen.getByTestId(receiptDownloadBtnTestId);
-    expect(button).not.toBeDisabled();
-    expect(button.getAttribute('href')).toBe(urlTest);
   });
 
   it('should truncate transactionId if longer than 20 ', () => {
-    mockUseReceiptData.mockImplementation(() => ({ isPending: false, error: false, receipt: '' }));
+    mockUseReceiptData.mockImplementation(jest.fn());
+
     render(
       <TransactionDetails
         transactionData={{

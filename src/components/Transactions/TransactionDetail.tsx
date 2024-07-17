@@ -15,7 +15,19 @@ export default function TransactionDetail({
 }) {
   const theme = useTheme();
   const { t } = useTranslation();
-  const receiptData = useReceiptData(transactionData.transactionId);
+
+  const getReceipt = async () => {
+    try {
+      const receiptLink = await useReceiptData(transactionData.transactionId);
+      if (receiptLink) {
+        window.open(receiptLink);
+      } else {
+        console.warn('No receipt available');
+      }
+    } catch (e) {
+      console.warn('No notice receipt available');
+    }
+  };
 
   return (
     <Grid container>
@@ -36,10 +48,9 @@ export default function TransactionDetail({
           endIcon={<Download />}
           sx={{ width: { xs: '100%', sm: 'fit-content' } }}
           size="large"
-          target="_blank"
-          href={receiptData.receipt || ''}
-          variant="contained"
-          disabled={receiptData.isPending || receiptData.error}>
+          onClick={getReceipt}
+          variant="contained">
+          {' '}
           {t('app.transactionDetail.downloadReceipt')}
         </Button>
       </Stack>
