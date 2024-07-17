@@ -106,12 +106,19 @@
       "alert": {
         "info": "Gli avvisi sono stati recuperati dagli archivi degli enti creditori aderenti al servizio.",
         "action": "Segnala un problema"
+      },
+      "optin": {
+        "title": "Consenti a PagoPA di ricercare i tuoi avvisi?",
+        "body": "Se confermi, consenti a PagoPA di ricercare gli avvisi di pagamento a tuo nome tra gli archivi degli enti aderenti al servizio.",
+        "privacy": "Proseguendo accetti l’<a1>Informativa Privacy</a1> e i <a2>Termini e Condizioni d’uso</a2> del servizio."
       }
     },
     "routes": {
       "back": "Indietro",
       "exit": "Esci",
       "cancel": "Annulla",
+      "continue": "Continua",
+      "consent": "Consenti",
       "breadcrumbs": "breadcrumbs",
       "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
       "breadcrumbsElement": "Elemento breadcrumbs",
@@ -121,7 +128,6 @@
       "user": "I tuoi dati",
       "paymentNotices": "Avvisi di pagamento",
       "paymentNoticeDetail": "Dettaglio avviso"
-
     },
     "transactionDetail": {
       "title": "Dettaglio operazione",

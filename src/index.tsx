@@ -1,4 +1,5 @@
 import React from 'react';
+import '@preact/signals-react/auto';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

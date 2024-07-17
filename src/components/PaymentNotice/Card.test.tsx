@@ -8,6 +8,7 @@ import { PaymentNotice } from './index';
 import { BrowserRouter } from 'react-router-dom';
 
 jest.mock('react-i18next', () => ({
+  ...jest.requireActual('react-i18next'),
   useTranslation: jest.fn()
 }));
 const mockedUsedNavigate = jest.fn();

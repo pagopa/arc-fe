@@ -51,7 +51,7 @@ export const _Card = ({ payee, amount, paymentInfo, expiringDate, id }: CardProp
   return (
     <Paper elevation={16}>
       <Stack
-        component="section"
+        component="article"
         borderRadius={1}
         padding={3}
         gap={3}
@@ -61,10 +61,10 @@ export const _Card = ({ payee, amount, paymentInfo, expiringDate, id }: CardProp
         <Stack direction="row" alignItems="center" gap={2} component="header">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
           <Stack maxWidth={{ xs: 110, sm: 150, md: 480, lg: 460, xl: 600 }}>
-            <Typography component="h2" variant="subtitle1" noWrap>
+            <Typography component="h1" variant="subtitle1" noWrap>
               {payee.name}
             </Typography>
-            <Typography component="p">{paymentInfo}</Typography>
+            <Typography component="h2">{paymentInfo}</Typography>
           </Stack>
         </Stack>
         <Stack direction="row" gap={2} alignItems="center" component="div">

@@ -17,6 +17,7 @@ const Dashboard = () => {
   const { data, isError, refetch } = utils.loaders.getTransactions();
   const navigate = useNavigate();
   const theme = useTheme();
+  const optIn = utils.storage.pullPaymentsOptIn.get();
 
   const rows =
     data &&
@@ -47,7 +48,7 @@ const Dashboard = () => {
       </Stack>
       <Stack gap={5}>
         <IOAlert />
-        <PaymentNotice.Preview />
+        {!optIn.value && <PaymentNotice.Preview />}
         <Stack
           direction={{ sm: 'row' }}
           justifyContent="space-between"
