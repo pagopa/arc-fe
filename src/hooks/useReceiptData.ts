@@ -7,7 +7,6 @@ export const useReceiptData = (transactionId: string) => {
   const [error, setError] = useState<boolean>(false);
 
   const getData = async () => {
-    console.log(transactionId);
     try {
       const { data } = await utils.apiClient.transactions.getTransactionReceipt(transactionId, {
         format: 'blob'
