@@ -21,8 +21,10 @@ const PullPaymentsModal = (props: { open: boolean }) => {
   const { t } = useTranslation();
   return (
     <Modal
-      aria-labelledby="parent-modal-title"
-      aria-describedby="parent-modal-description"
+      id="pull-payments-modal"
+      data-testid="pull-payments-modal"
+      aria-labelledby="pull-payments-modal"
+      aria-describedby="pull-payments-moda-description"
       onClose={utils.modal.close}
       open={props.open}>
       <Backdrop
