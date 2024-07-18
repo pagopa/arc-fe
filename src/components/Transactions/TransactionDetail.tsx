@@ -5,8 +5,8 @@ import MasterCard from '../../assets/creditcard/mastercard.png';
 import { TransactionDetail } from '../../models/TransactionDetail';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { useReceiptData } from 'hooks/useReceiptData';
 import utils from 'utils';
+import { getReceipt } from 'utils/files';
 
 export default function TransactionDetail({
   transactionData
@@ -15,7 +15,6 @@ export default function TransactionDetail({
 }) {
   const theme = useTheme();
   const { t } = useTranslation();
-  const receiptData = useReceiptData(transactionData.transactionId);
 
   return (
     <Grid container>
@@ -36,10 +35,10 @@ export default function TransactionDetail({
           endIcon={<Download />}
           sx={{ width: { xs: '100%', sm: 'fit-content' } }}
           size="large"
-          variant="contained"
-          disabled={receiptData.isPending || receiptData.error}
-          target="_blank"
-          href={receiptData.receipt}>
+          onClick={() => {
+            getReceipt(transactionData.transactionId);
+          }}
+          variant="contained">
           {t('app.transactionDetail.downloadReceipt')}
         </Button>
       </Stack>
