@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArcRoutes } from 'routes/routes';
 import {
   Box,
@@ -28,8 +28,12 @@ export const Sidebar: React.FC = () => {
   const theme = useTheme();
   const lg = useMediaQuery(theme.breakpoints.up('lg'));
 
-  const { collapsed, changeMenuState } = useCollapseMenu(!lg);
-  const overlay = !(lg || collapsed);
+  const { collapsed, changeMenuState, setOverlay, overlay } = useCollapseMenu(!lg);
+
+  useEffect(() => {
+    setOverlay(!(lg || collapsed));
+  }, [lg, collapsed]);
+  //This useEffect is needed, otherwise React will complain about the component being re rendered while another re render is in the queue.
 
   const styles = sidebarStyles(theme, collapsed);
 
@@ -51,7 +55,6 @@ export const Sidebar: React.FC = () => {
     }
   ];
 
-  document.body.style.overflowY = overlay ? 'hidden' : 'auto';
 
   return (
     <>
@@ -74,7 +77,7 @@ export const Sidebar: React.FC = () => {
                 <IconButton
                   data-testid="collapseClose"
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
-                  onClick={() => changeMenuState(collapsed)}
+                  onClick={() => changeMenuState()}
                   size="large">
                   <CloseIcon />
                 </IconButton>
@@ -88,7 +91,7 @@ export const Sidebar: React.FC = () => {
             aria-label={t('menu.description')}>
             {menuItems.map((item, index) => (
               <SidebarMenuItem
-                onClick={() => !lg && changeMenuState(false)}
+                onClick={() => !lg && changeMenuState()}
                 collapsed={collapsed}
                 item={item}
                 key={index}
@@ -105,7 +108,7 @@ export const Sidebar: React.FC = () => {
                 <IconButton
                   data-testid="hamburgerButton"
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
-                  onClick={() => changeMenuState(collapsed)}
+                  onClick={() => changeMenuState()}
                   size="large">
                   <MenuIcon />
                   {!lg && (

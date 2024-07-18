@@ -26,6 +26,7 @@ import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
+import utils from 'utils';
 
 /**
  * This component is considered private and should not be used directly.
@@ -37,25 +38,20 @@ import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentNoticeDetail }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
+  const handleClose = () => utils.modal.close(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
+  const isOpen = utils.modal.status.id.value == utils.modal.ModalId.PAYMENT_NOTICE_MODAL;
 
-  const openModal = () => {
-    setOpen(true);
-  };
-  document.body.style.overflowY = open == true ? 'hidden' : 'auto';
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <Grid container>
       <Modal
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <Backdrop
           sx={{ background: alpha(theme.palette.text.primary, 0.7), justifyContent: 'flex-end' }}
-          open={open}
+          open={isOpen}
           onClick={handleClose}>
           <Box
             sx={{ background: theme.palette.background.default }}
@@ -136,7 +132,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                         data-testid="infoButton"
                         aria-label={t('app.info')}
                         onClick={() => {
-                          openModal();
+                          open();
                         }}
                         size="small">
                         <InfoOutlined color="primary" sx={{ fontSize: 24 }} />

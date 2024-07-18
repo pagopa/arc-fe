@@ -1,11 +1,21 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import utils from 'utils';
 
 function useCollapseMenu(initialCollapsedState: boolean) {
-  const [collapsed, setCollapsed] = useState<boolean>(initialCollapsedState);
+  useEffect(() => {
+    utils.sidemenu.setCollapsed(initialCollapsedState);
+    utils.sidemenu.setOverlay(false);
+  }, []);
 
-  const changeMenuState = (collapsed: boolean) => setCollapsed(!collapsed);
+  const collapsed = utils.sidemenu.status.isMenuCollapsed.value;
+  const overlay = utils.sidemenu.status.overlay.value;
+
+  const changeMenuState = () => utils.sidemenu.setCollapsed(!collapsed);
+  const setOverlay = (overlayActive: boolean) => utils.sidemenu.setOverlay(overlayActive);
   return {
     collapsed,
+    overlay,
+    setOverlay,
     changeMenuState
   };
 }
