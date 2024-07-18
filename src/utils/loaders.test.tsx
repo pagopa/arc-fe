@@ -12,7 +12,8 @@ jest.mock('utils', () => {
     apiClient: {
       transactions: {
         getTransactionsList: jest.fn(),
-        getTransactionDetails: jest.fn()
+        getTransactionDetails: jest.fn(),
+        getTransactionReceipt: jest.fn()
       }
     },
     zodSchema: {
@@ -69,6 +70,29 @@ describe('transactionsApi', () => {
       expect(mockTransactionDetails).toHaveBeenCalledWith(transactionId);
       expect(mockZodTransactionDetailResponse).toHaveBeenCalledWith(mockTransaction);
       expect(result.current.data).toEqual(mockTransaction);
+    });
+  });
+});
+
+describe('transactionReceipt', () => {
+  const queryClient = new QueryClient();
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('getReceiptApi is called', async () => {
+    const transactionId = '1';
+    const mockTransactionReceipt = utils.apiClient.transactions.getTransactionReceipt as jest.Mock;
+
+    mockTransactionReceipt.mockResolvedValue({ data: null });
+    renderHook(() => transactionsApi.getReceiptData(transactionId), { wrapper });
+
+    await waitFor(() => {
+      expect(mockTransactionReceipt).toHaveBeenCalledWith(transactionId, { format: 'blob' });
     });
   });
 });

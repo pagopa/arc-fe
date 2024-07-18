@@ -2,17 +2,17 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionDetails } from './';
-import { useReceiptData } from 'hooks/useReceiptData';
 import i18n from 'translations/i18n';
 import '@testing-library/jest-dom';
+import { getReceipt } from 'utils/files';
 
-jest.mock('hooks/useReceiptData');
+jest.mock('utils/files');
 
 void i18n.init({
   resources: {}
 });
 
-const mockUseReceiptData = jest.mocked(useReceiptData);
+const mockUseReceiptData = jest.mocked(getReceipt);
 
 describe('TransactionDetails component', () => {
   it('should render as expected', () => {
