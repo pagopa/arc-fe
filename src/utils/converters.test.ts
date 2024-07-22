@@ -38,7 +38,7 @@ describe('prepareRowsData function', () => {
       {
         amount: 18000,
         isCart: true,
-        payedByMe: true,
+        paidByMe: true,
         payeeName: 'Comune di Milano',
         payeeTaxCode: 'MI_XXX',
         registeredToMe: true,
@@ -48,14 +48,14 @@ describe('prepareRowsData function', () => {
       {
         amount: 6520,
         isCart: true,
-        payedByMe: true,
+        paidByMe: true,
         registeredToMe: true,
         transactionDate: '2022-08-10T15:52:15Z',
         transactionId: '2'
       },
       {
         isCart: true,
-        payedByMe: true,
+        paidByMe: true,
         registeredToMe: true,
         transactionDate: '2022-08-10T15:52:15Z'
       }
@@ -133,7 +133,7 @@ describe('prepareRowsData function', () => {
       {
         amount: 18000,
         isCart: true,
-        payedByMe: true,
+        paidByMe: true,
         payeeName: 'Comune di Milano',
         payeeTaxCode: '00493410583',
         registeredToMe: true,

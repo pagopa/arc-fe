@@ -36,10 +36,9 @@ describe('useNormalizedTransactions', () => {
 
   it('returns transactions and processes data correctly', async () => {
     const mockTransactions = {
-      // TODO typo should be fixed on the backend payedByMe -> paidByMe
       transactions: [
-        { id: '1', payedByMe: true, registeredToMe: false },
-        { id: '2', payedByMe: false, registeredToMe: true }
+        { id: '1', paidByMe: true, registeredToMe: false },
+        { id: '2', paidByMe: false, registeredToMe: true }
       ]
     };
 
