@@ -17,11 +17,12 @@ import Login from 'routes/Login';
 import Assistance from 'routes/Assistance';
 import { PaymentNotices } from 'routes/PaymentNotices';
 import PaymentNoticeDetail from 'routes/PaymentNoticeDetail';
+import { RouteGuard } from 'components/RouteGuard';
 
 const router = createBrowserRouter([
   {
     path: '*',
-    element: <Navigate replace to={ArcRoutes.DASHBOARD} />,
+    element: <Navigate replace to={ArcRoutes.LOGIN} />,
     ErrorBoundary: () => {
       throw useRouteError();
     }
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <RouteGuard itemKeys={['sessionToken']} redirectTo={ArcRoutes.LOGIN}>
+        <Layout />
+      </RouteGuard>
+    ),
     ErrorBoundary: () => {
       throw useRouteError();
     },

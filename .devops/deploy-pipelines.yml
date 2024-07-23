@@ -48,8 +48,6 @@ variables:
     storage_account: '$(DEV_STORAGE_ACCOUNT_NAME)'
     api_host: 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1'
     checkout_host: 'https://dev.checkout.pagopa.it'
-    selfHostedAgentPool: $(DEV_AGENT_POOL)
-
 
 resources:
   repositories:
@@ -93,8 +91,6 @@ stages:
   - stage: stage_deploy
     displayName: 'Deploy to ${{ variables.environment }} storage'
     condition: succeeded()
-    pool:
-      name: $(selfHostedAgentPool)
     jobs:
       - job: job_deploy
         displayName: 'Deploy'
@@ -114,11 +110,10 @@ stages:
               inlineScript: |
                 az storage blob sync --container '$web' --account-name $(storage_account) --source "$(Pipeline.Workspace)/Bundle"
 
-# It's commented out until the CDN is disabled
-#          - task: AzureCLI@1
-#            displayName: 'Purge CDN endpoint'
-#            inputs:
-#              azureSubscription: '$(AZURE_SUBSCRIPTION)'
-#              scriptLocation: inlineScript
-#              inlineScript: |
-#                az cdn endpoint purge -g $(resource_group) -n $(cdn_endpoint) --profile-name $(cdn_profile) --content-paths "/*"
+          - task: AzureCLI@1
+            displayName: 'Purge CDN endpoint'
+            inputs:
+              azureSubscription: '$(AZURE_SUBSCRIPTION)'
+              scriptLocation: inlineScript
+              inlineScript: |
+                az cdn endpoint purge -g $(resource_group) -n $(cdn_endpoint) --profile-name $(cdn_profile) --content-paths "/*"
