@@ -22,8 +22,7 @@ export const useNormalizedTransactions = () => {
 
   const transactions = {
     all: getTransactions(),
-    // TODO typo should be fixed on the backend payedByMe -> paidByMe
-    paidByMe: getTransactions((transaction) => transaction.payedByMe),
+    paidByMe: getTransactions((transaction) => transaction.paidByMe),
     registeredToMe: getTransactions((transaction) => transaction.registeredToMe),
     queryResult
   };
