@@ -87,9 +87,16 @@ export const getReceiptData = async (transactionId: string) => {
   return data;
 };
 
+export const getLogin = async () => {
+  /* WIP */
+  await utils.apiClient.login.getAuthenticationEndpoint().catch((error) => {
+    console.log('ERROR', error);
+  });
+};
 export default {
   getTransactions,
   getTransactionDetails,
   getPaymentNotices,
-  getReceiptData
+  getReceiptData,
+  getLogin
 };
