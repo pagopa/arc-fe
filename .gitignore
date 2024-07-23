@@ -5,6 +5,7 @@ src/env-config.js
 /generated
 /.pnp
 .pnp.js
+.idea
 
 # testing
 /coverage
