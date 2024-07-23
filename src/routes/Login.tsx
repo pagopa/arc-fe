@@ -101,7 +101,11 @@ const Login = () => {
                       role="button"
                       aria-label={t('app.login.cie')}
                       fullWidth
-                      onClick={() => window.location.replace('/api/login/oneidentity')}
+                      onClick={() =>
+                        window.location.replace(
+                          'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity'
+                        )
+                      }
                       sx={{
                         borderRadius: 1,
                         width: '100%',
