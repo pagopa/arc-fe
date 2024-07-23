@@ -125,7 +125,16 @@ const Login = () => {
                       link1: (
                         <Link href="#" fontWeight={800} />
                       ) /* I've kept two separate components because in the future we will have two different destination addresses which will be defined here. */,
-                      link2: <Link href="#" fontWeight={800} />
+                      link2: (
+                        <Link
+                          href="#"
+                          fontWeight={800}
+                          onClick={() => {
+                            window.sessionStorage.setItem('sessionToken', 'dummy');
+                            window.location.replace('/');
+                          }}
+                        />
+                      )
                     }}
                   />
                 </Typography>
