@@ -10,6 +10,7 @@ const AssistanceBackModal = (props: { open: boolean }) => {
   const { t } = useTranslation();
   return (
     <Modal
+      data-testid="detail-payment-info-modal"
       open={props.open}
       disableScrollLock
       onClose={utils.modal.close}
