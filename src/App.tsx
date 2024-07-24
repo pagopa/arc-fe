@@ -18,6 +18,7 @@ import Assistance from 'routes/Assistance';
 import { PaymentNotices } from 'routes/PaymentNotices';
 import PaymentNoticeDetail from 'routes/PaymentNoticeDetail';
 import { RouteGuard } from 'components/RouteGuard';
+import utils from 'utils';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,9 @@ const router = createBrowserRouter([
         handle: {
           backButton: true,
           backButtonText: 'exit',
+          backButtonFunction: () => {
+            utils.modal.open(utils.modal.ModalId.ASSISTANCEBACK);
+          },
           sidebar: {
             visibile: false
           }
