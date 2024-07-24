@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, Card, CardActions } from '@mui/material';
+import PaymentButton from 'components/PaymentButton';
 
 /**
  * This component is considered private and should not be used directly.
@@ -26,13 +27,7 @@ export const _Empty = () => {
           </Typography>
           <Typography variant="body1">{t('app.paymentNotice.empty.description')}</Typography>
           <Box mt={3} width={'100%'}>
-            <Button
-              variant="contained"
-              role="button"
-              aria-label={t('app.paymentNotice.empty.button')}
-              size="large">
-              {t('app.paymentNotice.empty.button')}
-            </Button>
+          <PaymentButton />
           </Box>
         </Stack>
       </CardActions>
