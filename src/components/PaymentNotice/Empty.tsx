@@ -2,7 +2,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, Card, CardActions } from '@mui/material';
+import { Box, Card, CardActions } from '@mui/material';
 import PaymentButton from 'components/PaymentButton';
 
 /**
@@ -27,7 +27,7 @@ export const _Empty = () => {
           </Typography>
           <Typography variant="body1">{t('app.paymentNotice.empty.description')}</Typography>
           <Box mt={3} width={'100%'}>
-          <PaymentButton />
+            <PaymentButton />
           </Box>
         </Stack>
       </CardActions>
