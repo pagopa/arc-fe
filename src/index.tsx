@@ -20,6 +20,8 @@ utils.apiClient.instance.interceptors.response.use(
     }
   }
 );
+
+utils.apiClient.instance.interceptors.response.use((response) => response);
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

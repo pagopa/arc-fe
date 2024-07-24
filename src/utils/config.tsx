@@ -9,7 +9,8 @@ const {
   ENV = 'LOCAL',
   SHOW_STATUS_INFO = false,
   ENTITIES_LOGO_CDN,
-  CHECKOUT_HOST = 'https://dev.checkout.pagopa.it'
+  CHECKOUT_HOST = 'https://dev.checkout.pagopa.it',
+  LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity'
 } = process.env;
 
 type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
@@ -21,6 +22,7 @@ const APIHOST_schema = z.string().url();
 const SHOW_STATUS_INFO_schema: z.ZodType<BOOLISH> = z.enum(['true', 'false']);
 const ENTITIES_LOGO_CDN_schema = z.string().url();
 const CHECKOUT_HOST_schema = z.string().url();
+const LOGIN_URL_schema = z.string().url();
 
 try {
   ENV_Schema.parse(process.env.ENV);
@@ -28,6 +30,7 @@ try {
   SHOW_STATUS_INFO_schema.parse(process.env.SHOW_STATUS_INFO);
   ENTITIES_LOGO_CDN_schema.parse(process.env.ENTITIES_LOGO_CDN);
   CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
+  LOGIN_URL_schema.parse(process.env.LOGIN_URL);
 } catch (e) {
   console.error('ENV variables validation fails', (e as ZodError).issues);
 }
@@ -42,6 +45,7 @@ type Config = {
   assistanceLink: string;
   checkoutHost: string;
   missingValue: string;
+  loginUrl: string;
 };
 
 const product: ProductEntity = {
@@ -80,6 +84,7 @@ const config: Config = {
   entitiesLogoCdn: ENTITIES_LOGO_CDN,
   assistanceLink,
   checkoutHost: CHECKOUT_HOST,
+  loginUrl: LOGIN_URL,
   /** a global character to be shown
    * when a info is missing
    */
