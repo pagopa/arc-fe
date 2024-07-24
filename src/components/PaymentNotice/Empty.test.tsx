@@ -22,6 +22,6 @@ describe('PaymentNotice.Empty Component', () => {
   it('renders the button', () => {
     renderWithTheme(<PaymentNotice.Empty />);
 
-    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByRole('link')).toBeInTheDocument();
   });
 });
