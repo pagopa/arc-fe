@@ -21,12 +21,11 @@ const defaultRouteHandle: RouteHandleObject = {
 
 export function Layout() {
   const matches = useMatches();
- 
 
   const overlay = utils.sidemenu.status.overlay.value;
   const modalOpen = utils.modal.status.isOpen.value;
 
-  document.body.style.overflow = (modalOpen) ? "hidden" : "auto";
+  document.body.style.overflow = modalOpen || overlay ? 'hidden' : 'auto';
 
   const { crumbs, sidebar, backButton, backButtonText } = {
     ...defaultRouteHandle,

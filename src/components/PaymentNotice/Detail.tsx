@@ -23,7 +23,7 @@ import {
   useTheme
 } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 import utils from 'utils';
@@ -39,13 +39,14 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
   const theme = useTheme();
   const { t } = useTranslation();
   const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
-  const handleClose = () => utils.modal.close(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
+  const handleClose = () => utils.modal.close();
   const isOpen = utils.modal.status.id.value == utils.modal.ModalId.PAYMENT_NOTICE_MODAL;
 
   return (
     <Grid container>
       <Modal
         open={isOpen}
+        disableScrollLock
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">

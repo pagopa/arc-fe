@@ -55,7 +55,6 @@ export const Sidebar: React.FC = () => {
     }
   ];
 
-
   return (
     <>
       <Box sx={styles.container}>
