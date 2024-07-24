@@ -1,6 +1,9 @@
 name: Deploy Storybook (develop) on GH Pages
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - 'develop'
 
 permissions:
   contents: read
