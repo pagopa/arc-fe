@@ -19,6 +19,7 @@ const config: StorybookConfig = {
     autodocs: 'tag'
   },
     async viteFinal(config) {
+    (config.define = { 'process.env': {} });
     return mergeConfig(config, {
       plugins: [viteTsconfig()],
     });

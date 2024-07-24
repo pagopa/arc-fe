@@ -17,7 +17,7 @@
     "build": "yarn generate && tsc & parcel build",
     "type-check": "tsc",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "yarn generate && storybook build",
     "test": "jest",
     "coverage": "jest --coverage",
     "axe": "axe localhost:1234, localhost:1234/transactions, localhost:1234/transaction/1, localhost:1234/user,  --include '#root'",
