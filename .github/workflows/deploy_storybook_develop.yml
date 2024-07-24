@@ -1,5 +1,4 @@
 name: Deploy Storybook (develop) on GH Pages
-
 on:
   push:
     branches:
