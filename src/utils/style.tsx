@@ -16,6 +16,7 @@ const customTheme = createTheme({
     }
   },
   components: {
+    ...theme.components,
     MuiTab: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -33,6 +34,7 @@ const customTheme = createTheme({
       }
     },
     MuiButton: {
+      ...theme.components?.MuiButton,
       styleOverrides: {
         sizeLarge: ({ theme }) => ({
           minHeight: theme.spacing(6)
