@@ -12,6 +12,8 @@ export const HealthCheck = () => {
       };
       checkHealth();
     }
+    // dont't remove this console log, it's useful to debug and have a feedback about the running version
+    console.log(`ARC FE version: ${utils.config.version}`);
   }, []);
 
   return null; // This component does not render anything

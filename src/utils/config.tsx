@@ -10,7 +10,8 @@ const {
   SHOW_STATUS_INFO = false,
   ENTITIES_LOGO_CDN,
   CHECKOUT_HOST = 'https://dev.checkout.pagopa.it',
-  LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity'
+  LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity',
+  VERSION = ''
 } = process.env;
 
 type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
@@ -18,6 +19,7 @@ type BOOLISH = 'true' | 'false';
 
 // ENV variables validation
 const ENV_Schema: z.ZodType<ENVIRONMENT> = z.enum(['LOCAL', 'DEV', 'UAT', 'PROD']);
+const VERSION_schema = z.string();
 const APIHOST_schema = z.string().url();
 const SHOW_STATUS_INFO_schema: z.ZodType<BOOLISH> = z.enum(['true', 'false']);
 const ENTITIES_LOGO_CDN_schema = z.string().url();
@@ -31,12 +33,14 @@ try {
   ENTITIES_LOGO_CDN_schema.parse(process.env.ENTITIES_LOGO_CDN);
   CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
   LOGIN_URL_schema.parse(process.env.LOGIN_URL);
+  VERSION_schema.parse(process.env.VERSION);
 } catch (e) {
   console.error('ENV variables validation fails', (e as ZodError).issues);
 }
 
 type Config = {
   env: ENVIRONMENT;
+  version: string;
   baseURL: string;
   product: ProductEntity;
   pagopaLink: RootLinkType;
@@ -68,6 +72,8 @@ const pagopaLink: RootLinkType = {
 const config: Config = {
   /** Running environment, usually valued by pipelines */
   env: ENV as ENVIRONMENT,
+  /** Running version, usually valued by pipelines */
+  version: VERSION,
   /** the prefix of all api calls
    *  works in conjunction with the autogenrated API client
    *  see the command generate in the package.json file
