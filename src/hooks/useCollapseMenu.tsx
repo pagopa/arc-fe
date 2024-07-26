@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useEffect, useState } from 'react';
 import utils from 'utils';
@@ -8,7 +7,7 @@ function useCollapseMenu(initialCollapsedState: boolean) {
     utils.sidemenu.setCollapsed(initialCollapsedState);
     utils.sidemenu.setOverlay(false);
   }, []);
-  const theme = useTheme();
+  const theme = utils.style.theme;
 
   const isBelowLg = useMediaQuery(theme.breakpoints.down('lg'));
   const [wasBelowLg, setWasBelowLg] = useState(isBelowLg);
@@ -22,9 +21,9 @@ function useCollapseMenu(initialCollapsedState: boolean) {
 
   useEffect(() => {
     if (isBelowLg && !wasBelowLg) {
-      utils.sidemenu.setCollapsed(true);
+      setCollapsed(true);
     } else if (!isBelowLg && wasBelowLg) {
-      utils.sidemenu.setCollapsed(false);
+      setCollapsed(false);
     }
     setWasBelowLg(isBelowLg);
   }, [isBelowLg]);
