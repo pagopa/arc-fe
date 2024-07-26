@@ -11,6 +11,9 @@ export const HealthCheck = () => {
         // await utils.apiClient.info.healthCheck();
       };
       checkHealth();
+    } else {
+      // dont't remove this console log, it's useful to debug and have a feedback about the running version
+      console.log(`ARC FE version: ${utils.config.version}`);
     }
   }, []);
 

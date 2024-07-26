@@ -11,6 +11,7 @@ import { Header } from './Header';
 import { BackButton } from './BackButton';
 import { ArcRoutes } from 'routes/routes';
 import { ModalSystem } from './Modals';
+import utils from 'utils';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
@@ -20,6 +21,11 @@ const defaultRouteHandle: RouteHandleObject = {
 
 export function Layout() {
   const matches = useMatches();
+
+  const overlay = utils.sidemenu.status.overlay.value;
+  const modalOpen = utils.modal.status.isOpen.value;
+
+  document.body.style.overflow = modalOpen || overlay ? 'hidden' : 'auto';
 
   const { crumbs, sidebar, backButton, backButtonText } = {
     ...defaultRouteHandle,

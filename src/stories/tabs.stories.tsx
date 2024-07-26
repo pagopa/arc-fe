@@ -6,7 +6,7 @@ import { dummyTransactionsData } from './utils/mocks';
 
 const meta: Meta<typeof Tabs> = {
   component: Tabs,
-  title: 'Tabs'
+  title: 'Components/Tabs'
 };
 
 export default meta;

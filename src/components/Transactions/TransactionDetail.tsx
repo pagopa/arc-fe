@@ -2,7 +2,7 @@ import { Download } from '@mui/icons-material';
 import { Box, Button, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import MasterCard from '../../assets/creditcard/mastercard.png';
-import { TransactionDetail } from '../../models/TransactionDetail';
+import { type TransactionDetail as TransactionDetailType } from '../../models/TransactionDetail';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import utils from 'utils';
@@ -11,7 +11,7 @@ import { getReceipt } from 'utils/files';
 export default function TransactionDetail({
   transactionData
 }: {
-  transactionData: TransactionDetail;
+  transactionData: TransactionDetailType;
 }) {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -194,7 +194,7 @@ export default function TransactionDetail({
                 </Typography>
               </Stack>
 
-              {transactionData.payer && (
+              {transactionData?.payer && (
                 <Grid item xs={12} sm={12}>
                   <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.paidBy')}
@@ -218,7 +218,7 @@ export default function TransactionDetail({
 
               <Grid item xs={12} sm={12}>
                 <Stack spacing={2}>
-                  {transactionData.walletInfo && (
+                  {transactionData?.walletInfo && (
                     <>
                       <Grid container>
                         <Grid item xs={1} paddingTop={3.065} pr={2}>
