@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import { useIsFetching } from '@tanstack/react-query';
 
-interface QueryLoaderProps {
+export interface QueryLoaderProps {
   queryKey: string;
   children: React.ReactNode;
   loaderComponent?: React.ReactNode;

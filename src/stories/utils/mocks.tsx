@@ -93,8 +93,8 @@ const shortTransactionDetail: TransactionDetail = {
   PSP: 'Nexi',
   dateTime: '11/02/2023',
   subject: ' Bollo auto 2023',
-  debtor: 'Matteo Rossi',
-  debtorFiscalCode: 'MTTRSS74B23F205K',
+  debtor: 'Aldo Baldo',
+  debtorFiscalCode: 'ALDOBALDO4B23F205K',
   creditorEntity: 'ACI',
   creditorFiscalCode: '00000000',
   noticeCode: '0000 0000 0000 0000',
@@ -120,6 +120,7 @@ export const dummyTransactionsData: {
   ownedByMe: TransactionProps[];
   transactionData: TransactionDetail;
   shortTransactionData: TransactionDetail;
+  transactionDetail: TransactionDetail;
   transactionReceipt: unknown;
 } = {
   all: [Transaction_dc379158, Transaction_ffe1324e, Transaction_a305f59a, Transaction_3d40b8e0],
@@ -127,5 +128,6 @@ export const dummyTransactionsData: {
   ownedByMe: [Transaction_a305f59a, Transaction_3d40b8e0],
   transactionData: transactionDetail,
   shortTransactionData: shortTransactionDetail,
-  transactionReceipt
+  transactionReceipt,
+  transactionDetail
 };
