@@ -66,7 +66,7 @@ const Login = () => {
               <Card
                 raised
                 sx={{
-                  borderRadius: '16px',
+                  borderRadius: 2,
                   padding: 2,
                   width: '100%',
                   maxWidth: { lg: '25%', xs: '75%', sm: '50%' } //I used SEND's login page as a reference for sizes, since the design is in pixels.
@@ -78,10 +78,11 @@ const Login = () => {
                       size="large"
                       startIcon={<SpidIcon />}
                       role="button"
+                      onClick={() => window.location.replace(utils.config.loginUrl)}
                       sx={{
-                        borderRadius: '4px',
+                        borderRadius: 2,
                         width: '100%',
-                        marginBottom: '5px'
+                        marginBottom: 1
                       }}
                       aria-label={t('app.login.spid')}>
                       <Typography
@@ -99,10 +100,11 @@ const Login = () => {
                       role="button"
                       aria-label={t('app.login.cie')}
                       fullWidth
+                      onClick={() => window.location.replace(utils.config.loginUrl)}
                       sx={{
-                        borderRadius: '4px',
+                        borderRadius: 1,
                         width: '100%',
-                        marginBottom: '5px'
+                        marginBottom: 1
                       }}
                       startIcon={<CieIcon />}>
                       <Typography
@@ -145,7 +147,6 @@ const Login = () => {
                   borderRadius: 1,
                   width: '100%',
                   maxWidth: { lg: '25%', xs: '75%', sm: '50%' },
-
                   borderLeft: 'solid',
                   borderLeftWidth: 4,
                   borderLeftColor: theme.palette.primary.main

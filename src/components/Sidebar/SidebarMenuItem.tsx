@@ -18,39 +18,36 @@ function renderIcon(Icon: SvgIconComponent | (() => JSX.Element)) {
 export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
   const theme = useTheme();
 
-  function ListItemLink() {
-    return (
-      <ListItem disablePadding>
-        <ListItemButton
-          component={NavLink}
-          to={item.route}
-          onClick={onClick}
-          sx={{
-            px: 3,
-            '&.active': {
-              fontWeight: 'bold',
-              backgroundColor: alpha(theme.palette.primary.main, 0.08),
-              borderRight: '2px solid',
-              borderColor: theme.palette.primary.dark,
-              '.MuiTypography-root': {
-                fontWeight: 600,
-                color: theme.palette.primary.dark
-              },
-              '.MuiListItemIcon-root': {
-                color: theme.palette.primary.dark
-              }
+  return (
+    <ListItem disablePadding>
+      <ListItemButton
+        component={NavLink}
+        to={item.route}
+        onClick={onClick}
+        sx={{
+          px: 3,
+          '&.hover': {
+            backgroundColor: 'none'
+          },
+          '&.active': {
+            fontWeight: 'bold',
+            backgroundColor: alpha(theme.palette.primary.main, 0.08),
+            borderRight: '2px solid',
+            borderColor: theme.palette.primary.dark,
+            '.MuiTypography-root': {
+              fontWeight: 600,
+              color: theme.palette.primary.dark
+            },
+            '.MuiListItemIcon-root': {
+              color: theme.palette.primary.dark
             }
-          }}>
-          {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
-          {!collapsed && (
-            <ListItemText
-              id={`menu-item-${item.label.toLowerCase()}`}
-              primary={item.label}></ListItemText>
-          )}
-        </ListItemButton>
-      </ListItem>
-    );
-  }
-
-  return <ListItemLink />;
+          }
+        }}>
+        {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
+        {!collapsed && (
+          <ListItemText id={`menu-item-${item.label.toLowerCase()}`} primary={item.label} />
+        )}
+      </ListItemButton>
+    </ListItem>
+  );
 };
