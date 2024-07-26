@@ -48,11 +48,12 @@ describe('Header component', () => {
     expect(mockedUsedNavigate).toHaveBeenCalledWith(ArcRoutes.USER);
   });
 
-  it('should log user when logout is clicked', () => {
-    console.log = jest.fn();
+  it('should navigate to login page & clear storage when logout is clicked', () => {
+    global.window.sessionStorage.setItem('sessionToken', 'test');
     render(<HeaderWithRouter />);
     fireEvent.click(screen.getByText('John Doe'));
     fireEvent.click(screen.getByText('Esci'));
-    expect(console.log).toHaveBeenCalledWith('User logged out');
+    expect(global.window.sessionStorage.getItem('sessionToken')).toBe(null);
+    expect(mockedUsedNavigate).toHaveBeenCalledWith(ArcRoutes.LOGIN);
   });
 });
