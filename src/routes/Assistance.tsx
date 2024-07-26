@@ -17,11 +17,13 @@ const Assistance = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [emailConfirmError, setEmailConfirmError] = useState(false);
   const [emailConfirm, setEmailConfirm] = useState('');
   const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
-  const emailError = !reg.test(email) && email.length > 0;
+  /*  const emailError = !reg.test(email) && email.length > 0;
   const emailConfirmError = email !== emailConfirm;
-
+*/
   return (
     <>
       <Stack spacing={3}>
@@ -52,8 +54,12 @@ const Assistance = () => {
                   aria-label={t('app.assistance.input1Placeholder')}
                   size="small"
                   error={emailError}
+                  helperText={emailError && t('app.assistance.input1Helper')}
                   onChange={(e) => {
                     setEmail(e.target.value);
+                  }}
+                  onBlur={() => {
+                    setEmailError(!reg.test(email) && email.length > 0);
                   }}
                   sx={{ maxWidth: { lg: '20vw', md: '25vw', sm: '35vw', xs: '100%' } }}
                   label={t('app.assistance.input1Placeholder')}
@@ -73,9 +79,13 @@ const Assistance = () => {
                   onChange={(e) => {
                     setEmailConfirm(e.target.value);
                   }}
+                  onBlur={() => {
+                    setEmailConfirmError(email !== emailConfirm);
+                  }}
                   size="small"
                   sx={{ maxWidth: { lg: '20vw', md: '25vw', sm: '35vw', xs: '100%' } }}
                   label={t('app.assistance.input2Placeholder')}
+                  helperText={emailConfirmError && t('app.assistance.input2Helper')}
                   InputLabelProps={{
                     sx: {
                       color: theme.palette.text.secondary,
