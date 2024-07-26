@@ -38,7 +38,13 @@ const SidebarWithRouter = () => (
   </ThemeProvider>
 );
 
+jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+
 describe('Sidebar component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render as expected', () => {
     (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: false });
 
