@@ -1,11 +1,6 @@
 import { renderHook } from '@testing-library/react';
-import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useCollapseMenu from './useCollapseMenu';
-
-jest.mock('@mui/material/styles', () => ({
-  useTheme: jest.fn()
-}));
 
 jest.mock('@mui/material/useMediaQuery', () => jest.fn());
 
@@ -15,31 +10,20 @@ describe('useCollapseMenu', () => {
   });
 
   it('should initialize correctly', () => {
-    (useTheme as jest.Mock).mockReturnValue({
-      breakpoints: {
-        down: jest.fn().mockReturnValue(false)
-      }
-    });
-
     (useMediaQuery as jest.Mock).mockReturnValue(false);
 
-    const { result } = renderHook(() => useCollapseMenu(false));
-
+    const { result, rerender } = renderHook(() => useCollapseMenu(false));
+    rerender();
     expect(result.current.collapsed).toBe(false);
   });
 
   it('should collapse menu when transitioning from above to below "lg" breakpoint', () => {
     const mockBreakpointsDown = jest.fn();
 
-    (useTheme as jest.Mock).mockReturnValue({
-      breakpoints: {
-        down: mockBreakpointsDown
-      }
-    });
-
     (useMediaQuery as jest.Mock).mockReturnValue(false);
 
     const { result, rerender } = renderHook(() => useCollapseMenu(false));
+    rerender();
 
     expect(result.current.collapsed).toBe(false);
 
@@ -56,15 +40,10 @@ describe('useCollapseMenu', () => {
   it('should collapse menu when transitioning from below to above "lg" breakpoint', () => {
     const mockBreakpointsDown = jest.fn();
 
-    (useTheme as jest.Mock).mockReturnValue({
-      breakpoints: {
-        down: mockBreakpointsDown
-      }
-    });
-
     (useMediaQuery as jest.Mock).mockReturnValue(true);
 
     const { result, rerender } = renderHook(() => useCollapseMenu(false));
+    rerender();
 
     expect(result.current.collapsed).toBe(false);
 
@@ -79,12 +58,6 @@ describe('useCollapseMenu', () => {
 
   it('should not collapse menu when not transitioning above the "lg" breakpoint', () => {
     const mockBreakpointsDown = jest.fn();
-
-    (useTheme as jest.Mock).mockReturnValue({
-      breakpoints: {
-        down: mockBreakpointsDown
-      }
-    });
 
     (useMediaQuery as jest.Mock).mockReturnValue(false);
 
