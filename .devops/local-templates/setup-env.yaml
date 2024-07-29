@@ -24,6 +24,14 @@ parameters:
     type: string
     default: ''
 
+  - name: 'login_url'
+    type: string
+    default: ''
+
+  - name: 'version'
+    type: string
+    default: ''
+
 steps:
 - bash: |
     chmod +x env.sh
@@ -34,6 +42,8 @@ steps:
       ARC_FE_ASSISTANCE_LINK=${{ parameters.assistance_link }} \
       ARC_FE_SHOW_STATUS_INFO=${{ parameters.show_status_info }} \
       ARC_FE_CHECKOUT_HOST=${{ parameters.checkout_host }} \
+      ARC_FE_LOGIN_URL=${{ parameters.login_url }} \
+      ARC_FE_VERSION=${{ parameters.version }} \
       bash env.sh
 
   displayName: 'Populate environment file'

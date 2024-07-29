@@ -4,7 +4,7 @@ import React from 'react';
 
 export default {
   component: Footer,
-  title: 'Footer'
+  title: 'Layout/Footer'
 };
 
 export const Default = {

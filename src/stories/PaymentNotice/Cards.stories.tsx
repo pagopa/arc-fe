@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PaymentNotice } from 'components/PaymentNotice';
 
 const meta: Meta<typeof PaymentNotice.Preview> = {
-  title: 'PaymentNotice',
+  title: 'Payment Notice/Cards',
   parameters: {
     backgrounds: {
       default: 'paper',
@@ -15,13 +15,8 @@ const meta: Meta<typeof PaymentNotice.Preview> = {
 };
 
 export default meta;
-type StoryPreview = StoryObj<typeof PaymentNotice.Preview>;
+
 type StoryCard = StoryObj<typeof PaymentNotice.Card>;
-
-export const Preview: StoryPreview = {
-  render: PaymentNotice.Preview
-};
-
 export const CardSinglePayment: StoryCard = {
   render: PaymentNotice.Card,
   args: {
@@ -32,4 +27,22 @@ export const CardSinglePayment: StoryCard = {
     amount: '171,00 €',
     expiringDate: '31/01/2099'
   }
+};
+
+type StoryPreview = StoryObj<typeof PaymentNotice.Preview>;
+export const Preview: StoryPreview = {
+  render: PaymentNotice.Preview,
+  args: {}
+};
+
+export const CardEmpty = {
+  render: PaymentNotice.Empty
+};
+
+export const Error = {
+  render: PaymentNotice.Error
+};
+
+export const Info = {
+  render: PaymentNotice.Info
 };

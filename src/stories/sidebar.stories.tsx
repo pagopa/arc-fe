@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 
 const meta: Meta<typeof Sidebar> = {
   component: Sidebar,
-  title: 'Sidebar'
+  title: 'Layout/Sidebar'
 };
 
 export default meta;

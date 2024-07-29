@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArcRoutes } from 'routes/routes';
 import {
   Box,
@@ -9,9 +9,8 @@ import {
   Typography,
   useTheme,
   Tooltip,
-  Theme,
-  SxProps,
-  useMediaQuery
+  useMediaQuery,
+  type Theme
 } from '@mui/material';
 import { ISidebarMenuItem } from 'models/SidebarMenuItem';
 import { SidebarMenuItem } from './SidebarMenuItem';
@@ -22,14 +21,19 @@ import CloseIcon from '@mui/icons-material/Close';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ViewSidebarIcon from '@mui/icons-material/ViewSidebar';
 import useCollapseMenu from 'hooks/useCollapseMenu';
+import { sidebarStyles } from './sidebar.styles';
 
 export const Sidebar: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const lg = useMediaQuery(theme.breakpoints.up('lg'));
+  const lg = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
-  const { collapsed, changeMenuState } = useCollapseMenu(!lg);
-  const overlay = !(lg || collapsed);
+  const { collapsed, changeMenuState, setCollapsed, setOverlay, overlay } = useCollapseMenu(!lg);
+
+  useEffect(() => {
+    setOverlay(!(lg || collapsed));
+  }, [lg, collapsed]);
+  //This useEffect is needed, otherwise React will complain about the component being re rendered while another re render is in the queue.
 
   const styles = sidebarStyles(theme, collapsed);
 
@@ -51,11 +55,9 @@ export const Sidebar: React.FC = () => {
     }
   ];
 
-  document.body.style.overflowY = overlay ? 'hidden' : 'auto';
-
   return (
     <>
-      <Box sx={styles.container}>
+      <Box sx={styles.container} component="aside">
         <Grid
           alignItems="normal"
           display="flex"
@@ -74,7 +76,7 @@ export const Sidebar: React.FC = () => {
                 <IconButton
                   data-testid="collapseClose"
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
-                  onClick={() => changeMenuState(collapsed)}
+                  onClick={() => changeMenuState()}
                   size="large">
                   <CloseIcon />
                 </IconButton>
@@ -88,7 +90,7 @@ export const Sidebar: React.FC = () => {
             aria-label={t('menu.description')}>
             {menuItems.map((item, index) => (
               <SidebarMenuItem
-                onClick={() => !lg && changeMenuState(false)}
+                onClick={() => !lg && setCollapsed(true)}
                 collapsed={collapsed}
                 item={item}
                 key={index}
@@ -105,7 +107,7 @@ export const Sidebar: React.FC = () => {
                 <IconButton
                   data-testid="hamburgerButton"
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
-                  onClick={() => changeMenuState(collapsed)}
+                  onClick={() => changeMenuState()}
                   size="large">
                   <MenuIcon />
                   {!lg && (
@@ -123,55 +125,3 @@ export const Sidebar: React.FC = () => {
     </>
   );
 };
-
-const sidebarStyles = (theme: Theme, collapsed: boolean): Record<string, SxProps> => ({
-  container: {
-    zIndex: collapsed ? 1 : 10,
-    position: collapsed ? 'relative' : 'fixed',
-    width: '100%',
-    top: 0,
-    height: '100%',
-    [theme.breakpoints.between('sm', 'lg')]: { width: collapsed ? '100%' : 'fit-content' },
-    [theme.breakpoints.up('lg')]: { width: 'fit-content', position: 'relative' },
-    [theme.breakpoints.down('lg')]: { height: collapsed ? 'fit-content' : '100%' }
-  },
-  nav: {
-    minHeight: collapsed ? '1vh' : '50vh',
-    height: '100%',
-    width: '100%',
-    bgcolor: 'background.paper',
-    [theme.breakpoints.up('sm')]: { width: collapsed ? '100%' : '300px' },
-    [theme.breakpoints.up('lg')]: { width: collapsed ? '88px' : '300px', minHeight: '50vh' }
-  },
-  overlay: {
-    bgcolor: 'rgba(23, 50, 77, 0.7)',
-    zIndex: 1,
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%'
-  },
-  collapseIcon: {
-    textAlign: 'right',
-    pt: 1,
-    pr: 2
-  },
-  list: {
-    [theme.breakpoints.down('lg')]: { display: collapsed ? 'none' : 'inline-block' }
-  },
-  hamburgerBox: {
-    marginTop: 'auto',
-    [theme.breakpoints.down('lg')]: {
-      visibility: collapsed ? 'visible' : 'hidden',
-      marginTop: collapsed ? 0 : 'auto'
-    }
-  },
-  hamburgerIcon: {
-    p: 2
-  },
-  hamburgerTypography: {
-    fontWeight: 600,
-    pl: 1
-  }
-});

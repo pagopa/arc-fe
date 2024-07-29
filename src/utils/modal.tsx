@@ -2,7 +2,8 @@ import { signal } from '@preact/signals-react';
 
 enum ModalId {
   OPTIN = 'OPTIN',
-  ASSISTANCEBACK = 'ASSISTANCEBACK'
+  ASSISTANCEBACK = 'ASSISTANCEBACK',
+  PAYMENT_NOTICE_MODAL = 'PAYMENT_NOTICE_MODAL'
 }
 
 /** open a modal by its id */
