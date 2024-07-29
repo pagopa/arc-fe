@@ -15,4 +15,5 @@ export interface RouteHandleObject {
   sidebar: { visible?: boolean };
   backButton?: boolean;
   backButtonText?: string;
+  backButtonFunction?: () => void;
 }

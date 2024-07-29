@@ -27,7 +27,7 @@ export function Layout() {
 
   document.body.style.overflow = modalOpen || overlay ? 'hidden' : 'auto';
 
-  const { crumbs, sidebar, backButton, backButtonText } = {
+  const { crumbs, sidebar, backButton, backButtonText, backButtonFunction } = {
     ...defaultRouteHandle,
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
@@ -64,7 +64,7 @@ export function Layout() {
             flexBasis={'50vh'}>
             {sidebar?.visible ? <Sidebar /> : null}
             <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs paddingX={sidePadding}>
-              {backButton && <BackButton text={backButtonText} />}
+              {backButton && <BackButton onClick={backButtonFunction} text={backButtonText} />}
               {crumbs && (
                 <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
               )}
