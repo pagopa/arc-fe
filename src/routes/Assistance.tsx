@@ -21,9 +21,7 @@ const Assistance = () => {
   const [emailConfirmError, setEmailConfirmError] = useState(false);
   const [emailConfirm, setEmailConfirm] = useState('');
   const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
-  /*  const emailError = !reg.test(email) && email.length > 0;
-  const emailConfirmError = email !== emailConfirm;
-*/
+
   return (
     <>
       <Stack spacing={3}>
