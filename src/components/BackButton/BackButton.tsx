@@ -4,14 +4,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-interface BackButtonProps {
+export interface BackButtonProps {
   text?: string;
+  onClick?: () => void;
 }
 
 export const BackButton = (props: BackButtonProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { text = 'back' } = props;
+  const { text = 'back', onClick = () => navigate(-1) } = props;
 
   return (
     <Button
@@ -20,7 +21,7 @@ export const BackButton = (props: BackButtonProps) => {
       size="medium"
       startIcon={<ArrowBack />}
       variant="text"
-      onClick={() => navigate(-1)}
+      onClick={onClick}
       sx={{ marginBottom: 3 }}>
       {t(`app.routes.${text}`)}
     </Button>

@@ -11,6 +11,7 @@ import { Header } from './Header';
 import { BackButton } from './BackButton';
 import { ArcRoutes } from 'routes/routes';
 import { ModalSystem } from './Modals';
+import utils from 'utils';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
@@ -21,7 +22,12 @@ const defaultRouteHandle: RouteHandleObject = {
 export function Layout() {
   const matches = useMatches();
 
-  const { crumbs, sidebar, backButton, backButtonText } = {
+  const overlay = utils.sidemenu.status.overlay.value;
+  const modalOpen = utils.modal.status.isOpen.value;
+
+  document.body.style.overflow = modalOpen || overlay ? 'hidden' : 'auto';
+
+  const { crumbs, sidebar, backButton, backButtonText, backButtonFunction } = {
     ...defaultRouteHandle,
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
@@ -58,7 +64,7 @@ export function Layout() {
             flexBasis={'50vh'}>
             {sidebar?.visible ? <Sidebar /> : null}
             <Grid item bgcolor={grey['100']} padding={3} height={'100%'} xs paddingX={sidePadding}>
-              {backButton && <BackButton text={backButtonText} />}
+              {backButton && <BackButton onClick={backButtonFunction} text={backButtonText} />}
               {crumbs && (
                 <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
               )}

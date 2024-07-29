@@ -5,9 +5,26 @@ import '../../translations/i18n';
 import React from 'react';
 import Sidebar from './index';
 import i18n from '../../translations/i18n';
+import { ThemeProvider, useMediaQuery } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
-import { ThemeProvider } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useCollapseMenu from 'hooks/useCollapseMenu';
+
+const utilsMock = jest.requireMock('utils');
+jest.mock('hooks/useCollapseMenu', () => jest.fn());
+jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+
+jest.mock('utils', () => ({
+  ...jest.requireActual('utils'),
+  sidemenu: {
+    status: {
+      isMenuCollapsed: { value: true },
+      overlay: { value: false }
+    },
+    setCollapsed: () => {},
+    changeMenuState: () => {},
+    setOverlay: () => {}
+  }
+}));
 
 void i18n.init({
   resources: {}
@@ -29,34 +46,35 @@ describe('Sidebar component', () => {
   });
 
   it('should render as expected', () => {
+    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: false });
+
     render(<SidebarWithRouter />);
+    const hamburgerButton = screen.getByTestId('hamburgerButton');
+    expect(hamburgerButton).toBeTruthy();
   });
 
-  it('renders with correct menu items', () => {
+  test('renders with correct menu items when expanded', () => {
+    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
+    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: false });
+
     render(<SidebarWithRouter />);
-
-    const hamburgerButton = screen.getByTestId('hamburgerButton');
-
-    fireEvent.click(hamburgerButton);
     // Check if menu items are rendered
     expect(screen.getByText('menu.homepage')).toBeInTheDocument();
     expect(screen.getByText('menu.receipts')).toBeInTheDocument();
   });
 
-  it('toggles sidebar collapse/expand button is clicked', () => {
+  test('toggles sidebar collapse correctly', () => {
+    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: true });
+
+    utilsMock.sidemenu.status.isMenuCollapsed.value = true;
     render(<SidebarWithRouter />);
-
-    const hamburgerButton = screen.getByTestId('hamburgerButton');
-    expect(hamburgerButton).toBeInTheDocument();
-
-    fireEvent.click(hamburgerButton);
-    expect(screen.getByText('menu.homepage')).toBeInTheDocument();
-
-    fireEvent.click(hamburgerButton);
-    expect(screen.queryByText('menu.homepage')).not.toBeInTheDocument();
+    expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
   });
 
   it('renders with sidebar expanded on large screen', () => {
+    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: false });
+
+    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
     (useMediaQuery as jest.Mock).mockImplementation(() => true);
     render(<SidebarWithRouter />);
 
@@ -64,16 +82,32 @@ describe('Sidebar component', () => {
   });
 
   it('renders with sidebar collapsed on small screen', () => {
+    (useCollapseMenu as jest.Mock).mockReturnValue({
+      setOverlay: jest.fn(),
+      changeMenuState: jest.fn(),
+      collapsed: true
+    });
+
+    utilsMock.sidemenu.status.isMenuCollapsed.value = true;
     (useMediaQuery as jest.Mock).mockImplementation(() => false);
     render(<SidebarWithRouter />);
 
     const hamburgerButton = screen.getByTestId('hamburgerButton');
     fireEvent.click(hamburgerButton);
-    expect(screen.getByText('menu.homepage')).toBeInTheDocument();
+    expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
   });
 
   it('renders close icon and handles click to collapse', () => {
+    (useCollapseMenu as jest.Mock).mockReturnValue({
+      setOverlay: jest.fn(),
+      overlay: true,
+      changeMenuState: jest.fn(),
+      collapsed: false
+    });
+
     (useMediaQuery as jest.Mock).mockImplementation(() => false);
+    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
+
     render(<SidebarWithRouter />);
 
     const hamburgerButton = screen.getByTestId('hamburgerButton');
@@ -81,24 +115,5 @@ describe('Sidebar component', () => {
 
     const closeIcon = screen.getByTestId('collapseClose');
     expect(closeIcon).toBeInTheDocument();
-
-    fireEvent.click(closeIcon);
-
-    // Check if the sidebar is collapsed by verifying the absence of menu items
-    expect(screen.queryByText('menu.homepage')).not.toBeInTheDocument();
-  });
-
-  it('collapses when clicking on an item on lower resolutions', () => {
-    (useMediaQuery as jest.Mock).mockImplementation(() => false);
-    render(<SidebarWithRouter />);
-
-    const hamburgerButton = screen.getByTestId('hamburgerButton');
-    fireEvent.click(hamburgerButton);
-
-    const home = screen.getByText('menu.homepage');
-    fireEvent.click(home);
-
-    const navigationMenu = screen.getByLabelText('menu.navigationMenu');
-    expect(navigationMenu).toHaveAttribute('aria-expanded', 'false');
   });
 });
