@@ -81,6 +81,7 @@ stages:
               checkout_host: '$(checkout_host)'
               show_status_info: false
               login_url: '$(login_url)'
+              version: '$(Build.SourceBranchName):$(Build.SourceVersion)'
 
           - script: |
               yarn build

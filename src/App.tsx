@@ -18,6 +18,7 @@ import Assistance from 'routes/Assistance';
 import { PaymentNotices } from 'routes/PaymentNotices';
 import PaymentNoticeDetail from 'routes/PaymentNoticeDetail';
 import { RouteGuard } from 'components/RouteGuard';
+import AuthCallback from 'routes/AuthCallback';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
   {
     path: ArcRoutes.LOGIN,
     element: <Login />
+  },
+  {
+    path: ArcRoutes.AUTH_CALLBACK,
+    element: <AuthCallback />,
+    loader: ({ params }) => Promise.resolve(params)
   },
   {
     path: '/',

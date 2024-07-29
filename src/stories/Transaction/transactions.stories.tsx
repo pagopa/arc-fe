@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Transactions from '../components/Transactions/Transactions';
-import { dummyTransactionsData } from './utils/mocks';
+import Transactions from 'components/Transactions/Transactions';
+import { dummyTransactionsData } from 'stories/utils/mocks';
 
 const meta: Meta<typeof Transactions> = {
   component: Transactions,
-  title: 'Transactions'
+  title: 'Transaction'
 };
 
 export default meta;

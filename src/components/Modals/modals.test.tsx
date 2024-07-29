@@ -3,6 +3,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import AssistanceBackModal from './AssistanceBackModal';
 import PullPaymentsModal from './PullPaymentsModal';
+import DetailNoticeInfoModal from './DetailNoticeInfoModal';
 import { ModalSystem } from './';
 import { ArcRoutes } from 'routes/routes';
 import '@testing-library/jest-dom';
@@ -24,7 +25,9 @@ jest.mock('utils', () => ({
   },
   modal: {
     ModalId: {
-      OPTIN: 'OPTIN'
+      OPTIN: 'OPTIN',
+      ASSISTANCEBACK: 'ASSISTANCEBACK',
+      PAYMENT_NOTICE_MODAL: 'PAYMENT_NOTICE_MODAL'
     },
     status: {
       isOpen: {
@@ -101,6 +104,15 @@ describe('Modals: ', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
+  it('Payment notice info should render nothing as expected when closed', () => {
+    const { container } = render(
+      <ModalWithRouter>
+        <DetailNoticeInfoModal open={false} />
+      </ModalWithRouter>
+    );
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('ModalSystem should call a modal as expected', () => {
     utilsMock.modal.status.isOpen.value = true;
     render(
@@ -109,5 +121,16 @@ describe('Modals: ', () => {
       </ModalWithRouter>
     );
     expect(screen.getByTestId('pull-payments-modal')).toBeInTheDocument();
+  });
+
+  it('ModalSystem should open the Payment notice info as expected', () => {
+    utilsMock.modal.status.isOpen.value = true;
+    utilsMock.modal.status.id.value = 'PAYMENT_NOTICE_MODAL';
+    render(
+      <ModalWithRouter>
+        <ModalSystem />
+      </ModalWithRouter>
+    );
+    expect(screen.getByTestId('detail-payment-info-modal')).toBeInTheDocument();
   });
 });

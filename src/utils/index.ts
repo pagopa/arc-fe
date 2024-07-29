@@ -8,6 +8,7 @@ import { datetools } from './datetools';
 import * as zodSchema from '../../generated/zod-schema';
 import storage from './storage';
 import modal from './modal';
+import sidemenu from './sidemenu';
 
 export default {
   style,
@@ -21,5 +22,6 @@ export default {
   zodSchema,
   datetools,
   storage,
-  modal
+  modal,
+  sidemenu
 };

@@ -6,6 +6,7 @@ process.env.ASSISTANCE_LINK = 'https://pagopa.gov.it';
 process.env.SHOW_STATUS_INFO = 'true';
 process.env.CHECKOUT_HOST = 'https://dev.checkout.pagopa.it';
 process.env.LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity';
+process.env.VERSION = 'TEST';
 
 // global mocks
 jest.mock('@preact/signals-react', () => {

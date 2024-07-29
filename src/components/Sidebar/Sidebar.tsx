@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArcRoutes } from 'routes/routes';
 import {
   Box,
@@ -28,8 +28,12 @@ export const Sidebar: React.FC = () => {
   const theme = useTheme();
   const lg = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
-  const { collapsed, toggleCollapsed, setCollapsed } = useCollapseMenu(!lg);
-  const overlay = !(lg || collapsed);
+  const { collapsed, changeMenuState, setCollapsed, setOverlay, overlay } = useCollapseMenu(!lg);
+
+  useEffect(() => {
+    setOverlay(!(lg || collapsed));
+  }, [lg, collapsed]);
+  //This useEffect is needed, otherwise React will complain about the component being re rendered while another re render is in the queue.
 
   const styles = sidebarStyles(theme, collapsed);
 
@@ -50,8 +54,6 @@ export const Sidebar: React.FC = () => {
       route: ArcRoutes.TRANSACTIONS
     }
   ];
-
-  document.body.style.overflowY = overlay ? 'hidden' : 'auto';
 
   return (
     <>
@@ -74,7 +76,7 @@ export const Sidebar: React.FC = () => {
                 <IconButton
                   data-testid="collapseClose"
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
-                  onClick={toggleCollapsed}
+                  onClick={() => changeMenuState()}
                   size="large">
                   <CloseIcon />
                 </IconButton>
@@ -105,7 +107,7 @@ export const Sidebar: React.FC = () => {
                 <IconButton
                   data-testid="hamburgerButton"
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
-                  onClick={toggleCollapsed}
+                  onClick={() => changeMenuState()}
                   size="large">
                   <MenuIcon />
                   {!lg && (
