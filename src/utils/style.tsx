@@ -16,6 +16,7 @@ const customTheme = createTheme({
     }
   },
   components: {
+    ...theme?.components,
     MuiTab: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -24,6 +25,7 @@ const customTheme = createTheme({
       }
     },
     MuiChip: {
+      ...theme?.components?.MuiChip,
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
           ...(ownerState.color === 'success' && {
@@ -33,6 +35,7 @@ const customTheme = createTheme({
       }
     },
     MuiButton: {
+      ...theme?.components?.MuiButton,
       styleOverrides: {
         sizeLarge: ({ theme }) => ({
           minHeight: theme.spacing(6)
