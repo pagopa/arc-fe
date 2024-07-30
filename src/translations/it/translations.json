@@ -22,6 +22,8 @@
       "cardTitle": "Il tuo indirizzo email",
       "cardDescription": "Indica l’indirizzo email su cui desideri ricevere le risposte dell’assistenza.",
       "input1Placeholder": "Inserisci l'indirizzo email",
+      "input1Helper": "Inserisci un indirizzo email valido",
+      "input2Helper": "Gli indirizzi email devono coincidere",
       "input2Placeholder": "Conferma l'indirizzo email",
       "privacy": "Proseguendo dichiari di aver letto la <link1> Privacy Policy </link1> del servizio di assistenza al cittadino",
       "confirm": "Conferma",
