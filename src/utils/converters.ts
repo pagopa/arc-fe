@@ -30,10 +30,12 @@ interface PrepareRowsData {
 
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
 const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
+  const { missingValue } = utils.config;
+
   return (
     data.transactions?.map((element) => ({
       date: datetools.formatDate(element.transactionDate),
-      amount: element.amount != undefined ? toEuro(element.amount) : '-',
+      amount: element.amount != undefined ? toEuro(element.amount) : missingValue,
       id: element.transactionId || '',
       payee: {
         name: element.payeeName || data.payee.multi,
@@ -106,17 +108,21 @@ const prepareTransactionDetailData = (
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const preparePaymentNoticeDetailData = (paymentNoticeDetail: any): PaymentNoticeDetail => {
+  const { missingValue } = utils.config;
+
   return {
-    amount: (paymentNoticeDetail.amount || '-') + ' €',
-    paFullName: paymentNoticeDetail.paFullName || '-',
-    subject: paymentNoticeDetail.subject || '-',
-    dueDate: datetools.formatDate(paymentNoticeDetail.dueDate, { invalidDateOutput: '-' }),
-    iupd: paymentNoticeDetail.iupd || '-',
-    paTaxCode: paymentNoticeDetail.paTaxCode || '-',
-    firstInstallmentDate: datetools.formatDate(paymentNoticeDetail.firstInstallmentDate, {
-      invalidDateOutput: '-'
+    amount: (paymentNoticeDetail.amount || missingValue) + ' €',
+    paFullName: paymentNoticeDetail.paFullName || missingValue,
+    subject: paymentNoticeDetail.subject || missingValue,
+    dueDate: datetools.formatDate(paymentNoticeDetail.dueDate, {
+      invalidDateOutput: missingValue
     }),
-    firstInstallmentAmount: (paymentNoticeDetail.firstInstallmentAmount || '-') + ' €'
+    iupd: paymentNoticeDetail.iupd || missingValue,
+    paTaxCode: paymentNoticeDetail.paTaxCode || missingValue,
+    firstInstallmentDate: datetools.formatDate(paymentNoticeDetail.firstInstallmentDate, {
+      invalidDateOutput: missingValue
+    }),
+    firstInstallmentAmount: (paymentNoticeDetail.firstInstallmentAmount || missingValue) + ' €'
   };
 };
 
