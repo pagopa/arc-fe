@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Link } from '@mui/material';
 import { LogoPagoPAProduct, ProductEntity, RootLinkType } from '@pagopa/mui-italia';
 import React from 'react';
 import { ArcRoutes } from 'routes/routes';
@@ -52,12 +52,9 @@ const product: ProductEntity = {
   productUrl: '#no-title',
   linkType: 'external',
   icon: (
-    <Box
-      onClick={() => {
-        window.location.href = ArcRoutes.DASHBOARD;
-      }}>
+    <Link href={ArcRoutes.DASHBOARD} target="_blank">
       <LogoPagoPAProduct color="default" title="PagoPA" />
-    </Box>
+    </Link>
   )
 };
 
