@@ -13,13 +13,16 @@ const Notices = () => {
   const Content = () => {
     if (isError || !data) return <PaymentNotice.Error />;
     if (!data.length) return <PaymentNotice.Empty />;
+    const preparedData = utils.converters.preparePaymentNoticeListData(data);
+
     return (
       <Stack gap={5} component="section">
-        <PaymentNotice.List paymentNoticesList={data} />
+        <PaymentNotice.List paymentNoticesList={preparedData} />
         <PaymentNotice.Info />
       </Stack>
     );
   };
+
   return (
     <QueryLoader
       queryKey="paymentNotices"
@@ -39,7 +42,6 @@ export const PaymentNotices = () => {
       <Typography mb={3} variant="h3" component="h1">
         {t('app.paymentNotices.title')}
       </Typography>
-      <p>{optIn}</p>
       <Stack height="100%" justifyContent={{ lg: 'space-between' }} component="main">
         {optIn.value ? <Notices /> : <PaymentNotice.Preview />}
       </Stack>

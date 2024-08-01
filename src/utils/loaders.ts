@@ -1,12 +1,21 @@
 import utils from 'utils';
 import { useQuery } from '@tanstack/react-query';
+import { ZodSchema } from 'zod';
+
+const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true): void | never => {
+  const result = schema.safeParse(data);
+  if (!result.success) {
+    console.error(result.error.issues);
+    if (throwError) throw result.error;
+  }
+};
 
 const getTransactions = () =>
   useQuery({
     queryKey: ['transactions'],
     queryFn: async () => {
       const { data: transactions } = await utils.apiClient.transactions.getTransactionsList();
-      utils.zodSchema.transactionsListDTOSchema.parse(transactions);
+      parseAndLog(utils.zodSchema.transactionsListDTOSchema, transactions);
       return transactions;
     }
   });
@@ -16,66 +25,20 @@ const getTransactionDetails = (id: string) =>
     queryKey: ['transactionDetail'],
     queryFn: async () => {
       const { data: transaction } = await utils.apiClient.transactions.getTransactionDetails(id);
-      utils.zodSchema.transactionDetailsDTOSchema.parse(transaction);
+      parseAndLog(utils.zodSchema.transactionDetailsDTOSchema, transaction);
       return transaction;
     }
   });
-
-// to be removed
-function resolveAfter<Type>(value: Type, delay: number): Promise<Type> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(value), delay);
-  });
-}
-
-// to be removed
-const mockData = [
-  {
-    payee: {
-      name: 'Politecnico di Milano'
-    },
-    id: '1',
-    paymentInfo: 'RATA 1 - Anno Accademico 2023/2024',
-    amount: '171,00 €',
-    expiringDate: '31/01/2099'
-  },
-  {
-    payee: {
-      name: 'Comune di Milano'
-    },
-    id: '2',
-    paymentInfo: 'TARI 2024',
-    amount: '171,00 €',
-    expiringDate: '31/01/2099',
-    multiPayment: true
-  },
-  {
-    payee: {
-      name: 'Comune di Milano'
-    },
-    id: '3',
-    paymentInfo: 'Violazione CDS Verbale 0123456',
-    expiringDate: '31/01/2099',
-    amount: '28,70 €',
-    multiPayment: true
-  },
-  {
-    payee: {
-      name: 'Istituto d’Istruzione Superiore con un nome Molto Lungo che può andare su più righe'
-    },
-    id: '4',
-    paymentInfo: 'Iscrizione Anno Accademico 2023/2024',
-    amount: '171,00 €',
-    expiringDate: '31/01/2099'
-  }
-];
 
 const getPaymentNotices = () =>
   useQuery({
     queryKey: ['paymentNotices'],
     queryFn: async () => {
-      const response = await resolveAfter(mockData, 500);
-      return response;
+      const { data } = await utils.apiClient.paymentNotices.getPaymentNotices({});
+      // not throwing error here because we have a problem with date format
+      // to be fixed
+      parseAndLog(utils.zodSchema.paymentNoticesListDTOSchema, data, false);
+      return data.paymentNotices;
     }
   });
 
