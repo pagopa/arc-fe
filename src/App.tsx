@@ -39,8 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path: ArcRoutes.AUTH_CALLBACK,
-    element: <AuthCallback />,
-    loader: ({ params }) => Promise.resolve(params)
+    element: <AuthCallback />
   },
   {
     path: '/',

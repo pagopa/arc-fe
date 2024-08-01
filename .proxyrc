@@ -1,7 +1,8 @@
 {
-  "/api": {
+  "/api/**": {
     "target": "https://api.dev.cittadini-p4pa.pagopa.it/arc/v1",
     "changeOrigin": true,
+    "logLevel": "debug",
     "pathRewrite": {
       "^/api": ""
     }
