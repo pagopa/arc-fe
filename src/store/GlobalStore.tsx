@@ -1,19 +1,7 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { paymentNoticeState, setPaymentNotice } from './PaymentNoticeStore';
 import { PaymentNoticeType } from 'models/PaymentNotice';
-
-interface State {
-  [STATE.PAYMENT_NOTICE]: PaymentNoticeType | undefined;
-}
-
-interface StoreContextProps {
-  state: State;
-  setState: (key: keyof State, value: unknown) => void;
-}
-
-export enum STATE {
-  PAYMENT_NOTICE = 'paymentNotice'
-}
+import { STATE, State, StoreContextProps } from './types';
 
 const StoreContext = createContext<StoreContextProps | undefined>(undefined);
 

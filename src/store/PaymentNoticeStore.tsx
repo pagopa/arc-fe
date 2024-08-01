@@ -1,8 +1,13 @@
-import { signal } from '@preact/signals-react';
+import { usePersistentSignal } from '../hooks/usePersistentSignal';
 import { PaymentNoticeType } from 'models/PaymentNotice';
+import { STATE } from './types';
 
-export const paymentNoticeState = signal<PaymentNoticeType>();
+// Initialize the persistent store
+export const paymentNoticeState = usePersistentSignal<PaymentNoticeType | undefined>(
+  STATE.PAYMENT_NOTICE
+);
 
-export const setPaymentNotice = (paymentNotice: PaymentNoticeType) => {
-  paymentNoticeState.value = paymentNotice;
-};
+// Function to update the payment notice
+export function setPaymentNotice(notice: PaymentNoticeType | undefined) {
+  paymentNoticeState.value = notice;
+}

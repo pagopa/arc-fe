@@ -11,7 +11,8 @@ import { IconButton, Paper } from '@mui/material';
 import { ArcRoutes } from 'routes/routes';
 import { useNavigate } from 'react-router-dom';
 import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
-import { STATE, useStore } from 'store/GlobalStore';
+import { useStore } from 'store/GlobalStore';
+import { STATE } from 'store/types';
 
 type InfoProps = { label: string; data: string };
 
