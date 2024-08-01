@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import utils from 'utils';
+import { StoreProvider } from 'store/GlobalStore';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -25,7 +26,9 @@ utils.apiClient.instance.interceptors.response.use((response) => response);
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <StoreProvider>
+        <App />
+      </StoreProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

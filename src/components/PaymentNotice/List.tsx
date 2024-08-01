@@ -14,18 +14,6 @@ import { PaymentNoticeType } from 'models/PaymentNotice';
  * @private
  */
 
-export type PaymentNotices = {
-  id: string;
-  payee: {
-    name: string;
-    srcImg?: string;
-    altImg?: string;
-  };
-  paymentInfo: string;
-  amount: string;
-  expiringDate: string;
-};
-
 export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] }) => {
   const { t } = useTranslation();
   const updatedDate = new Date().toISOString();

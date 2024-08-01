@@ -11,6 +11,7 @@ import { IconButton, Paper } from '@mui/material';
 import { ArcRoutes } from 'routes/routes';
 import { useNavigate } from 'react-router-dom';
 import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
+import { STATE, useStore } from 'store/GlobalStore';
 
 type InfoProps = { label: string; data: string };
 
@@ -25,18 +26,6 @@ const Info = (props: InfoProps) => (
   </Stack>
 );
 
-export type CardProps = {
-  payee: {
-    name: string;
-    srcImg?: string;
-    altImg?: string;
-  };
-  paymentInfo: string;
-  expiringDate: string;
-  amount: string;
-  id: string;
-};
-
 /**
  * This component is considered private and should not be used directly.
  * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
@@ -49,6 +38,7 @@ export const _Card = (notice: PaymentNoticeType) => {
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   const navigate = useNavigate();
+  const { setState } = useStore();
 
   return (
     <Paper elevation={16}>
@@ -82,7 +72,11 @@ export const _Card = (notice: PaymentNoticeType) => {
               />
             </Stack>
           )}
-          <IconButton onClick={() => navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}`)}>
+          <IconButton
+            onClick={() => {
+              setState(STATE.PAYMENT_NOTICE, notice);
+              navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}`);
+            }}>
             <ArrowForwardIosIcon color="primary" fontSize="small" />
           </IconButton>
         </Stack>
