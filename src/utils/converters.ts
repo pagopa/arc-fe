@@ -1,14 +1,25 @@
 import { TransactionProps } from 'components/Transactions/Transaction';
-import { TransactionDetailsDTO, TransactionsListDTO } from '../../generated/apiClient';
+import {
+  PaymentNoticeDTO,
+  PaymentNoticesListDTO,
+  PaymentOptionDTO,
+  TransactionDetailsDTO,
+  TransactionsListDTO
+} from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
-import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 import { DateFormat, datetools } from './datetools';
-import utils from '.';
-import { PaymentNotices } from 'components/PaymentNotice/List';
-import { PaymentNoticeDTO } from '../../generated/data-contracts';
+import utils from 'utils';
+import {
+  NoticeImage,
+  PaymentNoticeEnum,
+  PaymentNoticeMultipleType,
+  PaymentNoticeSingleType,
+  PaymentNoticeType,
+  PaymentOptionType
+} from 'models/PaymentNotice';
 
-// This high order function is usefull to 'decorate' existing function to add
-// the functionality to manage undefined (not optional) paramaters and output a global character instead
+// This high order function is useful to 'decorate' existing function to add
+// the functionality to manage undefined (not optional) parameters and output a global character instead
 const withMissingValue =
   <P extends unknown[], R>(f: (...args: P) => R, missingValue?: string) =>
   (...args: { [K in keyof P]: P[K] | undefined }) => {
@@ -118,39 +129,48 @@ const prepareTransactionDetailData = (
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const preparePaymentNoticeDetailData = (paymentNoticeDetail: any): PaymentNoticeDetail => {
-  return {
-    amount: toEuroOrMissingValue(paymentNoticeDetail.amount),
-    paFullName: propertyOrMissingValue(paymentNoticeDetail.paFullName),
-    subject: propertyOrMissingValue(paymentNoticeDetail.subject),
-    dueDate: formatDateOrMissingValue(paymentNoticeDetail.dueDate),
-    iupd: propertyOrMissingValue(paymentNoticeDetail.iupd),
-    paTaxCode: propertyOrMissingValue(paymentNoticeDetail.paTaxCode),
-    firstInstallmentDate: formatDateOrMissingValue(paymentNoticeDetail.firstInstallmentDate),
-    firstInstallmentAmount: toEuroOrMissingValue(paymentNoticeDetail.firstInstallmentAmount)
+// Function to transform PaymentOptionDTO to PaymentOptionType
+const transformPaymentOption = (option: PaymentOptionDTO): PaymentOptionType =>
+  ({
+    ...option,
+    amount: toEuroOrMissingValue(option.amount),
+    dueDate: formatDateOrMissingValue(option.dueDate),
+    description: propertyOrMissingValue(option.description)
+  }) as PaymentOptionType;
+
+// Function to transform PaymentNoticeDTO to PaymentNoticeType
+const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeType => {
+  const image: NoticeImage = {
+    src: fromTaxCodeToSrcImage(paymentNotice.paTaxCode),
+    alt: paymentNotice.paFullName
   };
+  if (paymentNotice.paymentOptions.length === 1) {
+    return {
+      ...paymentNotice,
+      image,
+      type: PaymentNoticeEnum.SINGLE,
+      paymentOptions: transformPaymentOption(paymentNotice.paymentOptions[0])
+    } as PaymentNoticeSingleType;
+  } else {
+    return {
+      ...paymentNotice,
+      image,
+      type: PaymentNoticeEnum.MULTIPLE,
+      paymentOptions: paymentNotice.paymentOptions.map(transformPaymentOption)
+    } as PaymentNoticeMultipleType;
+  }
 };
 
-const preparePaymentNoticeListData = (data: PaymentNoticeDTO[]): PaymentNotices[] =>
-  data.map((element) => ({
-    id: element.iupd,
-    payee: {
-      name: element.paFullName,
-      srcImg: fromTaxCodeToSrcImage(element.paTaxCode),
-      altImg: element.paFullName
-    },
-    // here we are assuming to receive only notices with one payments method
-    paymentInfo: propertyOrMissingValue(element.paymentOptions[0].description),
-    amount: toEuroOrMissingValue(element.paymentOptions[0].amount),
-    expiringDate: formatDateOrMissingValue(element.paymentOptions[0].dueDate)
-  }));
+const prepareNoticesData = (data: PaymentNoticesListDTO | undefined) => {
+  const transformed = data?.paymentNotices?.map((notice) => transformPaymentNotice(notice));
+
+  return { paymentNotices: transformed };
+};
 
 export default {
+  prepareNoticesData,
   prepareRowsData,
-  toEuro,
   prepareTransactionDetailData,
-  preparePaymentNoticeListData,
-  preparePaymentNoticeDetailData,
+  toEuro,
   withMissingValue
 };

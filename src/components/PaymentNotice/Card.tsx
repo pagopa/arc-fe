@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { IconButton, Paper } from '@mui/material';
 import { ArcRoutes } from 'routes/routes';
 import { useNavigate } from 'react-router-dom';
+import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
 
 type InfoProps = { label: string; data: string };
 
@@ -43,7 +44,8 @@ export type CardProps = {
  * @component
  * @private
  */
-export const _Card = ({ payee, amount, paymentInfo, expiringDate, id }: CardProps) => {
+export const _Card = (notice: PaymentNoticeType) => {
+  const { debtorFullName, paymentOptions, paFullName, iupd, type } = notice;
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   const navigate = useNavigate();
@@ -59,21 +61,28 @@ export const _Card = ({ payee, amount, paymentInfo, expiringDate, id }: CardProp
         height="152px"
         justifyContent="space-between">
         <Stack direction="row" alignItems="center" gap={2} component="header">
-          <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
+          <PayeeIcon src={''} alt={paFullName} visible={smUp} />
           <Stack maxWidth={{ xs: 110, sm: 150, md: 480, lg: 460, xl: 600 }}>
             <Typography component="h1" variant="subtitle1" noWrap>
-              {payee.name}
+              {debtorFullName}
             </Typography>
-            <Typography component="h2">{paymentInfo}</Typography>
+            {type === PaymentNoticeEnum.SINGLE && (
+              <Typography component="h2">{paymentOptions.description}</Typography>
+            )}
           </Stack>
         </Stack>
         <Stack direction="row" gap={2} alignItems="center" component="div">
           <Divider orientation="vertical" flexItem variant="fullWidth" />
-          <Stack width="12rem" component="aside">
-            <Info label={t('app.paymentNotice.card.amount')} data={amount} />
-            <Info label={t('app.paymentNotice.card.expiringDate')} data={expiringDate} />
-          </Stack>
-          <IconButton onClick={() => navigate(`${ArcRoutes.PAYMENT_NOTICES}${id}`)}>
+          {type === PaymentNoticeEnum.SINGLE && (
+            <Stack width="12rem" component="aside">
+              <Info label={t('app.paymentNotice.card.amount')} data={paymentOptions.amount} />
+              <Info
+                label={t('app.paymentNotice.card.expiringDate')}
+                data={paymentOptions.dueDate}
+              />
+            </Stack>
+          )}
+          <IconButton onClick={() => navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}`)}>
             <ArrowForwardIosIcon color="primary" fontSize="small" />
           </IconButton>
         </Stack>
