@@ -138,7 +138,7 @@ const preparePaymentNoticeListData = (data: PaymentNoticeDTO[]): PaymentNotices[
     payee: {
       name: element.paFullName,
       srcImg: fromTaxCodeToSrcImage(element.paTaxCode),
-      altImg: `Logo ${element.paFullName}`
+      altImg: element.paFullName
     },
     // here we are assuming to receive only notices with one payments method
     paymentInfo: propertyOrMissingValue(element.paymentOptions[0].description),
