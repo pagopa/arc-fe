@@ -196,3 +196,23 @@ describe('return a transactionDetail object even if the response is empty', () =
     expect(utils.converters.prepareTransactionDetailData(resp)).toHaveProperty('transactionId');
   });
 });
+
+describe('withMissingValue hoc', () => {
+  const { toEuro, withMissingValue } = utils.converters;
+  const { missingValue } = utils.config;
+
+  const toEuroWithMissingValue = withMissingValue(toEuro);
+  it('should return the global missing value character', () => {
+    expect(toEuroWithMissingValue(undefined)).toEqual(missingValue);
+    expect(toEuroWithMissingValue(undefined, 2)).toEqual(missingValue);
+  });
+
+  it('should return a custom value #', () => {
+    const toEuroWithMissingValue = withMissingValue(toEuro, '#');
+    expect(toEuroWithMissingValue(undefined)).toEqual('#');
+  });
+
+  it('should return a proper value', () => {
+    expect(toEuroWithMissingValue(50)).toEqual('0,50\xa0€');
+  });
+});

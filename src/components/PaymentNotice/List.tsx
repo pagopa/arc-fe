@@ -28,7 +28,7 @@ export type PaymentNotices = {
 export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotices[] }) => {
   const { t } = useTranslation();
   const updatedDate = new Date().toISOString();
-
+  console.log(paymentNoticesList);
   return (
     <Stack gap={3}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" component="header">
