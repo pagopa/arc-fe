@@ -1,5 +1,7 @@
+import { Link } from '@mui/material';
 import { LogoPagoPAProduct, ProductEntity, RootLinkType } from '@pagopa/mui-italia';
 import React from 'react';
+import { ArcRoutes } from 'routes/routes';
 import { z, ZodError } from 'zod';
 
 /** Useful default values  */
@@ -57,7 +59,11 @@ const product: ProductEntity = {
   title: ``,
   productUrl: '#no-title',
   linkType: 'external',
-  icon: <LogoPagoPAProduct color="default" title="PagoPA" />
+  icon: (
+    <Link href={ArcRoutes.DASHBOARD} target="_blank">
+      <LogoPagoPAProduct color="default" title="PagoPA" />
+    </Link>
+  )
 };
 
 const assistanceLink: string = 'nomeprodotto@assistenza.pagopa.it';

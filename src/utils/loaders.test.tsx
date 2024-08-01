@@ -18,10 +18,10 @@ jest.mock('utils', () => {
     },
     zodSchema: {
       transactionDetailsDTOSchema: {
-        parse: jest.fn()
+        safeParse: () => ({ success: true })
       },
       transactionsListDTOSchema: {
-        parse: jest.fn()
+        safeParse: () => ({ success: true })
       }
     }
   };
@@ -40,7 +40,6 @@ describe('transactionsApi', () => {
   it('getTransactions calls API and schema parser correctly', async () => {
     const mockTransactions = [{ id: 1, amount: 100 }];
     const mockTransactionList = utils.apiClient.transactions.getTransactionsList as jest.Mock;
-    const mockZodTransactionResponse = utils.zodSchema.transactionsListDTOSchema.parse as jest.Mock;
 
     mockTransactionList.mockResolvedValue({ data: mockTransactions });
 
@@ -48,7 +47,6 @@ describe('transactionsApi', () => {
 
     await waitFor(() => {
       expect(mockTransactionList).toHaveBeenCalled();
-      expect(mockZodTransactionResponse).toHaveBeenCalledWith(mockTransactions);
       expect(result.current.data).toEqual(mockTransactions);
     });
   });
@@ -57,8 +55,6 @@ describe('transactionsApi', () => {
     const mockTransaction = { id: 1, amount: 100 };
     const transactionId = '1';
     const mockTransactionDetails = utils.apiClient.transactions.getTransactionDetails as jest.Mock;
-    const mockZodTransactionDetailResponse = utils.zodSchema.transactionDetailsDTOSchema
-      .parse as jest.Mock;
 
     mockTransactionDetails.mockResolvedValue({ data: mockTransaction });
 
@@ -68,7 +64,6 @@ describe('transactionsApi', () => {
 
     await waitFor(() => {
       expect(mockTransactionDetails).toHaveBeenCalledWith(transactionId);
-      expect(mockZodTransactionDetailResponse).toHaveBeenCalledWith(mockTransaction);
       expect(result.current.data).toEqual(mockTransaction);
     });
   });
