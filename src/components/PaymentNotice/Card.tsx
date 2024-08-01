@@ -47,7 +47,7 @@ export const _Card = ({ payee, amount, paymentInfo, expiringDate, id }: CardProp
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   const navigate = useNavigate();
-  console.log(payee.srcImage);
+
   return (
     <Paper elevation={16}>
       <Stack

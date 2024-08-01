@@ -14,7 +14,6 @@ const Notices = () => {
     if (isError || !data) return <PaymentNotice.Error />;
     if (!data.length) return <PaymentNotice.Empty />;
     const preparedData = utils.converters.preparePaymentNoticeListData(data);
-    console.log(preparedData);
 
     return (
       <Stack gap={5} component="section">
