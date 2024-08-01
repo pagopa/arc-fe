@@ -243,7 +243,7 @@ describe('prepare notice list', () => {
             description: 'Test Pull - unica opzione',
             numberOfInstallments: 1,
             amount: 588,
-            dueDate: '2024-10-30T23:59:59',
+            dueDate: '2024-10-30T20:00:00',
             isPartialPayment: false,
             switchToExpired: false,
             installments: [
