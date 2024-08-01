@@ -32,9 +32,7 @@ const getTransactionDetails = (id: string) =>
 
 const getPaymentNotices = () =>
   useQuery({
-    staleTime: Infinity,
-    enabled: false,
-    queryKey: ['queryKey'],
+    queryKey: ['paymentNotices'],
     queryFn: async () => {
       const { data } = await utils.apiClient.paymentNotices.getPaymentNotices({});
       // not throwing error here because we have a problem with date format

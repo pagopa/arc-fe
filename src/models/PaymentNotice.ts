@@ -1,4 +1,4 @@
-import { PaymentNoticeDTO, PaymentOptionDTO } from '../../generated/apiClient';
+import { InstallmentDTO, PaymentNoticeDTO, PaymentOptionDTO } from '../../generated/apiClient';
 
 export enum PaymentNoticeEnum {
   SINGLE = 'single',
@@ -15,10 +15,16 @@ export type PaymentNoticeEnhanced = PaymentNoticeDTO & {
   type: PaymentNoticeEnum;
 };
 
+export type PaymentInstallmentType = InstallmentDTO & {
+  amount: string;
+  dueDate: string;
+};
+
 export type PaymentOptionType = PaymentOptionDTO & {
   amount: string;
   dueDate: string;
   description: string;
+  installments: PaymentInstallmentType[];
 };
 
 export type PaymentNoticeMultipleType = PaymentNoticeEnhanced & {

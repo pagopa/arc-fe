@@ -19,10 +19,12 @@ export function usePersistentSignal<T>(key: string, initialValue?: T) {
 
   // Sync state with localStorage
   effect(() => {
-    try {
-      localStorage.setItem(key, JSON.stringify(state.value));
-    } catch (e) {
-      console.error('Failed to save value to localStorage for key:', key, e);
+    if (state.value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(state.value));
+      } catch (e) {
+        console.error('Failed to save value to localStorage for key:', key, e);
+      }
     }
   });
 

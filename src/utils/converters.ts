@@ -135,7 +135,12 @@ const transformPaymentOption = (option: PaymentOptionDTO): PaymentOptionType =>
     ...option,
     amount: toEuroOrMissingValue(option.amount),
     dueDate: formatDateOrMissingValue(option.dueDate),
-    description: propertyOrMissingValue(option.description)
+    description: propertyOrMissingValue(option.description),
+    installments: option.installments.map((installments) => ({
+      ...installments,
+      dueDate: formatDateOrMissingValue(installments.dueDate),
+      amount: toEuroOrMissingValue(installments.amount)
+    }))
   }) as PaymentOptionType;
 
 // Function to transform PaymentNoticeDTO to PaymentNoticeType

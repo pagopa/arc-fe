@@ -21,8 +21,7 @@ import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
-import { useStore } from 'store/GlobalStore';
-import { PaymentNoticeEnum } from 'models/PaymentNotice';
+import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
 
 /**
  * This component is considered private and should not be used directly.
@@ -31,13 +30,10 @@ import { PaymentNoticeEnum } from 'models/PaymentNotice';
  * @component
  * @private
  */
-export const _Detail = () => {
+export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
-  const {
-    state: { paymentNotice }
-  } = useStore();
 
   return paymentNotice?.type === PaymentNoticeEnum.SINGLE ? (
     <Grid container>
@@ -133,7 +129,8 @@ export const _Detail = () => {
                           {t('app.paymentNoticeDetail.card1.subject')}
                         </Typography>
                         <Typography variant="body1" fontSize={16} component="dd" fontWeight={700}>
-                          {paymentNotice.debtorFullName}
+                          {paymentNotice.type === PaymentNoticeEnum.SINGLE &&
+                            paymentNotice.paymentOptions.description}
                         </Typography>
                       </Grid>
                     </Grid>
