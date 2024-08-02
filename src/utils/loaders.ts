@@ -50,14 +50,17 @@ export const getReceiptData = async (transactionId: string) => {
   return data;
 };
 
-const getTokenOneidentity = (code: string, state: string) =>
+const getTokenOneidentity = async (code: string, state: string) =>
   useQuery({
     queryKey: ['tokenOneidentity'],
     queryFn: async () => {
-      const { data: TokenResponse } = await utils.apiClient.token.getAuthenticationToken({
-        code,
-        state
-      });
+      const { data: TokenResponse } = await utils.apiClient.token.getAuthenticationToken(
+        {
+          code,
+          state
+        },
+        { withCredentials: true }
+      );
       utils.zodSchema.tokenResponseSchema.parse(TokenResponse);
       console.log('loader +++', TokenResponse);
       return TokenResponse;

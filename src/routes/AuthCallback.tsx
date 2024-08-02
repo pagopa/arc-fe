@@ -22,6 +22,19 @@ const Callbackcomponent = () => {
     </QueryLoader>
   );
 };
+async function getToken(code: string, state: string) {
+  await utils.apiClient.token
+    .getAuthenticationToken(
+      {
+        code,
+        state
+      },
+      { withCredentials: true }
+    )
+    .then((resp) => {
+      console.log('token call', resp.data);
+    });
+}
 
 export default function AuthCallback() {
   function getParameterByName(name, url = window.location.href) {
@@ -34,18 +47,20 @@ export default function AuthCallback() {
   }
 
   useEffect(() => {
-    const code = getParameterByName('code');
-    const state = getParameterByName('state');
-    const url = `https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/token/oneidentity?code=${code}&state=${state}`;
-    /*fetch(url, {
+    const code = getParameterByName('code') || '';
+    const state = getParameterByName('state') || '';
+    /* const url = `https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/token/oneidentity?code=${code}&state=${state}`;
+    fetch(url, {
       method: 'GET',
       credentials: 'include'
     })
       .then((response) => response.json())
       .then((json) => console.log(json))
-      .catch((err) => console.log('Request Failed', err));*/
+      .catch((err) => console.log('Request Failed', err));
 
-    console.log('auth');
+    console.log('auth'); */
+
+    getToken(code, state);
   }, []);
   return <></>;
 }
