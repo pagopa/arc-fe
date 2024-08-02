@@ -9,7 +9,11 @@ const Callbackcomponent = () => {
   console.log(data);
 
   const Content = () => {
-    return <p>ciao</p>;
+    return (
+      <p>
+        {code} {state}
+      </p>
+    );
   };
 
   return (
@@ -33,13 +37,13 @@ export default function AuthCallback() {
     const code = getParameterByName('code');
     const state = getParameterByName('state');
     const url = `https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/token/oneidentity?code=${code}&state=${state}`;
-    fetch(url, {
+    /*fetch(url, {
       method: 'GET',
       credentials: 'include'
     })
       .then((response) => response.json())
       .then((json) => console.log(json))
-      .catch((err) => console.log('Request Failed', err));
+      .catch((err) => console.log('Request Failed', err));*/
 
     console.log('auth');
   }, []);
