@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { PaymentNotice } from './PaymentNotice';
+import { _Info } from './Info';
 
 describe('Payment notices info component', () => {
   it('should render as expected', () => {
-    render(<PaymentNotice.Info />);
+    render(<_Info />);
   });
 });

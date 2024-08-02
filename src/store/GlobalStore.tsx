@@ -7,7 +7,7 @@ const StoreContext = createContext<StoreContextProps | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const combinedState: State = {
-    [STATE.PAYMENT_NOTICE]: paymentNoticeState.value
+    [STATE.PAYMENT_NOTICE]: paymentNoticeState?.value
   };
 
   const setState = (key: STATE, value: unknown) => {
@@ -23,9 +23,9 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   );
 };
 
-export const useStore = () => {
+export const useStore = (): StoreContextProps => {
   const context = useContext(StoreContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useStore must be used within a StoreProvider');
   }
   return context;

@@ -277,6 +277,6 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
       </Stack>
     </Grid>
   ) : (
-    <div> Multiple PaymentNotice type is not supported </div>
+    <div>Multiple PaymentNotice type is not supported</div>
   );
 };

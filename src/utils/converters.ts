@@ -11,9 +11,8 @@ import { DateFormat, datetools } from './datetools';
 import utils from 'utils';
 import {
   NoticeImage,
+  PaymentInstallmentType,
   PaymentNoticeEnum,
-  PaymentNoticeMultipleType,
-  PaymentNoticeSingleType,
   PaymentNoticeType,
   PaymentOptionType
 } from 'models/PaymentNotice';
@@ -130,18 +129,17 @@ const prepareTransactionDetailData = (
 };
 
 // Function to transform PaymentOptionDTO to PaymentOptionType
-const transformPaymentOption = (option: PaymentOptionDTO): PaymentOptionType =>
-  ({
-    ...option,
-    amount: toEuroOrMissingValue(option.amount),
-    dueDate: formatDateOrMissingValue(option.dueDate),
-    description: propertyOrMissingValue(option.description),
-    installments: option.installments.map((installments) => ({
-      ...installments,
-      dueDate: formatDateOrMissingValue(installments.dueDate),
-      amount: toEuroOrMissingValue(installments.amount)
-    }))
-  }) as PaymentOptionType;
+const transformPaymentOption = (option: PaymentOptionDTO): PaymentOptionType => ({
+  ...option,
+  amount: toEuroOrMissingValue(option.amount),
+  dueDate: formatDateOrMissingValue(option.dueDate),
+  description: propertyOrMissingValue(option.description),
+  installments: option.installments.map<PaymentInstallmentType>((installments) => ({
+    ...installments,
+    dueDate: formatDateOrMissingValue(installments.dueDate),
+    amount: toEuroOrMissingValue(installments.amount)
+  }))
+});
 
 // Function to transform PaymentNoticeDTO to PaymentNoticeType
 const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeType => {
@@ -155,14 +153,14 @@ const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeT
       image,
       type: PaymentNoticeEnum.SINGLE,
       paymentOptions: transformPaymentOption(paymentNotice.paymentOptions[0])
-    } as PaymentNoticeSingleType;
+    };
   } else {
     return {
       ...paymentNotice,
       image,
       type: PaymentNoticeEnum.MULTIPLE,
       paymentOptions: paymentNotice.paymentOptions.map(transformPaymentOption)
-    } as PaymentNoticeMultipleType;
+    };
   }
 };
 

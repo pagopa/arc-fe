@@ -10,17 +10,17 @@ export type NoticeImage = {
   alt: string;
 };
 
-export type PaymentNoticeEnhanced = PaymentNoticeDTO & {
+export type PaymentNoticeEnhanced = Omit<PaymentNoticeDTO, 'paymentOptions'> & {
   image: NoticeImage;
   type: PaymentNoticeEnum;
 };
 
-export type PaymentInstallmentType = InstallmentDTO & {
+export type PaymentInstallmentType = Omit<InstallmentDTO, 'amount'> & {
   amount: string;
   dueDate: string;
 };
 
-export type PaymentOptionType = PaymentOptionDTO & {
+export type PaymentOptionType = Omit<PaymentOptionDTO, 'amount' | 'installments'> & {
   amount: string;
   dueDate: string;
   description: string;
