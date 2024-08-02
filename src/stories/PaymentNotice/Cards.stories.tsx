@@ -1,5 +1,8 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { PaymentNotice } from 'components/PaymentNotice';
+import { StoreProvider } from 'store/GlobalStore';
+import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 
 const meta: Meta<typeof PaymentNotice.Preview> = {
   title: 'Payment Notice/Cards',
@@ -18,15 +21,12 @@ export default meta;
 
 type StoryCard = StoryObj<typeof PaymentNotice.Card>;
 export const CardSinglePayment: StoryCard = {
-  render: PaymentNotice.Card,
-  args: {
-    payee: {
-      name: 'Politecnico di Milano'
-    },
-    paymentInfo: 'RATA 1 - Anno Accademico 2023/2024',
-    amount: '171,00 €',
-    expiringDate: '31/01/2099'
-  }
+  render: (args) => (
+    <StoreProvider>
+      <PaymentNotice.Card {...args} />
+    </StoreProvider>
+  ),
+  args: mockNotice
 };
 
 type StoryPreview = StoryObj<typeof PaymentNotice.Preview>;
