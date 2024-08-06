@@ -20,8 +20,8 @@ import {
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PaymentNoticeDetail } from 'models/PaymentNoticeDetail';
 import utils from 'utils';
+import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
 
 /**
  * This component is considered private and should not be used directly.
@@ -30,12 +30,12 @@ import utils from 'utils';
  * @component
  * @private
  */
-export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentNoticeDetail }) => {
+export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
 
-  return (
+  return paymentNotice?.type === PaymentNoticeEnum.SINGLE ? (
     <Grid container>
       <Stack width={'100%'} spacing={3}>
         <Typography variant="h4" component={'h1'}>
@@ -79,7 +79,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           order="1"
                           component="dd"
                           fontWeight={700}>
-                          {paymentNoticeDetail.amount}
+                          {paymentNotice?.paymentOptions.amount}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -108,7 +108,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           {t('app.paymentNoticeDetail.card1.paFullname')}
                         </Typography>
                         <Typography variant="body1" component="dd" fontSize={16} fontWeight={700}>
-                          {paymentNoticeDetail.paFullName}
+                          {paymentNotice.paFullName}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -129,7 +129,8 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           {t('app.paymentNoticeDetail.card1.subject')}
                         </Typography>
                         <Typography variant="body1" fontSize={16} component="dd" fontWeight={700}>
-                          {paymentNoticeDetail.subject}
+                          {paymentNotice.type === PaymentNoticeEnum.SINGLE &&
+                            paymentNotice.paymentOptions.description}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -150,7 +151,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           {t('app.paymentNoticeDetail.card1.dueDate')}
                         </Typography>
                         <Typography variant="body1" fontSize={16} component="dd" fontWeight={700}>
-                          {paymentNoticeDetail.dueDate}
+                          {paymentNotice.paymentOptions.dueDate}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -170,12 +171,12 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                          {paymentNoticeDetail.iupd}
+                          {paymentNotice.iupd}
                         </Typography>
                       </Grid>
                     </Grid>
                     <Grid item xs={2} sm={1}>
-                      <CopyToClipboardButton value={paymentNoticeDetail.iupd} color="primary" />
+                      <CopyToClipboardButton value={paymentNotice.iupd} color="primary" />
                     </Grid>
                   </Grid>
                   <Divider />
@@ -193,15 +194,12 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                          {paymentNoticeDetail.paTaxCode}
+                          {paymentNotice.paTaxCode}
                         </Typography>
                       </Grid>
                     </Grid>
                     <Grid item xs={2} sm={1}>
-                      <CopyToClipboardButton
-                        value={paymentNoticeDetail.paTaxCode}
-                        color="primary"
-                      />
+                      <CopyToClipboardButton value={paymentNotice.paTaxCode} color="primary" />
                     </Grid>
                   </Grid>
                 </Stack>
@@ -227,7 +225,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
                       <Typography variant="body1" fontWeight={700} component="dd">
-                        {paymentNoticeDetail.firstInstallmentDate}
+                        {paymentNotice.paymentOptions.installments[0].dueDate}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -239,7 +237,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
                     </Grid>
                     <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
                       <Typography variant="body1" fontWeight={700} component="dd">
-                        {paymentNoticeDetail.firstInstallmentAmount}
+                        {paymentNotice.paymentOptions.installments[0].amount}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -278,5 +276,7 @@ export const _Detail = ({ paymentNoticeDetail }: { paymentNoticeDetail: PaymentN
         </Grid>
       </Stack>
     </Grid>
+  ) : (
+    <div>Multiple PaymentNotice type is not supported</div>
   );
 };

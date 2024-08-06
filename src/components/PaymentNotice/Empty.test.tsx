@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { PaymentNotice } from './index';
 import i18n from 'translations/i18n';
+import { _Empty } from './Empty';
 
 void i18n.init({
   resources: {}
@@ -20,7 +20,7 @@ describe('PaymentNotice.Empty Component', () => {
   };
 
   it('renders the button', () => {
-    renderWithTheme(<PaymentNotice.Empty />);
+    renderWithTheme(<_Empty />);
 
     expect(screen.getByRole('link')).toBeInTheDocument();
   });
