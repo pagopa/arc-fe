@@ -98,7 +98,7 @@ describe('transactionReceipt', () => {
 
 describe('getTokenOneidentity function', () => {
   it('returns Token correctly', async () => {
-    const mockResponse = { access_token: 'tok1234', token_type: 'token', expires_in: 7200 };
+    const mockResponse = { accessToken: 'tok1234', tokenType: 'token', expiresIn: 7200 };
     const mockGetAuthenticationToken = utils.apiClient.token.getAuthenticationToken as jest.Mock;
     mockGetAuthenticationToken.mockResolvedValue({ data: mockResponse });
 

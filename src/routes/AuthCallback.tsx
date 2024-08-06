@@ -9,7 +9,7 @@ export default function AuthCallback() {
 
   try {
     utils.zodSchema.tokenResponseSchema.parse(result);
-    window.localStorage.setItem('accessToken', (result as TokenResponse).access_token);
+    window.localStorage.setItem('accessToken', (result as TokenResponse).accessToken);
     window.location.replace(ArcRoutes.DASHBOARD);
   } catch {
     window.location.replace(ArcRoutes.LOGIN);
