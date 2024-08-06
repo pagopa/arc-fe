@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import React, { ReactNode } from 'react';
-import transactionsApi from 'utils/loaders'; // avoids mocked loaders
+import loaders from 'utils/loaders'; // avoids mocked loaders
 import utils from 'utils';
+import 'whatwg-fetch';
 
 // Mock the utils module
 jest.mock('utils', () => {
@@ -46,7 +47,7 @@ describe('transactionsApi', () => {
 
     mockTransactionList.mockResolvedValue({ data: mockTransactions });
 
-    const { result } = renderHook(() => transactionsApi.getTransactions(), { wrapper });
+    const { result } = renderHook(() => loaders.getTransactions(), { wrapper });
 
     await waitFor(() => {
       expect(mockTransactionList).toHaveBeenCalled();
@@ -61,7 +62,7 @@ describe('transactionsApi', () => {
 
     mockTransactionDetails.mockResolvedValue({ data: mockTransaction });
 
-    const { result } = renderHook(() => transactionsApi.getTransactionDetails(transactionId), {
+    const { result } = renderHook(() => loaders.getTransactionDetails(transactionId), {
       wrapper
     });
 
@@ -87,7 +88,7 @@ describe('transactionReceipt', () => {
     const mockTransactionReceipt = utils.apiClient.transactions.getTransactionReceipt as jest.Mock;
 
     mockTransactionReceipt.mockResolvedValue({ data: null });
-    renderHook(() => transactionsApi.getReceiptData(transactionId), { wrapper });
+    renderHook(() => loaders.getReceiptData(transactionId), { wrapper });
 
     await waitFor(() => {
       expect(mockTransactionReceipt).toHaveBeenCalledWith(transactionId, { format: 'blob' });
@@ -95,22 +96,23 @@ describe('transactionReceipt', () => {
   });
 });
 
-describe('Oneidentity token', () => {
-  it('getAuthenticationToken is called', async () => {
-    const mockRequest = {
-      url: 'https://website.it/auth-callback?code=code123&state=state123',
-      search: '?code=code123&state=state123'
-    };
+describe('getTokenOneidentity function', () => {
+  it('returns Token correctly', async () => {
     const mockResponse = { access_token: 'tok1234', token_type: 'token', expires_in: 7200 };
     const mockGetAuthenticationToken = utils.apiClient.token.getAuthenticationToken as jest.Mock;
-    const result = mockGetAuthenticationToken.mockResolvedValue({ data: mockResponse });
-    utils.loaders.getTokenOneidentity(mockRequest);
-    await waitFor(() => {
-      expect(mockGetAuthenticationToken).toHaveBeenCalledWith({
+    mockGetAuthenticationToken.mockResolvedValue({ data: mockResponse });
+
+    const request = new Request('https://website.it/auth-callback?code=code123&state=state123');
+    const token = await loaders.getTokenOneidentity(request);
+
+    expect(mockGetAuthenticationToken).toHaveBeenCalledWith(
+      {
         code: 'code123',
         state: 'state123'
-      });
-      expect(result).toEqual(mockResponse);
-    });
+      },
+      { withCredentials: true }
+    );
+    expect(mockGetAuthenticationToken).toHaveBeenCalledTimes(1);
+    expect(token).toEqual(mockResponse);
   });
 });
