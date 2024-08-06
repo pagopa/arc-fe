@@ -26,7 +26,8 @@ export const Header = (props: HeaderProps) => {
   const navigate = useNavigate();
 
   function logout() {
-    sessionStorage.clear();
+    window.sessionStorage.clear();
+    window.localStorage.clear();
     navigate(ArcRoutes.LOGIN);
   }
 

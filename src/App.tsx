@@ -20,6 +20,7 @@ import PaymentNoticeDetail from 'routes/PaymentNoticeDetail';
 import { RouteGuard } from 'components/RouteGuard';
 import utils from 'utils';
 import AuthCallback from 'routes/AuthCallback';
+import { getTokenOneidentity } from 'utils/loaders';
 
 const router = createBrowserRouter([
   {
@@ -39,12 +40,16 @@ const router = createBrowserRouter([
   },
   {
     path: ArcRoutes.AUTH_CALLBACK,
-    element: <AuthCallback />
+    element: <AuthCallback />,
+    loader: ({ request }) => getTokenOneidentity(request)
   },
   {
     path: '/',
     element: (
-      <RouteGuard itemKeys={['sessionToken']} redirectTo={ArcRoutes.LOGIN}>
+      <RouteGuard
+        itemKeys={['accessToken']}
+        storage={window.localStorage}
+        redirectTo={ArcRoutes.LOGIN}>
         <Layout />
       </RouteGuard>
     ),

@@ -23,7 +23,9 @@ utils.apiClient.instance.interceptors.response.use(
 
 utils.apiClient.instance.interceptors.response.use((response) => response);
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <App />
-  </QueryClientProvider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </React.StrictMode>
 );

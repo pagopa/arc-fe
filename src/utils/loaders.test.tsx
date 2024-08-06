@@ -14,6 +14,9 @@ jest.mock('utils', () => {
         getTransactionsList: jest.fn(),
         getTransactionDetails: jest.fn(),
         getTransactionReceipt: jest.fn()
+      },
+      token: {
+        getAuthenticationToken: jest.fn()
       }
     },
     zodSchema: {
@@ -88,6 +91,26 @@ describe('transactionReceipt', () => {
 
     await waitFor(() => {
       expect(mockTransactionReceipt).toHaveBeenCalledWith(transactionId, { format: 'blob' });
+    });
+  });
+});
+
+describe('Oneidentity token', () => {
+  it('getAuthenticationToken is called', async () => {
+    const mockRequest = {
+      url: 'https://website.it/auth-callback?code=code123&state=state123',
+      search: '?code=code123&state=state123'
+    };
+    const mockResponse = { access_token: 'tok1234', token_type: 'token', expires_in: 7200 };
+    const mockGetAuthenticationToken = utils.apiClient.token.getAuthenticationToken as jest.Mock;
+    const result = mockGetAuthenticationToken.mockResolvedValue({ data: mockResponse });
+    utils.loaders.getTokenOneidentity(mockRequest);
+    await waitFor(() => {
+      expect(mockGetAuthenticationToken).toHaveBeenCalledWith({
+        code: 'code123',
+        state: 'state123'
+      });
+      expect(result).toEqual(mockResponse);
     });
   });
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Button,
@@ -30,6 +30,11 @@ const Login = () => {
     window.open(`mailto:${ASSISTANCE_MAIL}`);
   };
   const theme = useTheme();
+
+  useEffect(() => {
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+  }, []);
 
   return (
     <Container
@@ -132,7 +137,7 @@ const Login = () => {
                           href="#"
                           fontWeight={800}
                           onClick={() => {
-                            window.sessionStorage.setItem('sessionToken', 'dummy');
+                            window.localStorage.setItem('accessToken', 'dummy');
                             window.location.replace('/');
                           }}
                         />
