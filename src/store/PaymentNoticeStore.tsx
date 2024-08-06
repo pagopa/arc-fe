@@ -9,5 +9,5 @@ export const paymentNoticeState = usePersistentSignal<PaymentNoticeType | undefi
 
 // Function to update the payment notice
 export function setPaymentNotice(notice: PaymentNoticeType | undefined) {
-  paymentNoticeState.value = notice;
+  paymentNoticeState.state.value = notice;
 }

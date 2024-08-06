@@ -17,7 +17,10 @@ export function usePersistentSignal<T>(key: string, initialValue?: T) {
 
   const state = signal<T>(getStoredValue());
 
-  // Sync state with localStorage
+  const removeItem = () => {
+    localStorage.removeItem(key);
+  };
+
   effect(() => {
     if (state.value) {
       try {
@@ -28,5 +31,5 @@ export function usePersistentSignal<T>(key: string, initialValue?: T) {
     }
   });
 
-  return state;
+  return { state, removeItem };
 }
