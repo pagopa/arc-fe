@@ -126,11 +126,12 @@ const Login = () => {
                     i18nKey={t('app.login.terms')}
                     components={{
                       link1: (
-                        <Link href={ArcRoutes.TOS_PAGE} fontWeight={800} />
+                        <Link href={ArcRoutes.TOS_PAGE} target="_blank" fontWeight={800} />
                       ) /* I've kept two separate components because in the future we will have two different destination addresses which will be defined here. */,
                       link2: (
                         <Link
                           href={ArcRoutes.PRIVACY_PAGE}
+                          target="_blank"
                           fontWeight={800}
                           onClick={() => {
                             window.sessionStorage.setItem('sessionToken', 'dummy');
