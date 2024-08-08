@@ -1,19 +1,17 @@
-import useQueryParams from 'hooks/useQueryParams';
-import { useNavigate } from 'react-router-dom';
-import { ArcRoutes } from './routes';
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { ArcRoutes } from './routes';
+import { TokenResponse } from '../../generated/data-contracts';
 
 export default function AuthCallback() {
-  const { code, state } = useQueryParams();
-  const navigate = useNavigate();
+  const result = useLoaderData() as TokenResponse | null;
 
-  if (!code || !state) {
-    navigate(ArcRoutes.LOGIN);
+  if (result) {
+    window.localStorage.setItem('accessToken', (result as TokenResponse).accessToken);
+    window.location.replace(ArcRoutes.DASHBOARD);
+  } else {
+    window.location.replace(ArcRoutes.LOGIN);
   }
 
-  return (
-    <>
-      <p>{`${code} | ${state}`}</p>
-    </>
-  );
+  return <></>;
 }

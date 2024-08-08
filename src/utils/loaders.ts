@@ -50,9 +50,31 @@ export const getReceiptData = async (transactionId: string) => {
   return data;
 };
 
+export const getTokenOneidentity = async (request: Request) => {
+  const currentUrl = new URL(request.url);
+  const searchParams = new URLSearchParams(currentUrl.search);
+  const code = searchParams.get('code') || '';
+  const state = searchParams.get('state') || '';
+
+  try {
+    const { data: TokenResponse } = await utils.apiClient.token.getAuthenticationToken(
+      {
+        code,
+        state
+      },
+      { withCredentials: true }
+    );
+    parseAndLog(utils.zodSchema.tokenResponseSchema, TokenResponse);
+    return TokenResponse;
+  } catch {
+    return null;
+  }
+};
+
 export default {
   getTransactions,
   getTransactionDetails,
   getPaymentNotices,
-  getReceiptData
+  getReceiptData,
+  getTokenOneidentity
 };
