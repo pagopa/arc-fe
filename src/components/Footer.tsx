@@ -27,7 +27,7 @@ export const Footer = (props: FooterProps) => {
           label: t('ui.footer.privacy'),
           ariaLabel: t('ui.footer.privacy'),
           href: ArcRoutes.PRIVACY_PAGE,
-          linkType: 'internal'
+          linkType: 'external'
         },
         {
           label: t('ui.footer.personalData'),
@@ -38,7 +38,7 @@ export const Footer = (props: FooterProps) => {
           label: t('ui.footer.termsAndConditions'),
           ariaLabel: t('ui.footer.termsAndConditions'),
           href: ArcRoutes.TOS_PAGE,
-          linkType: 'internal'
+          linkType: 'external'
         },
         { label: t('aria.a11y'), ariaLabel: t('aria.a11y'), linkType: 'internal' }
       ]}
@@ -76,17 +76,17 @@ export const Footer = (props: FooterProps) => {
           title: t('ui.footer.resources'),
           links: [
             {
-              label: t('ui.footer.praaaivacy'),
+              label: t('ui.footer.privacy'),
               ariaLabel: t('ui.footer.privacy'),
               href: ArcRoutes.PRIVACY_PAGE,
 
-              linkType: 'internal'
+              linkType: 'external'
             },
             {
               label: t('ui.footer.terms'),
               ariaLabel: t('ui.footer.terms'),
               href: ArcRoutes.TOS_PAGE,
-              linkType: 'internal'
+              linkType: 'external'
             },
             {
               label: t('ui.footer.certifications'),
