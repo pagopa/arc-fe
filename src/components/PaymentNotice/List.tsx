@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentNotice } from './PaymentNotice';
 import { DateFormat, datetools } from 'utils/datetools';
+import { PaymentNoticeType } from 'models/PaymentNotice';
 
 /**
  * This component is considered private and should not be used directly.
@@ -13,19 +14,7 @@ import { DateFormat, datetools } from 'utils/datetools';
  * @private
  */
 
-export type PaymentNotices = {
-  id: string;
-  payee: {
-    name: string;
-    srcImg?: string;
-    altImg?: string;
-  };
-  paymentInfo: string;
-  amount: string;
-  expiringDate: string;
-};
-
-export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotices[] }) => {
+export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] }) => {
   const { t } = useTranslation();
   const updatedDate = new Date().toISOString();
 
@@ -33,7 +22,7 @@ export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotic
     <Stack gap={3}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" component="header">
         <Typography variant="h6" component="h2">
-          {`${t('app.paymentNotices.found', { count: paymentNoticesList.length })}`}
+          {`${t('app.paymentNotices.found', { count: paymentNotices.length })}`}
         </Typography>
         <Typography display="flex" variant="body1" component="div" flexDirection="row" gap="5px">
           <Typography color="text.secondary" component="span">
@@ -49,8 +38,8 @@ export const _List = ({ paymentNoticesList }: { paymentNoticesList: PaymentNotic
         </Typography>
       </Stack>
       <Stack gap={3} component="section">
-        {paymentNoticesList.map((paymentNotice) => (
-          <PaymentNotice.Card key={paymentNotice.id} {...paymentNotice} />
+        {paymentNotices?.map((paymentNotice) => (
+          <PaymentNotice.Card key={paymentNotice.iupd} {...paymentNotice} />
         ))}
       </Stack>
     </Stack>

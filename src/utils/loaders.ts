@@ -38,7 +38,7 @@ const getPaymentNotices = () =>
       // not throwing error here because we have a problem with date format
       // to be fixed
       parseAndLog(utils.zodSchema.paymentNoticesListDTOSchema, data, false);
-      return data.paymentNotices;
+      return data;
     }
   });
 

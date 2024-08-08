@@ -1,88 +1,59 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { useTranslation } from 'react-i18next';
+import { useStore } from 'store/GlobalStore';
+import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CardProps } from './Card';
-import { PaymentNotice } from './index';
-import { BrowserRouter } from 'react-router-dom';
+import { _Card } from './Card';
+import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
+import i18n from 'translations/i18n';
+import { STATE } from 'store/types';
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: jest.fn()
-}));
-const mockedUsedNavigate = jest.fn();
+void i18n.init({
+  resources: {}
+});
 
-jest.mock('components/PayeeIcon', () => ({
-  PayeeIcon: jest.fn(() => <div>Payee Icon</div>)
+jest.mock('store/GlobalStore', () => ({
+  useStore: jest.fn()
 }));
 
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate
+  useNavigate: jest.fn()
 }));
 
-describe('Card Component', () => {
-  const renderWithTheme = (ui: React.ReactElement) => {
-    const theme = createTheme();
-    return render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
-  };
+const renderWithProviders = (ui: React.ReactElement) => {
+  const theme = createTheme();
+
+  return render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
+};
+
+describe('_Card component', () => {
+  const setState = jest.fn();
+  const navigate = jest.fn();
 
   beforeEach(() => {
-    (useTranslation as jest.Mock).mockReturnValue({
-      t: (key: string) => key
-    });
+    (useStore as jest.Mock).mockReturnValue({ setState });
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
   });
 
-  const baseProps: CardProps = {
-    id: '123',
-    payee: {
-      name: 'Payee Name',
-      srcImg: 'payee.png',
-      altImg: 'Payee Image'
-    },
-    paymentInfo: 'Payment Info',
-    amount: '100',
-    expiringDate: '2022-12-31'
-  };
-
-  it('renders the payee name, payment info, and amount', () => {
-    renderWithTheme(
-      <BrowserRouter>
-        <PaymentNotice.Card {...baseProps} />
-      </BrowserRouter>
-    );
-    expect(screen.getByText('Payee Name')).toBeInTheDocument();
-    expect(screen.getByText('Payment Info')).toBeInTheDocument();
-    expect(screen.getByText('100')).toBeInTheDocument();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('renders the expiring date if provided', () => {
-    renderWithTheme(
-      <BrowserRouter>
-        <PaymentNotice.Card {...baseProps} />
-      </BrowserRouter>
-    );
-    expect(screen.getByText('app.paymentNotice.card.expiringDate')).toBeInTheDocument();
-    expect(screen.getByText('2022-12-31')).toBeInTheDocument();
+  test('renders correctly', () => {
+    renderWithProviders(<_Card {...mockNotice} />);
+
+    expect(screen.getByText(mockNotice.paFullName)).toBeInTheDocument();
+    expect(screen.getByText(mockNotice.paymentOptions.description)).toBeInTheDocument();
   });
 
-  it('renders the PayeeIcon', () => {
-    renderWithTheme(
-      <BrowserRouter>
-        <PaymentNotice.Card {...baseProps} />
-      </BrowserRouter>
-    );
-    expect(screen.getByText('Payee Icon')).toBeInTheDocument();
-  });
+  test('navigates to the correct route and sets state when button is clicked', () => {
+    renderWithProviders(<_Card {...mockNotice} />);
 
-  it('renders the ArrowForwardIosIcon', () => {
-    renderWithTheme(
-      <BrowserRouter>
-        <PaymentNotice.Card {...baseProps} />
-      </BrowserRouter>
-    );
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
 
-    expect(screen.getByTestId('ArrowForwardIosIcon')).toBeInTheDocument();
+    expect(setState).toHaveBeenCalledWith(STATE.PAYMENT_NOTICE, mockNotice);
+    expect(navigate).toHaveBeenCalledWith(`/payment-notices/${mockNotice.iupd}`);
   });
 });

@@ -3,21 +3,20 @@ import Typography from '@mui/material/Typography';
 import { PaymentNotice } from 'components/PaymentNotice';
 import QueryLoader from 'components/QueryLoader';
 import { PaymentNoticesListSkeleton } from 'components/Skeleton';
+import { useNormalizedNotices } from 'hooks/useNormalizedNotices';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 
 const Notices = () => {
-  const { data, isError } = utils.loaders.getPaymentNotices();
+  const { data, isError } = useNormalizedNotices();
 
   const Content = () => {
     if (isError || !data) return <PaymentNotice.Error />;
-    if (!data.length) return <PaymentNotice.Empty />;
-    const preparedData = utils.converters.preparePaymentNoticeListData(data);
-
+    if (!data?.paymentNotices?.length) return <PaymentNotice.Empty />;
     return (
       <Stack gap={5} component="section">
-        <PaymentNotice.List paymentNoticesList={preparedData} />
+        <PaymentNotice.List paymentNotices={data.paymentNotices} />
         <PaymentNotice.Info />
       </Stack>
     );

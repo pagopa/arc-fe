@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { PaymentNotice } from './index';
 import i18n from 'translations/i18n';
+import { _Preview } from './Preview';
 
 void i18n.init({
   resources: {}
@@ -20,20 +20,20 @@ describe('PaymentNotice.Preview Component', () => {
   };
 
   it('renders the title and description', () => {
-    renderWithTheme(<PaymentNotice.Preview />);
+    renderWithTheme(<_Preview />);
 
     expect(screen.getByText('app.paymentNotice.preview.title')).toBeInTheDocument();
     expect(screen.getByText('app.paymentNotice.preview.description')).toBeInTheDocument();
   });
 
   it('renders the action button', () => {
-    renderWithTheme(<PaymentNotice.Preview />);
+    renderWithTheme(<_Preview />);
 
     expect(screen.getByText('app.paymentNotice.preview.action')).toBeInTheDocument();
   });
 
   it('renders the illustration on large screens', () => {
-    renderWithTheme(<PaymentNotice.Preview />);
+    renderWithTheme(<_Preview />);
 
     // Simulate a large screen
     window.matchMedia = jest.fn().mockImplementation((query) => ({
@@ -44,7 +44,7 @@ describe('PaymentNotice.Preview Component', () => {
       removeListener: jest.fn()
     }));
 
-    renderWithTheme(<PaymentNotice.Preview />);
+    renderWithTheme(<_Preview />);
 
     expect(screen.getByText('Illustration')).toBeInTheDocument();
   });
@@ -59,7 +59,7 @@ describe('PaymentNotice.Preview Component', () => {
       removeListener: jest.fn()
     }));
 
-    renderWithTheme(<PaymentNotice.Preview />);
+    renderWithTheme(<_Preview />);
 
     expect(screen.queryByText('Illustration')).not.toBeInTheDocument();
   });
