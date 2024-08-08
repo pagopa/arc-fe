@@ -20,6 +20,8 @@ import PaymentNoticeDetail from 'routes/PaymentNoticeDetail';
 import { RouteGuard } from 'components/RouteGuard';
 import utils from 'utils';
 import AuthCallback from 'routes/AuthCallback';
+import PrivacyPage from 'routes/PrivacyPage';
+import TOSPage from 'routes/TOSPage';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,17 @@ const router = createBrowserRouter([
     path: ArcRoutes.LOGIN,
     element: <Login />
   },
+  {
+    path: ArcRoutes.PRIVACY_PAGE,
+    element: <PrivacyPage />,
+    errorElement: <ErrorFallback />
+  },
+  {
+    path: ArcRoutes.TOS_PAGE,
+    element: <TOSPage />,
+    errorElement: <ErrorFallback />
+  },
+
   {
     path: ArcRoutes.AUTH_CALLBACK,
     element: <AuthCallback />,
@@ -115,6 +128,7 @@ const router = createBrowserRouter([
         element: <PaymentNotices />,
         errorElement: <ErrorFallback />
       },
+
       {
         path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
         element: <PaymentNoticeDetail />,

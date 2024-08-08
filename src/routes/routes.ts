@@ -8,5 +8,7 @@ export enum ArcRoutes {
   LOGIN = '/login',
   ASSISTANCE = '/assistance',
   PAYMENT_NOTICE_DETAIL = '/payment-notices/:id',
-  AUTH_CALLBACK = '/auth_callback'
+  AUTH_CALLBACK = '/auth_callback',
+  PRIVACY_PAGE = '/privacy_page',
+  TOS_PAGE = '/terms-of-service'
 }

@@ -22,6 +22,7 @@ import utils from 'utils';
 import { Trans, useTranslation } from 'react-i18next';
 import { Footer } from 'components/Footer';
 import { Logout } from '@mui/icons-material';
+import { ArcRoutes } from './routes';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -125,15 +126,14 @@ const Login = () => {
                     i18nKey={t('app.login.terms')}
                     components={{
                       link1: (
-                        <Link href="#" fontWeight={800} />
+                        <Link href={ArcRoutes.TOS_PAGE} fontWeight={800} />
                       ) /* I've kept two separate components because in the future we will have two different destination addresses which will be defined here. */,
                       link2: (
                         <Link
-                          href="#"
+                          href={ArcRoutes.PRIVACY_PAGE}
                           fontWeight={800}
                           onClick={() => {
                             window.sessionStorage.setItem('sessionToken', 'dummy');
-                            window.location.replace('/');
                           }}
                         />
                       )
