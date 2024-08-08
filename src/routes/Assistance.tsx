@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Card,
@@ -21,6 +21,13 @@ const Assistance = () => {
   const [emailConfirmError, setEmailConfirmError] = useState(false);
   const [emailConfirm, setEmailConfirm] = useState('');
   const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (email) setEmailError(!reg.test(email));
+    if (emailConfirm) setEmailConfirmError(email !== emailConfirm);
+    setActive(reg.test(email) && emailConfirm === email);
+  }, [email, emailConfirm]);
 
   return (
     <>
@@ -56,9 +63,6 @@ const Assistance = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  onBlur={() => {
-                    setEmailError(!reg.test(email) && email.length > 0);
-                  }}
                   sx={{ maxWidth: { lg: '20vw', md: '25vw', sm: '35vw', xs: '100%' } }}
                   label={t('app.assistance.input1Placeholder')}
                   InputLabelProps={{
@@ -76,9 +80,6 @@ const Assistance = () => {
                   aria-label={t('app.assistance.input2Placeholder')}
                   onChange={(e) => {
                     setEmailConfirm(e.target.value);
-                  }}
-                  onBlur={() => {
-                    setEmailConfirmError(email !== emailConfirm);
                   }}
                   size="small"
                   sx={{ maxWidth: { lg: '20vw', md: '25vw', sm: '35vw', xs: '100%' } }}
@@ -112,7 +113,11 @@ const Assistance = () => {
             onClick={() => utils.modal.open(utils.modal.ModalId.ASSISTANCEBACK)}>
             {t('app.routes.exit')}
           </Button>
-          <Button variant="contained" size="large" href={utils.config.assistanceLink}>
+          <Button
+            variant="contained"
+            size="large"
+            href={utils.config.assistanceLink}
+            disabled={!active}>
             {t('app.assistance.confirm')}
           </Button>
         </Stack>
