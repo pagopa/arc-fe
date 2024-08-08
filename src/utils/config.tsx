@@ -13,6 +13,7 @@ const {
   ENTITIES_LOGO_CDN,
   CHECKOUT_HOST = 'https://dev.checkout.pagopa.it',
   LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity',
+  CHECKOUT_PLATFORM_URL = 'https://api.uat.platform.pagopa.it',
   VERSION = ''
 } = process.env;
 
@@ -27,6 +28,7 @@ const SHOW_STATUS_INFO_schema: z.ZodType<BOOLISH> = z.enum(['true', 'false']);
 const ENTITIES_LOGO_CDN_schema = z.string().url();
 const CHECKOUT_HOST_schema = z.string().url();
 const LOGIN_URL_schema = z.string().url();
+const CHECKOUT_PLATFORM_URL_schema = z.string().url();
 
 try {
   ENV_Schema.parse(process.env.ENV);
@@ -35,6 +37,7 @@ try {
   ENTITIES_LOGO_CDN_schema.parse(process.env.ENTITIES_LOGO_CDN);
   CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
   LOGIN_URL_schema.parse(process.env.LOGIN_URL);
+  CHECKOUT_PLATFORM_URL_schema.parse(process.env.CHECKOUT_PLATFORM_URL);
   VERSION_schema.parse(process.env.VERSION);
 } catch (e) {
   console.error('ENV variables validation fails', (e as ZodError).issues);
@@ -53,6 +56,7 @@ type Config = {
   missingValue: string;
   loginUrl: string;
   tokenHeaderExcludePaths: string[];
+  checkoutPlatformUrl: string;
 };
 
 const product: ProductEntity = {
@@ -82,7 +86,7 @@ const config: Config = {
   /** Running version, usually valued by pipelines */
   version: VERSION,
   /** the prefix of all api calls
-   *  works in conjunction with the autogenrated API client
+   *  works in conjunction with the auto generated API client
    *  see the command generate in the package.json file
    */
   baseURL: APIHOST,
@@ -98,6 +102,7 @@ const config: Config = {
   assistanceLink,
   checkoutHost: CHECKOUT_HOST,
   loginUrl: LOGIN_URL,
+  checkoutPlatformUrl: CHECKOUT_PLATFORM_URL,
   /** a global character to be shown
    * when a info is missing
    */

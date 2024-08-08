@@ -1,6 +1,8 @@
 import utils from 'utils';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { ZodSchema } from 'zod';
+import { CartRequest } from '../../generated/checkout/data-contracts';
+import { ContentType } from '../../generated/apiClient';
 
 const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true): void | never => {
   const result = schema.safeParse(data);

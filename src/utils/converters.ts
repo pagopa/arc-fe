@@ -13,6 +13,7 @@ import {
   NoticeImage,
   PaymentInstallmentType,
   PaymentNoticeEnum,
+  PaymentNoticeSingleType,
   PaymentNoticeType,
   PaymentOptionType
 } from 'models/PaymentNotice';
@@ -132,6 +133,8 @@ const prepareTransactionDetailData = (
 const transformPaymentOption = (option: PaymentOptionDTO): PaymentOptionType => ({
   ...option,
   amount: toEuroOrMissingValue(option.amount),
+  // TODO handle missing amount
+  amountValue: option?.amount || 0,
   dueDate: formatDateOrMissingValue(option.dueDate),
   description: propertyOrMissingValue(option.description),
   installments: option.installments.map<PaymentInstallmentType>((installments) => ({
@@ -170,10 +173,28 @@ const prepareNoticesData = (data: PaymentNoticesListDTO | undefined) => {
   return { paymentNotices: transformed };
 };
 
+const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => ({
+  paymentNotices: [
+    {
+      amount: paymentNotice.paymentOptions.amountValue,
+      companyName: paymentNotice.paFullName,
+      description: paymentNotice.paymentOptions.description,
+      fiscalCode: '77777777777',
+      noticeNumber: '302099999999999999'
+    }
+  ],
+  returnUrls: {
+    returnOkUrl: 'http://localhost:1234',
+    returnCancelUrl: 'http://localhost:1234',
+    returnErrorUrl: 'http://localhost:1234'
+  }
+});
+
 export default {
   prepareNoticesData,
   prepareRowsData,
   prepareTransactionDetailData,
+  singleNoticeToCartsRequest,
   toEuro,
   withMissingValue
 };
