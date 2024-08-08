@@ -1,7 +1,15 @@
 {
-  "/api": {
+  "/api/token/oneidentity": {
+    "target": "http://localhost:8080",
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    }
+  },
+  "/api/**": {
     "target": "https://api.dev.cittadini-p4pa.pagopa.it/arc/v1",
     "changeOrigin": true,
+    "logLevel": "debug",
     "pathRewrite": {
       "^/api": ""
     }

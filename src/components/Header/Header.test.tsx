@@ -49,11 +49,11 @@ describe('Header component', () => {
   });
 
   it('should navigate to login page & clear storage when logout is clicked', () => {
-    global.window.sessionStorage.setItem('sessionToken', 'test');
+    global.window.localStorage.setItem('accessToken', 'test');
     render(<HeaderWithRouter />);
     fireEvent.click(screen.getByText('John Doe'));
     fireEvent.click(screen.getByText('Esci'));
-    expect(global.window.sessionStorage.getItem('sessionToken')).toBe(null);
+    expect(global.window.localStorage.getItem('accessToken')).toBe(null);
     expect(mockedUsedNavigate).toHaveBeenCalledWith(ArcRoutes.LOGIN);
   });
 });
