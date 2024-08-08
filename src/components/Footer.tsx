@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import lang from '../translations/lang';
 import { Footer as MUIFooter } from '@pagopa/mui-italia';
 import utils from 'utils';
+import { ArcRoutes } from 'routes/routes';
 
 interface FooterProps {
   loggedUser?: boolean;
@@ -25,6 +26,7 @@ export const Footer = (props: FooterProps) => {
         {
           label: t('ui.footer.privacy'),
           ariaLabel: t('ui.footer.privacy'),
+          href: ArcRoutes.PRIVACY_PAGE,
           linkType: 'internal'
         },
         {
@@ -35,6 +37,7 @@ export const Footer = (props: FooterProps) => {
         {
           label: t('ui.footer.termsAndConditions'),
           ariaLabel: t('ui.footer.termsAndConditions'),
+          href: ArcRoutes.TOS_PAGE,
           linkType: 'internal'
         },
         { label: t('aria.a11y'), ariaLabel: t('aria.a11y'), linkType: 'internal' }
@@ -73,13 +76,16 @@ export const Footer = (props: FooterProps) => {
           title: t('ui.footer.resources'),
           links: [
             {
-              label: t('ui.footer.privacy'),
+              label: t('ui.footer.praaaivacy'),
               ariaLabel: t('ui.footer.privacy'),
+              href: ArcRoutes.PRIVACY_PAGE,
+
               linkType: 'internal'
             },
             {
               label: t('ui.footer.terms'),
               ariaLabel: t('ui.footer.terms'),
+              href: ArcRoutes.TOS_PAGE,
               linkType: 'internal'
             },
             {
