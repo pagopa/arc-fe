@@ -6,15 +6,16 @@ import '@testing-library/jest-dom';
 describe('AssistanceForm Component', () => {
   it('renders having confirm button disabled', () => {
     render(<AssistanceForm />);
-    const confirmButton = screen.getByRole('link', { name: /conferma/i });
+    const confirmButton = screen.getByTestId('assistance-confirm-button');
     expect(confirmButton).toHaveClass('Mui-disabled');
   });
 
   it('turns confirm button enabled correctly', () => {
     render(<AssistanceForm />);
+    const confirmButton = screen.getByTestId('assistance-confirm-button');
     const email = screen.getByTestId('confirm-email');
     const confirmEmail = screen.getByTestId('assistance-confirm-email');
-    const confirmButton = screen.getByRole('link', { name: /conferma/i });
+
     expect(confirmButton).toHaveClass('Mui-disabled');
 
     fireEvent.change(email, { target: { value: 'pippo' } });

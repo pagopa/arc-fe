@@ -116,6 +116,7 @@ export const AssistanceForm = () => {
             {t('app.routes.exit')}
           </Button>
           <Button
+            data-testid="assistance-confirm-button"
             variant="contained"
             size="large"
             href={utils.config.assistanceLink}
