@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import loaders from 'utils/loaders'; // avoids mocked loaders
 import utils from 'utils';
 import 'whatwg-fetch';
+import { TokenResponse } from '../../generated/data-contracts';
 
 // Mock the utils module
 jest.mock('utils', () => {
@@ -25,6 +26,9 @@ jest.mock('utils', () => {
         safeParse: () => ({ success: true })
       },
       transactionsListDTOSchema: {
+        safeParse: () => ({ success: true })
+      },
+      tokenResponseSchema: {
         safeParse: () => ({ success: true })
       }
     }
@@ -98,7 +102,11 @@ describe('transactionReceipt', () => {
 
 describe('getTokenOneidentity function', () => {
   it('returns Token correctly', async () => {
-    const mockResponse = { accessToken: 'tok1234', tokenType: 'token', expiresIn: 7200 };
+    const mockResponse = {
+      accessToken: 'tok1234',
+      tokenType: 'Bearer',
+      expiresIn: 7200
+    } as TokenResponse;
     const mockGetAuthenticationToken = utils.apiClient.token.getAuthenticationToken as jest.Mock;
     mockGetAuthenticationToken.mockResolvedValue({ data: mockResponse });
 

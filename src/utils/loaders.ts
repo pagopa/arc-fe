@@ -56,15 +56,19 @@ export const getTokenOneidentity = async (request: Request) => {
   const code = searchParams.get('code') || '';
   const state = searchParams.get('state') || '';
 
-  const { data: TokenResponse } = await utils.apiClient.token.getAuthenticationToken(
-    {
-      code,
-      state
-    },
-    { withCredentials: true }
-  );
-
-  return TokenResponse;
+  try {
+    const { data: TokenResponse } = await utils.apiClient.token.getAuthenticationToken(
+      {
+        code,
+        state
+      },
+      { withCredentials: true }
+    );
+    parseAndLog(utils.zodSchema.tokenResponseSchema, TokenResponse);
+    return TokenResponse;
+  } catch {
+    return null;
+  }
 };
 
 export default {
