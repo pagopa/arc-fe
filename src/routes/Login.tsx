@@ -143,7 +143,7 @@ const Login = () => {
                           fontWeight={800}
                           sx={{ cursor: 'pointer' }}
                           onClick={() => {
-                            window.sessionStorage.setItem('accessToken', 'dummy');
+                            window.localStorage.setItem('accessToken', 'dummy');
                             window.open(`${ArcRoutes.RESOURCES}?resource=pp`, 'blank');
                             window.location.replace('/');
 
