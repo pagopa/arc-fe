@@ -3,13 +3,18 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { _Detail } from './Detail';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import { PaymentNoticeEnum, PaymentNoticeMultipleType } from 'models/PaymentNotice';
+import { PaymentNotice } from './PaymentNotice';
 
 jest.mock('react-i18next', () => ({
   ...jest.requireActual('react-i18next'),
   useTranslation: jest.fn()
+}));
+
+jest.mock('@preact/signals-react', () => ({
+  signal: jest.fn(),
+  effect: jest.fn()
 }));
 
 describe('Detail Component', () => {
@@ -25,7 +30,7 @@ describe('Detail Component', () => {
   });
 
   it('renders the single notice data', () => {
-    renderWithTheme(<_Detail paymentNotice={mockNotice} />);
+    renderWithTheme(<PaymentNotice.Detail paymentNotice={mockNotice} />);
 
     expect(screen.getByText(mockNotice.iupd)).toBeInTheDocument();
     expect(screen.getByText(mockNotice.debtorFullName)).toBeInTheDocument();
@@ -36,7 +41,7 @@ describe('Detail Component', () => {
 
   it('does not render multiple notice data', () => {
     renderWithTheme(
-      <_Detail
+      <PaymentNotice.Detail
         paymentNotice={
           {
             ...mockNotice,

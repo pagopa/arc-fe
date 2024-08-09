@@ -7,7 +7,7 @@ const StoreContext = createContext<StoreContextProps | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const combinedState: State = {
-    [STATE.PAYMENT_NOTICE]: paymentNoticeState?.value
+    [STATE.PAYMENT_NOTICE]: paymentNoticeState.state.value
   };
 
   const setState = (key: STATE, value: unknown) => {
