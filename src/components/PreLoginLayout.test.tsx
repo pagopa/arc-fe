@@ -38,7 +38,7 @@ describe('PreLoginLayout Component', () => {
   });
 
   it('opens assistance link ', () => {
-     render(
+    render(
       <PreLoginLayout>
         <div>children</div>
       </PreLoginLayout>
