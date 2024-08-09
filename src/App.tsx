@@ -22,6 +22,7 @@ import utils from 'utils';
 import AuthCallback from 'routes/AuthCallback';
 import Resources from 'routes/Resources';
 import { getTokenOneidentity } from 'utils/loaders';
+import { PreLoginLayout } from 'components/PreLoginLayout';
 
 const router = createBrowserRouter([
   {
@@ -37,11 +38,19 @@ const router = createBrowserRouter([
   },
   {
     path: ArcRoutes.LOGIN,
-    element: <Login />
+    element: (
+      <PreLoginLayout>
+        <Login />
+      </PreLoginLayout>
+    )
   },
   {
     path: ArcRoutes.RESOURCES,
-    element: <Resources />,
+    element: (
+      <PreLoginLayout>
+        <Resources />
+      </PreLoginLayout>
+    ),
     errorElement: <ErrorFallback />
   },
 
