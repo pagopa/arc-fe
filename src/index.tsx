@@ -12,6 +12,20 @@ const queryClient = new QueryClient();
 
 const refreshToken = () => {};
 
+utils.apiClient.instance.interceptors.request.use(
+  (request) => {
+    const tokenHeaderExcludePaths: string[] = utils.config.tokenHeaderExcludePaths;
+    const routeUrl = request.url || '';
+    const accessToken = window.localStorage.getItem('accessToken');
+    if (accessToken && !tokenHeaderExcludePaths.includes(routeUrl)) {
+      request.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+    return request;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 utils.apiClient.instance.interceptors.response.use(
   (response) => response,
   (error) => {
