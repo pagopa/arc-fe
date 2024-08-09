@@ -52,6 +52,7 @@ type Config = {
   checkoutHost: string;
   missingValue: string;
   loginUrl: string;
+  tokenHeaderExcludePaths: string[];
 };
 
 const product: ProductEntity = {
@@ -100,7 +101,9 @@ const config: Config = {
   /** a global character to be shown
    * when a info is missing
    */
-  missingValue: '-'
+  missingValue: '-',
+  /** This array is populated by paths that don't need a auth token */
+  tokenHeaderExcludePaths: ['/token/oneidentity']
 };
 
 export default config;
