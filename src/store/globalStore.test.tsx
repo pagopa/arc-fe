@@ -6,7 +6,7 @@ import { StoreProvider, useStore } from './GlobalStore';
 
 // Mock the external dependencies
 jest.mock('./PaymentNoticeStore', () => ({
-  paymentNoticeState: { value: { id: 1, debtorFullName: 'Test notice' } },
+  paymentNoticeState: { state: { value: { id: 1, debtorFullName: 'Test notice' } } },
   setPaymentNotice: jest.fn()
 }));
 
