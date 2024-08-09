@@ -179,14 +179,14 @@ const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => (
       amount: paymentNotice.paymentOptions.amountValue,
       companyName: paymentNotice.paFullName,
       description: paymentNotice.paymentOptions.description,
-      fiscalCode: '77777777777',
-      noticeNumber: '302099999999999999'
+      fiscalCode: paymentNotice.paTaxCode,
+      noticeNumber: paymentNotice.iupd
     }
   ],
   returnUrls: {
-    returnOkUrl: 'http://localhost:1234',
-    returnCancelUrl: 'http://localhost:1234',
-    returnErrorUrl: 'http://localhost:1234'
+    returnOkUrl: utils.config.paymentReturnUrl,
+    returnCancelUrl: utils.config.paymentReturnUrl,
+    returnErrorUrl: utils.config.paymentReturnUrl
   }
 });
 
