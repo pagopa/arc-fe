@@ -36,7 +36,6 @@ const config: Config = {
      "src/App.tsx",
      "src/global.d.ts",
      "src/components/Layout",
-     "src/components/PreLoginLayout",
      "src/utils/style",
   ],
 
