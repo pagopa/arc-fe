@@ -20,7 +20,9 @@ import PaymentNoticeDetail from 'routes/PaymentNoticeDetail';
 import { RouteGuard } from 'components/RouteGuard';
 import utils from 'utils';
 import AuthCallback from 'routes/AuthCallback';
+import Resources from 'routes/Resources';
 import { getTokenOneidentity } from 'utils/loaders';
+import { PreLoginLayout } from 'components/PreLoginLayout';
 
 const router = createBrowserRouter([
   {
@@ -36,8 +38,22 @@ const router = createBrowserRouter([
   },
   {
     path: ArcRoutes.LOGIN,
-    element: <Login />
+    element: (
+      <PreLoginLayout>
+        <Login />
+      </PreLoginLayout>
+    )
   },
+  {
+    path: ArcRoutes.RESOURCES,
+    element: (
+      <PreLoginLayout>
+        <Resources />
+      </PreLoginLayout>
+    ),
+    errorElement: <ErrorFallback />
+  },
+
   {
     path: ArcRoutes.AUTH_CALLBACK,
     element: <AuthCallback />,
@@ -119,6 +135,7 @@ const router = createBrowserRouter([
         element: <PaymentNotices />,
         errorElement: <ErrorFallback />
       },
+
       {
         path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
         element: <PaymentNoticeDetail />,

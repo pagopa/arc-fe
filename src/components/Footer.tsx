@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import lang from '../translations/lang';
 import { Footer as MUIFooter } from '@pagopa/mui-italia';
 import utils from 'utils';
+import { ArcRoutes } from 'routes/routes';
 
 interface FooterProps {
   loggedUser?: boolean;
@@ -25,7 +26,8 @@ export const Footer = (props: FooterProps) => {
         {
           label: t('ui.footer.privacy'),
           ariaLabel: t('ui.footer.privacy'),
-          linkType: 'internal'
+          href: `${ArcRoutes.RESOURCES}?resource=pp`,
+          linkType: 'external'
         },
         {
           label: t('ui.footer.personalData'),
@@ -35,7 +37,8 @@ export const Footer = (props: FooterProps) => {
         {
           label: t('ui.footer.termsAndConditions'),
           ariaLabel: t('ui.footer.termsAndConditions'),
-          linkType: 'internal'
+          href: `${ArcRoutes.RESOURCES}?resource=tos`,
+          linkType: 'external'
         },
         { label: t('aria.a11y'), ariaLabel: t('aria.a11y'), linkType: 'internal' }
       ]}
@@ -75,12 +78,15 @@ export const Footer = (props: FooterProps) => {
             {
               label: t('ui.footer.privacy'),
               ariaLabel: t('ui.footer.privacy'),
-              linkType: 'internal'
+              href: `${ArcRoutes.RESOURCES}?resource=pp`,
+
+              linkType: 'external'
             },
             {
               label: t('ui.footer.terms'),
               ariaLabel: t('ui.footer.terms'),
-              linkType: 'internal'
+              href: `${ArcRoutes.RESOURCES}?resource=tos`,
+              linkType: 'external'
             },
             {
               label: t('ui.footer.certifications'),
