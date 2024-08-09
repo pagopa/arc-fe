@@ -14,8 +14,10 @@ const refreshToken = () => {};
 
 utils.apiClient.instance.interceptors.request.use(
   (request) => {
+    const tokenHeaderExcludePaths: string[] = utils.config.tokenHeaderExcludePaths;
+    const routeUrl = request.url || '';
     const accessToken = window.localStorage.getItem('accessToken');
-    if (accessToken) {
+    if (accessToken && !tokenHeaderExcludePaths.includes(routeUrl)) {
       request.headers['Authorization'] = `Bearer ${accessToken}`;
     }
     return request;
