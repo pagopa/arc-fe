@@ -2,12 +2,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { PaymentNotice } from './index';
 import i18n from 'translations/i18n';
-import { _Empty } from './Empty';
 
 void i18n.init({
   resources: {}
 });
+
+jest.mock('@preact/signals-react', () => ({
+  signal: jest.fn(),
+  effect: jest.fn()
+}));
 
 jest.mock('@pagopa/mui-italia', () => ({
   IllusSharingInfo: jest.fn(() => <div>Illustration</div>)
@@ -20,7 +25,7 @@ describe('PaymentNotice.Empty Component', () => {
   };
 
   it('renders the button', () => {
-    renderWithTheme(<_Empty />);
+    renderWithTheme(<PaymentNotice.Empty />);
 
     expect(screen.getByRole('link')).toBeInTheDocument();
   });

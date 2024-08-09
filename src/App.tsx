@@ -21,6 +21,7 @@ import { RouteGuard } from 'components/RouteGuard';
 import utils from 'utils';
 import AuthCallback from 'routes/AuthCallback';
 import Resources from 'routes/Resources';
+import { getTokenOneidentity } from 'utils/loaders';
 
 const router = createBrowserRouter([
   {
@@ -47,12 +48,15 @@ const router = createBrowserRouter([
   {
     path: ArcRoutes.AUTH_CALLBACK,
     element: <AuthCallback />,
-    loader: ({ params }) => Promise.resolve(params)
+    loader: ({ request }) => getTokenOneidentity(request)
   },
   {
     path: '/',
     element: (
-      <RouteGuard itemKeys={['sessionToken']} redirectTo={ArcRoutes.LOGIN}>
+      <RouteGuard
+        itemKeys={['accessToken']}
+        storage={window.localStorage}
+        redirectTo={ArcRoutes.LOGIN}>
         <Layout />
       </RouteGuard>
     ),
