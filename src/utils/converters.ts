@@ -15,6 +15,8 @@ import {
   PaymentNoticeEnum,
   PaymentNoticeSingleType,
   PaymentNoticeType,
+  PaymentOptionMultiple,
+  PaymentOptionSingle,
   PaymentOptionType
 } from 'models/PaymentNotice';
 
@@ -130,19 +132,30 @@ const prepareTransactionDetailData = (
 };
 
 // Function to transform PaymentOptionDTO to PaymentOptionType
-const transformPaymentOption = (option: PaymentOptionDTO): PaymentOptionType => ({
-  ...option,
-  amount: toEuroOrMissingValue(option.amount),
-  // TODO handle missing amount
-  amountValue: option?.amount || 0,
-  dueDate: formatDateOrMissingValue(option.dueDate),
-  description: propertyOrMissingValue(option.description),
-  installments: option.installments.map<PaymentInstallmentType>((installments) => ({
-    ...installments,
-    dueDate: formatDateOrMissingValue(installments.dueDate),
-    amount: toEuroOrMissingValue(installments.amount)
-  }))
-});
+const transformPaymentOption = (
+  option: PaymentOptionDTO,
+  type: PaymentNoticeEnum
+): PaymentOptionType => {
+  const normalizedInstallments = option.installments.map<PaymentInstallmentType>(
+    (installments) => ({
+      ...installments,
+      dueDate: formatDateOrMissingValue(installments.dueDate),
+      amount: toEuroOrMissingValue(installments.amount)
+    })
+  );
+
+  const out = {
+    ...option,
+    amount: toEuroOrMissingValue(option.amount),
+    // TODO handle missing amount
+    amountValue: option?.amount || 0,
+    dueDate: formatDateOrMissingValue(option.dueDate),
+    description: propertyOrMissingValue(option.description),
+    installments:
+      type == PaymentNoticeEnum.SINGLE ? normalizedInstallments[0] : normalizedInstallments
+  };
+  return out;
+};
 
 // Function to transform PaymentNoticeDTO to PaymentNoticeType
 const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeType => {
@@ -155,14 +168,19 @@ const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeT
       ...paymentNotice,
       image,
       type: PaymentNoticeEnum.SINGLE,
-      paymentOptions: transformPaymentOption(paymentNotice.paymentOptions[0])
+      paymentOptions: transformPaymentOption(
+        paymentNotice.paymentOptions[0],
+        PaymentNoticeEnum.SINGLE
+      ) as PaymentOptionSingle
     };
   } else {
     return {
       ...paymentNotice,
       image,
       type: PaymentNoticeEnum.MULTIPLE,
-      paymentOptions: paymentNotice.paymentOptions.map(transformPaymentOption)
+      paymentOptions: paymentNotice.paymentOptions.map((paymentOption) =>
+        transformPaymentOption(paymentOption, PaymentNoticeEnum.MULTIPLE)
+      ) as PaymentOptionMultiple[]
     };
   }
 };
@@ -180,7 +198,7 @@ const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => (
       companyName: paymentNotice.paFullName,
       description: paymentNotice.paymentOptions.description,
       fiscalCode: paymentNotice.paTaxCode,
-      noticeNumber: paymentNotice.iupd
+      noticeNumber: `${utils.config.paymentNoticeNumberPrefix}${paymentNotice.paymentOptions.installments.iuv}`
     }
   ],
   returnUrls: {

@@ -123,4 +123,10 @@ describe('environmental variables default values', () => {
     const utils = require('.').default;
     expect(utils.config.env).toBe('LOCAL');
   });
+
+  test('PAYMENT_NOTICE_NUMBER_PREFIX has rigth default value ("3")', () => {
+    // Set the variables
+    process.env.PAYMENT_NOTICE_NUMBER_PREFIX = undefined;
+    expect(utils.config.paymentNoticeNumberPrefix).toBe(3);
+  });
 });

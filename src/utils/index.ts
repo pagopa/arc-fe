@@ -15,7 +15,7 @@ import style from './style';
 export default {
   // TO DO: timeout as env variable?
   apiClient: new Api({ baseURL: config.baseURL, timeout: 5000 }),
-  cartsClient: new Carts(),
+  cartsClient: new Carts({ baseURL: config.checkoutPlatformUrl, timeout: 5000 }),
   //** data transformers utility and formatters */
   converters,
   checkoutSchema,

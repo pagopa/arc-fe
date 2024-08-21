@@ -232,7 +232,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                       </Grid>
                       <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
                         <Typography variant="body1" fontWeight={700} component="dd">
-                          {paymentNotice.paymentOptions.installments[0].dueDate}
+                          {paymentNotice.paymentOptions.installments.dueDate}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -244,7 +244,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                       </Grid>
                       <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
                         <Typography variant="body1" fontWeight={700} component="dd">
-                          {paymentNotice.paymentOptions.installments[0].amount}
+                          {paymentNotice.paymentOptions.installments.amount}
                         </Typography>
                       </Grid>
                     </Grid>
