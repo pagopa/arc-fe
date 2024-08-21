@@ -17,6 +17,9 @@ jest.mock('utils', () => {
         getTransactionDetails: jest.fn(),
         getTransactionReceipt: jest.fn()
       },
+      auth: {
+        getUserInfo: jest.fn()
+      },
       token: {
         getAuthenticationToken: jest.fn()
       }
@@ -96,6 +99,28 @@ describe('transactionReceipt', () => {
 
     await waitFor(() => {
       expect(mockTransactionReceipt).toHaveBeenCalledWith(transactionId, { format: 'blob' });
+    });
+  });
+});
+
+describe('userInfo', () => {
+  const queryClient = new QueryClient();
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('getUserInfo api is called', async () => {
+    const mockUserInfo = utils.apiClient.auth.getUserInfo as jest.Mock;
+
+    mockUserInfo.mockResolvedValue({ data: null });
+    renderHook(() => loaders.getUserInfo(), { wrapper });
+
+    await waitFor(() => {
+      expect(mockUserInfo).toHaveBeenCalled();
     });
   });
 });

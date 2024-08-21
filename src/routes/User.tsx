@@ -1,10 +1,15 @@
 import React from 'react';
 import { Stack, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import utils from 'utils';
+import QueryLoader from 'components/QueryLoader';
+import { UserInfoSkeleton } from 'components/Skeleton';
 
 export default function UserRoute() {
   const { t } = useTranslation();
   const theme = useTheme();
+
+  const { data } = utils.loaders.getUserInfo();
 
   const UserRowInfo = ({ label, data }: { label: string; data: string }) => (
     <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }} gap={{ md: 1 }}>
@@ -34,11 +39,28 @@ export default function UserRoute() {
             borderRadius={1}
             p={3}
             gap={{ xs: 2, md: 0 }}>
-            <UserRowInfo label={t('app.user.info.name')} data="Matteo" />
-            <UserRowInfo label={t('app.user.info.surname')} data="Rossi" />
-            <UserRowInfo label={t('app.user.info.identifier')} data="MTTRSS74B23F205K" />
-            <UserRowInfo label={t('app.user.info.channelCode')} data="97735020584_01" />
-            <UserRowInfo label={t('app.user.info.email')} data="matteo.rossi@email.com" />
+            <QueryLoader queryKey="userInfo" loaderComponent={<UserInfoSkeleton />}>
+              <UserRowInfo
+                label={t('app.user.info.name')}
+                data={data?.name || utils.config.missingValue}
+              />
+              <UserRowInfo
+                label={t('app.user.info.surname')}
+                data={data?.familyName || utils.config.missingValue}
+              />
+              <UserRowInfo
+                label={t('app.user.info.identifier')}
+                data={data?.fiscalCode || utils.config.missingValue}
+              />
+              <UserRowInfo
+                label={t('app.user.info.channelCode')}
+                data={utils.config.missingValue}
+              />
+              <UserRowInfo
+                label={t('app.user.info.email')}
+                data={data?.email || utils.config.missingValue}
+              />
+            </QueryLoader>
           </Stack>
         </Stack>
       </Stack>

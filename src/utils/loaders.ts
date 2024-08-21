@@ -71,10 +71,20 @@ export const getTokenOneidentity = async (request: Request) => {
   }
 };
 
+const getUserInfo = () =>
+  useQuery({
+    queryKey: ['userInfo'],
+    queryFn: async () => {
+      const { data: userInfo } = await utils.apiClient.auth.getUserInfo();
+      parseAndLog(utils.zodSchema.userInfoSchema, userInfo);
+      return userInfo;
+    }
+  });
 export default {
   getTransactions,
   getTransactionDetails,
   getPaymentNotices,
   getReceiptData,
-  getTokenOneidentity
+  getTokenOneidentity,
+  getUserInfo
 };
