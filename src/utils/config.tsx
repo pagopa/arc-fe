@@ -112,7 +112,7 @@ const config: Config = {
   loginUrl: LOGIN_URL,
   checkoutPlatformUrl: CHECKOUT_PLATFORM_URL,
   paymentReturnUrl: PAYMENT_RETURN_URL,
-  paymentNoticeNumberPrefix: parseInt(PAYMENT_NOTICE_NUMBER_PREFIX),
+  paymentNoticeNumberPrefix: parseInt(PAYMENT_NOTICE_NUMBER_PREFIX, 10),
   /** a global character to be shown
    * when a info is missing
    */
