@@ -131,7 +131,16 @@ const prepareTransactionDetailData = (
   );
 };
 
-// Function to transform PaymentOptionDTO to PaymentOptionType
+/**
+ * Transforms a PaymentOptionDTO into a PaymentOptionType.
+ *
+ * installments is transformed in an object if the
+ * payment notice is of type SINGLE
+ *
+ * @param {PaymentOptionDTO} option - The payment option data transfer object.
+ * @param {PaymentNoticeEnum} type - The type of the payment notice (SINGLE or MULTIPLE).
+ * @returns {PaymentOptionType} The transformed payment option object.
+ */
 const transformPaymentOption = (
   option: PaymentOptionDTO,
   type: PaymentNoticeEnum
@@ -157,7 +166,15 @@ const transformPaymentOption = (
   return out;
 };
 
-// Function to transform PaymentNoticeDTO to PaymentNoticeType
+/**
+ * Transforms a PaymentNoticeDTO into a PaymentNoticeType.
+ *
+ * Determines whether it's a single or multiple payment notice based on paymentOptions.length
+ * and transform options and installments accordingly, changing them from a list to an object
+ *
+ * @param {PaymentNoticeDTO} paymentNotice - The payment notice data transfer object.
+ * @returns {PaymentNoticeType} The transformed payment notice object, either as single or multiple type.
+ */
 const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeType => {
   const image: NoticeImage = {
     src: fromTaxCodeToSrcImage(paymentNotice.paTaxCode),
@@ -185,7 +202,15 @@ const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeT
   }
 };
 
-const prepareNoticesData = (data: PaymentNoticesListDTO | undefined) => {
+/**
+ * Prepares a list of payment notices data by transforming each notice.
+ *
+ * @param {PaymentNoticesListDTO | undefined} data - The list of payment notices or undefined.
+ * @returns {{ paymentNotices: PaymentNoticeType[] | undefined }} The transformed list of payment notices as single or multiple.
+ */
+const prepareNoticesData = (
+  data: PaymentNoticesListDTO | undefined
+): { paymentNotices: PaymentNoticeType[] | undefined } => {
   const transformed = data?.paymentNotices?.map((notice) => transformPaymentNotice(notice));
 
   return { paymentNotices: transformed };
