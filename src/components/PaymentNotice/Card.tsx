@@ -41,16 +41,23 @@ export const _Card = (notice: PaymentNoticeType) => {
   const navigate = useNavigate();
   const { setState } = useStore();
 
+  function viewDetail() {
+    setState(STATE.PAYMENT_NOTICE, notice);
+    navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}`);
+  }
+
   return (
     <Paper elevation={16}>
       <Stack
+        role="listitem"
         component="article"
+        onClick={() => viewDetail()}
         borderRadius={1}
         padding={3}
         gap={3}
         direction="row"
-        height="152px"
-        justifyContent="space-between">
+        justifyContent="space-between"
+        sx={{ cursor: 'pointer' }}>
         <Stack direction="row" alignItems="center" gap={2} component="header">
           <PayeeIcon src={''} alt={paFullName} visible={smUp} />
           <Stack maxWidth={{ xs: 110, sm: 150, md: 480, lg: 460, xl: 600 }}>
@@ -73,11 +80,7 @@ export const _Card = (notice: PaymentNoticeType) => {
               />
             </Stack>
           )}
-          <IconButton
-            onClick={() => {
-              setState(STATE.PAYMENT_NOTICE, notice);
-              navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}`);
-            }}>
+          <IconButton aria-label={t('app.paymentNotice.card.detail')} onClick={() => viewDetail()}>
             <ArrowForwardIosIcon color="primary" fontSize="small" />
           </IconButton>
         </Stack>
