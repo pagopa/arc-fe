@@ -15,7 +15,6 @@ const {
   LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity',
   CHECKOUT_PLATFORM_URL = 'https://api.dev.platform.pagopa.it/checkout/ec/v1',
   PAYMENT_RETURN_URL = 'http://localhost:1234',
-  PAYMENT_NOTICE_NUMBER_PREFIX = '3',
   VERSION = ''
 } = process.env;
 
@@ -32,7 +31,6 @@ const CHECKOUT_HOST_schema = z.string().url();
 const LOGIN_URL_schema = z.string().url();
 const CHECKOUT_PLATFORM_URL_schema = z.string().url();
 const PAYMENT_RETURN_URL_schema = z.string().url();
-const PAYMENT_NOTICE_NUMBER_PREFIX_schema = z.number().positive().finite();
 
 try {
   ENV_Schema.parse(process.env.ENV);
@@ -44,7 +42,6 @@ try {
   CHECKOUT_PLATFORM_URL_schema.parse(process.env.CHECKOUT_PLATFORM_URL);
   VERSION_schema.parse(process.env.VERSION);
   PAYMENT_RETURN_URL_schema.parse(process.env.PAYMENT_RETURN_URL_schema);
-  PAYMENT_NOTICE_NUMBER_PREFIX_schema.parse(process.env.PAYMENT_NOTICE_NUMBER_PREFIX_schema);
 } catch (e) {
   console.error('ENV variables validation fails', (e as ZodError).issues);
 }
@@ -64,7 +61,6 @@ type Config = {
   tokenHeaderExcludePaths: string[];
   checkoutPlatformUrl: string;
   paymentReturnUrl: string;
-  paymentNoticeNumberPrefix: number;
 };
 
 const product: ProductEntity = {
@@ -112,7 +108,6 @@ const config: Config = {
   loginUrl: LOGIN_URL,
   checkoutPlatformUrl: CHECKOUT_PLATFORM_URL,
   paymentReturnUrl: PAYMENT_RETURN_URL,
-  paymentNoticeNumberPrefix: parseInt(PAYMENT_NOTICE_NUMBER_PREFIX, 10),
   /** a global character to be shown
    * when a info is missing
    */

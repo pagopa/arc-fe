@@ -198,7 +198,7 @@ const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => (
       companyName: paymentNotice.paFullName,
       description: paymentNotice.paymentOptions.description,
       fiscalCode: paymentNotice.paTaxCode,
-      noticeNumber: `${utils.config.paymentNoticeNumberPrefix}${paymentNotice.paymentOptions.installments.iuv}`
+      noticeNumber: paymentNotice.paymentOptions.installments.nav
     }
   ],
   returnUrls: {
