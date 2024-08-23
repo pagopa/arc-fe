@@ -37,7 +37,7 @@ export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] 
           </Typography>
         </Typography>
       </Stack>
-      <Stack gap={3} component="section">
+      <Stack gap={3} component="section" role="list">
         {paymentNotices?.map((paymentNotice) => (
           <PaymentNotice.Card key={paymentNotice.iupd} {...paymentNotice} />
         ))}
