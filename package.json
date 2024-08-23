@@ -8,8 +8,9 @@
   "scripts": {
     "generate-api-client": "swagger-typescript-api -p https://raw.githubusercontent.com/pagopa/arc-infra-api-spec/main/src/cittadini/api/cittadini/v1/_openapi.yml -o ./generated -n apiClient --axios",
     "generate-data-contracts": "swagger-typescript-api  --modular --no-client -p https://raw.githubusercontent.com/pagopa/arc-infra-api-spec/main/src/cittadini/api/cittadini/v1/_openapi.yml -o ./generated",
-    "generate-zod-schema": "yarn ts-to-zod",
-    "generate": "yarn generate-api-client && yarn generate-data-contracts && yarn generate-zod-schema",
+    "generate-checkout-api": "swagger-typescript-api -p https://raw.githubusercontent.com/pagopa/pagopa-api/master/openapi/checkout.yaml -o ./generated/checkout --axios --modular",
+    "generate-zod-schema": "yarn ts-to-zod --all",
+    "generate": "yarn generate-api-client && yarn generate-data-contracts && yarn generate-checkout-api && yarn generate-zod-schema",
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
     "lint:fix": "eslint . -c .eslintrc.js --ext .ts,.tsx --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",

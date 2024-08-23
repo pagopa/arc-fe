@@ -1,5 +1,5 @@
-import utils from 'utils';
 import { useQuery } from '@tanstack/react-query';
+import utils from 'utils';
 import { ZodSchema } from 'zod';
 
 const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true): void | never => {

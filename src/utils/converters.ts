@@ -13,7 +13,10 @@ import {
   NoticeImage,
   PaymentInstallmentType,
   PaymentNoticeEnum,
+  PaymentNoticeSingleType,
   PaymentNoticeType,
+  PaymentOptionMultiple,
+  PaymentOptionSingle,
   PaymentOptionType
 } from 'models/PaymentNotice';
 
@@ -128,20 +131,50 @@ const prepareTransactionDetailData = (
   );
 };
 
-// Function to transform PaymentOptionDTO to PaymentOptionType
-const transformPaymentOption = (option: PaymentOptionDTO): PaymentOptionType => ({
-  ...option,
-  amount: toEuroOrMissingValue(option.amount),
-  dueDate: formatDateOrMissingValue(option.dueDate),
-  description: propertyOrMissingValue(option.description),
-  installments: option.installments.map<PaymentInstallmentType>((installments) => ({
-    ...installments,
-    dueDate: formatDateOrMissingValue(installments.dueDate),
-    amount: toEuroOrMissingValue(installments.amount)
-  }))
-});
+/**
+ * Transforms a PaymentOptionDTO into a PaymentOptionType.
+ *
+ * installments is transformed in an object if the
+ * payment notice is of type SINGLE
+ *
+ * @param {PaymentOptionDTO} option - The payment option data transfer object.
+ * @param {PaymentNoticeEnum} type - The type of the payment notice (SINGLE or MULTIPLE).
+ * @returns {PaymentOptionType} The transformed payment option object.
+ */
+const transformPaymentOption = (
+  option: PaymentOptionDTO,
+  type: PaymentNoticeEnum
+): PaymentOptionType => {
+  const normalizedInstallments = option.installments.map<PaymentInstallmentType>(
+    (installments) => ({
+      ...installments,
+      dueDate: formatDateOrMissingValue(installments.dueDate),
+      amount: toEuroOrMissingValue(installments.amount)
+    })
+  );
 
-// Function to transform PaymentNoticeDTO to PaymentNoticeType
+  const out = {
+    ...option,
+    amount: toEuroOrMissingValue(option.amount),
+    // TODO handle missing amount
+    amountValue: option?.amount || 0,
+    dueDate: formatDateOrMissingValue(option.dueDate),
+    description: propertyOrMissingValue(option.description),
+    installments:
+      type == PaymentNoticeEnum.SINGLE ? normalizedInstallments[0] : normalizedInstallments
+  };
+  return out;
+};
+
+/**
+ * Transforms a PaymentNoticeDTO into a PaymentNoticeType.
+ *
+ * Determines whether it's a single or multiple payment notice based on paymentOptions.length
+ * and transform options and installments accordingly, changing them from a list to an object
+ *
+ * @param {PaymentNoticeDTO} paymentNotice - The payment notice data transfer object.
+ * @returns {PaymentNoticeType} The transformed payment notice object, either as single or multiple type.
+ */
 const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeType => {
   const image: NoticeImage = {
     src: fromTaxCodeToSrcImage(paymentNotice.paTaxCode),
@@ -152,28 +185,59 @@ const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeT
       ...paymentNotice,
       image,
       type: PaymentNoticeEnum.SINGLE,
-      paymentOptions: transformPaymentOption(paymentNotice.paymentOptions[0])
+      paymentOptions: transformPaymentOption(
+        paymentNotice.paymentOptions[0],
+        PaymentNoticeEnum.SINGLE
+      ) as PaymentOptionSingle
     };
   } else {
     return {
       ...paymentNotice,
       image,
       type: PaymentNoticeEnum.MULTIPLE,
-      paymentOptions: paymentNotice.paymentOptions.map(transformPaymentOption)
+      paymentOptions: paymentNotice.paymentOptions.map((paymentOption) =>
+        transformPaymentOption(paymentOption, PaymentNoticeEnum.MULTIPLE)
+      ) as PaymentOptionMultiple[]
     };
   }
 };
 
-const prepareNoticesData = (data: PaymentNoticesListDTO | undefined) => {
+/**
+ * Prepares a list of payment notices data by transforming each notice.
+ *
+ * @param {PaymentNoticesListDTO | undefined} data - The list of payment notices or undefined.
+ * @returns {{ paymentNotices: PaymentNoticeType[] | undefined }} The transformed list of payment notices as single or multiple.
+ */
+const prepareNoticesData = (
+  data: PaymentNoticesListDTO | undefined
+): { paymentNotices: PaymentNoticeType[] | undefined } => {
   const transformed = data?.paymentNotices?.map((notice) => transformPaymentNotice(notice));
 
   return { paymentNotices: transformed };
 };
 
+const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => ({
+  paymentNotices: [
+    {
+      amount: paymentNotice.paymentOptions.amountValue,
+      companyName: paymentNotice.paFullName,
+      description: paymentNotice.paymentOptions.description,
+      fiscalCode: paymentNotice.paTaxCode,
+      noticeNumber: paymentNotice.paymentOptions.installments.nav
+    }
+  ],
+  returnUrls: {
+    returnOkUrl: utils.config.paymentReturnUrl,
+    returnCancelUrl: utils.config.paymentReturnUrl,
+    returnErrorUrl: utils.config.paymentReturnUrl
+  }
+});
+
 export default {
   prepareNoticesData,
   prepareRowsData,
   prepareTransactionDetailData,
+  singleNoticeToCartsRequest,
   toEuro,
   withMissingValue
 };

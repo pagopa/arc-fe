@@ -22,19 +22,28 @@ export type PaymentInstallmentType = Omit<InstallmentDTO, 'amount'> & {
 
 export type PaymentOptionType = Omit<PaymentOptionDTO, 'amount' | 'installments'> & {
   amount: string;
+  amountValue: number;
   dueDate: string;
   description: string;
+  installments: PaymentInstallmentType[] | PaymentInstallmentType;
+};
+
+export type PaymentOptionSingle = PaymentOptionType & {
+  installments: PaymentInstallmentType;
+};
+
+export type PaymentOptionMultiple = PaymentOptionType & {
   installments: PaymentInstallmentType[];
 };
 
 export type PaymentNoticeMultipleType = PaymentNoticeEnhanced & {
   type: PaymentNoticeEnum.MULTIPLE;
-  paymentOptions: PaymentOptionType[];
+  paymentOptions: PaymentOptionMultiple[];
 };
 
 export type PaymentNoticeSingleType = PaymentNoticeEnhanced & {
   type: PaymentNoticeEnum.SINGLE;
-  paymentOptions: PaymentOptionType;
+  paymentOptions: PaymentOptionSingle;
 };
 
 export type PaymentNoticeType = PaymentNoticeSingleType | PaymentNoticeMultipleType;

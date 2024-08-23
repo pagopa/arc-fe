@@ -6,6 +6,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import { PaymentNoticeEnum, PaymentNoticeMultipleType } from 'models/PaymentNotice';
 import { PaymentNotice } from './PaymentNotice';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 jest.mock('react-i18next', () => ({
   ...jest.requireActual('react-i18next'),
@@ -20,7 +23,11 @@ jest.mock('@preact/signals-react', () => ({
 describe('Detail Component', () => {
   const renderWithTheme = (ui: React.ReactElement) => {
     const theme = createTheme();
-    return render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
+    return render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>{ui}</ThemeProvider>
+      </QueryClientProvider>
+    );
   };
 
   beforeEach(() => {

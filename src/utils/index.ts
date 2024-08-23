@@ -1,27 +1,31 @@
-import style from './style';
-import config from './config';
-import hooks from './hooks';
-import converters from './converters';
 import { Api } from '../../generated/apiClient';
-import loaders from './loaders';
-import { datetools } from './datetools';
+import { Carts } from '../../generated/checkout/Carts';
+import * as checkoutSchema from '../../generated/checkout/zod-schema';
 import * as zodSchema from '../../generated/zod-schema';
-import storage from './storage';
+import config from './config';
+import converters from './converters';
+import { datetools } from './datetools';
+import hooks from './hooks';
+import loaders from './loaders';
 import modal from './modal';
 import sidemenu from './sidemenu';
+import storage from './storage';
+import style from './style';
 
 export default {
-  style,
-  config,
-  hooks,
-  //** data transformers utility and formatters */
-  converters,
   // TO DO: timeout as env variable?
   apiClient: new Api({ baseURL: config.baseURL, timeout: 5000 }),
-  loaders,
-  zodSchema,
+  cartsClient: new Carts({ baseURL: config.checkoutPlatformUrl, timeout: 5000 }),
+  //** data transformers utility and formatters */
+  converters,
+  checkoutSchema,
+  config,
   datetools,
-  storage,
+  hooks,
+  loaders,
   modal,
-  sidemenu
+  sidemenu,
+  storage,
+  style,
+  zodSchema
 };

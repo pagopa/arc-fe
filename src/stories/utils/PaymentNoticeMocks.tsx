@@ -25,25 +25,24 @@ export const mockNotice: PaymentNoticeSingleType = {
     description: 'Test Pull - unica opzione',
     numberOfInstallments: 1,
     amount: '1,20 €',
+    amountValue: 120,
     dueDate: '10/30/2024',
     isPartialPayment: false,
     switchToExpired: false,
-    installments: [
-      {
-        nav: '34700000088568793',
-        iuv: '4700000088568793',
-        paTaxCode: '99999000013',
-        paFullName: 'EC Demo Pagamenti Pull Test',
-        amount: '1,20 €',
-        description: 'Test Pull - unica opzione',
-        dueDate: '10/30/2024',
-        retentionDate: '2024-11-30T23:59:59',
-        insertedDate: '2024-07-31T12:20:59.75948',
-        notificationFee: 0,
-        status: PaymentOptionStatus.PO_UNPAID,
-        lastUpdatedDate: '2024-07-31T12:20:59.75948'
-      }
-    ]
+    installments: {
+      nav: '34700000088568793',
+      iuv: '4700000088568793',
+      paTaxCode: '99999000013',
+      paFullName: 'EC Demo Pagamenti Pull Test',
+      amount: '1,20 €',
+      description: 'Test Pull - unica opzione',
+      dueDate: '10/30/2024',
+      retentionDate: '2024-11-30T23:59:59',
+      insertedDate: '2024-07-31T12:20:59.75948',
+      notificationFee: 0,
+      status: PaymentOptionStatus.PO_UNPAID,
+      lastUpdatedDate: '2024-07-31T12:20:59.75948'
+    }
   },
   image: {
     src: 'https://assets.cdn.io.italia.it/logos/organizations/99999000013.png',
@@ -155,22 +154,21 @@ export const mockConvertedNotice: PaymentNoticeType[] = [
       dueDate: '10/31/2024',
       isPartialPayment: false,
       switchToExpired: false,
-      installments: [
-        {
-          nav: '37442658002593149',
-          iuv: '7442658002593149',
-          paTaxCode: '99999000013',
-          paFullName: 'EC Demo Pagamenti Pull Test',
-          amount: '5,88\xa0€',
-          description: 'Test Pull - unica opzione',
-          dueDate: '10/31/2024',
-          retentionDate: '2024-11-30T23:59:59',
-          insertedDate: '2024-08-01T09:13:12.459413',
-          notificationFee: 0,
-          status: PaymentOptionStatus.PO_UNPAID,
-          lastUpdatedDate: '2024-08-01T09:13:12.459413'
-        }
-      ]
+      installments: {
+        nav: '37442658002593149',
+        iuv: '7442658002593149',
+        paTaxCode: '99999000013',
+        paFullName: 'EC Demo Pagamenti Pull Test',
+        amount: '5,88\xa0€',
+        description: 'Test Pull - unica opzione',
+        dueDate: '10/31/2024',
+        retentionDate: '2024-11-30T23:59:59',
+        insertedDate: '2024-08-01T09:13:12.459413',
+        notificationFee: 0,
+        status: PaymentOptionStatus.PO_UNPAID,
+        lastUpdatedDate: '2024-08-01T09:13:12.459413'
+      },
+      amountValue: 588
     },
     image: {
       src: 'https://assets.cdn.io.italia.it/logos/organizations/99999000013.png',
@@ -197,22 +195,21 @@ export const mockConvertedNotice: PaymentNoticeType[] = [
       dueDate: '10/31/2024',
       isPartialPayment: false,
       switchToExpired: false,
-      installments: [
-        {
-          nav: '34700000088568793',
-          iuv: '4700000088568793',
-          paTaxCode: '99999000013',
-          paFullName: 'EC Demo Pagamenti Pull Test',
-          amount: '1,20\xa0€',
-          description: 'Test Pull - unica opzione',
-          dueDate: '10/31/2024',
-          retentionDate: '2024-11-30T23:59:59',
-          insertedDate: '2024-07-31T12:20:59.75948',
-          notificationFee: 0,
-          status: PaymentOptionStatus.PO_UNPAID,
-          lastUpdatedDate: '2024-07-31T12:20:59.75948'
-        }
-      ]
+      installments: {
+        nav: '34700000088568793',
+        iuv: '4700000088568793',
+        paTaxCode: '99999000013',
+        paFullName: 'EC Demo Pagamenti Pull Test',
+        amount: '1,20\xa0€',
+        description: 'Test Pull - unica opzione',
+        dueDate: '10/31/2024',
+        retentionDate: '2024-11-30T23:59:59',
+        insertedDate: '2024-07-31T12:20:59.75948',
+        notificationFee: 0,
+        status: PaymentOptionStatus.PO_UNPAID,
+        lastUpdatedDate: '2024-07-31T12:20:59.75948'
+      },
+      amountValue: 120
     },
     image: {
       src: 'https://assets.cdn.io.italia.it/logos/organizations/99999000013.png',
