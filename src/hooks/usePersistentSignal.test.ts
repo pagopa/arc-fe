@@ -41,12 +41,12 @@ describe('usePersistentSignal', () => {
 
   it('should initialize with the default value if no value in localStorage', () => {
     const key = 'testKey';
-    const defaultValue = { foo: 'bar' };
+    const initialValue = { foo: 'bar' };
 
-    renderHook(() => usePersistentSignal(key, defaultValue));
+    renderHook(() => usePersistentSignal(key, { storage: localStorage, initialValue }));
 
     expect(localStorage.getItem).toHaveBeenCalledWith(key);
-    expect(signal).toHaveBeenCalledWith(defaultValue);
+    expect(signal).toHaveBeenCalledWith(initialValue);
   });
 
   it('should remove the item from localStorage when removeItem is called', () => {
@@ -58,5 +58,17 @@ describe('usePersistentSignal', () => {
     });
 
     expect(localStorage.removeItem).toHaveBeenCalledWith(key);
+  });
+
+  it('should throw error and return value if json is invalid', () => {
+    const key = 'testKey';
+    const logSpy = jest.spyOn(global.console, 'error');
+
+    localStorage.setItem(key, 'invalid json');
+
+    renderHook(() => usePersistentSignal(key, { storage: localStorage, initialValue: 'test' }));
+
+    expect(logSpy).toHaveBeenCalled();
+    expect(signal).toHaveBeenCalledWith('test');
   });
 });

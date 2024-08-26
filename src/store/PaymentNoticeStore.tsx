@@ -4,7 +4,8 @@ import { STATE } from './types';
 
 // Initialize the persistent store
 export const paymentNoticeState = usePersistentSignal<PaymentNoticeType | undefined>(
-  STATE.PAYMENT_NOTICE
+  STATE.PAYMENT_NOTICE,
+  { storage: sessionStorage }
 );
 
 // Function to update the payment notice
