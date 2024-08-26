@@ -26,8 +26,9 @@ export const Tabs = (props: TabsProps) => {
         role="tablist"
         aria-label={ariaLabel}
         sx={{ display: hideTabs ? 'none' : 'unset' }}
+        variant="scrollable"
+        scrollButtons="auto"
         value={activeTab}
-        variant="fullWidth"
         onChange={(_, value: number) => changeActiveTab(value)}>
         {tabs.map(({ title, disabled }, index) => (
           <Tab role="tab" label={title} disabled={disabled} key={`${title}-${index}`} />
