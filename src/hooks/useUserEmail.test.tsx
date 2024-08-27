@@ -25,7 +25,6 @@ describe('useUserEmail', () => {
 
     // Act
     const { result } = renderHook(() => useUserEmail());
-    console.log(result);
 
     // Assert
     expect(utils.loaders.getUserInfo).toHaveBeenCalledTimes(1);
