@@ -1,4 +1,4 @@
-import { usePersistentSignal } from '../hooks/usePersistentSignal';
+import { usePersistentSignal } from 'hooks/usePersistentSignal';
 import { PaymentNoticeType } from 'models/PaymentNotice';
 import { STATE } from './types';
 

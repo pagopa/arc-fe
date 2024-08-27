@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 import QueryLoader from 'components/QueryLoader';
 import { UserInfoSkeleton } from 'components/Skeleton';
+import { useUserInfo } from 'hooks/useUserInfo';
 
 export default function UserRoute() {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const { data } = utils.loaders.getUserInfo();
+  const { userInfo: data } = useUserInfo();
 
   const UserRowInfo = ({ label, data }: { label: string; data: string }) => (
     <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }} gap={{ md: 1 }}>
