@@ -28,6 +28,14 @@ parameters:
     type: string
     default: ''
 
+  - name: 'checkout_platform_url'
+    type: string
+    default: ''
+
+  - name: 'payment_return_url'
+    type: string
+    default: ''
+
   - name: 'version'
     type: string
     default: ''
@@ -43,6 +51,8 @@ steps:
       ARC_FE_SHOW_STATUS_INFO=${{ parameters.show_status_info }} \
       ARC_FE_CHECKOUT_HOST=${{ parameters.checkout_host }} \
       ARC_FE_LOGIN_URL=${{ parameters.login_url }} \
+      ARC_FE_CHECKOUT_PLATFORM_URL=${{ parameters.checkout_platform_url }} \
+      ARC_FE_PAYMENT_RETURN_URL=${{ parameters.payment_return_url }} \
       ARC_FE_VERSION=${{ parameters.version }} \
       bash env.sh
 

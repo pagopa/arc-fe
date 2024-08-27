@@ -30,6 +30,8 @@ variables:
     login_url: '$(UAT_APIM_PREFIX_DOMAIN)/arc/v1/login/oneidentity'
     api_host: '$(UAT_APIM_PREFIX_DOMAIN)/arc/v1'
     checkout_host: '$(UAT_CHECKOUT_PREFIX_DOMAIN)'
+    checkout_platform_url: '$(UAT_CHECKOUT_PLATFORM_URL)'
+    payment_return_url: '$(UAT_PAYMENT_RETURN_URL)'
 
   ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
     environment: 'PROD'
@@ -41,6 +43,8 @@ variables:
     login_url: '$(PROD_APIM_PREFIX_DOMAIN)/arc/v1/login/oneidentity'
     api_host: '$(PROD_APIM_PREFIX_DOMAIN)/arc/v1'
     checkout_host: '$(PROD_CHECKOUT_PREFIX_DOMAIN)'
+    checkout_platform_url: '$(PROD_CHECKOUT_PLATFORM_URL)'
+    payment_return_url: '$(PROD_PAYMENT_RETURN_URL)'
 
   # every branch different from past will be considered as DEV
   ${{ else }}:
@@ -53,6 +57,8 @@ variables:
     login_url: '$(DEV_APIM_PREFIX_DOMAIN)/arc/v1/login/oneidentity'
     api_host: '$(DEV_APIM_PREFIX_DOMAIN)/arc/v1'
     checkout_host: '$(DEV_CHECKOUT_PREFIX_DOMAIN)'
+    checkout_platform_url: '$(DEV_CHECKOUT_PLATFORM_URL)'
+    payment_return_url: '$(DEV_PAYMENT_RETURN_URL)'
 
 resources:
   repositories:
@@ -85,6 +91,8 @@ stages:
               checkout_host: '$(checkout_host)'
               show_status_info: false
               login_url: '$(login_url)'
+              checkout_platform_url: '$(checkout_platform_url)'
+              payment_return_url: '$(payment_return_url)'
               version: '$(Build.SourceBranchName):$(Build.SourceVersion)'
 
           - script: |
