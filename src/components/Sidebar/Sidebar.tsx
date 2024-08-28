@@ -97,7 +97,6 @@ export const Sidebar: React.FC = () => {
               />
             ))}
           </List>
-          <Divider orientation="horizontal" flexItem />
           <Box sx={styles.hamburgerBox}>
             <Divider orientation="horizontal" flexItem />
             <Box sx={styles.hamburgerIcon}>
