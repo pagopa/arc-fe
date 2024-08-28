@@ -47,7 +47,7 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
         {!collapsed && (
           <ListItemText
             id={`menu-item-${item.label.toLowerCase()}`}
-            sx={{ maxHeight: '2vh' }}
+            sx={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
             primary={item.label}
           />
         )}
