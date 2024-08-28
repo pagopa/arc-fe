@@ -5,7 +5,7 @@ import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import { NavigateNext } from '@mui/icons-material';
-import { Outlet, useMatches, useNavigate } from 'react-router-dom';
+import { Outlet, ScrollRestoration, useMatches, useNavigate } from 'react-router-dom';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import { Header } from './Header';
 import { BackButton } from './BackButton';
@@ -77,6 +77,7 @@ export function Layout() {
           </Grid>
         </Grid>
       </Container>
+      <ScrollRestoration />
     </>
   );
 }
