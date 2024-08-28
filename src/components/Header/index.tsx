@@ -34,10 +34,10 @@ export const Header = (props: HeaderProps) => {
 
   const jwtUser: JwtUser | undefined = userInfo
     ? {
-        id: userInfo.userId,
+        id: userInfo?.userId,
         name: userInfo?.name,
         surname: userInfo?.familyName,
-        email: userInfo?.email
+        email: ''
       }
     : undefined;
 

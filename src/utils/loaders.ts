@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { useStore } from 'store/GlobalStore';
 import utils from 'utils';
 import { ZodSchema } from 'zod';
 
@@ -73,17 +72,25 @@ export const getTokenOneidentity = async (request: Request) => {
 };
 
 const getUserInfo = () => {
-  const {
-    state: { userInfo }
-  } = useStore();
   return useQuery({
     queryKey: ['userInfo'],
     queryFn: async () => {
       const { data: userInfo } = await utils.apiClient.auth.getUserInfo();
       parseAndLog(utils.zodSchema.userInfoSchema, userInfo);
       return userInfo;
+    }
+  });
+};
+
+const getUserInfoOnce = () => {
+  return useQuery({
+    queryKey: ['userInfoOnce'],
+    queryFn: async () => {
+      const { data: userInfo } = await utils.apiClient.auth.getUserInfo();
+      parseAndLog(utils.zodSchema.userInfoSchema, userInfo);
+      return userInfo;
     },
-    enabled: !userInfo
+    enabled: !sessionStorage.getItem('userInfo')
   });
 };
 
@@ -93,5 +100,6 @@ export default {
   getPaymentNotices,
   getReceiptData,
   getTokenOneidentity,
-  getUserInfo
+  getUserInfo,
+  getUserInfoOnce
 };

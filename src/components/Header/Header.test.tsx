@@ -1,70 +1,106 @@
-import { Header, HeaderProps } from '.';
-import { MemoryRouter } from 'react-router-dom';
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import '../../translations/i18n';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { useUserInfo } from 'hooks/useUserInfo';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Header } from './index';
 import { ArcRoutes } from 'routes/routes';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { JwtUser } from '@pagopa/mui-italia';
 
-const mockedUsedNavigate = jest.fn();
+// Mocking external dependencies
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate
+  useNavigate: jest.fn()
 }));
-const queryClient = new QueryClient();
 
-const HeaderWithRouter = (props: HeaderProps) => (
-  <MemoryRouter>
-    <QueryClientProvider client={queryClient}>
-      <Header {...props} />
-    </QueryClientProvider>
-  </MemoryRouter>
-);
+jest.mock('hooks/useUserInfo', () => ({
+  useUserInfo: jest.fn()
+}));
+
+jest.mock('utils', () => ({
+  config: {
+    pagopaLink: 'https://example.com',
+    product: 'Product Name'
+  }
+}));
+
+jest.mock('@preact/signals-react', () => ({
+  signal: jest.fn(),
+  effect: jest.fn()
+}));
 
 describe('Header component', () => {
+  const mockNavigate = jest.fn();
+  const mockOnAssistanceClick = jest.fn();
+
+  beforeEach(() => {
+    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+    (useUserInfo as jest.Mock).mockReturnValue({
+      userInfo: {
+        userId: '123',
+        name: 'John',
+        familyName: 'Doe'
+      }
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render as expected', () => {
-    render(<HeaderWithRouter />);
+    render(<Header />);
+  });
+
+  it('submenu elements should be visible after clicking user element', () => {
+    render(<Header onAssistanceClick={mockOnAssistanceClick} />);
+
+    fireEvent.click(screen.getByText('John Doe'));
+    // Check if HeaderAccount is rendered
+    const profileButton = screen.getByText('I tuoi dati');
+    expect(profileButton).toBeInTheDocument();
+
+    // Check if logout is rendered
+    const product = screen.getByText('Esci');
+    expect(product).toBeInTheDocument();
   });
 
   it('should call onAssistanceClick assistance button click', () => {
     const onAssistanceClik = jest.fn();
-    render(<HeaderWithRouter onAssistanceClick={onAssistanceClik} />);
+    render(<Header onAssistanceClick={onAssistanceClik} />);
     const button = screen.getByText('Assistenza');
     fireEvent.click(button);
     expect(onAssistanceClik).toHaveBeenCalledTimes(1);
   });
 
-  it('submenu elements should be visible after clicking user element', () => {
-    const user: JwtUser = { name: 'John', surname: 'Doe', email: 'email', id: 'id' };
-    global.window.localStorage.setItem('userInfo', JSON.stringify(user));
-    render(<HeaderWithRouter />);
-    fireEvent.click(screen.getByText('John Doe'));
-    expect(screen.getByText('I tuoi dati')).toBeInTheDocument();
-    expect(screen.getByText('Esci')).toBeInTheDocument();
-  });
-
   it('should navigate to user when profile is clicked', () => {
-    render(<HeaderWithRouter />);
-    const user: JwtUser = { name: 'John', surname: 'Doe', email: 'email', id: 'id' };
-    global.window.localStorage.setItem('userInfo', JSON.stringify(user));
+    render(<Header />);
     fireEvent.click(screen.getByText('John Doe'));
-    const userDataLink = screen.getByText('I tuoi dati');
-    expect(userDataLink).toBeVisible();
-    fireEvent.click(userDataLink);
-    expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(ArcRoutes.USER);
+    const profileButton = screen.getByText('I tuoi dati');
+    fireEvent.click(profileButton);
+
+    // Ensure it navigates to the user profile route
+    expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.USER);
   });
 
-  it('should navigate to login page & clear storage when logout is clicked', () => {
-    global.window.localStorage.setItem('accessToken', 'test');
-    const user: JwtUser = { name: 'John', surname: 'Doe', email: 'email', id: 'id' };
-    global.window.localStorage.setItem('userInfo', JSON.stringify(user));
-    render(<HeaderWithRouter />);
+  it('should clear session and local storage and navigate to login when "Esci" is clicked', () => {
+    // Mock localStorage and sessionStorage
+    const mockStorage = jest.spyOn(Storage.prototype, 'clear');
+
+    // Render the Header component
+    render(<Header />);
+
+    // Click on the user dropdown to show the "Esci" (logout) button
     fireEvent.click(screen.getByText('John Doe'));
-    fireEvent.click(screen.getByText('Esci'));
-    expect(global.window.localStorage.getItem('accessToken')).toBe(null);
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(ArcRoutes.LOGIN);
+    // Click on the "Esci" button
+    const logoutButton = screen.getByText('Esci');
+    fireEvent.click(logoutButton);
+
+    // Ensure session and local storage are cleared
+    expect(localStorage.clear).toHaveBeenCalled();
+    expect(sessionStorage.clear).toHaveBeenCalled();
+
+    // Ensure it navigates to the login route
+    expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.LOGIN);
+
+    mockStorage.mockClear();
   });
 });

@@ -1,49 +1,80 @@
-import utils from 'utils';
-import { useNavigate } from 'react-router-dom';
+// useUserInfo.test.tsx
 import { renderHook, waitFor } from '@testing-library/react';
-import { useUserInfo } from './useUserInfo';
+import { useUserInfo } from './useUserInfo'; // Path to your hook
+import { useStore } from 'store/GlobalStore'; // Mock this
+import utils from 'utils'; // Mock this
+import '@testing-library/jest-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React, { ReactNode } from 'react';
+import { STATE } from 'store/types';
 
+// Mock store
+jest.mock('store/GlobalStore', () => ({
+  useStore: jest.fn()
+}));
+
+// Mock utils
 jest.mock('utils', () => ({
   loaders: {
-    getUserInfoHeader: jest.fn()
+    getUserInfoOnce: jest.fn()
+  },
+  apiClient: {
+    auth: {
+      getUserInfo: jest.fn()
+    }
+  },
+  zodSchema: {
+    userInfoSchema: jest.fn() // If parseAndLog calls this schema
   }
 }));
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
-}));
+const mockSetState = jest.fn();
+const queryClient = new QueryClient();
 
-describe('useUserInfo', () => {
-  const mockNavigate = jest.fn();
-
-  beforeEach(() => {
+describe('useUserInfo hook', () => {
+  afterEach(() => {
     jest.clearAllMocks();
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
   });
 
-  it('returns userInfo', async () => {
-    const userMock = {
-      userId: '_476b655b48c6e73bb210666077eba3a9',
-      fiscalCode: 'TINIT-PLOMRC01P30L736Y',
-      familyName: 'Polo',
-      name: 'Marco',
-      email: 'ilmilione@virgilio.it'
-    };
-    (utils.loaders.getUserInfo as jest.Mock).mockReturnValue({
-      data: userMock,
-      isError: false
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+
+  it('should fetch and set user info on successful data load', async () => {
+    const userInfo = { name: 'John Doe', email: 'john.doe@example.com' }; // Mock user info
+
+    // Mock the utils.loader.getUserInfoOnce to return a resolved value
+    (utils.loaders.getUserInfoOnce as jest.Mock).mockReturnValue({
+      data: userInfo
     });
 
-    const { result } = renderHook(() => useUserInfo());
-    const mockResult = {
-      id: userMock.userId,
-      name: userMock.name,
-      surname: userMock.familyName,
-      email: userMock.email
-    };
+    (useStore as jest.Mock).mockReturnValueOnce({
+      state: undefined,
+      setState: mockSetState
+    });
+
+    const { result } = renderHook(() => useUserInfo(), {
+      wrapper
+    });
 
     await waitFor(() => {
-      expect(result.current).toEqual(mockResult);
+      expect(mockSetState).toHaveBeenCalledWith(STATE.USER_INFO, { name: 'John Doe' }); // Email should be deleted
+      expect(result.current.userInfo).toBeUndefined(); // Depends on initial state
+    });
+
+    // Update the state in your mock and recheck
+    (useStore as jest.Mock).mockReturnValue({
+      state: { userInfo: { name: 'John Doe' } },
+      setState: mockSetState
+    });
+
+    // Re-render the hook with the updated state
+    const { result: updatedResult } = renderHook(() => useUserInfo(), {
+      wrapper
+    });
+
+    await waitFor(() => {
+      expect(updatedResult.current.userInfo).toEqual({ name: 'John Doe' });
     });
   });
 });

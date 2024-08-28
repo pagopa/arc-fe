@@ -1,9 +1,9 @@
 import { PaymentNoticeType } from 'models/PaymentNotice';
-import { UserInfo } from '../../generated/apiClient';
+import { UserMemo } from 'models/User';
 
 export interface State {
   [STATE.PAYMENT_NOTICE]: PaymentNoticeType | undefined;
-  [STATE.USER_INFO]: UserInfo | undefined;
+  [STATE.USER_INFO]: UserMemo | undefined;
 }
 
 export interface StoreContextProps {

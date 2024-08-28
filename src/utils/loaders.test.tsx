@@ -25,14 +25,17 @@ jest.mock('utils', () => {
       }
     },
     zodSchema: {
+      userInfoSchema: {
+        safeParse: jest.fn().mockReturnValue({ success: true })
+      },
       transactionDetailsDTOSchema: {
-        safeParse: () => ({ success: true })
+        safeParse: jest.fn().mockReturnValue({ success: true })
       },
       transactionsListDTOSchema: {
-        safeParse: () => ({ success: true })
+        safeParse: jest.fn().mockReturnValue({ success: true })
       },
       tokenResponseSchema: {
-        safeParse: () => ({ success: true })
+        safeParse: jest.fn().mockReturnValue({ success: true })
       }
     }
   };
@@ -122,6 +125,49 @@ describe('userInfo', () => {
     await waitFor(() => {
       expect(mockUserInfo).toHaveBeenCalled();
     });
+  });
+});
+
+describe('getUserInfoOnce', () => {
+  const queryClient = new QueryClient();
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+
+  beforeAll(() => {
+    process.env.PAYMENT_RETURN_URL_schema = 'https://example.com';
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should fetch user info when sessionStorage is empty', async () => {
+    const mockUserInfo = { name: 'John Doe', email: 'john.doe@example.com' };
+
+    // Mock sessionStorage to return null (no user info stored)
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
+
+    // Mock the API call to return user info
+    (utils.apiClient.auth.getUserInfo as jest.Mock).mockResolvedValue({
+      data: mockUserInfo
+    });
+
+    const { result } = renderHook(() => loaders.getUserInfoOnce(), {
+      wrapper
+    });
+
+    // Wait for the query to be successful
+    await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
+
+    // Assert that the API was called
+    expect(utils.apiClient.auth.getUserInfo).toHaveBeenCalled();
+
+    // Assert that the safeParse function was called with the schema and user info
+    expect(utils.zodSchema.userInfoSchema.safeParse).toHaveBeenCalledWith(mockUserInfo);
+
+    // Assert the returned user info matches what the API returned
+    expect(result.current.data).toEqual(mockUserInfo);
   });
 });
 
