@@ -45,7 +45,11 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
         }}>
         {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
         {!collapsed && (
-          <ListItemText id={`menu-item-${item.label.toLowerCase()}`} primary={item.label} />
+          <ListItemText
+            id={`menu-item-${item.label.toLowerCase()}`}
+            sx={{ maxHeight: '2vh' }}
+            primary={item.label}
+          />
         )}
       </ListItemButton>
     </ListItem>
