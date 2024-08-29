@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { STATE } from 'store/types';
 import utils from 'utils';
 import { ZodSchema } from 'zod';
 
@@ -90,7 +91,7 @@ const getUserInfoOnce = () => {
       parseAndLog(utils.zodSchema.userInfoSchema, userInfo);
       return userInfo;
     },
-    enabled: !sessionStorage.getItem('userInfo')
+    enabled: !sessionStorage.getItem(STATE.USER_INFO)
   });
 };
 
