@@ -17,7 +17,7 @@ const Transactions = (props: TransactionsProps) => {
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   return (
-    <TableContainer sx={(theme) => ({ bgcolor: 'transparent', height: theme.spacing(100) })}>
+    <TableContainer sx={{ bgcolor: 'transparent', height: 'fit-content' }}>
       <Table aria-label="Storico table">
         <TableHead sx={{ display: mdUp ? 'table-head' : 'none' }}>
           <TableRow>
