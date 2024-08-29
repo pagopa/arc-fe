@@ -12,8 +12,7 @@
         "name": "Nome",
         "surname": "Cognome",
         "identifier": "Codice Fiscale",
-        "email": "Indirizzo email",
-        "channelCode": "Codice Canale"
+        "email": "Indirizzo email"
       }
     },
     "assistance": {
