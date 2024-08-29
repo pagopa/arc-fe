@@ -39,6 +39,7 @@ const Transaction = (props: TransactionProps) => {
 
   return (
     <TableRow
+      hover
       role="button"
       data-testid="transaction-details-button"
       onClick={() => navigate(`${ArcRoutes.TRANSACTIONS}${id}`)}>
