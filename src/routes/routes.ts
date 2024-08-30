@@ -1,5 +1,5 @@
-/* WIP */
-const deployPath = '/pagamenti';
+import config from 'utils/config';
+const deployPath = config.deployPath;
 
 export const ArcRoutes = {
   DASHBOARD: `${deployPath}/`,
