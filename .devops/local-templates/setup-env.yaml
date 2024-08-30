@@ -53,6 +53,7 @@ steps:
       ARC_FE_LOGIN_URL=${{ parameters.login_url }} \
       ARC_FE_CHECKOUT_PLATFORM_URL=${{ parameters.checkout_platform_url }} \
       ARC_FE_PAYMENT_RETURN_URL=${{ parameters.payment_return_url }} \
+      ARC_FE_DEPLOY_PATH=${{ parameters.deploy_path }} \
       ARC_FE_VERSION=${{ parameters.version }} \
       bash env.sh
 

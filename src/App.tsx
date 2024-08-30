@@ -60,7 +60,7 @@ const router = createBrowserRouter([
     loader: ({ request }) => getTokenOneidentity(request)
   },
   {
-    path: '/',
+    path: `${utils.config.deployPath}/`,
     element: (
       <RouteGuard
         itemKeys={['accessToken']}

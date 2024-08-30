@@ -41,7 +41,7 @@ export const Sidebar: React.FC = () => {
     {
       label: t('menu.homepage'),
       icon: ViewSidebarIcon,
-      route: '/'
+      route: '/pagamenti/'
     },
     {
       label: t('menu.paymentNotices'),
