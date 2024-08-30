@@ -19,6 +19,7 @@ variables:
   cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
   assistance_link: 'https://pagopa.gov.it'
   show_status_info: false
+  deploy_path: $(DEPLOY_PATH)
 
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
     environment: 'UAT'
@@ -32,7 +33,6 @@ variables:
     checkout_host: '$(UAT_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(UAT_CHECKOUT_PLATFORM_URL)'
     payment_return_url: '$(UAT_PAYMENT_RETURN_URL)'
-    deploy_path: '$(UAT_DEPLOY_PATH)'
 
   ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
     environment: 'PROD'
@@ -46,7 +46,6 @@ variables:
     checkout_host: '$(PROD_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(PROD_CHECKOUT_PLATFORM_URL)'
     payment_return_url: '$(PROD_PAYMENT_RETURN_URL)'
-    deploy_path: '$(PROD_DEPLOY_PATH)'
 
   # every branch different from past will be considered as DEV
   ${{ else }}:
@@ -61,7 +60,6 @@ variables:
     checkout_host: '$(DEV_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(DEV_CHECKOUT_PLATFORM_URL)'
     payment_return_url: '$(DEV_PAYMENT_RETURN_URL)'
-    deploy_path: '$(DEV_DEPLOY_PATH)'
 
 resources:
   repositories:
