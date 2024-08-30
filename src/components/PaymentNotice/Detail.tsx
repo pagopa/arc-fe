@@ -1,11 +1,4 @@
-import {
-  AccountBalance,
-  DateRange,
-  Download,
-  Euro,
-  InfoOutlined,
-  ReceiptLong
-} from '@mui/icons-material';
+import { AccountBalance, DateRange, Euro, InfoOutlined, ReceiptLong } from '@mui/icons-material';
 import {
   Button,
   Card,
@@ -214,36 +207,32 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
               </Card>
             </Grid>
             <Grid item xs={12} md={5} paddingLeft={{ xs: 0, md: 3 }}>
-              <Card
-                component="aside"
-                sx={{
-                  padding: 2
-                }}>
-                <CardActions>
-                  <Stack spacing={2} width={'100%'} alignContent={'center'}>
-                    <Typography variant="body1" fontWeight={700} component={'h2'}>
+              <Card component="aside">
+                <CardActions sx={{ padding: 3 }}>
+                  <Stack spacing={3} width={'100%'} alignContent={'center'}>
+                    <Typography variant="body1" fontSize={14} fontWeight={700} component={'h2'}>
                       {t('app.paymentNoticeDetail.card2.title').toUpperCase()}
                     </Typography>
                     <Grid container component={'dl'}>
                       <Grid item xs={12} sm={6}>
-                        <Typography variant="body1" component="dt">
+                        <Typography variant="body1" fontSize={16} component="dt">
                           {t('app.paymentNoticeDetail.card2.firstInstallmentDate')}
                         </Typography>
                       </Grid>
                       <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
-                        <Typography variant="body1" fontWeight={700} component="dd">
+                        <Typography variant="body1" fontSize={16} fontWeight={700} component="dd">
                           {paymentNotice.paymentOptions.installments.dueDate}
                         </Typography>
                       </Grid>
                     </Grid>
                     <Grid container component={'dl'}>
                       <Grid item xs={12} sm={6}>
-                        <Typography variant="body1" component="dt">
+                        <Typography variant="body1" fontSize={16} component="dt">
                           {t('app.paymentNoticeDetail.card2.firstInstallmentAmount')}
                         </Typography>
                       </Grid>
                       <Grid item xs={12} sm={6} textAlign={{ sm: 'right' }}>
-                        <Typography variant="body1" fontWeight={700} component="dd">
+                        <Typography variant="body1" fontSize={24} fontWeight={700} component="dd">
                           {paymentNotice.paymentOptions.installments.amount}
                         </Typography>
                       </Grid>
@@ -263,20 +252,6 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                               color: theme.palette.primary.contrastText
                             }}>
                             {t('app.paymentNoticeDetail.card2.button1')}
-                          </Typography>
-                        </Button>
-                      </Grid>
-                      <Grid item xs={12} mt={3}>
-                        <Divider>
-                          <Typography variant="caption" color="GrayText">
-                            {t('app.paymentNoticeDetail.card2.label1')}
-                          </Typography>
-                        </Divider>
-                      </Grid>
-                      <Grid item mt={2} xs={12}>
-                        <Button startIcon={<Download />} fullWidth>
-                          <Typography variant="body1" fontWeight={700} color="primary">
-                            {t('app.paymentNoticeDetail.card2.button2')}
                           </Typography>
                         </Button>
                       </Grid>
