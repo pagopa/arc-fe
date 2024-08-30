@@ -19,7 +19,6 @@ variables:
   cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
   assistance_link: 'https://pagopa.gov.it'
   show_status_info: false
-  deploy_path: '$(DEPLOY_PATH)'
 
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
     environment: 'UAT'
@@ -94,7 +93,7 @@ stages:
               login_url: '$(login_url)'
               checkout_platform_url: '$(checkout_platform_url)'
               payment_return_url: '$(payment_return_url)'
-              deploy_path: '$(deploy_path)'
+              deploy_path: '$(variables.DEPLOY_PATH)'
               version: '$(Build.SourceBranchName):$(Build.SourceVersion)'
 
           - script: |
