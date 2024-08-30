@@ -32,7 +32,7 @@ export const Tabs = (props: TabsProps) => {
         onChange={(_, value: number) => changeActiveTab(value)}>
         {tabs.map(({ title, disabled }, index) => (
           <Tab
-            sx={{ maxWidth: '27vw', flexGrow: '1' }}
+            sx={{ maxWidth: '100vw', flexGrow: '2' }}
             role="tab"
             label={title}
             disabled={disabled}

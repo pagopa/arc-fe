@@ -7,7 +7,7 @@
     }
   },
   "/api/**": {
-    "target": "https://api.dev.cittadini-p4pa.pagopa.it/arc/v1",
+    "target": "https://api.dev.cittadini.pagopa.it/arc/v1",
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {
