@@ -40,6 +40,10 @@ parameters:
     type: string
     default: ''
 
+  - name: 'deploy_path'
+    type: string
+    default: ''
+
 steps:
 - bash: |
     chmod +x env.sh
