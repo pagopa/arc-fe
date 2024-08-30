@@ -1,7 +1,4 @@
-import { Link } from '@mui/material';
-import { LogoPagoPAProduct, ProductEntity, RootLinkType } from '@pagopa/mui-italia';
-import React from 'react';
-import { ArcRoutes } from 'routes/routes';
+import { ProductEntity, RootLinkType } from '@pagopa/mui-italia';
 import { z, ZodError } from 'zod';
 
 /** Useful default values  */
@@ -67,18 +64,6 @@ type Config = {
   deployPath: string;
 };
 
-const product: ProductEntity = {
-  id: '0',
-  title: ``,
-  productUrl: '#no-title',
-  linkType: 'external',
-  icon: (
-    <Link href={ArcRoutes.DASHBOARD} target="_blank">
-      <LogoPagoPAProduct color="default" title="PagoPA" />
-    </Link>
-  )
-};
-
 const assistanceLink: string = 'nomeprodotto@assistenza.pagopa.it';
 
 const pagopaLink: RootLinkType = {
@@ -98,7 +83,6 @@ const config: Config = {
    *  see the command generate in the package.json file
    */
   baseURL: APIHOST,
-  product,
   pagopaLink,
   /** Self explanatory, hide or show the status info (regarding transactions) in the whole application
    * the ternary means: if SHOW_STATUS_INFO isn't default (false, missing in the .env) then the value is

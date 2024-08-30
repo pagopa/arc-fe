@@ -1,10 +1,18 @@
 import React from 'react';
-import { HeaderAccount, HeaderProduct, JwtUser, UserAction } from '@pagopa/mui-italia';
+import {
+  HeaderAccount,
+  HeaderProduct,
+  JwtUser,
+  LogoPagoPAProduct,
+  ProductEntity,
+  UserAction
+} from '@pagopa/mui-italia';
 import utils from 'utils';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
+import { Link } from '@mui/material';
 
 /*
 User info
@@ -48,6 +56,18 @@ export const Header = (props: HeaderProps) => {
     }
   ];
 
+  const product: ProductEntity = {
+    id: '0',
+    title: ``,
+    productUrl: '#no-title',
+    linkType: 'external',
+    icon: (
+      <Link href={ArcRoutes.DASHBOARD} target="_blank">
+        <LogoPagoPAProduct color="default" title="PagoPA" />
+      </Link>
+    )
+  };
+
   return (
     <>
       <HeaderAccount
@@ -57,7 +77,7 @@ export const Header = (props: HeaderProps) => {
         loggedUser={mockUser}
         userActions={userActions}
       />
-      <HeaderProduct productsList={[utils.config.product]} />
+      <HeaderProduct productsList={[product]} />
     </>
   );
 };
