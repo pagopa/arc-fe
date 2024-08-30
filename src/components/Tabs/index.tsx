@@ -25,13 +25,19 @@ export const Tabs = (props: TabsProps) => {
       <MuiTabs
         role="tablist"
         aria-label={ariaLabel}
-        sx={{ display: hideTabs ? 'none' : 'unset' }}
+        sx={{ display: hideTabs ? 'none' : 'flex' }}
         variant="scrollable"
         scrollButtons="auto"
         value={activeTab}
         onChange={(_, value: number) => changeActiveTab(value)}>
         {tabs.map(({ title, disabled }, index) => (
-          <Tab role="tab" label={title} disabled={disabled} key={`${title}-${index}`} />
+          <Tab
+            sx={{ maxWidth: '27vw', flexGrow: '1' }}
+            role="tab"
+            label={title}
+            disabled={disabled}
+            key={`${title}-${index}`}
+          />
         ))}
       </MuiTabs>
       {tabs.map((tab, index) => (
