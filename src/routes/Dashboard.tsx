@@ -54,7 +54,7 @@ const Dashboard = () => {
           justifyContent="space-between"
           alignItems={{ sm: 'center' }}
           mb={{ xs: 2, sm: 3 }}
-          spacing={{ xs: 2 }}>
+          spacing={{ xs: 1 }}>
           <Typography variant="h6" component="h2" marginInlineStart={{ xs: 1, sm: 0 }}>
             {t('app.dashboard.lastTransactions')}
           </Typography>
