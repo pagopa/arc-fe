@@ -1,4 +1,4 @@
-import { ProductEntity, RootLinkType } from '@pagopa/mui-italia';
+import { RootLinkType } from '@pagopa/mui-italia';
 import { z, ZodError } from 'zod';
 
 /** Useful default values  */
@@ -50,7 +50,6 @@ type Config = {
   env: ENVIRONMENT;
   version: string;
   baseURL: string;
-  product: ProductEntity;
   pagopaLink: RootLinkType;
   showStatusInfo: boolean;
   entitiesLogoCdn?: string;
