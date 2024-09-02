@@ -4,6 +4,7 @@ import { dummyTransactionsData } from 'stories/utils/mocks';
 import { Transaction } from './';
 import { BrowserRouter } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
+import utils from 'utils';
 
 const mockedUsedNavigate = jest.fn();
 
@@ -45,7 +46,9 @@ describe('Transaction row table component', () => {
     const button = screen.getByTestId('transaction-details-button');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUsedNavigate).toHaveBeenLastCalledWith(`/transactions/${id}`);
+    expect(mockedUsedNavigate).toHaveBeenLastCalledWith(
+      `${utils.config.deployPath}/transactions/${id}`
+    );
   });
 
   it('should render without problems', () => {

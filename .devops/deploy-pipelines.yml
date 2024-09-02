@@ -93,6 +93,7 @@ stages:
               login_url: '$(login_url)'
               checkout_platform_url: '$(checkout_platform_url)'
               payment_return_url: '$(payment_return_url)'
+              deploy_path: '$(DEPLOY_PATH)'
               version: '$(Build.SourceBranchName):$(Build.SourceVersion)'
 
           - script: |

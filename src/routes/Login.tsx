@@ -121,7 +121,7 @@ const Login = () => {
                       onClick={() => {
                         window.localStorage.setItem('accessToken', 'dummy');
                         window.open(`${ArcRoutes.RESOURCES}?resource=pp`, 'blank');
-                        window.location.replace('/');
+                        window.location.replace(utils.config.deployPath);
 
                         //This is needed so that the link does its actual function, while also serving as a temporal authentication. Otherwise it wouldn't redirect the current window to the home page.
                       }}
