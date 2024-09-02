@@ -41,8 +41,8 @@
     "dashboard": {
       "title": "Ciao, {{username}}",
       "newPayment": "Paga un avviso",
-      "lastTransactions": "Ecco le tue ultime ricevute",
-      "seeAllTransactions": "Vedi tutti",
+      "lastTransactions": "Le tue ricevute",
+      "seeAllTransactions": "Vedi tutte",
       "IOAlert": {
         "title": "Vuoi accedere alle tue ricevute e pagare gli avvisi più rapidamente?",
         "description": "Visualizza e gestisci i tuoi metodi di pagamento e tutte le tue ricevute",
