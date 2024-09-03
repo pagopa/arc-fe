@@ -14,9 +14,15 @@ const getRedirect = (data: string) => {
 
 export const usePostCarts = ({ onSuccess }: { onSuccess: (url: string) => void }) => {
   const carts = useMutation({
-    mutationFn: async (singleNotice: PaymentNoticeSingleType) => {
+    mutationFn: async ({
+      singleNotice,
+      email
+    }: {
+      singleNotice: PaymentNoticeSingleType;
+      email?: string;
+    }) => {
       const request = utils.converters.singleNoticeToCartsRequest(singleNotice);
-      const { data } = await utils.cartsClient.postCarts(request);
+      const { data } = await utils.cartsClient.postCarts({ ...request, emailNotice: email });
       return data;
     },
     onSuccess: (data) => {

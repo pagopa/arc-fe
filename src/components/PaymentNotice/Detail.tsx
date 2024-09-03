@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
 import { usePostCarts } from 'hooks/usePostCarts';
+import { useUserEmail } from 'hooks/useUserEmail';
 
 /**
  * This component is considered private and should not be used directly.
@@ -28,6 +29,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
   const theme = useTheme();
   const { t } = useTranslation();
   const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
+  const email = useUserEmail();
   const carts = usePostCarts({
     onSuccess: (url) => {
       window.location.replace(url);
@@ -243,7 +245,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                           variant="contained"
                           fullWidth
                           onClick={() => {
-                            carts.mutate(paymentNotice);
+                            carts.mutate({ singleNotice: paymentNotice, email });
                           }}>
                           <Typography
                             sx={{

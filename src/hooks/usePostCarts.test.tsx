@@ -5,6 +5,7 @@ import utils from 'utils';
 import { PaymentNoticeSingleType } from 'models/PaymentNotice';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import React, { ReactNode } from 'react';
+import { useUserEmail } from './useUserEmail';
 
 jest.mock('utils', () => ({
   cartsClient: {
@@ -13,6 +14,10 @@ jest.mock('utils', () => ({
   converters: {
     singleNoticeToCartsRequest: jest.fn()
   }
+}));
+
+jest.mock('./useUserEmail', () => ({
+  useUserEmail: jest.fn()
 }));
 
 export const createWrapper = () => {
@@ -35,13 +40,14 @@ describe('usePostCarts', () => {
 
     (utils.converters.singleNoticeToCartsRequest as jest.Mock).mockReturnValue(mockSingleNotice);
     (utils.cartsClient.postCarts as jest.Mock).mockResolvedValue({ data: mockData });
+    (useUserEmail as jest.Mock).mockResolvedValue('test@test.it');
 
     const { result } = renderHook(() => usePostCarts({ onSuccess: mockOnSuccess }), {
       wrapper: createWrapper()
     });
 
     await act(async () => {
-      await result.current.mutateAsync(mockSingleNotice);
+      await result.current.mutateAsync({ singleNotice: mockSingleNotice });
     });
     await waitFor(() => !result.current.isIdle);
 
