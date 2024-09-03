@@ -3,7 +3,7 @@ import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Box, Chip, ChipOwnProps, Stack, Typography, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { theme } from '@pagopa/mui-italia';
 import { ArcRoutes } from 'routes/routes';
@@ -31,6 +31,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const Transaction = (props: TransactionProps) => {
+  const sm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   const navigate = useNavigate();
   const { payee, status, amount, id, date } = props;
   const smUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -46,8 +47,16 @@ const Transaction = (props: TransactionProps) => {
       <StyledTableCell>
         <Stack direction="row" spacing={{ xs: 0, sm: 2 }} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
-          <Box>
-            <Typography variant="body2" fontWeight={600}>
+          <Box sx={{ maxWidth: '30vw' }}>
+            <Typography
+              variant="body2"
+              fontWeight={600}
+              sx={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                width: '100%'
+              }}>
               {payee.name}
             </Typography>
             {!mdUp && (
@@ -75,9 +84,11 @@ const Transaction = (props: TransactionProps) => {
         </StyledTableCell>
       )}
 
-      <StyledTableCell width="56px">
-        <ArrowForwardIosIcon color="primary" fontSize="small" />
-      </StyledTableCell>
+      {sm && (
+        <StyledTableCell width="56px">
+          <ArrowForwardIosIcon color="primary" fontSize="small" />
+        </StyledTableCell>
+      )}
     </TableRow>
   );
 };
