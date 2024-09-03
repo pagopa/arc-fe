@@ -16,18 +16,30 @@ import utils from 'utils';
 export const AssistanceForm = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const [email, setEmail] = useState('');
+  const { data } = utils.loaders.getUserInfo();
+  const [email, setEmail] = useState(data?.email || '');
   const [emailError, setEmailError] = useState(false);
   const [emailConfirmError, setEmailConfirmError] = useState(false);
   const [emailConfirm, setEmailConfirm] = useState('');
   const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
   const [active, setActive] = useState(false);
 
+  async function getAssistanceJWT() {
+    const { data: zendeskAssistance } = await utils.apiClient.token.getZendeskAssistanceToken({
+      userEmail: email
+    });
+    console.log(zendeskAssistance);
+  }
+
   useEffect(() => {
     if (email) setEmailError(!reg.test(email));
     if (emailConfirm) setEmailConfirmError(email !== emailConfirm);
     setActive(reg.test(email) && emailConfirm === email);
   }, [email, emailConfirm]);
+
+  useEffect(() => {
+    setEmail(data?.email || '');
+  }, [data?.email]);
 
   return (
     <>
@@ -119,7 +131,7 @@ export const AssistanceForm = () => {
             data-testid="assistance-confirm-button"
             variant="contained"
             size="large"
-            href={utils.config.assistanceLink}
+            onClick={() => getAssistanceJWT()}
             disabled={!active}>
             {t('app.assistance.confirm')}
           </Button>
