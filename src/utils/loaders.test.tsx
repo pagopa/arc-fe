@@ -5,6 +5,7 @@ import loaders from 'utils/loaders'; // avoids mocked loaders
 import utils from 'utils';
 import 'whatwg-fetch';
 import { TokenResponse } from '../../generated/data-contracts';
+import { StoreProvider } from 'store/GlobalStore';
 
 // Mock the utils module
 jest.mock('utils', () => {
@@ -25,127 +26,153 @@ jest.mock('utils', () => {
       }
     },
     zodSchema: {
+      userInfoSchema: {
+        safeParse: jest.fn().mockReturnValue({ success: true })
+      },
       transactionDetailsDTOSchema: {
-        safeParse: () => ({ success: true })
+        safeParse: jest.fn().mockReturnValue({ success: true })
       },
       transactionsListDTOSchema: {
-        safeParse: () => ({ success: true })
+        safeParse: jest.fn().mockReturnValue({ success: true })
       },
       tokenResponseSchema: {
-        safeParse: () => ({ success: true })
+        safeParse: jest.fn().mockReturnValue({ success: true })
       }
     }
   };
 });
 
-describe('transactionsApi', () => {
+jest.mock('@preact/signals-react', () => ({
+  signal: jest.fn(),
+  effect: jest.fn()
+}));
+
+describe('api loaders', () => {
   const queryClient = new QueryClient();
   const wrapper = ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <StoreProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </StoreProvider>
   );
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('getTransactions calls API and schema parser correctly', async () => {
-    const mockTransactions = [{ id: 1, amount: 100 }];
-    const mockTransactionList = utils.apiClient.transactions.getTransactionsList as jest.Mock;
+  describe('transactionsApi', () => {
+    it('getTransactions calls API and schema parser correctly', async () => {
+      const mockTransactions = [{ id: 1, amount: 100 }];
+      const mockTransactionList = utils.apiClient.transactions.getTransactionsList as jest.Mock;
 
-    mockTransactionList.mockResolvedValue({ data: mockTransactions });
+      mockTransactionList.mockResolvedValue({ data: mockTransactions });
 
-    const { result } = renderHook(() => loaders.getTransactions(), { wrapper });
+      const { result } = renderHook(() => loaders.getTransactions(), { wrapper });
 
-    await waitFor(() => {
-      expect(mockTransactionList).toHaveBeenCalled();
-      expect(result.current.data).toEqual(mockTransactions);
+      await waitFor(() => {
+        expect(mockTransactionList).toHaveBeenCalled();
+        expect(result.current.data).toEqual(mockTransactions);
+      });
+    });
+
+    it('getTransactionDetails calls API and schema parser correctly', async () => {
+      const mockTransaction = { id: 1, amount: 100 };
+      const transactionId = '1';
+      const mockTransactionDetails = utils.apiClient.transactions
+        .getTransactionDetails as jest.Mock;
+
+      mockTransactionDetails.mockResolvedValue({ data: mockTransaction });
+
+      const { result } = renderHook(() => loaders.getTransactionDetails(transactionId), {
+        wrapper
+      });
+
+      await waitFor(() => {
+        expect(mockTransactionDetails).toHaveBeenCalledWith(transactionId);
+        expect(result.current.data).toEqual(mockTransaction);
+      });
     });
   });
 
-  it('getTransactionDetails calls API and schema parser correctly', async () => {
-    const mockTransaction = { id: 1, amount: 100 };
-    const transactionId = '1';
-    const mockTransactionDetails = utils.apiClient.transactions.getTransactionDetails as jest.Mock;
+  describe('transactionReceipt', () => {
+    it('getReceiptApi is called', async () => {
+      const transactionId = '1';
+      const mockTransactionReceipt = utils.apiClient.transactions
+        .getTransactionReceipt as jest.Mock;
 
-    mockTransactionDetails.mockResolvedValue({ data: mockTransaction });
+      mockTransactionReceipt.mockResolvedValue({ data: null });
+      renderHook(() => loaders.getReceiptData(transactionId), { wrapper });
 
-    const { result } = renderHook(() => loaders.getTransactionDetails(transactionId), {
-      wrapper
-    });
-
-    await waitFor(() => {
-      expect(mockTransactionDetails).toHaveBeenCalledWith(transactionId);
-      expect(result.current.data).toEqual(mockTransaction);
+      await waitFor(() => {
+        expect(mockTransactionReceipt).toHaveBeenCalledWith(transactionId, { format: 'blob' });
+      });
     });
   });
-});
 
-describe('transactionReceipt', () => {
-  const queryClient = new QueryClient();
-  const wrapper = ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  describe('userInfo', () => {
+    it('getUserInfo api is called', async () => {
+      const mockUserInfo = utils.apiClient.auth.getUserInfo as jest.Mock;
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+      mockUserInfo.mockResolvedValue({ data: null });
+      renderHook(() => loaders.getUserInfo(), { wrapper });
 
-  it('getReceiptApi is called', async () => {
-    const transactionId = '1';
-    const mockTransactionReceipt = utils.apiClient.transactions.getTransactionReceipt as jest.Mock;
-
-    mockTransactionReceipt.mockResolvedValue({ data: null });
-    renderHook(() => loaders.getReceiptData(transactionId), { wrapper });
-
-    await waitFor(() => {
-      expect(mockTransactionReceipt).toHaveBeenCalledWith(transactionId, { format: 'blob' });
+      await waitFor(() => {
+        expect(mockUserInfo).toHaveBeenCalled();
+      });
     });
   });
-});
 
-describe('userInfo', () => {
-  const queryClient = new QueryClient();
-  const wrapper = ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  describe('getUserInfoOnce', () => {
+    it('should fetch user info when sessionStorage is empty', async () => {
+      const mockUserInfo = { name: 'John Doe', email: 'john.doe@example.com' };
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+      // Mock sessionStorage to return null (no user info stored)
+      jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
 
-  it('getUserInfo api is called', async () => {
-    const mockUserInfo = utils.apiClient.auth.getUserInfo as jest.Mock;
+      // Mock the API call to return user info
+      (utils.apiClient.auth.getUserInfo as jest.Mock).mockResolvedValue({
+        data: mockUserInfo
+      });
 
-    mockUserInfo.mockResolvedValue({ data: null });
-    renderHook(() => loaders.getUserInfo(), { wrapper });
+      const { result } = renderHook(() => loaders.getUserInfoOnce(), {
+        wrapper
+      });
 
-    await waitFor(() => {
-      expect(mockUserInfo).toHaveBeenCalled();
+      // Wait for the query to be successful
+      await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
+
+      // Assert that the API was called
+      expect(utils.apiClient.auth.getUserInfo).toHaveBeenCalled();
+
+      // Assert that the safeParse function was called with the schema and user info
+      expect(utils.zodSchema.userInfoSchema.safeParse).toHaveBeenCalledWith(mockUserInfo);
+
+      // Assert the returned user info matches what the API returned
+      expect(result.current.data).toEqual(mockUserInfo);
     });
   });
-});
 
-describe('getTokenOneidentity function', () => {
-  it('returns Token correctly', async () => {
-    const mockResponse = {
-      accessToken: 'tok1234',
-      tokenType: 'Bearer',
-      expiresIn: 7200
-    } as TokenResponse;
-    const mockGetAuthenticationToken = utils.apiClient.token.getAuthenticationToken as jest.Mock;
-    mockGetAuthenticationToken.mockResolvedValue({ data: mockResponse });
+  describe('getTokenOneidentity function', () => {
+    it('returns Token correctly', async () => {
+      const mockResponse = {
+        accessToken: 'tok1234',
+        tokenType: 'Bearer',
+        expiresIn: 7200
+      } as TokenResponse;
+      const mockGetAuthenticationToken = utils.apiClient.token.getAuthenticationToken as jest.Mock;
+      mockGetAuthenticationToken.mockResolvedValue({ data: mockResponse });
 
-    const request = new Request('https://website.it/auth-callback?code=code123&state=state123');
-    const token = await loaders.getTokenOneidentity(request);
+      const request = new Request('https://website.it/auth-callback?code=code123&state=state123');
+      const token = await loaders.getTokenOneidentity(request);
 
-    expect(mockGetAuthenticationToken).toHaveBeenCalledWith(
-      {
-        code: 'code123',
-        state: 'state123'
-      },
-      { withCredentials: true }
-    );
-    expect(mockGetAuthenticationToken).toHaveBeenCalledTimes(1);
-    expect(token).toEqual(mockResponse);
+      expect(mockGetAuthenticationToken).toHaveBeenCalledWith(
+        {
+          code: 'code123',
+          state: 'state123'
+        },
+        { withCredentials: true }
+      );
+      expect(mockGetAuthenticationToken).toHaveBeenCalledTimes(1);
+      expect(token).toEqual(mockResponse);
+    });
   });
 });

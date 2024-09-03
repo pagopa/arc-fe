@@ -13,16 +13,7 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
 import { Link } from '@mui/material';
-
-/*
-User info
-*/
-export const mockUser: JwtUser = {
-  id: '1',
-  name: 'John',
-  surname: 'Doe',
-  email: 'john.doe@gmail.com'
-};
+import { useUserInfo } from 'hooks/useUserInfo';
 
 export interface HeaderProps {
   onAssistanceClick?: () => void;
@@ -38,6 +29,17 @@ export const Header = (props: HeaderProps) => {
     window.localStorage.clear();
     navigate(ArcRoutes.LOGIN);
   }
+
+  const { userInfo } = useUserInfo();
+
+  const jwtUser: JwtUser | undefined = userInfo
+    ? {
+        id: userInfo?.userId,
+        name: userInfo?.name,
+        surname: userInfo?.familyName,
+        email: ''
+      }
+    : undefined;
 
   const userActions: UserAction[] = [
     {
@@ -74,7 +76,7 @@ export const Header = (props: HeaderProps) => {
         rootLink={utils.config.pagopaLink}
         enableDropdown
         onAssistanceClick={onAssistanceClick}
-        loggedUser={mockUser}
+        loggedUser={jwtUser}
         userActions={userActions}
       />
       <HeaderProduct productsList={[product]} />
