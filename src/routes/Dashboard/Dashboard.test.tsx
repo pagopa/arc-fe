@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import Dashboard from '.';
 import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
 import utils from 'utils';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 jest.mock('utils', () => ({
@@ -37,15 +38,23 @@ jest.mock('react-router-dom', () => ({
 
 describe('DashboardRoute', () => {
   (useMediaQuery as jest.Mock).mockReturnValue(false);
+  const navigate = jest.fn();
+  (useNavigate as jest.Mock).mockReturnValue(navigate);
   const setState = jest.fn();
   const mockTransactions = {
     transactions: [
-      { id: '1', paidByMe: true, registeredToMe: false },
+      { id: '1', payeeName: 'clickable', paidByMe: true, registeredToMe: false },
       { id: '2', paidByMe: false, registeredToMe: true }
     ]
   };
 
-  //const preparedData = [{ id: '1' }, { id: '2' }];
+  const preparedData = [
+    { id: '1', payee: { name: 'clickable', srcImg: '', altImg: '' }, action: jest.fn() }
+  ];
+
+  const mockPrepareRowsData = jest.fn().mockReturnValue(preparedData);
+  utils.converters.prepareRowsData = mockPrepareRowsData;
+
   (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
     data: mockTransactions,
     isError: false
@@ -67,5 +76,31 @@ describe('DashboardRoute', () => {
     await waitFor(() => {
       expect(utils.loaders.getTransactions).toHaveBeenCalled();
     });
+  });
+
+  it('redirects to transaction detail page', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
+    );
+    fireEvent.click(screen.getByText('clickable'));
+    await waitFor(() => {
+      expect(navigate).toHaveBeenCalled();
+    });
+  });
+
+  it('renders a retry page if there is an error', async () => {
+    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+      data: mockTransactions,
+      isError: true
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
+    );
+    expect(screen.getByTestId('ErrorOutlineIcon')).toBeInTheDocument();
   });
 });

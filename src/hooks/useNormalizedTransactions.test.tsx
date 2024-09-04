@@ -1,7 +1,6 @@
 import utils from 'utils';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ArcRoutes } from 'routes/routes';
 import { renderHook, waitFor } from '@testing-library/react';
 import { useNormalizedTransactions } from './useNormalizedTransactions';
 
@@ -64,26 +63,20 @@ describe('useNormalizedTransactions', () => {
         transactions: mockTransactions.transactions,
         status: { label: 'app.transactions.paid' },
         payee: { multi: 'app.transactions.multiEntities' },
-        action: expect.any(Function)
       });
 
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
         transactions: [mockTransactions.transactions[0]], // paidByMe
         status: { label: 'app.transactions.paid' },
         payee: { multi: 'app.transactions.multiEntities' },
-        action: expect.any(Function)
       });
 
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
         transactions: [mockTransactions.transactions[1]], // registeredToMe
         status: { label: 'app.transactions.paid' },
         payee: { multi: 'app.transactions.multiEntities' },
-        action: expect.any(Function)
       });
 
-      const actionCallback = mockPrepareRowsData.mock.calls[0][0].action;
-      actionCallback('1');
-      expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.TRANSACTION.replace(':ID', '1'));
     });
   });
 
