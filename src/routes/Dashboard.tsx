@@ -53,14 +53,20 @@ const Dashboard = () => {
           direction={{ sm: 'row' }}
           justifyContent="space-between"
           alignItems={{ sm: 'center' }}
-          mb={2}>
+          mb={{ xs: 2, sm: 3 }}
+          spacing={{ xs: 1 }}>
           <Typography variant="h6" component="h2" marginInlineStart={{ xs: 1, sm: 0 }}>
             {t('app.dashboard.lastTransactions')}
           </Typography>
           <Button
             component={Link}
             to={ArcRoutes.TRANSACTIONS}
-            sx={{ width: theme.spacing(10), justifyContent: 'flex-start' }}>
+            sx={{
+              width: theme.spacing(10),
+              justifyContent: 'flex-start',
+              p: 0,
+              pt: { xs: 1 }
+            }}>
             {t('app.dashboard.seeAllTransactions')}
           </Button>
         </Stack>
@@ -69,7 +75,7 @@ const Dashboard = () => {
         bgcolor={grey['A200']}
         padding={{ xs: 3, md: 2 }}
         margin={{ xs: -3, md: 0 }}
-        marginTop={0}>
+        marginTop={{ xs: 0, sm: 1 }}>
         <QueryLoader queryKey="transactions" loaderComponent={<TransactionListSkeleton />}>
           <Content />
         </QueryLoader>
