@@ -1,17 +1,19 @@
+import { useEffect } from 'react';
 import { useStore } from 'store/GlobalStore';
 import { STATE } from 'store/types';
 import utils from 'utils';
-import { UserInfo } from '../../generated/apiClient';
 
-export const useUserInfo = (): { userInfo: UserInfo | undefined } => {
+export const useUserInfo = () => {
   const { setState, state } = useStore();
 
-  const { data } = utils.loaders.getUserInfoOnce();
+  const { data, isSuccess } = utils.loaders.getUserInfoOnce();
 
-  if (data) {
-    delete data.email;
-    setState(STATE.USER_INFO, data);
-  }
+  useEffect(() => {
+    if (isSuccess && data) {
+      delete data.email;
+      setState(STATE.USER_INFO, data);
+    }
+  }, [isSuccess]);
 
-  return { userInfo: state?.userInfo };
+  return { userInfo: state.userInfo };
 };
