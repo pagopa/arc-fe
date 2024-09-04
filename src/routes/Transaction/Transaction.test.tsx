@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import Transaction from './Transaction';
+import Transaction from '.';
 import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
 import utils from 'utils';
@@ -36,7 +36,6 @@ jest.mock('store/GlobalStore', () => ({
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
   useLoaderData: jest.fn()
-
 }));
 
 describe('TransactionRoute', () => {

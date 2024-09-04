@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import TransactionsList from './TransactionsList';
+import TransactionsList from '.';
 import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
 import utils from 'utils';

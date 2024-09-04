@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { PaymentNotices } from './PaymentNotices';
+import { PaymentNotices } from '.';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useStore } from 'store/GlobalStore';

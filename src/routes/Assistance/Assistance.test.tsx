@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Assistance from './Assistance';
+import Assistance from '.';
 import '@testing-library/jest-dom';
 
 describe('AssistanceRoute', () => {

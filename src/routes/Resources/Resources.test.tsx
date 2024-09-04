@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Resources from './Resources';
+import Resources from '.';
 import '@testing-library/jest-dom';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
