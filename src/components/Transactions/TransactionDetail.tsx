@@ -1,5 +1,5 @@
 import { Download } from '@mui/icons-material';
-import { Box, Button, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import MasterCard from '../../assets/creditcard/mastercard.png';
 import { type TransactionDetail as TransactionDetailType } from '../../models/TransactionDetail';
