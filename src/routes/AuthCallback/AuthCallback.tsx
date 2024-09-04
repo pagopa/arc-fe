@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { ArcRoutes } from './routes';
-import { TokenResponse } from '../../generated/data-contracts';
+import { ArcRoutes } from '../routes';
+import { TokenResponse } from '../../../generated/data-contracts';
 import { Box, CircularProgress } from '@mui/material';
 
 export default function AuthCallback() {

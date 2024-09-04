@@ -4,7 +4,7 @@ import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import utils from 'utils';
-import { ArcRoutes } from './routes';
+import { ArcRoutes } from '../routes';
 import { grey } from '@mui/material/colors';
 import QueryLoader from 'components/QueryLoader';
 import { PaymentNotice } from 'components/PaymentNotice';
