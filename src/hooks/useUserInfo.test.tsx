@@ -46,21 +46,20 @@ describe('useUserInfo hook', () => {
       .spyOn(utils.loaders, 'getUserInfoOnce')
       .mockReturnValue({ data: dataMock } as UseQueryResult<UserInfo, Error>);
 
-    const storeMock = jest
-      .spyOn(globalStore, 'useStore')
-      .mockReturnValueOnce({
-        state: { userInfo : undefined } as State,
-        setState: mockSetState
-      });
+    const storeMock = jest.spyOn(globalStore, 'useStore').mockReturnValueOnce({
+      state: { userInfo: undefined } as State,
+      setState: mockSetState
+    });
 
     const { result } = renderHook(() => useUserInfo(), {
       wrapper
     });
 
-    const { email, ...userNoEmail } = dataMock;
+    const userNoEmail = dataMock;
+    delete userNoEmail.email; // Email should not be settes in the storage or state
 
     await waitFor(() => {
-      expect(mockSetState).toHaveBeenCalledWith(STATE.USER_INFO, userNoEmail); // Email should be deleted
+      expect(mockSetState).toHaveBeenCalledWith(STATE.USER_INFO, userNoEmail);
       expect(result.current.userInfo).toBeUndefined(); // Depends on initial state
     });
 

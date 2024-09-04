@@ -123,7 +123,6 @@ describe('api loaders', () => {
 
     describe('getUserInfoOnce', () => {
       it('fetch if sessionStorage.userInfo is missing', async () => {
-
         jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
 
         const { result } = renderHook(() => loaders.getUserInfoOnce(), {
@@ -138,7 +137,6 @@ describe('api loaders', () => {
       });
 
       it('does not fetch if sessionStorage.userInfo is set', async () => {
-
         jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('true');
 
         const { result } = renderHook(() => loaders.getUserInfoOnce(), {
@@ -153,7 +151,6 @@ describe('api loaders', () => {
   });
 
   describe('getTokenOneidentity function', () => {
-
     it('returns Token correctly', async () => {
       const dataMock = createMock(schemas.tokenResponseSchema);
 
