@@ -17,10 +17,12 @@ jest.mock('utils', () => ({
     }
   },
   loaders: {
-    getTransactions: jest.fn()
+    getTransactions: jest.fn(),
+    getTransactionDetails: jest.fn()
   },
   converters: {
-    prepareRowsData: jest.fn()
+    prepareRowsData: jest.fn(),
+    prepareTransactionDetailData: jest.fn()
   },
   config: {
     checkoutHost: 'test'
@@ -32,7 +34,9 @@ jest.mock('store/GlobalStore', () => ({
   useStore: jest.fn()
 }));
 jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+  useNavigate: jest.fn(),
+  useLoaderData: jest.fn()
+
 }));
 
 describe('TransactionRoute', () => {
@@ -50,6 +54,10 @@ describe('TransactionRoute', () => {
     data: mockTransactions,
     isError: false
   });
+  (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
+    data: mockTransactions.transactions[0],
+    isError: false
+  });
 
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({ setState });
@@ -65,7 +73,7 @@ describe('TransactionRoute', () => {
       </QueryClientProvider>
     );
     await waitFor(() => {
-      expect(utils.loaders.getTransactions).toHaveBeenCalled();
+      expect(utils.loaders.getTransactionDetails).toHaveBeenCalled();
     });
   });
 });
