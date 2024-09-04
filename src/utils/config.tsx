@@ -6,7 +6,6 @@ import { z, ZodError } from 'zod';
 const {
   APIHOST = 'http://localhost:1234/api',
   ENV = 'LOCAL',
-  SHOW_STATUS_INFO = false,
   ENTITIES_LOGO_CDN,
   CHECKOUT_HOST = 'https://dev.checkout.pagopa.it',
   LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity',
@@ -51,7 +50,6 @@ type Config = {
   version: string;
   baseURL: string;
   pagopaLink: RootLinkType;
-  showStatusInfo: boolean;
   entitiesLogoCdn?: string;
   assistanceLink: string;
   checkoutHost: string;
@@ -83,12 +81,6 @@ const config: Config = {
    */
   baseURL: APIHOST,
   pagopaLink,
-  /** Self explanatory, hide or show the status info (regarding transactions) in the whole application
-   * the ternary means: if SHOW_STATUS_INFO isn't default (false, missing in the .env) then the value is
-   * true when the string is 'true' (remember that env variables are always strings)
-   * Type checking with Zod ensure that the values are the expected one ('true', 'false')
-   */
-  showStatusInfo: SHOW_STATUS_INFO !== false && SHOW_STATUS_INFO === 'true',
   entitiesLogoCdn: ENTITIES_LOGO_CDN,
   assistanceLink,
   checkoutHost: CHECKOUT_HOST,

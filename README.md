@@ -29,7 +29,6 @@ The table below describes all the Environment variables needed by the applicatio
 | ENV               | environment id                                        | "LOCAL", "DEV", "UAT", "PROD" |
 | ASSISTANCE_LINK   | Link for assistance page                              | url                           |
 | ENTITIES_LOGO_CDN | cdn link for logos                                    | url                           |
-| SHOW_STATUS_INFO  | hide or show the status info in the whole application | 'false', 'true'               |
 | LOGIN_URL         | Link for login button                                 | url                           |
 
 ### Installation

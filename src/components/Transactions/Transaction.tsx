@@ -7,7 +7,6 @@ import { styled, Theme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { theme } from '@pagopa/mui-italia';
 import { ArcRoutes } from 'routes/routes';
-import utils from 'utils';
 import { PayeeIcon } from 'components/PayeeIcon';
 
 export interface TransactionProps {
@@ -77,12 +76,6 @@ const Transaction = (props: TransactionProps) => {
           {amount}
         </Typography>
       </StyledTableCell>
-
-      {utils.config.showStatusInfo && (
-        <StyledTableCell sx={{ display: tableCellCssDisplayProperty }}>
-          <Chip label={status.label} color={status.color} />
-        </StyledTableCell>
-      )}
 
       {sm && (
         <StyledTableCell width="56px">
