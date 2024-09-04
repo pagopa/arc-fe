@@ -53,7 +53,6 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorFallback />
   },
-
   {
     path: ArcRoutes.AUTH_CALLBACK,
     element: <AuthCallback />,
