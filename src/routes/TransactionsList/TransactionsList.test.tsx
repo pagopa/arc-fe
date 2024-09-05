@@ -2,7 +2,6 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import TransactionsList from '.';
 import '@testing-library/jest-dom';
-import { useStore } from 'store/GlobalStore';
 import utils from 'utils';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -10,12 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient();
 jest.mock('utils', () => ({
   ...jest.requireActual('utils'),
-  storage: {
-    pullPaymentsOptIn: {
-      set: () => true,
-      get: () => true
-    }
-  },
+
   loaders: {
     getTransactions: jest.fn()
   },
@@ -37,11 +31,6 @@ jest.mock('react-router-dom', () => ({
 
 describe('TransactionListRoute', () => {
   (useMediaQuery as jest.Mock).mockReturnValue(false);
-  const setState = jest.fn();
-
-  beforeEach(() => {
-    (useStore as jest.Mock).mockReturnValue({ setState });
-  });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -54,7 +43,6 @@ describe('TransactionListRoute', () => {
       ]
     };
 
-    //const preparedData = [{ id: '1' }, { id: '2' }];
     (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
       data: mockTransactions,
       isError: false
@@ -69,7 +57,6 @@ describe('TransactionListRoute', () => {
     });
   });
   it('renders with error', async () => {
-    //const preparedData = [{ id: '1' }, { id: '2' }];
     (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
       data: null,
       isError: true

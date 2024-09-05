@@ -4,7 +4,6 @@ import User from '.';
 import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
 import utils from 'utils';
-import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -15,7 +14,6 @@ jest.mock('utils', () => ({
     getUserInfo: jest.fn()
   }
 }));
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
 
 jest.mock('store/GlobalStore', () => ({
   useStore: jest.fn()
@@ -25,7 +23,6 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('UserRoute', () => {
-  (useMediaQuery as jest.Mock).mockReturnValue(false);
   const setState = jest.fn();
 
   //const preparedData = [{ id: '1' }, { id: '2' }];

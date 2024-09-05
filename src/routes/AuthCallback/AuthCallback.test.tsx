@@ -6,14 +6,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
-
-
 jest.mock('react-router-dom', () => ({
   useLoaderData: jest.fn()
 }));
 
 describe('AuthCallBack route', () => {
-
   afterEach(() => {
     jest.clearAllMocks();
   });

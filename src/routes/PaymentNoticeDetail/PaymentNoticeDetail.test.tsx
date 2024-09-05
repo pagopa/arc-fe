@@ -4,21 +4,8 @@ import PaymentNoticeDetail from './index';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useStore } from 'store/GlobalStore';
-import utils from 'utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
-  storage: {
-    pullPaymentsOptIn: {
-      set: () => true,
-      get: () => true
-    }
-  },
-  loaders: {
-    getUserInfo: jest.fn()
-  }
-}));
 jest.mock('store/GlobalStore', () => ({
   useStore: jest.fn()
 }));
@@ -46,11 +33,7 @@ describe('PaymentNoticeDetailRoute', () => {
       image: { alt: 'ACI', src: 'string' }
     };
     (useStore as jest.Mock).mockReturnValue({ state: { paymentNotice: notice } });
-    const userInfo = { name: 'John Doe', email: 'john.doe@example.com' }; // Mock user info
 
-    (utils.loaders.getUserInfo as jest.Mock).mockReturnValue({
-      data: userInfo
-    });
     render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
