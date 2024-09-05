@@ -34,6 +34,7 @@ export const AssistanceForm = () => {
     });
     const form = document.getElementById('jwtForm') as HTMLFormElement;
     setZendeskData(zendeskAssistance);
+    console.log('+++++', data);
     form.submit();
   }
 
@@ -152,6 +153,7 @@ export const AssistanceForm = () => {
             readOnly
             type="hidden"
             id="jwtString"
+            data-testid="jwtString"
             name="jwt"
             value={(zendeskData && zendeskData.assistanceToken.trim()) || ''}
           />
@@ -159,6 +161,7 @@ export const AssistanceForm = () => {
             readOnly
             type="hidden"
             id="returnTo"
+            data-testid="returnTo"
             name="return_to"
             value={(zendeskData && zendeskData.returnTo.trim()) || ''}
           />
