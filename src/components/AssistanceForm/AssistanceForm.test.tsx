@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { AssistanceForm } from './index';
 import '@testing-library/jest-dom';
 import utils from 'utils';
@@ -89,11 +89,12 @@ describe('AssistanceForm Component', () => {
     fireEvent.click(confirmButton);
 
     expect(utils.apiClient.token.getZendeskAssistanceToken).toHaveBeenCalledTimes(1);
-
-    expect(jwtStringInput).toHaveAttribute(
-      'value',
-      mockGetZendeskAssistanceToken.data.assistanceToken
-    );
-    expect(returnToInput).toHaveAttribute('value', mockGetZendeskAssistanceToken.data.returnTo);
+    waitFor(() => {
+      expect(jwtStringInput).toHaveAttribute(
+        'value',
+        mockGetZendeskAssistanceToken.data.assistanceToken
+      );
+      expect(returnToInput).toHaveAttribute('value', mockGetZendeskAssistanceToken.data.returnTo);
+    });
   });
 });

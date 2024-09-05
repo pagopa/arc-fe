@@ -34,7 +34,6 @@ export const AssistanceForm = () => {
     });
     const form = document.getElementById('jwtForm') as HTMLFormElement;
     setZendeskData(zendeskAssistance);
-    console.log('+++++', data);
     form.submit();
   }
 
