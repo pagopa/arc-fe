@@ -5,9 +5,17 @@ import 'whatwg-fetch';
 import loaders from 'utils/loaders';
 import utils from 'utils';
 import { StoreProvider } from 'store/GlobalStore';
-import { createMock } from 'zodock';
-import * as schemas from '../../generated/zod-schema';
 import { AxiosResponse } from 'axios';
+
+// importing schemas from utils
+// causes an import resolution issue
+import * as schemas from '../../generated/zod-schema';
+
+// zodock can create mock object
+// from a zod schema
+// if a field is set as optionaal
+// it will be generated as undefined
+import { createMock } from 'zodock';
 
 // Mock the utils module
 jest.mock('utils', () => {
@@ -53,7 +61,8 @@ describe('api loaders', () => {
     });
 
     it('getTransactions calls API and schema parser correctly', async () => {
-      const dataMock = createMock(schemas.transactionsListDTOSchema);
+      // you can generate a specific field, even if optionale, using .require()
+      const dataMock = createMock(schemas.transactionsListDTOSchema.required());
 
       const apiMock = jest
         .spyOn(utils.apiClient.transactions, 'getTransactionsList')
