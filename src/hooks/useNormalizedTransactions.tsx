@@ -12,7 +12,7 @@ export const useNormalizedTransactions = () => {
       ? utils.converters.prepareRowsData({
           transactions: filter ? data.transactions?.filter(filter) : data.transactions,
           status: { label: t('app.transactions.paid') },
-          payee: { multi: t('app.transactions.multiEntities') },
+          payee: { multi: t('app.transactions.multiEntities') }
         })
       : [];
 

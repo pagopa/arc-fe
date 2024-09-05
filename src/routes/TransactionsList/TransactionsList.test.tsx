@@ -38,18 +38,6 @@ jest.mock('react-router-dom', () => ({
 describe('TransactionListRoute', () => {
   (useMediaQuery as jest.Mock).mockReturnValue(false);
   const setState = jest.fn();
-  const mockTransactions = {
-    transactions: [
-      { id: '1', paidByMe: true, registeredToMe: false },
-      { id: '2', paidByMe: false, registeredToMe: true }
-    ]
-  };
-
-  //const preparedData = [{ id: '1' }, { id: '2' }];
-  (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
-    data: mockTransactions,
-    isError: false
-  });
 
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({ setState });
@@ -59,6 +47,33 @@ describe('TransactionListRoute', () => {
     jest.clearAllMocks();
   });
   it('renders without crashing', async () => {
+    const mockTransactions = {
+      transactions: [
+        { id: '1', paidByMe: true, registeredToMe: false },
+        { id: '2', paidByMe: false, registeredToMe: true }
+      ]
+    };
+
+    //const preparedData = [{ id: '1' }, { id: '2' }];
+    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+      data: mockTransactions,
+      isError: false
+    });
+    render(
+      <QueryClientProvider client={queryClient}>
+        <TransactionsList />
+      </QueryClientProvider>
+    );
+    await waitFor(() => {
+      expect(utils.loaders.getTransactions).toHaveBeenCalled();
+    });
+  });
+  it('renders with error', async () => {
+    //const preparedData = [{ id: '1' }, { id: '2' }];
+    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+      data: null,
+      isError: true
+    });
     render(
       <QueryClientProvider client={queryClient}>
         <TransactionsList />

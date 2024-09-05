@@ -48,16 +48,6 @@ describe('TransactionRoute', () => {
     ]
   };
 
-  //const preparedData = [{ id: '1' }, { id: '2' }];
-  (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
-    data: mockTransactions,
-    isError: false
-  });
-  (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
-    data: mockTransactions.transactions[0],
-    isError: false
-  });
-
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({ setState });
   });
@@ -66,6 +56,15 @@ describe('TransactionRoute', () => {
     jest.clearAllMocks();
   });
   it('renders without crashing', async () => {
+    //const preparedData = [{ id: '1' }, { id: '2' }];
+    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+      data: mockTransactions,
+      isError: false
+    });
+    (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
+      data: mockTransactions.transactions[0],
+      isError: false
+    });
     render(
       <QueryClientProvider client={queryClient}>
         <Transaction />
@@ -74,5 +73,22 @@ describe('TransactionRoute', () => {
     await waitFor(() => {
       expect(utils.loaders.getTransactionDetails).toHaveBeenCalled();
     });
+  });
+
+  it('renders without crashing error', async () => {
+    //const preparedData = [{ id: '1' }, { id: '2' }];
+    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+      data: null,
+      isError: true
+    });
+    (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
+      data: null,
+      isError: true
+    });
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Transaction />
+      </QueryClientProvider>
+    );
   });
 });

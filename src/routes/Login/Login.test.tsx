@@ -1,15 +1,18 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import Login from '.';
 import '@testing-library/jest-dom';
-import { MemoryRouter } from 'react-router-dom';
-
+import { BrowserRouter } from 'react-router-dom';
 describe('LoginRoute', () => {
-  it('renders without crashing', () => {
+  it('renders without crashing', async () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Login />
-      </MemoryRouter>
+      </BrowserRouter>
     );
+
+    await waitFor(() => {
+      expect(screen.getByLabelText('Entra con SPID')).toBeInTheDocument();
+    });
   });
 });

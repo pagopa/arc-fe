@@ -1,9 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import PaymentNoticeDetail from '.';
+import PaymentNoticeDetail from './index';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useStore } from 'store/GlobalStore';
+import utils from 'utils';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 jest.mock('utils', () => ({
   ...jest.requireActual('utils'),
@@ -12,6 +14,9 @@ jest.mock('utils', () => ({
       set: () => true,
       get: () => true
     }
+  },
+  loaders: {
+    getUserInfo: jest.fn()
   }
 }));
 jest.mock('store/GlobalStore', () => ({
@@ -21,18 +26,36 @@ jest.mock('store/PaymentNoticeStore', () => ({
   paymentNoticeState: { removeItem: jest.fn(), state: null }
 }));
 
-describe('PaymentNoticeDetailRoute', () => {
-  beforeEach(() => {
-    (useStore as jest.Mock).mockReturnValue({ state: { paymentNotice: null } });
-  });
+const queryClient = new QueryClient();
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-  it('renders without crashing', () => {
+describe('PaymentNoticeDetailRoute', () => {
+  it('renders without crashing empty notice', () => {
+    (useStore as jest.Mock).mockReturnValue({ state: { paymentNotice: null } });
+
     render(
       <MemoryRouter>
         <PaymentNoticeDetail />
+      </MemoryRouter>
+    );
+  });
+  it('renders without crashing', () => {
+    const notice = {
+      debtorFullName: 'ACI Automobile Club Italia',
+      debtorTaxCode: 'HSLZYB90L59D030S',
+      debtorType: 'F',
+      image: { alt: 'ACI', src: 'string' }
+    };
+    (useStore as jest.Mock).mockReturnValue({ state: { paymentNotice: notice } });
+    const userInfo = { name: 'John Doe', email: 'john.doe@example.com' }; // Mock user info
+
+    (utils.loaders.getUserInfo as jest.Mock).mockReturnValue({
+      data: userInfo
+    });
+    render(
+      <MemoryRouter>
+        <QueryClientProvider client={queryClient}>
+          <PaymentNoticeDetail />
+        </QueryClientProvider>
       </MemoryRouter>
     );
   });

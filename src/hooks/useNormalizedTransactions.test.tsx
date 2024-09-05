@@ -62,21 +62,20 @@ describe('useNormalizedTransactions', () => {
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
         transactions: mockTransactions.transactions,
         status: { label: 'app.transactions.paid' },
-        payee: { multi: 'app.transactions.multiEntities' },
+        payee: { multi: 'app.transactions.multiEntities' }
       });
 
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
         transactions: [mockTransactions.transactions[0]], // paidByMe
         status: { label: 'app.transactions.paid' },
-        payee: { multi: 'app.transactions.multiEntities' },
+        payee: { multi: 'app.transactions.multiEntities' }
       });
 
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
         transactions: [mockTransactions.transactions[1]], // registeredToMe
         status: { label: 'app.transactions.paid' },
-        payee: { multi: 'app.transactions.multiEntities' },
+        payee: { multi: 'app.transactions.multiEntities' }
       });
-
     });
   });
 
