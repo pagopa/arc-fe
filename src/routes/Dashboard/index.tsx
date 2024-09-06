@@ -2,9 +2,9 @@ import React from 'react';
 import IOAlert from 'components/Alerts/IOAlert';
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import utils from 'utils';
-import { ArcRoutes } from './routes';
+import { ArcRoutes } from '../routes';
 import { grey } from '@mui/material/colors';
 import QueryLoader from 'components/QueryLoader';
 import { PaymentNotice } from 'components/PaymentNotice';
@@ -15,7 +15,6 @@ import { Empty, Retry, TransactionsList } from 'components/Transactions';
 const Dashboard = () => {
   const { t } = useTranslation();
   const { data, isError, refetch } = utils.loaders.getTransactions();
-  const navigate = useNavigate();
   const theme = useTheme();
   const optIn = utils.storage.pullPaymentsOptIn.get();
 
@@ -24,8 +23,7 @@ const Dashboard = () => {
     utils.converters.prepareRowsData({
       transactions: data.transactions,
       status: { label: t('app.transactions.paid') },
-      payee: { multi: t('app.transactions.multiEntities') },
-      action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+      payee: { multi: t('app.transactions.multiEntities') }
     });
 
   const Content = () => {

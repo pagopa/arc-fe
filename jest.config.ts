@@ -31,7 +31,6 @@ const config: Config = {
   coveragePathIgnorePatterns: [
      "/node_modules/",
      "src/stories/",
-     "src/routes/",
      "src/index.tsx",
      "src/App.tsx",
      "src/global.d.ts",

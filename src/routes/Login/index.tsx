@@ -19,7 +19,7 @@ import { SpidIcon } from '@pagopa/mui-italia/dist/icons/SpidIcon';
 import utils from 'utils';
 import { Trans, useTranslation } from 'react-i18next';
 import { Logout } from '@mui/icons-material';
-import { ArcRoutes } from './routes';
+import { ArcRoutes } from '../routes';
 
 const Login = () => {
   const { t } = useTranslation();

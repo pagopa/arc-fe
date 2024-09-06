@@ -2,7 +2,7 @@ import React from 'react';
 import { PaymentNotice } from 'components/PaymentNotice';
 import { useStore } from 'store/GlobalStore';
 import { Navigate, useParams } from 'react-router-dom';
-import { ArcRoutes } from './routes';
+import { ArcRoutes } from '../routes';
 import { paymentNoticeState } from 'store/PaymentNoticeStore';
 
 export default function PaymentNoticeDetail() {

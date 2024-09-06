@@ -57,7 +57,6 @@ interface PrepareRowsData {
     /** alt text for entity logo */
     altImg?: string;
   };
-  action: (id: string) => void;
 }
 
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
@@ -76,8 +75,7 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
       status: {
         label: data.status.label,
         color: 'success'
-      },
-      action: data.action
+      }
     })) || []
   );
 };
