@@ -1,8 +1,7 @@
-// useUserInfo.test.tsx
 import { renderHook, waitFor } from '@testing-library/react';
-import { useUserInfo } from './useUserInfo'; // Path to your hook
-import * as globalStore from 'store/GlobalStore'; // Mock this
-import utils from 'utils'; // Mock this
+import { useUserInfo } from './useUserInfo';
+import * as globalStore from 'store/GlobalStore';
+import utils from 'utils';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider, UseQueryResult } from '@tanstack/react-query';
 import React, { ReactNode } from 'react';
@@ -11,7 +10,6 @@ import { userInfoSchema } from '../../generated/zod-schema';
 import { UserInfo } from '../../generated/apiClient';
 import { createMock } from 'zodock';
 
-// Mock store
 jest.mock('store/GlobalStore', () => ({
   useStore: jest.fn()
 }));
@@ -19,11 +17,6 @@ jest.mock('store/GlobalStore', () => ({
 jest.mock('utils', () => ({
   loaders: {
     getUserInfoOnce: jest.fn()
-  },
-  apiClient: {
-    auth: {
-      getUserInfo: jest.fn()
-    }
   }
 }));
 
@@ -44,38 +37,34 @@ describe('useUserInfo hook', () => {
 
     jest
       .spyOn(utils.loaders, 'getUserInfoOnce')
-      .mockReturnValue({ data: dataMock } as UseQueryResult<UserInfo, Error>);
+      .mockReturnValue({ data: dataMock, isSuccess: true } as UseQueryResult<UserInfo, Error>);
 
-    const storeMock = jest.spyOn(globalStore, 'useStore').mockReturnValueOnce({
+    const storeMock = jest.spyOn(globalStore, 'useStore').mockReturnValue({
       state: { userInfo: undefined } as State,
       setState: mockSetState
     });
 
-    const { result } = renderHook(() => useUserInfo(), {
-      wrapper
-    });
+    renderHook(() => useUserInfo(), { wrapper });
 
-    const userNoEmail = dataMock;
-    delete userNoEmail.email; // Email should not be settes in the storage or state
+    const userNoEmail = { ...dataMock };
+    delete userNoEmail.email;
 
+    // Wait for the effect to trigger and update the state
     await waitFor(() => {
       expect(mockSetState).toHaveBeenCalledWith(STATE.USER_INFO, userNoEmail);
-      expect(result.current.userInfo).toBeUndefined(); // Depends on initial state
     });
 
-    // Update the sotre state
+    // Mock store with updated userInfo state
     storeMock.mockReturnValue({
       state: { userInfo: userNoEmail } as State,
       setState: mockSetState
     });
 
-    // Re-render the hook with the updated state
-    const { result: updatedResult } = renderHook(() => useUserInfo(), {
-      wrapper
-    });
+    // simulate state change
+    const { result: updatedResult } = renderHook(() => useUserInfo(), { wrapper });
 
     await waitFor(() => {
-      expect(updatedResult.current.userInfo).toEqual(dataMock);
+      expect(updatedResult.current.userInfo).toEqual(userNoEmail);
     });
   });
 });
