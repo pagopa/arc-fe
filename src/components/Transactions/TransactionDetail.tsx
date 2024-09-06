@@ -1,11 +1,10 @@
 import { Download } from '@mui/icons-material';
-import { Box, Button, Chip, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import MasterCard from '../../assets/creditcard/mastercard.png';
 import { type TransactionDetail as TransactionDetailType } from '../../models/TransactionDetail';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import utils from 'utils';
 import { getReceipt } from 'utils/files';
 
 export default function TransactionDetail({
@@ -28,7 +27,6 @@ export default function TransactionDetail({
           <Typography variant="h2" fontSize={{ xs: 28, md: 32 }}>
             {t('app.transactionDetail.title')}
           </Typography>
-          {utils.config.showStatusInfo && <Chip label={transactionData.status} color="success" />}
         </Stack>
         <Button
           data-testid="receipt-download-btn"

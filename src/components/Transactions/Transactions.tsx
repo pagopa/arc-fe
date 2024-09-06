@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer';
 import Transaction from './Transaction';
 import { TableHead, TableRow, TableCell, useMediaQuery, Theme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import utils from 'utils';
 
 export interface TransactionsProps {
   rows?: TransactionProps[];
@@ -30,11 +29,6 @@ const Transactions = (props: TransactionsProps) => {
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
               {t('app.transactions.amount')}
             </TableCell>
-            {utils.config.showStatusInfo && (
-              <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
-                {t('app.transactions.status')}
-              </TableCell>
-            )}
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} />
           </TableRow>
         </TableHead>

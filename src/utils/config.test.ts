@@ -1,6 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
 import utils from '.';
-// import { ZodError } from 'zod';
 
 describe('useLanguage hook', () => {
   it('should return the initial default it language correctly', () => {
@@ -14,60 +13,6 @@ describe('useLanguage hook', () => {
       result.current.changeLanguage('en');
     });
     expect(result.current.language).toBe('en');
-  });
-});
-
-describe('environmental variables SHOW_STATUS_INFO', () => {
-  const OLD_ENV = process.env;
-
-  beforeEach(() => {
-    jest.resetModules(); // Most important - it clears the cache
-    process.env = { ...OLD_ENV }; // Make a copy
-  });
-
-  afterAll(() => {
-    process.env = OLD_ENV; // Restore old environment
-  });
-
-  test('SHOW_STATUS_INFO process.env variables has right value (true)', () => {
-    // Set the variables
-    process.env.SHOW_STATUS_INFO = 'true';
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const utils = require('.').default;
-    expect(utils.config.showStatusInfo).toBe(true);
-  });
-
-  test('SHOW_STATUS_INFO process.env variables has right value (false)', () => {
-    // Set the variables
-    process.env.SHOW_STATUS_INFO = 'false';
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const utils = require('.').default;
-    expect(utils.config.showStatusInfo).toBe(false);
-  });
-
-  test('SHOW_STATUS_INFO process.env variables has the right default value (false)', () => {
-    // Set the variables
-    process.env.SHOW_STATUS_INFO = undefined;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const utils = require('.').default;
-    expect(utils.config.showStatusInfo).toBe(false);
-  });
-
-  test('type checks work correctly trying to assign not allowed value to SHOW_STATUS_INFO', () => {
-    process.env.SHOW_STATUS_INFO = '0';
-    const logSpy = jest.spyOn(global.console, 'error');
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('.').default;
-    expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledTimes(1);
-    expect(logSpy).toHaveBeenCalledWith(
-      'ENV variables validation fails',
-      expect.arrayContaining([
-        expect.objectContaining({
-          message: "Invalid enum value. Expected 'true' | 'false', received '0'"
-        })
-      ])
-    );
   });
 });
 
