@@ -37,6 +37,8 @@ export const AssistanceForm = () => {
 
       const resultData = zendeskAssistanceTokenResponseSchema.safeParse(zendeskAssistance);
       if (!resultData.success) throw resultData.error;
+      if (zendeskAssistance.assistanceToken == '' || zendeskAssistance.returnTo == '')
+        throw 'Empty response' + zendeskAssistance;
 
       const form = document.getElementById('jwtForm') as HTMLFormElement;
       setZendeskData(zendeskAssistance);
