@@ -14,6 +14,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { ArrowBack } from '@mui/icons-material';
 import utils from 'utils';
 import { ZendeskAssistanceTokenResponse } from '../../../generated/data-contracts';
+import { zendeskAssistanceTokenResponseSchema } from '../../../generated/zod-schema';
 
 export const AssistanceForm = () => {
   const { t } = useTranslation();
@@ -29,12 +30,20 @@ export const AssistanceForm = () => {
 
   async function getAssistanceJWT(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    const { data: zendeskAssistance } = await utils.apiClient.token.getZendeskAssistanceToken({
-      userEmail: email
-    });
-    const form = document.getElementById('jwtForm') as HTMLFormElement;
-    setZendeskData(zendeskAssistance);
-    form.submit();
+    try {
+      const { data: zendeskAssistance } = await utils.apiClient.token.getZendeskAssistanceToken({
+        userEmail: email
+      });
+
+      const resultData = zendeskAssistanceTokenResponseSchema.safeParse(zendeskAssistance);
+      if (!resultData.success) throw resultData.error;
+
+      const form = document.getElementById('jwtForm') as HTMLFormElement;
+      setZendeskData(zendeskAssistance);
+      form.submit();
+    } catch (e) {
+      console.warn(e);
+    }
   }
 
   useEffect(() => {
