@@ -166,19 +166,22 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                             sx={{ wordBreak: 'break-word' }}
                             component="dt"
                             color={theme.palette.text.secondary}>
-                            {t('app.paymentNoticeDetail.card1.iupd')}
+                            {t('app.paymentNoticeDetail.card1.iuv')}
                           </Typography>
                           <Typography
                             component="dd"
                             fontWeight={600}
                             color={theme.palette.primary.main}
                             sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                            {paymentNotice.iupd}
+                            {paymentNotice.paymentOptions.installments.iuv}
                           </Typography>
                         </Grid>
                       </Grid>
                       <Grid item xs={2} sm={1}>
-                        <CopyToClipboardButton value={paymentNotice.iupd} color="primary" />
+                        <CopyToClipboardButton
+                          value={paymentNotice.paymentOptions.installments.iuv}
+                          color="primary"
+                        />
                       </Grid>
                     </Grid>
                     <Divider />

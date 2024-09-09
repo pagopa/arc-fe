@@ -39,6 +39,7 @@
     },
     "dashboard": {
       "title": "Ciao, {{username}}",
+      "greetings": "Benvenuto",
       "newPayment": "Paga un avviso",
       "lastTransactions": "Le tue ricevute",
       "seeAllTransactions": "Vedi tutte",
@@ -165,7 +166,7 @@
         "paFullname": "Ente creditore",
         "subject": "Oggetto del pagamento",
         "dueDate": "Entro il",
-        "iupd": "Codice avviso",
+        "iuv": "Codice avviso",
         "paTaxCode": "Codice fiscale ente"
       },
       "card2": {
