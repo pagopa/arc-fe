@@ -99,7 +99,7 @@ export const Sidebar: React.FC = () => {
             ))}
           </List>
           <Box sx={styles.hamburgerBox}>
-            <Divider orientation="horizontal" flexItem />
+            <Divider orientation="horizontal" flexItem sx={{ display: lg ? 'block' : 'none' }} />
             <Box sx={styles.hamburgerIcon}>
               <Tooltip
                 placement="right"
