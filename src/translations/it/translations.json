@@ -165,7 +165,7 @@
         "paFullname": "Ente creditore",
         "subject": "Oggetto del pagamento",
         "dueDate": "Entro il",
-        "iupd": "Codice avviso",
+        "iuv": "Codice avviso",
         "paTaxCode": "Codice fiscale ente"
       },
       "card2": {

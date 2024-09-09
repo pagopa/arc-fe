@@ -39,7 +39,7 @@ describe('Detail Component', () => {
   it('renders the single notice data', () => {
     renderWithTheme(<PaymentNotice.Detail paymentNotice={mockNotice} />);
 
-    expect(screen.getByText(mockNotice.iupd)).toBeInTheDocument();
+    expect(screen.getByText(mockNotice.paymentOptions.installments.iuv)).toBeInTheDocument();
     expect(screen.getByText(mockNotice.paFullName)).toBeInTheDocument();
     expect(screen.getByText(mockNotice.paymentOptions.description)).toBeInTheDocument();
     expect(screen.getAllByText(mockNotice.paymentOptions.amount).length).toBeGreaterThanOrEqual(1);
