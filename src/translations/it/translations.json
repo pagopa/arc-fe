@@ -30,13 +30,12 @@
       "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
     },
     "login": {
-      "title": "Accedi a pagoPA",
+      "title": "Area Riservata PagoPA",
       "description": "La tua area personale in cui gestire i pagamenti pagoPA e scaricare le ricevute.",
       "terms": "Accedendo accetti i <link1>Termini e condizioni d’uso</link1> del servizio e confermi di avere letto l'<link2>Informativa Privacy </link2> ",
       "areYouAnEnterprise": "Sei un'impresa?",
       "accessYourArea": "Accedi alla tua area",
-      "spid": "Entra con SPID",
-      "cie": "Entra con CIE"
+      "login": "Accedi"
     },
     "dashboard": {
       "title": "Ciao, {{username}}",

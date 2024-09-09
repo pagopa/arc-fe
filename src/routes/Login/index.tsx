@@ -1,25 +1,8 @@
 import React, { useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  Link,
-  Stack,
-  Typography,
-  alpha,
-  useTheme
-} from '@mui/material';
-import { Link as ReactRouterLink } from 'react-router-dom';
-import { CieIcon } from '@pagopa/mui-italia/dist/icons/CieIcon';
-import { SpidIcon } from '@pagopa/mui-italia/dist/icons/SpidIcon';
-
+import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
 import utils from 'utils';
-import { Trans, useTranslation } from 'react-i18next';
-import { Logout } from '@mui/icons-material';
-import { ArcRoutes } from '../routes';
+import { useTranslation } from 'react-i18next';
+import { LogoPagoPAProduct } from '@pagopa/mui-italia';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -41,120 +24,26 @@ const Login = () => {
       justifyContent={'center'}>
       <Box width={'100%'}>
         <Stack textAlign={'center'} justifyContent={'center'} alignItems={'center'} spacing={4}>
-          <Stack spacing={2} paddingX={1}>
-            <Typography variant="h3">{t('app.login.title')}</Typography>
-            <Typography variant="body1">{t('app.login.description')}</Typography>
-          </Stack>
-          <Card
-            raised
+          <LogoPagoPAProduct color="default" title="PagoPA" size={100} />
+          <Typography variant="h1">{t('app.login.title')}</Typography>
+          <Button
+            variant="contained"
+            size="large"
+            role="button"
+            onClick={() => window.location.replace(utils.config.loginUrl)}
             sx={{
-              borderRadius: 2,
-              padding: 2,
-              width: '100%',
-              maxWidth: { lg: '25%', xs: '75%', sm: '50%' } //I used SEND's login page as a reference for sizes, since the design is in pixels.
-            }}>
-            <CardActions>
-              <Stack spacing={2} width={'100%'}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  startIcon={<SpidIcon />}
-                  role="button"
-                  onClick={() => window.location.replace(utils.config.loginUrl)}
-                  sx={{
-                    borderRadius: 2,
-                    width: '100%',
-                    marginBottom: 1
-                  }}
-                  aria-label={t('app.login.spid')}>
-                  <Typography
-                    sx={{
-                      fontWeight: 'fontWeightMedium',
-                      textAlign: 'center',
-                      color: theme.palette.primary.contrastText
-                    }}>
-                    {t('app.login.spid')}
-                  </Typography>
-                </Button>
-                <Button
-                  variant="contained"
-                  size="large"
-                  role="button"
-                  aria-label={t('app.login.cie')}
-                  fullWidth
-                  onClick={() => window.location.replace(utils.config.loginUrl)}
-                  sx={{
-                    borderRadius: 1,
-                    width: '100%',
-                    marginBottom: 1
-                  }}
-                  startIcon={<CieIcon />}>
-                  <Typography
-                    sx={{
-                      fontWeight: 'fontWeightMedium',
-                      textAlign: 'center',
-                      color: theme.palette.primary.contrastText
-                    }}>
-                    {t('app.login.cie')}
-                  </Typography>
-                </Button>
-              </Stack>
-            </CardActions>
-          </Card>
-          <Grid item maxWidth={{ lg: '25%', xs: '75%', sm: '50%' }}>
-            <Typography variant="body1">
-              <Trans
-                i18nKey={t('app.login.terms')}
-                components={{
-                  link1: (
-                    <Link
-                      href={`${ArcRoutes.RESOURCES}?resource=tos`}
-                      target="_blank"
-                      fontWeight={800}
-                    />
-                  ) /* I've kept two separate components because in the future we will have two different destination addresses which will be defined here. */,
-                  link2: (
-                    <Link
-                      target="_blank"
-                      fontWeight={800}
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => {
-                        window.localStorage.setItem('accessToken', 'dummy');
-                        window.open(`${ArcRoutes.RESOURCES}?resource=pp`, 'blank');
-                        window.location.replace(utils.config.deployPath);
-
-                        //This is needed so that the link does its actual function, while also serving as a temporal authentication. Otherwise it wouldn't redirect the current window to the home page.
-                      }}
-                    />
-                  )
-                }}
-              />
+              borderRadius: 2
+            }}
+            aria-label={t('app.login.login')}>
+            <Typography
+              sx={{
+                fontWeight: 'fontWeightMedium',
+                textAlign: 'center',
+                color: theme.palette.primary.contrastText
+              }}>
+              {t('app.login.login')}
             </Typography>
-          </Grid>
-          <Card
-            sx={{
-              backgroundColor: alpha('rgba(250, 250, 250)', 1),
-              borderRadius: 1,
-              width: '100%',
-              maxWidth: { lg: '25%', xs: '75%', sm: '50%' },
-              borderLeft: 'solid',
-              borderLeftWidth: 4,
-              borderLeftColor: theme.palette.primary.main
-            }}>
-            <CardContent sx={{ textAlign: 'left' }}>
-              <Typography variant="body1" fontWeight={600} gutterBottom>
-                {t('app.login.areYouAnEnterprise')}
-              </Typography>
-              <Stack direction="row" spacing={1}>
-                <Typography variant="body1" fontWeight={600} color={theme.palette.primary.main}>
-                  {t('app.login.accessYourArea')}
-                </Typography>
-                <ReactRouterLink to="" aria-label={t('app.login.accessYourArea')} role="link">
-                  <Logout color="primary" />
-                </ReactRouterLink>
-              </Stack>
-            </CardContent>
-          </Card>
+          </Button>
         </Stack>
       </Box>
     </Grid>

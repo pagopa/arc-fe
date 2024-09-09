@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Grid, useTheme } from '@mui/material';
-import { Footer } from './Footer';
 import utils from 'utils';
 import { HeaderAccount } from '@pagopa/mui-italia';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
@@ -38,10 +37,6 @@ export function PreLoginLayout({ children }: { children: ReactJSXElement }) {
             />
           </Grid>
           {children}
-          <Grid item xs={12} height="fit-content" flexBasis={{ xs: 'fit-content' }} flexShrink={3}>
-            {/*xs in flex basis is specified to override mui clas.*/}
-            <Footer loggedUser={false} />
-          </Grid>
         </Grid>
       </Container>
     </>
