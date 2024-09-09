@@ -43,7 +43,7 @@ const Dashboard = () => {
         alignItems={{ sm: 'center' }}
         gap={3}
         mb={5}>
-        <Typography variant="h3">
+        <Typography variant="h3" aria-label={t('app.dashboard.greeting')}>
           {userInfo?.name &&
             userInfo?.familyName &&
             t('app.dashboard.title', { username: `${userInfo.name} ${userInfo.familyName}` })}
