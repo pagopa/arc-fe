@@ -41,7 +41,8 @@ export const Sidebar: React.FC = () => {
     {
       label: t('menu.homepage'),
       icon: ViewSidebarIcon,
-      route: ArcRoutes.DASHBOARD
+      route: ArcRoutes.DASHBOARD,
+      end: true
     },
     {
       label: t('menu.paymentNotices'),

@@ -21,6 +21,7 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
   return (
     <ListItem disablePadding>
       <ListItemButton
+        end={item.end || false}
         component={NavLink}
         to={item.route}
         onClick={onClick}
