@@ -59,7 +59,7 @@ export const _Card = (notice: PaymentNoticeType) => {
         justifyContent="space-between"
         sx={{ cursor: 'pointer' }}>
         <Stack direction="row" alignItems="center" gap={2} component="header">
-          <PayeeIcon src={''} alt={paFullName} visible={smUp} />
+          <PayeeIcon src={notice.image.src} alt={paFullName} visible={smUp} />
           <Stack maxWidth={{ xs: 110, sm: 150, md: 480, lg: 460, xl: 600 }}>
             <Typography component="h1" variant="subtitle1" noWrap>
               {debtorFullName}

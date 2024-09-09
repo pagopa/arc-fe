@@ -57,8 +57,8 @@ describe('PaymentNoticeRoute', () => {
     };
     const mockNormalizedData = {
       paymentNotices: [
-        { id: 1, normalizedNotice: 'Normalized Notice 1' },
-        { id: 2, normalizedNotice: 'Normalized Notice 2' }
+        { id: 1, normalizedNotice: 'Normalized Notice 1', image: { src: '' } },
+        { id: 2, normalizedNotice: 'Normalized Notice 2', image: { src: '' } }
       ]
     };
     const queryClient = new QueryClient();
