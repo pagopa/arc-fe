@@ -11,6 +11,7 @@ import { PaymentNotice } from 'components/PaymentNotice';
 import { TransactionListSkeleton } from 'components/Skeleton';
 import PaymentButton from 'components/PaymentButton';
 import { Empty, Retry, TransactionsList } from 'components/Transactions';
+import { useUserInfo } from 'hooks/useUserInfo';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -32,6 +33,8 @@ const Dashboard = () => {
     return <TransactionsList rows={rows} />;
   };
 
+  const { userInfo } = useUserInfo();
+
   return (
     <>
       <Stack
@@ -41,7 +44,11 @@ const Dashboard = () => {
         alignItems={{ sm: 'center' }}
         gap={3}
         mb={5}>
-        <Typography variant="h3">{t('app.dashboard.title', { username: 'John Doe' })}</Typography>
+        <Typography variant="h3">
+          {userInfo?.name &&
+            userInfo?.familyName &&
+            t('app.dashboard.title', { username: `${userInfo.name} ${userInfo.familyName}` })}
+        </Typography>
         <PaymentButton />
       </Stack>
       <Stack gap={5}>
