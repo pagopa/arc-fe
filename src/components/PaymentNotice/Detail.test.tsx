@@ -40,7 +40,7 @@ describe('Detail Component', () => {
     renderWithTheme(<PaymentNotice.Detail paymentNotice={mockNotice} />);
 
     expect(screen.getByText(mockNotice.iupd)).toBeInTheDocument();
-    expect(screen.getByText(mockNotice.debtorFullName)).toBeInTheDocument();
+    expect(screen.getByText(mockNotice.paFullName)).toBeInTheDocument();
     expect(screen.getByText(mockNotice.paymentOptions.description)).toBeInTheDocument();
     expect(screen.getAllByText(mockNotice.paymentOptions.amount).length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText(mockNotice.paymentOptions.dueDate).length).toBeGreaterThanOrEqual(1);

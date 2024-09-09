@@ -35,7 +35,7 @@ const Info = (props: InfoProps) => (
  * @private
  */
 export const _Card = (notice: PaymentNoticeType) => {
-  const { debtorFullName, paymentOptions, paFullName, iupd, type } = notice;
+  const { paymentOptions, paFullName, iupd, type } = notice;
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export const _Card = (notice: PaymentNoticeType) => {
           <PayeeIcon src={notice.image.src} alt={paFullName} visible={smUp} />
           <Stack maxWidth={{ xs: 110, sm: 150, md: 480, lg: 460, xl: 600 }}>
             <Typography component="h1" variant="subtitle1" noWrap>
-              {debtorFullName}
+              {paFullName}
             </Typography>
             {type === PaymentNoticeEnum.SINGLE && (
               <Typography component="h2">{paymentOptions.description}</Typography>
