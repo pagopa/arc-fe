@@ -71,8 +71,9 @@ const getUserInfoOnce = () => {
       parseAndLog(zodSchema.userInfoSchema, userInfo);
       return userInfo;
     },
-    // TODO use state instead of
-    // storage when signals testing is fixed
+    // TODO check global state instead of
+    // storage once preact/signals
+    // testing is fixed
     enabled: !sessionStorage.getItem(STATE.USER_INFO)
   });
 };

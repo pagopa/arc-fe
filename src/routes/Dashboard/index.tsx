@@ -18,6 +18,7 @@ const Dashboard = () => {
   const { data, isError, refetch } = utils.loaders.getTransactions();
   const theme = useTheme();
   const optIn = utils.storage.pullPaymentsOptIn.get();
+  const { userInfo } = useUserInfo();
 
   const rows =
     data &&
@@ -32,8 +33,6 @@ const Dashboard = () => {
     if (rows.length === 0) return <Empty />;
     return <TransactionsList rows={rows} />;
   };
-
-  const { userInfo } = useUserInfo();
 
   return (
     <>

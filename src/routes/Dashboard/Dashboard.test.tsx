@@ -7,6 +7,7 @@ import utils from 'utils';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useUserInfo } from 'hooks/useUserInfo';
 
 const queryClient = new QueryClient();
 jest.mock('utils', () => ({
@@ -14,7 +15,7 @@ jest.mock('utils', () => ({
   storage: {
     pullPaymentsOptIn: {
       set: () => true,
-      get: () => true
+      get: jest.fn()
     }
   },
   loaders: {
@@ -28,12 +29,14 @@ jest.mock('utils', () => ({
   }
 }));
 jest.mock('@mui/material/useMediaQuery', () => jest.fn());
-
 jest.mock('store/GlobalStore', () => ({
   useStore: jest.fn()
 }));
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn()
+}));
+jest.mock('hooks/useUserInfo', () => ({
+  useUserInfo: jest.fn()
 }));
 
 describe('DashboardRoute', () => {
@@ -59,48 +62,69 @@ describe('DashboardRoute', () => {
     data: mockTransactions,
     isError: false
   });
+  Object.defineProperty(document.documentElement, 'lang', { value: 'it', configurable: true });
 
   beforeEach(() => {
     (useStore as jest.Mock).mockReturnValue({ setState });
+    (useUserInfo as jest.Mock).mockReturnValue({
+      userInfo: {
+        name: 'test',
+        familyName: 'test'
+      }
+    });
+    (utils.storage.pullPaymentsOptIn.get as jest.Mock).mockReturnValue({ value: true });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it('renders without crashing', async () => {
-    render(
+
+  const DashboardWithState = () => {
+    return (
       <QueryClientProvider client={queryClient}>
         <Dashboard />
       </QueryClientProvider>
     );
+  };
+
+  it('renders without crashing', async () => {
+    render(<DashboardWithState />);
     await waitFor(() => {
       expect(utils.loaders.getTransactions).toHaveBeenCalled();
     });
   });
 
   it('redirects to transaction detail page', async () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Dashboard />
-      </QueryClientProvider>
-    );
+    render(<DashboardWithState />);
     fireEvent.click(screen.getByText('clickable'));
     await waitFor(() => {
-      expect(navigate).toHaveBeenCalled();
+      expect(navigate).toHaveBeenCalledWith(expect.anything()); // Assert navigation was called
     });
   });
 
   it('renders a retry page if there is an error', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactions as jest.Mock).mockReturnValueOnce({
       data: mockTransactions,
       isError: true
     });
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Dashboard />
-      </QueryClientProvider>
-    );
+    render(<DashboardWithState />);
     expect(screen.getByTestId('ErrorOutlineIcon')).toBeInTheDocument();
+  });
+
+  it('shows the payment notice when opt-in is not set', async () => {
+    (utils.storage.pullPaymentsOptIn.get as jest.Mock).mockReturnValueOnce({ value: false });
+
+    render(<DashboardWithState />);
+    await waitFor(() => {
+      expect(screen.getByText('Cerca i tuoi avvisi di pagamento pagoPA')).toBeInTheDocument(); // Check if payment notice is rendered
+    });
+  });
+
+  it('displays correct user info in the dashboard title', async () => {
+    render(<DashboardWithState />);
+    await waitFor(() => {
+      expect(screen.getByText('Ciao, test test')).toBeInTheDocument(); // Assuming 'Welcome' is part of the t function
+    });
   });
 });
