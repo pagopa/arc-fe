@@ -8,6 +8,7 @@ import { _Card } from './Card';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import i18n from 'translations/i18n';
 import { STATE } from 'store/types';
+import utils from 'utils';
 
 void i18n.init({
   resources: {}
@@ -54,6 +55,8 @@ describe('_Card component', () => {
     fireEvent.click(button);
 
     expect(setState).toHaveBeenCalledWith(STATE.PAYMENT_NOTICE, mockNotice);
-    expect(navigate).toHaveBeenCalledWith(`/payment-notices/${mockNotice.iupd}`);
+    expect(navigate).toHaveBeenCalledWith(
+      `${utils.config.deployPath}/payment-notices/${mockNotice.iupd}`
+    );
   });
 });

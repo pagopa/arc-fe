@@ -12,8 +12,7 @@
         "name": "Nome",
         "surname": "Cognome",
         "identifier": "Codice Fiscale",
-        "email": "Indirizzo email",
-        "channelCode": "Codice Canale"
+        "email": "Indirizzo email"
       }
     },
     "assistance": {
@@ -31,19 +30,18 @@
       "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
     },
     "login": {
-      "title": "Accedi a pagoPA",
+      "title": "Area Riservata pagoPA",
       "description": "La tua area personale in cui gestire i pagamenti pagoPA e scaricare le ricevute.",
       "terms": "Accedendo accetti i <link1>Termini e condizioni d’uso</link1> del servizio e confermi di avere letto l'<link2>Informativa Privacy </link2> ",
       "areYouAnEnterprise": "Sei un'impresa?",
       "accessYourArea": "Accedi alla tua area",
-      "spid": "Entra con SPID",
-      "cie": "Entra con CIE"
+      "login": "Accedi"
     },
     "dashboard": {
       "title": "Ciao, {{username}}",
       "newPayment": "Paga un avviso",
-      "lastTransactions": "Ecco le tue ultime ricevute",
-      "seeAllTransactions": "Vedi tutti",
+      "lastTransactions": "Le tue ricevute",
+      "seeAllTransactions": "Vedi tutte",
       "IOAlert": {
         "title": "Vuoi accedere alle tue ricevute e pagare gli avvisi più rapidamente?",
         "description": "Visualizza e gestisci i tuoi metodi di pagamento e tutte le tue ricevute",
@@ -59,9 +57,9 @@
       "orderBy": "Ordina per",
       "mostRecent": "più recente",
       "leastRecent": "meno recente",
-      "payee": "Ente",
+      "payee": "Nome dell’ente",
       "status": "Stato",
-      "date": "In data",
+      "date": "Data",
       "amount": "Importo",
       "higherAmount": "importo più alto",
       "lowerAmount": "importo più basso",

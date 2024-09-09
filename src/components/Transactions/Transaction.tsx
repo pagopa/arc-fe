@@ -2,12 +2,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Box, Chip, ChipOwnProps, Stack, Typography, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, ChipOwnProps, Stack, Typography, useMediaQuery } from '@mui/material';
+import { styled, Theme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { theme } from '@pagopa/mui-italia';
 import { ArcRoutes } from 'routes/routes';
-import utils from 'utils';
 import { PayeeIcon } from 'components/PayeeIcon';
 
 export interface TransactionProps {
@@ -31,22 +30,32 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const Transaction = (props: TransactionProps) => {
+  const sm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   const navigate = useNavigate();
-  const { payee, status, amount, id, date } = props;
+  const { payee, amount, id, date } = props;
   const smUp = useMediaQuery(theme.breakpoints.up('sm'));
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
   const tableCellCssDisplayProperty = mdUp ? 'table-cell' : 'none';
 
   return (
     <TableRow
+      hover
       role="button"
       data-testid="transaction-details-button"
       onClick={() => navigate(`${ArcRoutes.TRANSACTIONS}${id}`)}>
       <StyledTableCell>
         <Stack direction="row" spacing={{ xs: 0, sm: 2 }} alignItems="center">
           <PayeeIcon src={payee.srcImg} alt={payee.altImg} visible={smUp} />
-          <Box>
-            <Typography variant="body2" fontWeight={600}>
+          <Box sx={{ maxWidth: '30vw' }}>
+            <Typography
+              variant="body2"
+              fontWeight={600}
+              sx={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                width: '100%'
+              }}>
               {payee.name}
             </Typography>
             {!mdUp && (
@@ -68,15 +77,11 @@ const Transaction = (props: TransactionProps) => {
         </Typography>
       </StyledTableCell>
 
-      {utils.config.showStatusInfo && (
-        <StyledTableCell sx={{ display: tableCellCssDisplayProperty }}>
-          <Chip label={status.label} color={status.color} />
+      {sm && (
+        <StyledTableCell width="56px">
+          <ArrowForwardIosIcon color="primary" fontSize="small" />
         </StyledTableCell>
       )}
-
-      <StyledTableCell width="56px">
-        <ArrowForwardIosIcon color="primary" fontSize="small" />
-      </StyledTableCell>
     </TableRow>
   );
 };

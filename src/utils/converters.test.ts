@@ -108,8 +108,7 @@ describe('prepareRowsData function', () => {
         utils.converters.prepareRowsData({
           transactions,
           status: { label: 'Pagato' },
-          payee: { multi: 'Multi' },
-          action: jest.fn()
+          payee: { multi: 'Multi' }
         })
       )
     ).toBe(JSON.stringify(rows));
@@ -121,8 +120,7 @@ describe('prepareRowsData function', () => {
         utils.converters.prepareRowsData({
           transactions: undefined,
           status: { label: 'Pagato' },
-          payee: { multi: 'Multi' },
-          action: jest.fn()
+          payee: { multi: 'Multi' }
         })
       )
     ).toBe('[]');
@@ -144,8 +142,7 @@ describe('prepareRowsData function', () => {
     const result = utils.converters.prepareRowsData({
       transactions,
       status: { label: 'Pagato' },
-      payee: { multi: 'Multi' },
-      action: jest.fn()
+      payee: { multi: 'Multi' }
     });
 
     expect(result[0].payee.srcImg).toBe(

@@ -41,7 +41,8 @@ export const Sidebar: React.FC = () => {
     {
       label: t('menu.homepage'),
       icon: ViewSidebarIcon,
-      route: '/'
+      route: ArcRoutes.DASHBOARD,
+      end: true
     },
     {
       label: t('menu.paymentNotices'),
@@ -97,9 +98,8 @@ export const Sidebar: React.FC = () => {
               />
             ))}
           </List>
-          <Divider orientation="horizontal" flexItem />
           <Box sx={styles.hamburgerBox}>
-            <Divider orientation="horizontal" flexItem />
+            <Divider orientation="horizontal" flexItem sx={{ display: lg ? 'block' : 'none' }} />
             <Box sx={styles.hamburgerIcon}>
               <Tooltip
                 placement="right"

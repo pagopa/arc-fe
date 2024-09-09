@@ -1,7 +1,9 @@
 import { PaymentNoticeType } from 'models/PaymentNotice';
+import { UserMemo } from 'models/User';
 
 export interface State {
   [STATE.PAYMENT_NOTICE]: PaymentNoticeType | undefined;
+  [STATE.USER_INFO]: UserMemo | undefined;
 }
 
 export interface StoreContextProps {
@@ -10,5 +12,6 @@ export interface StoreContextProps {
 }
 
 export enum STATE {
-  PAYMENT_NOTICE = 'paymentNotice'
+  PAYMENT_NOTICE = 'paymentNotice',
+  USER_INFO = 'userInfo'
 }

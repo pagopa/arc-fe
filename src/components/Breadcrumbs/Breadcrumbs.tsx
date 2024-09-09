@@ -10,7 +10,6 @@ import { ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { BreadcrumbElement, BreadcrumbPath } from 'models/Breadcrumbs';
 import { useNavigate } from 'react-router-dom';
-import { ArcRoutes } from 'routes/routes';
 
 export type BreadcrumbsProps = {
   separator: React.ReactElement;
@@ -37,7 +36,7 @@ const Breadcrumbs = ({ separator, crumbs }: BreadcrumbsProps) => {
   const Breadcrumb = ({ crumb }: { crumb: BreadcrumbElement }) =>
     crumb?.href ? (
       <Typography
-        onClick={() => navigate(crumb.href as ArcRoutes)}
+        onClick={() => navigate(crumb.href as string)}
         aria-label={t('app.routes.breadcrumbsElementClickable')}
         fontWeight={crumb?.fontWeight}
         role="link"

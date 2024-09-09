@@ -13080,6 +13080,7 @@ __metadata:
     vite: "npm:^5.3.4"
     vite-tsconfig-paths: "npm:^4.3.2"
     whatwg-fetch: "npm:^3.6.20"
+    zodock: "npm:^0.1.0"
   languageName: unknown
   linkType: soft
 
@@ -16547,5 +16548,14 @@ __metadata:
   version: 3.23.8
   resolution: "zod@npm:3.23.8"
   checksum: 10c0/8f14c87d6b1b53c944c25ce7a28616896319d95bc46a9660fe441adc0ed0a81253b02b5abdaeffedbeb23bdd25a0bf1c29d2c12dd919aef6447652dd295e3e69
+  languageName: node
+  linkType: hard
+
+"zodock@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "zodock@npm:0.1.0"
+  peerDependencies:
+    zod: ">=3.0.0"
+  checksum: 10c0/6888c03c3bff7be31d2e51f0b0b9d14a76fb04c90d96801d8c5a6d45f5cdc324ca427c8788a1b23fabbf1d9d481985cd06a8f4fdf434e9ad026583ea6177b6d6
   languageName: node
   linkType: hard

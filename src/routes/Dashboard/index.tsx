@@ -2,9 +2,9 @@ import React from 'react';
 import IOAlert from 'components/Alerts/IOAlert';
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import utils from 'utils';
-import { ArcRoutes } from './routes';
+import { ArcRoutes } from '../routes';
 import { grey } from '@mui/material/colors';
 import QueryLoader from 'components/QueryLoader';
 import { PaymentNotice } from 'components/PaymentNotice';
@@ -15,7 +15,6 @@ import { Empty, Retry, TransactionsList } from 'components/Transactions';
 const Dashboard = () => {
   const { t } = useTranslation();
   const { data, isError, refetch } = utils.loaders.getTransactions();
-  const navigate = useNavigate();
   const theme = useTheme();
   const optIn = utils.storage.pullPaymentsOptIn.get();
 
@@ -24,8 +23,7 @@ const Dashboard = () => {
     utils.converters.prepareRowsData({
       transactions: data.transactions,
       status: { label: t('app.transactions.paid') },
-      payee: { multi: t('app.transactions.multiEntities') },
-      action: (id) => navigate(`${ArcRoutes.TRANSACTION}`.replace(':ID', id))
+      payee: { multi: t('app.transactions.multiEntities') }
     });
 
   const Content = () => {
@@ -53,14 +51,20 @@ const Dashboard = () => {
           direction={{ sm: 'row' }}
           justifyContent="space-between"
           alignItems={{ sm: 'center' }}
-          mb={2}>
+          mb={{ xs: 2, sm: 3 }}
+          spacing={{ xs: 1 }}>
           <Typography variant="h6" component="h2" marginInlineStart={{ xs: 1, sm: 0 }}>
             {t('app.dashboard.lastTransactions')}
           </Typography>
           <Button
             component={Link}
             to={ArcRoutes.TRANSACTIONS}
-            sx={{ width: theme.spacing(10), justifyContent: 'flex-start' }}>
+            sx={{
+              width: theme.spacing(10),
+              justifyContent: 'flex-start',
+              p: 0,
+              pt: { xs: 1 }
+            }}>
             {t('app.dashboard.seeAllTransactions')}
           </Button>
         </Stack>
@@ -69,7 +73,7 @@ const Dashboard = () => {
         bgcolor={grey['A200']}
         padding={{ xs: 3, md: 2 }}
         margin={{ xs: -3, md: 0 }}
-        marginTop={0}>
+        marginTop={{ xs: 0, sm: 1 }}>
         <QueryLoader queryKey="transactions" loaderComponent={<TransactionListSkeleton />}>
           <Content />
         </QueryLoader>

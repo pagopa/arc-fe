@@ -21,6 +21,7 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
   return (
     <ListItem disablePadding>
       <ListItemButton
+        end={item.end || false}
         component={NavLink}
         to={item.route}
         onClick={onClick}
@@ -45,7 +46,11 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
         }}>
         {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
         {!collapsed && (
-          <ListItemText id={`menu-item-${item.label.toLowerCase()}`} primary={item.label} />
+          <ListItemText
+            id={`menu-item-${item.label.toLowerCase()}`}
+            sx={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
+            primary={item.label}
+          />
         )}
       </ListItemButton>
     </ListItem>

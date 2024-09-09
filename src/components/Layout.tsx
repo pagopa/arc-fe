@@ -5,7 +5,7 @@ import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import { NavigateNext } from '@mui/icons-material';
-import { Outlet, useMatches, useNavigate } from 'react-router-dom';
+import { Outlet, ScrollRestoration, useMatches } from 'react-router-dom';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import { Header } from './Header';
 import { BackButton } from './BackButton';
@@ -33,7 +33,6 @@ export function Layout() {
   } as RouteHandleObject;
 
   const sidePadding = sidebar.visible ? 3 : { xs: 3, md: 12, lg: 27, xl: 34 };
-  const navigate = useNavigate();
 
   return (
     <>
@@ -49,11 +48,7 @@ export function Layout() {
           flexDirection="column"
           flexWrap={'nowrap'}>
           <Grid flexBasis={{ xs: 'fit-content' }} item xs={12} height="fit-content">
-            <Header
-              onAssistanceClick={() => {
-                navigate(ArcRoutes.ASSISTANCE);
-              }}
-            />
+            <Header onAssistanceClick={() => window.open(ArcRoutes.ASSISTANCE, '_blank')} />
           </Grid>
           <Grid
             item
@@ -77,6 +72,7 @@ export function Layout() {
           </Grid>
         </Grid>
       </Container>
+      <ScrollRestoration />
     </>
   );
 }

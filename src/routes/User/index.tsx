@@ -53,10 +53,6 @@ export default function UserRoute() {
                 data={data?.fiscalCode || utils.config.missingValue}
               />
               <UserRowInfo
-                label={t('app.user.info.channelCode')}
-                data={utils.config.missingValue}
-              />
-              <UserRowInfo
                 label={t('app.user.info.email')}
                 data={data?.email || utils.config.missingValue}
               />

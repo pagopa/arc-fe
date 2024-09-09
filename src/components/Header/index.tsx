@@ -1,20 +1,19 @@
 import React from 'react';
-import { HeaderAccount, HeaderProduct, JwtUser, UserAction } from '@pagopa/mui-italia';
+import {
+  HeaderAccount,
+  HeaderProduct,
+  JwtUser,
+  LogoPagoPAProduct,
+  ProductEntity,
+  UserAction
+} from '@pagopa/mui-italia';
 import utils from 'utils';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
-
-/*
-User info
-*/
-export const mockUser: JwtUser = {
-  id: '1',
-  name: 'John',
-  surname: 'Doe',
-  email: 'john.doe@gmail.com'
-};
+import { Link } from '@mui/material';
+import { useUserInfo } from 'hooks/useUserInfo';
 
 export interface HeaderProps {
   onAssistanceClick?: () => void;
@@ -30,6 +29,17 @@ export const Header = (props: HeaderProps) => {
     window.localStorage.clear();
     navigate(ArcRoutes.LOGIN);
   }
+
+  const { userInfo } = useUserInfo();
+
+  const jwtUser: JwtUser | undefined = userInfo
+    ? {
+        id: userInfo?.userId,
+        name: userInfo?.name,
+        surname: userInfo?.familyName,
+        email: ''
+      }
+    : undefined;
 
   const userActions: UserAction[] = [
     {
@@ -48,16 +58,28 @@ export const Header = (props: HeaderProps) => {
     }
   ];
 
+  const product: ProductEntity = {
+    id: '0',
+    title: ``,
+    productUrl: '#no-title',
+    linkType: 'external',
+    icon: (
+      <Link href={ArcRoutes.DASHBOARD} target="_blank">
+        <LogoPagoPAProduct color="default" title="PagoPA" />
+      </Link>
+    )
+  };
+
   return (
     <>
       <HeaderAccount
         rootLink={utils.config.pagopaLink}
         enableDropdown
         onAssistanceClick={onAssistanceClick}
-        loggedUser={mockUser}
+        loggedUser={jwtUser}
         userActions={userActions}
       />
-      <HeaderProduct productsList={[utils.config.product]} />
+      <HeaderProduct productsList={[product]} />
     </>
   );
 };

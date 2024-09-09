@@ -13,7 +13,6 @@ import {
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import utils from 'utils';
 import { theme } from '@pagopa/mui-italia';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -45,12 +44,6 @@ const TransactionRow = () => {
         <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
       </StyledTableCell>
 
-      {utils.config.showStatusInfo && (
-        <StyledTableCell sx={{ display: tableCellCssDisplayProperty }}>
-          <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-        </StyledTableCell>
-      )}
-
       <StyledTableCell width="56px">
         <Skeleton variant="text" sx={{ fontSize: 'small' }} />
       </StyledTableCell>
@@ -75,11 +68,6 @@ const TransactionsList = () => {
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
               <Skeleton variant="text" />
             </TableCell>
-            {utils.config.showStatusInfo && (
-              <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
-                <Skeleton variant="text" />
-              </TableCell>
-            )}
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} />
           </TableRow>
         </TableHead>
