@@ -17,6 +17,7 @@ import { PaymentNoticeType } from 'models/PaymentNotice';
 export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] }) => {
   const { t } = useTranslation();
   const updatedDate = new Date().toISOString();
+  document.body.style.overflow = 'auto';
 
   return (
     <Stack gap={3}>
