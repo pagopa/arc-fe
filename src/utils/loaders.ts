@@ -12,11 +12,13 @@ const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true):
   }
 };
 
-const getTransactions = () =>
+const getTransactions = (size?: number) =>
   useQuery({
     queryKey: ['transactions'],
     queryFn: async () => {
-      const { data: transactions } = await utils.apiClient.transactions.getTransactionsList();
+      const { data: transactions } = await utils.apiClient.transactions.getTransactionsList({
+        size
+      });
       parseAndLog(zodSchema.transactionsListDTOSchema, transactions);
       return transactions;
     }
