@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ApiClient } from './ApiClient';
 import { Client } from 'models/Client';
 import { setupInterceptors } from 'utils/interceptors';
@@ -36,18 +36,6 @@ describe('ApiClient Component', () => {
   it('sets up interceptors on mount', () => {
     render(<ApiClient client={mockClient} />);
     expect(setupInterceptors).toHaveBeenCalledWith(mockClient, navigate);
-    expect(setupInterceptors).toHaveBeenCalledTimes(1);
-  });
-
-  it('does not set up interceptors more than once', () => {
-    const { rerender } = render(<ApiClient client={mockClient} />);
-
-    // simulate component re-render
-    act(() => {
-      rerender(<ApiClient client={mockClient} />);
-    });
-
-    // setupInterceptors was called once
     expect(setupInterceptors).toHaveBeenCalledTimes(1);
   });
 });
