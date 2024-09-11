@@ -22,7 +22,7 @@ export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] 
   return (
     <Stack gap={3}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" component="header">
-        <Typography variant="h6" component="h2">
+        <Typography variant="h6" component="h2" role="label" id="paymentNoticesListLabel">
           {`${t('app.paymentNotices.found', { count: paymentNotices.length })}`}
         </Typography>
         <Typography display="flex" variant="body1" component="div" flexDirection="row" gap="5px">
@@ -38,7 +38,12 @@ export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] 
           </Typography>
         </Typography>
       </Stack>
-      <Stack gap={3} component="section" role="list">
+      <Stack
+        gap={3}
+        component="section"
+        role="listbox"
+        aria-labelledby="paymentNoticesListLabel"
+        aria-live="polite">
         {paymentNotices?.map((paymentNotice) => (
           <PaymentNotice.Card key={paymentNotice.iupd} {...paymentNotice} />
         ))}
