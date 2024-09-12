@@ -16,31 +16,27 @@ const {
 } = process.env;
 
 type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
-type BOOLISH = 'true' | 'false';
 
 // ENV variables validation
 const ENV_Schema: z.ZodType<ENVIRONMENT> = z.enum(['LOCAL', 'DEV', 'UAT', 'PROD']);
 const VERSION_schema = z.string();
 const APIHOST_schema = z.string().url();
-const SHOW_STATUS_INFO_schema: z.ZodType<BOOLISH> = z.enum(['true', 'false']);
 const ENTITIES_LOGO_CDN_schema = z.string().url();
 const CHECKOUT_HOST_schema = z.string().url();
 const LOGIN_URL_schema = z.string().url();
 const CHECKOUT_PLATFORM_URL_schema = z.string().url();
 const PAYMENT_RETURN_URL_schema = z.string().url();
 const DEPLOY_PATH_schema = z.string();
-
 try {
   ENV_Schema.parse(process.env.ENV);
   APIHOST_schema.parse(process.env.APIHOST);
-  SHOW_STATUS_INFO_schema.parse(process.env.SHOW_STATUS_INFO);
   ENTITIES_LOGO_CDN_schema.parse(process.env.ENTITIES_LOGO_CDN);
   CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
   LOGIN_URL_schema.parse(process.env.LOGIN_URL);
   CHECKOUT_PLATFORM_URL_schema.parse(process.env.CHECKOUT_PLATFORM_URL);
   VERSION_schema.parse(process.env.VERSION);
-  PAYMENT_RETURN_URL_schema.parse(process.env.PAYMENT_RETURN_URL_schema);
-  DEPLOY_PATH_schema.parse(process.env.DEPLOY_PATH_schema);
+  PAYMENT_RETURN_URL_schema.parse(process.env.PAYMENT_RETURN_URL);
+  DEPLOY_PATH_schema.parse(process.env.DEPLOY_PATH);
 } catch (e) {
   console.error('ENV variables validation fails', (e as ZodError).issues);
 }
