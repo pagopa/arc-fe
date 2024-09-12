@@ -25,7 +25,17 @@ export const Header = (props: HeaderProps) => {
   const { onAssistanceClick = () => null } = props;
   const navigate = useNavigate();
 
-  const logout = () => sessionClear(() => navigate(ArcRoutes.LOGIN));
+  async function logoutUser() {
+    try {
+      await utils.apiClient.logout.getLogoutEndpoint();
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      sessionClear(() => navigate(ArcRoutes.LOGIN));
+    }
+  }
+
+  const logout = () => logoutUser();
 
   const { userInfo } = useUserInfo();
 
