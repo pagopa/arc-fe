@@ -18,7 +18,6 @@ variables:
   vmImageNameDefault: 'ubuntu-latest'
   cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
   assistance_link: 'https://pagopa.gov.it'
-  show_status_info: false
 
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
     environment: 'UAT'
@@ -89,7 +88,6 @@ stages:
               cdn_logos: '$(cdn_logos)'
               assistance_link: '$(assistance_link)'
               checkout_host: '$(checkout_host)'
-              show_status_info: false
               login_url: '$(login_url)'
               checkout_platform_url: '$(checkout_platform_url)'
               payment_return_url: '$(payment_return_url)'
