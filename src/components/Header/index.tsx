@@ -58,7 +58,7 @@ export const Header = (props: HeaderProps) => {
     {
       id: 'logout',
       label: 'Esci',
-      onClick: () => logoutUser(),
+      onClick: logoutUser,
       icon: <LogoutRoundedIcon fontSize="small" color="inherit" />
     }
   ];
