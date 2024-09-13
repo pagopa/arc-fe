@@ -13,7 +13,6 @@ import {
 import { Trans, useTranslation } from 'react-i18next';
 import { ArrowBack } from '@mui/icons-material';
 import utils from 'utils';
-import { ZendeskAssistanceTokenResponse } from '../../../generated/data-contracts';
 import { zendeskAssistanceTokenResponseSchema } from '../../../generated/zod-schema';
 
 export const AssistanceForm = () => {
@@ -22,7 +21,6 @@ export const AssistanceForm = () => {
   const { data } = utils.loaders.getUserInfo();
   const [email, setEmail] = useState(data?.email || '');
   const [emailError, setEmailError] = useState(false);
-  const [zendeskData, setZendeskData] = useState<ZendeskAssistanceTokenResponse>();
   const [emailConfirmError, setEmailConfirmError] = useState(false);
   const [emailConfirm, setEmailConfirm] = useState('');
   const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
@@ -42,10 +40,15 @@ export const AssistanceForm = () => {
           if (!resultData.success) throw resultData.error;
           if (zendeskAssistance.assistanceToken == '' || zendeskAssistance.returnTo == '')
             throw 'Empty response' + zendeskAssistance;
-          setZendeskData(zendeskAssistance);
+
+          const form = document.getElementById('jwtForm') as HTMLFormElement;
+          const jwtString = document.getElementById('jwtString') as HTMLInputElement;
+          const returnTo = document.getElementById('returnTo') as HTMLInputElement;
+          jwtString.setAttribute('value', zendeskAssistance.assistanceToken);
+          returnTo.setAttribute('value', zendeskAssistance.returnTo);
+
+          form.submit();
         });
-      const form = document.getElementById('jwtForm') as HTMLFormElement;
-      form.submit();
     } catch (e) {
       console.warn(e);
     }
@@ -162,22 +165,8 @@ export const AssistanceForm = () => {
       </form>
       <Box display="none">
         <form id="jwtForm" method="POST" action="https://pagopa.zendesk.com/access/jwt">
-          <input
-            readOnly
-            type="hidden"
-            id="jwtString"
-            data-testid="jwtString"
-            name="jwt"
-            value={(zendeskData && zendeskData.assistanceToken.trim()) || ''}
-          />
-          <input
-            readOnly
-            type="hidden"
-            id="returnTo"
-            data-testid="returnTo"
-            name="return_to"
-            value={(zendeskData && zendeskData.returnTo.trim()) || ''}
-          />
+          <input readOnly type="hidden" id="jwtString" data-testid="jwtString" name="jwt" />
+          <input readOnly type="hidden" id="returnTo" data-testid="returnTo" name="return_to" />
         </form>
       </Box>
     </>
