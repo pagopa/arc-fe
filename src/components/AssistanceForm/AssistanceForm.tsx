@@ -31,17 +31,20 @@ export const AssistanceForm = () => {
   async function getAssistanceJWT(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     try {
-      const { data: zendeskAssistance } = await utils.apiClient.token.getZendeskAssistanceToken({
-        userEmail: email
-      });
-
-      const resultData = zendeskAssistanceTokenResponseSchema.safeParse(zendeskAssistance);
-      if (!resultData.success) throw resultData.error;
-      if (zendeskAssistance.assistanceToken == '' || zendeskAssistance.returnTo == '')
-        throw 'Empty response' + zendeskAssistance;
-
+      await utils.apiClient.token
+        .getZendeskAssistanceToken({
+          userEmail: email
+        })
+        .then((data) => {
+          const { data: zendeskAssistance } = data;
+          console.log(zendeskAssistance);
+          const resultData = zendeskAssistanceTokenResponseSchema.safeParse(zendeskAssistance);
+          if (!resultData.success) throw resultData.error;
+          if (zendeskAssistance.assistanceToken == '' || zendeskAssistance.returnTo == '')
+            throw 'Empty response' + zendeskAssistance;
+          setZendeskData(zendeskAssistance);
+        });
       const form = document.getElementById('jwtForm') as HTMLFormElement;
-      setZendeskData(zendeskAssistance);
       form.submit();
     } catch (e) {
       console.warn(e);
