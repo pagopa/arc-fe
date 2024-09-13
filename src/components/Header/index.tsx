@@ -35,8 +35,6 @@ export const Header = (props: HeaderProps) => {
     }
   }
 
-  const logout = () => logoutUser();
-
   const { userInfo } = useUserInfo();
 
   const jwtUser: JwtUser | undefined = userInfo
@@ -60,7 +58,7 @@ export const Header = (props: HeaderProps) => {
     {
       id: 'logout',
       label: 'Esci',
-      onClick: logout,
+      onClick: () => logoutUser(),
       icon: <LogoutRoundedIcon fontSize="small" color="inherit" />
     }
   ];
