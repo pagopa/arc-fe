@@ -25,7 +25,15 @@ export const Header = (props: HeaderProps) => {
   const { onAssistanceClick = () => null } = props;
   const navigate = useNavigate();
 
-  const logout = () => sessionClear(() => navigate(ArcRoutes.LOGIN));
+  async function logoutUser() {
+    try {
+      await utils.apiClient.logout.getLogoutEndpoint();
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      sessionClear(() => navigate(ArcRoutes.LOGIN));
+    }
+  }
 
   const { userInfo } = useUserInfo();
 
@@ -50,7 +58,7 @@ export const Header = (props: HeaderProps) => {
     {
       id: 'logout',
       label: 'Esci',
-      onClick: logout,
+      onClick: logoutUser,
       icon: <LogoutRoundedIcon fontSize="small" color="inherit" />
     }
   ];
