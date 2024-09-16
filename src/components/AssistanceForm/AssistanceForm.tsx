@@ -35,7 +35,6 @@ export const AssistanceForm = () => {
         })
         .then((data) => {
           const { data: zendeskAssistance } = data;
-          console.log(zendeskAssistance);
           const resultData = zendeskAssistanceTokenResponseSchema.safeParse(zendeskAssistance);
           if (!resultData.success) throw resultData.error;
           if (zendeskAssistance.assistanceToken == '' || zendeskAssistance.returnTo == '')
