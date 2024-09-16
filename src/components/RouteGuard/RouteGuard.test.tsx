@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { RouteGuard, RouteGuardProps } from './index';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 
 const FakeGuardedRouter = (props: RouteGuardProps) => (
   <MemoryRouter>

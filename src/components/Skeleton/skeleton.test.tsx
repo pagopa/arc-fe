@@ -8,7 +8,7 @@ import {
 } from '.';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+vi.mock('@mui/material/useMediaQuery', () => vi.fn());
 
 describe('TransactionListSkeleton component', () => {
   it('should render as expected', () => {
@@ -18,14 +18,14 @@ describe('TransactionListSkeleton component', () => {
 
 describe('TransactionDetailsSkeleton component', () => {
   it('should render as expected', () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true);
+    (useMediaQuery as Mock).mockReturnValue(true);
     render(<TransactionDetailsSkeleton />);
   });
 });
 
 describe('PaymentNoticesListSkeleton component', () => {
   it('should render as expected', () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true);
+    (useMediaQuery as Mock).mockReturnValue(true);
     render(<PaymentNoticesListSkeleton />);
   });
 });

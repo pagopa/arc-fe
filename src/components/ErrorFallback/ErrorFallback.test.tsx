@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { ErrorFallback } from 'components/ErrorFallback';
 
 describe('ErrorFallback', () => {
@@ -17,13 +17,13 @@ describe('ErrorFallback', () => {
   });
 
   it('should render the back button if onReset is provided', () => {
-    const onReset = jest.fn();
+    const onReset = vi.fn();
     render(<ErrorFallback onReset={onReset} />);
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
   it('should call onReset when back button is clicked', () => {
-    const onReset = jest.fn();
+    const onReset = vi.fn();
     render(<ErrorFallback onReset={onReset} />);
     const backButton = screen.getByRole('button');
     fireEvent.click(backButton);

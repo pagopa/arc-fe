@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { renderHook } from '@testing-library/react';
 import useQueryParams from './useQueryParams';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+vi.mock('react-router-dom', () => ({
+  ...vi.importActual('react-router-dom'),
   useLocation: () => new URL('http://dummysite.it/login?state=test123&code=CODE123')
 }));
 

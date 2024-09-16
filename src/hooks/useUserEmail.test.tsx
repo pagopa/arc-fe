@@ -1,11 +1,10 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import utils from 'utils';
 import { useUserEmail } from './useUserEmail';
+import { Mock } from 'vitest';
 
-jest.mock('utils', () => ({
-  loaders: {
-    getUserInfo: jest.fn()
-  }
+vi.mock('loaders', () => ({
+  getUserInfo: vi.fn()
 }));
 
 describe('useUserEmail', () => {
@@ -21,7 +20,7 @@ describe('useUserEmail', () => {
       }
     };
     const mockEmail = 'ilmilione@virgilio.it';
-    (utils.loaders.getUserInfo as jest.Mock).mockReturnValue(mockQueryResult);
+    (utils.loaders.getUserInfo as Mock).mockReturnValue(mockQueryResult);
 
     // Act
     const { result } = renderHook(() => useUserEmail());

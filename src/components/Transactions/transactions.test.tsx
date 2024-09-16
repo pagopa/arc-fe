@@ -3,7 +3,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionsList, TransactionsListProps } from '.';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import i18n from 'translations/i18n';
 import { useMediaQuery } from '@mui/material';
 
@@ -11,9 +11,9 @@ void i18n.init({
   resources: {}
 });
 
-jest.mock('@mui/material', () => ({
-  ...jest.requireActual('@mui/material'),
-  useMediaQuery: jest.fn()
+vi.mock('@mui/material', () => ({
+  ...vi.importActual('@mui/material'),
+  useMediaQuery: vi.fn()
 }));
 
 const TransactionsWithRouter = (props: TransactionsListProps) => (
@@ -24,7 +24,7 @@ const TransactionsWithRouter = (props: TransactionsListProps) => (
 
 describe('Transactions table component', () => {
   it('should render as expected', () => {
-    (useMediaQuery as ReturnType<typeof jest.fn>).mockImplementationOnce(() => true);
+    (useMediaQuery as ReturnType<typeof vi.fn>).mockImplementationOnce(() => true);
     render(<TransactionsWithRouter rows={dummyTransactionsData.all} />);
   });
 

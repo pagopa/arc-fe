@@ -18,29 +18,29 @@ import * as schemas from '../../generated/zod-schema';
 import { createMock } from 'zodock';
 
 // Mock the utils module
-jest.mock('utils', () => {
-  const originalModule = jest.requireActual('utils');
+vi.mock('utils', () => {
+  const originalModule = vi.importActual('utils');
   return {
     ...originalModule,
     apiClient: {
       transactions: {
-        getTransactionsList: jest.fn(),
-        getTransactionDetails: jest.fn(),
-        getTransactionReceipt: jest.fn()
+        getTransactionsList: vi.fn(),
+        getTransactionDetails: vi.fn(),
+        getTransactionReceipt: vi.fn()
       },
       auth: {
-        getUserInfo: jest.fn()
+        getUserInfo: vi.fn()
       },
       token: {
-        getAuthenticationToken: jest.fn()
+        getAuthenticationToken: vi.fn()
       }
     }
   };
 });
 
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
 describe('api loaders', () => {
@@ -52,19 +52,19 @@ describe('api loaders', () => {
   );
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('transactionsApi', () => {
     beforeEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     it('getTransactions calls API and schema parser correctly', async () => {
       // you can generate a specific field, even if optionale, using .require()
       const dataMock = createMock(schemas.transactionsListDTOSchema.required());
 
-      const apiMock = jest
+      const apiMock = vi
         .spyOn(utils.apiClient.transactions, 'getTransactionsList')
         .mockResolvedValue({ data: dataMock } as AxiosResponse);
 
@@ -82,7 +82,7 @@ describe('api loaders', () => {
 
       const transactionId = dataMock.infoTransaction?.transactionId;
 
-      const apiMock = jest
+      const apiMock = vi
         .spyOn(utils.apiClient.transactions, 'getTransactionDetails')
         .mockResolvedValue({ data: dataMock } as AxiosResponse);
 
@@ -102,7 +102,7 @@ describe('api loaders', () => {
     it('getReceiptApi is called', async () => {
       const transactionId = '1';
 
-      const apiMock = jest
+      const apiMock = vi
         .spyOn(utils.apiClient.transactions, 'getTransactionReceipt')
         .mockResolvedValue({ data: null } as AxiosResponse);
 
@@ -117,7 +117,7 @@ describe('api loaders', () => {
   describe('userInfo', () => {
     const dataMock = createMock(schemas.userInfoSchema);
 
-    const apiMock = jest
+    const apiMock = vi
       .spyOn(utils.apiClient.auth, 'getUserInfo')
       .mockResolvedValue({ data: dataMock } as AxiosResponse);
 
@@ -132,7 +132,7 @@ describe('api loaders', () => {
 
     describe('getUserInfoOnce', () => {
       it('fetch if sessionStorage.userInfo is missing', async () => {
-        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
+        vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
 
         const { result } = renderHook(() => loaders.getUserInfoOnce(), {
           wrapper
@@ -146,7 +146,7 @@ describe('api loaders', () => {
       });
 
       it('does not fetch if sessionStorage.userInfo is set', async () => {
-        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('true');
+        vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('true');
 
         const { result } = renderHook(() => loaders.getUserInfoOnce(), {
           wrapper
@@ -163,7 +163,7 @@ describe('api loaders', () => {
     it('returns Token correctly', async () => {
       const dataMock = createMock(schemas.tokenResponseSchema);
 
-      const apiMock = jest
+      const apiMock = vi
         .spyOn(utils.apiClient.token, 'getAuthenticationToken')
         .mockResolvedValue({ data: dataMock } as AxiosResponse);
 

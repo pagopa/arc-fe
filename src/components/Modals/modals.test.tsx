@@ -6,18 +6,18 @@ import PullPaymentsModal from './PullPaymentsModal';
 import DetailNoticeInfoModal from './DetailNoticeInfoModal';
 import { ModalSystem } from './';
 import { ArcRoutes } from 'routes/routes';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 
-const utilsMock = jest.requireMock('utils');
+const utilsMock = vi.requireMock('utils');
 
-const mockedUsedNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+const mockedUsedNavigate = vi.fn();
+vi.mock('react-router-dom', () => ({
+  ...vi.importActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate
 }));
 
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils', () => ({
+  ...vi.importActual('utils'),
   storage: {
     pullPaymentsOptIn: {
       set: () => true

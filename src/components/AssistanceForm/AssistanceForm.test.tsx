@@ -1,23 +1,23 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { AssistanceForm } from './index';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import utils from 'utils';
 
-jest.mock('utils', () => ({
+vi.mock('utils', () => ({
   loaders: {
-    getUserInfo: jest.fn()
+    getUserInfo: vi.fn()
   },
   apiClient: {
     token: {
-      getZendeskAssistanceToken: jest.fn()
+      getZendeskAssistanceToken: vi.fn()
     }
   }
 }));
 
 describe('AssistanceForm Component', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders having e-mail of connected user', async () => {
@@ -30,7 +30,7 @@ describe('AssistanceForm Component', () => {
         email: 'ilmilione@virgilio.it'
       }
     };
-    (utils.loaders.getUserInfo as jest.Mock).mockReturnValue(mockUserData);
+    (utils.loaders.getUserInfo as Mock).mockReturnValue(mockUserData);
 
     render(<AssistanceForm />);
 
@@ -72,7 +72,7 @@ describe('AssistanceForm Component', () => {
         returnTo: 'https://www.pagopa.it'
       }
     };
-    (utils.apiClient.token.getZendeskAssistanceToken as jest.Mock).mockReturnValue(
+    (utils.apiClient.token.getZendeskAssistanceToken as Mock).mockReturnValue(
       mockGetZendeskAssistanceToken
     );
 

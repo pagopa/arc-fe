@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { act, renderHook } from '@testing-library/react';
 import useTabs from './useTabs';
 

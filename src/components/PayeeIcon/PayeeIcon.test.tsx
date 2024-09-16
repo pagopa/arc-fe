@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { PayeeIcon } from './index';

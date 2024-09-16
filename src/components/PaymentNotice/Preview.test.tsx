@@ -9,13 +9,13 @@ void i18n.init({
   resources: {}
 });
 
-jest.mock('@pagopa/mui-italia', () => ({
-  IllusSharingInfo: jest.fn(() => <div>Illustration</div>)
+vi.mock('@pagopa/mui-italia', () => ({
+  IllusSharingInfo: vi.fn(() => <div>Illustration</div>)
 }));
 
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
 describe('PaymentNotice.Preview Component', () => {
@@ -41,12 +41,12 @@ describe('PaymentNotice.Preview Component', () => {
     renderWithTheme(<PaymentNotice.Preview />);
 
     // Simulate a large screen
-    window.matchMedia = jest.fn().mockImplementation((query) => ({
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query.includes('min-width'),
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn()
+      addListener: vi.fn(),
+      removeListener: vi.fn()
     }));
 
     renderWithTheme(<PaymentNotice.Preview />);
@@ -56,12 +56,12 @@ describe('PaymentNotice.Preview Component', () => {
 
   it('does not render the illustration on small screens', () => {
     // Simulate a small screen
-    window.matchMedia = jest.fn().mockImplementation((query) => ({
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: !query.includes('min-width'),
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn()
+      addListener: vi.fn(),
+      removeListener: vi.fn()
     }));
 
     renderWithTheme(<PaymentNotice.Preview />);

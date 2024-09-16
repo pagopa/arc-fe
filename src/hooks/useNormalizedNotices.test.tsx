@@ -2,21 +2,20 @@ import { renderHook } from '@testing-library/react';
 import utils from 'utils';
 import converters from 'utils/converters';
 import { useNormalizedNotices } from './useNormalizedNotices';
+import { Mock } from 'vitest';
 
-jest.mock('utils', () => ({
-  loaders: {
-    getPaymentNotices: jest.fn()
-  }
+vi.mock('loaders', () => ({
+  getPaymentNotices: vi.fn()
 }));
 
-jest.mock('utils/converters', () => ({
-  prepareNoticesData: jest.fn()
+vi.mock('utils/converters', () => ({
+  prepareNoticesData: vi.fn()
 }));
 
 describe('useNormalizedNotices', () => {
   beforeEach(() => {
-    (utils.loaders.getPaymentNotices as jest.Mock).mockClear();
-    (converters.prepareNoticesData as jest.Mock).mockClear();
+    (utils.loaders.getPaymentNotices as Mock).mockClear();
+    (converters.prepareNoticesData as Mock).mockClear();
   });
 
   it('should return normalized notices', () => {
@@ -32,8 +31,8 @@ describe('useNormalizedNotices', () => {
       { id: 2, normalizedNotice: 'Normalized Notice 2' }
     ];
 
-    (utils.loaders.getPaymentNotices as jest.Mock).mockReturnValue(mockQueryResult);
-    (converters.prepareNoticesData as jest.Mock).mockReturnValue(mockNormalizedData);
+    (utils.loaders.getPaymentNotices as Mock).mockReturnValue(mockQueryResult);
+    (converters.prepareNoticesData as Mock).mockReturnValue(mockNormalizedData);
 
     // Act
     const { result } = renderHook(() => useNormalizedNotices());

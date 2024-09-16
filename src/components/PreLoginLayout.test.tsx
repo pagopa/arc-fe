@@ -1,21 +1,21 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { PreLoginLayout } from './PreLoginLayout';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import i18n from 'translations/i18n';
 
 void i18n.init({
   resources: {}
 });
 
-const mockedChangeLanguage = jest.fn();
-global.fetch = jest.fn().mockImplementation(() =>
+const mockedChangeLanguage = vi.fn();
+global.fetch = vi.fn().mockImplementation(() =>
   Promise.resolve({
     ok: true,
     json: () => 'data'
   })
 );
-jest.mock('utils', () => ({
+vi.mock('utils', () => ({
   config: {
     assistanceLink: 'string'
   },
@@ -43,7 +43,7 @@ describe('PreLoginLayout Component', () => {
         <div>children</div>
       </PreLoginLayout>
     );
-    const windowSpy = jest.spyOn(window, 'open');
+    const windowSpy = vi.spyOn(window, 'open');
 
     const assistanceButton = screen.getByText('Assistenza');
     fireEvent.click(assistanceButton);

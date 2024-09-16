@@ -1,5 +1,5 @@
 import { render, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import Tabs, { TabsProps } from 'components/Tabs';
 import React from 'react';
 

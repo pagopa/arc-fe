@@ -1,29 +1,29 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import Transaction from '.';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import utils from 'utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils', () => ({
+  ...vi.importActual('utils'),
 
   loaders: {
-    getTransactions: jest.fn(),
-    getTransactionDetails: jest.fn()
+    getTransactions: vi.fn(),
+    getTransactionDetails: vi.fn()
   },
   converters: {
-    prepareRowsData: jest.fn(),
-    prepareTransactionDetailData: jest.fn()
+    prepareRowsData: vi.fn(),
+    prepareTransactionDetailData: vi.fn()
   },
   config: {
     checkoutHost: 'test'
   }
 }));
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn(),
-  useLoaderData: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn(),
+  useLoaderData: vi.fn()
 }));
 
 describe('TransactionRoute', () => {
@@ -35,14 +35,14 @@ describe('TransactionRoute', () => {
   };
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   it('renders without crashing', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactions as Mock).mockReturnValue({
       data: mockTransactions,
       isError: false
     });
-    (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactionDetails as Mock).mockReturnValue({
       data: mockTransactions.transactions[0],
       isError: false
     });
@@ -57,11 +57,11 @@ describe('TransactionRoute', () => {
   });
 
   it('renders without crashing error', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactions as Mock).mockReturnValue({
       data: null,
       isError: true
     });
-    (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactionDetails as Mock).mockReturnValue({
       data: null,
       isError: true
     });

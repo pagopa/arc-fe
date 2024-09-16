@@ -3,34 +3,35 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { renderHook, waitFor } from '@testing-library/react';
 import { useNormalizedTransactions } from './useNormalizedTransactions';
+import { Mock } from 'vitest';
 
-jest.mock('utils', () => ({
+vi.mock('utils', () => ({
   loaders: {
-    getTransactions: jest.fn()
+    getTransactions: vi.fn()
   },
   converters: {
-    prepareRowsData: jest.fn()
+    prepareRowsData: vi.fn()
   }
 }));
 
-jest.mock('react-i18next', () => ({
-  useTranslation: jest.fn()
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn()
 }));
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
 describe('useNormalizedTransactions', () => {
-  const mockNavigate = jest.fn();
+  const mockNavigate = vi.fn();
   const mockTranslation = {
-    t: jest.fn((key) => key)
+    t: vi.fn((key) => key)
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-    (useTranslation as jest.Mock).mockReturnValue(mockTranslation);
+    vi.clearAllMocks();
+    (useNavigate as Mock).mockReturnValue(mockNavigate);
+    (useTranslation as Mock).mockReturnValue(mockTranslation);
   });
 
   it('returns transactions and processes data correctly', async () => {
@@ -42,12 +43,12 @@ describe('useNormalizedTransactions', () => {
     };
 
     const preparedData = [{ id: '1' }, { id: '2' }];
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactions as Mock).mockReturnValue({
       data: mockTransactions,
       isError: false
     });
 
-    const mockPrepareRowsData = jest.fn().mockReturnValue(preparedData);
+    const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
     utils.converters.prepareRowsData = mockPrepareRowsData;
 
     const { result } = renderHook(() => useNormalizedTransactions());
@@ -80,7 +81,7 @@ describe('useNormalizedTransactions', () => {
   });
 
   it('handles error state correctly', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({ data: null, isError: true });
+    (utils.loaders.getTransactions as Mock).mockReturnValue({ data: null, isError: true });
 
     const { result } = renderHook(() => useNormalizedTransactions());
 

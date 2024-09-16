@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { TransactionProps } from 'components/Transactions/Transaction';
 import { mockConvertedNotice, mockPaymentNotices } from 'stories/utils/PaymentNoticeMocks';
 import utils from '.';

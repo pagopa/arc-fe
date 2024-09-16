@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
@@ -10,14 +10,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: jest.fn()
+vi.mock('react-i18next', () => ({
+  ...vi.importActual('react-i18next'),
+  useTranslation: vi.fn()
 }));
 
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
 describe('Detail Component', () => {
@@ -31,7 +31,7 @@ describe('Detail Component', () => {
   };
 
   beforeEach(() => {
-    (useTranslation as jest.Mock).mockReturnValue({
+    (useTranslation as Mock).mockReturnValue({
       t: (key: string) => key
     });
   });

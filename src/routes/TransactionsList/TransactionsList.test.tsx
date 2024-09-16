@@ -1,39 +1,39 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import TransactionsList from '.';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import utils from 'utils';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils', () => ({
+  ...vi.importActual('utils'),
 
   loaders: {
-    getTransactions: jest.fn()
+    getTransactions: vi.fn()
   },
   converters: {
-    prepareRowsData: jest.fn()
+    prepareRowsData: vi.fn()
   },
   config: {
     checkoutHost: 'test'
   }
 }));
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+vi.mock('@mui/material/useMediaQuery', () => vi.fn());
 
-jest.mock('store/GlobalStore', () => ({
-  useStore: jest.fn()
+vi.mock('store/GlobalStore', () => ({
+  useStore: vi.fn()
 }));
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
 describe('TransactionListRoute', () => {
-  (useMediaQuery as jest.Mock).mockReturnValue(false);
+  (useMediaQuery as Mock).mockReturnValue(false);
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   it('renders without crashing', async () => {
     const mockTransactions = {
@@ -43,7 +43,7 @@ describe('TransactionListRoute', () => {
       ]
     };
 
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactions as Mock).mockReturnValue({
       data: mockTransactions,
       isError: false
     });
@@ -57,7 +57,7 @@ describe('TransactionListRoute', () => {
     });
   });
   it('renders with error', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (utils.loaders.getTransactions as Mock).mockReturnValue({
       data: null,
       isError: true
     });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { useStore } from 'store/GlobalStore';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -14,12 +14,12 @@ void i18n.init({
   resources: {}
 });
 
-jest.mock('store/GlobalStore', () => ({
-  useStore: jest.fn()
+vi.mock('store/GlobalStore', () => ({
+  useStore: vi.fn()
 }));
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
 const renderWithProviders = (ui: React.ReactElement) => {
@@ -29,16 +29,16 @@ const renderWithProviders = (ui: React.ReactElement) => {
 };
 
 describe('_Card component', () => {
-  const setState = jest.fn();
-  const navigate = jest.fn();
+  const setState = vi.fn();
+  const navigate = vi.fn();
 
   beforeEach(() => {
-    (useStore as jest.Mock).mockReturnValue({ setState });
-    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    (useStore as Mock).mockReturnValue({ setState });
+    (useNavigate as Mock).mockReturnValue(navigate);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('renders correctly', () => {

@@ -1,22 +1,22 @@
 import React from 'react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { render, screen } from '@testing-library/react';
 import { STATE } from './types';
 import { StoreProvider, useStore } from './GlobalStore';
 
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
 // Mock the external dependencies
-jest.mock('./PaymentNoticeStore', () => ({
+vi.mock('./PaymentNoticeStore', () => ({
   paymentNoticeState: { state: { value: { id: 1, debtorFullName: 'Test notice' } } },
-  setPaymentNotice: jest.fn()
+  setPaymentNotice: vi.fn()
 }));
-jest.mock('./UserInfoStore.ts', () => ({
+vi.mock('./UserInfoStore.ts', () => ({
   userInfoState: { state: { value: { name: 'John' } } },
-  setUserInfo: jest.fn()
+  setUserInfo: vi.fn()
 }));
 
 describe('StoreProvider and useStore', () => {

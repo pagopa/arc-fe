@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Assistance from '.';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 describe('AssistanceRoute', () => {

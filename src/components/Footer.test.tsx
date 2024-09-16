@@ -1,21 +1,20 @@
 import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Footer } from './Footer';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import i18n from 'translations/i18n';
 
 void i18n.init({
   resources: {}
 });
 
-const mockedChangeLanguage = jest.fn();
-jest.mock('utils', () => ({
-  hooks: {
+const mockedChangeLanguage = vi.fn();
+vi.mock('../hooks', () => ({
     useLanguage: () => ({
       language: 'en',
       changeLanguage: mockedChangeLanguage
     })
-  }
 }));
 
 describe('Footer Component', () => {

@@ -1,23 +1,23 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import PaymentNoticeDetail from './index';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useStore } from 'store/GlobalStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-jest.mock('store/GlobalStore', () => ({
-  useStore: jest.fn()
+vi.mock('store/GlobalStore', () => ({
+  useStore: vi.fn()
 }));
-jest.mock('store/PaymentNoticeStore', () => ({
-  paymentNoticeState: { removeItem: jest.fn(), state: null }
+vi.mock('store/PaymentNoticeStore', () => ({
+  paymentNoticeState: { removeItem: vi.fn(), state: null }
 }));
 
 const queryClient = new QueryClient();
 
 describe('PaymentNoticeDetailRoute', () => {
   it('renders without crashing empty notice', () => {
-    (useStore as jest.Mock).mockReturnValue({ state: { paymentNotice: null } });
+    (useStore as Mock).mockReturnValue({ state: { paymentNotice: null } });
 
     render(
       <MemoryRouter>
@@ -32,7 +32,7 @@ describe('PaymentNoticeDetailRoute', () => {
       debtorType: 'F',
       image: { alt: 'ACI', src: 'string' }
     };
-    (useStore as jest.Mock).mockReturnValue({ state: { paymentNotice: notice } });
+    (useStore as Mock).mockReturnValue({ state: { paymentNotice: notice } });
 
     render(
       <MemoryRouter>

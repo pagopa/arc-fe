@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { DateFormat, datetools } from './datetools';
 
 const { formatDate } = datetools;

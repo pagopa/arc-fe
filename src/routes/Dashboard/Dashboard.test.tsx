@@ -10,40 +10,40 @@ import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from 'hooks/useUserInfo';
 
 const queryClient = new QueryClient();
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils', () => ({
+  ...vi.importActual('utils'),
   storage: {
     pullPaymentsOptIn: {
       set: () => true,
-      get: jest.fn()
+      get: vi.fn()
     }
   },
   loaders: {
-    getTransactions: jest.fn()
+    getTransactions: vi.fn()
   },
   converters: {
-    prepareRowsData: jest.fn()
+    prepareRowsData: vi.fn()
   },
   config: {
     checkoutHost: 'test'
   }
 }));
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
-jest.mock('store/GlobalStore', () => ({
-  useStore: jest.fn()
+vi.mock('@mui/material/useMediaQuery', () => vi.fn());
+vi.mock('store/GlobalStore', () => ({
+  useStore: vi.fn()
 }));
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
-jest.mock('hooks/useUserInfo', () => ({
-  useUserInfo: jest.fn()
+vi.mock('hooks/useUserInfo', () => ({
+  useUserInfo: vi.fn()
 }));
 
 describe('DashboardRoute', () => {
-  (useMediaQuery as jest.Mock).mockReturnValue(false);
-  const navigate = jest.fn();
-  (useNavigate as jest.Mock).mockReturnValue(navigate);
-  const setState = jest.fn();
+  (useMediaQuery as Mock).mockReturnValue(false);
+  const navigate = vi.fn();
+  (useNavigate as Mock).mockReturnValue(navigate);
+  const setState = vi.fn();
   const mockTransactions = {
     transactions: [
       { id: '1', payeeName: 'clickable', paidByMe: true, registeredToMe: false },
@@ -52,31 +52,31 @@ describe('DashboardRoute', () => {
   };
 
   const preparedData = [
-    { id: '1', payee: { name: 'clickable', srcImg: '', altImg: '' }, action: jest.fn() }
+    { id: '1', payee: { name: 'clickable', srcImg: '', altImg: '' }, action: vi.fn() }
   ];
 
-  const mockPrepareRowsData = jest.fn().mockReturnValue(preparedData);
+  const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
   utils.converters.prepareRowsData = mockPrepareRowsData;
 
-  (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+  (utils.loaders.getTransactions as Mock).mockReturnValue({
     data: mockTransactions,
     isError: false
   });
   Object.defineProperty(document.documentElement, 'lang', { value: 'it', configurable: true });
 
   beforeEach(() => {
-    (useStore as jest.Mock).mockReturnValue({ setState });
-    (useUserInfo as jest.Mock).mockReturnValue({
+    (useStore as Mock).mockReturnValue({ setState });
+    (useUserInfo as Mock).mockReturnValue({
       userInfo: {
         name: 'test',
         familyName: 'test'
       }
     });
-    (utils.storage.pullPaymentsOptIn.get as jest.Mock).mockReturnValue({ value: true });
+    (utils.storage.pullPaymentsOptIn.get as Mock).mockReturnValue({ value: true });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const DashboardWithState = () => {
@@ -103,7 +103,7 @@ describe('DashboardRoute', () => {
   });
 
   it('renders a retry page if there is an error', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValueOnce({
+    (utils.loaders.getTransactions as Mock).mockReturnValueOnce({
       data: mockTransactions,
       isError: true
     });
@@ -113,7 +113,7 @@ describe('DashboardRoute', () => {
   });
 
   it('shows the payment notice when opt-in is not set', async () => {
-    (utils.storage.pullPaymentsOptIn.get as jest.Mock).mockReturnValueOnce({ value: false });
+    (utils.storage.pullPaymentsOptIn.get as Mock).mockReturnValueOnce({ value: false });
 
     render(<DashboardWithState />);
     await waitFor(() => {

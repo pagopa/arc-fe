@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PaymentButton from '.';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 
 describe('Payment Button Component', () => {
   it('renders without problems', () => {

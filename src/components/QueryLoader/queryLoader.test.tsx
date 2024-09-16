@@ -1,17 +1,17 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import QueryLoader from '.';
 import { QueryFilters } from '@tanstack/react-query';
 import { CircularProgress } from '@mui/material';
 
-const mockedUseIsFetching = jest.fn();
-jest.mock('@tanstack/react-query', () => ({
+const mockedUseIsFetching = vi.fn();
+vi.mock('@tanstack/react-query', () => ({
   useIsFetching: (filters?: QueryFilters) => mockedUseIsFetching(filters)
 }));
 
-jest.mock('@mui/material', () => ({
-  CircularProgress: jest.fn()
+vi.mock('@mui/material', () => ({
+  CircularProgress: vi.fn()
 }));
 
 describe('Query Loader component', () => {

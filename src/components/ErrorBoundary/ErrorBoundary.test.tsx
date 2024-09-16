@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 
 // A component that throws an error for testing purposes
@@ -9,10 +9,10 @@ const ErrorThrowingComponent = () => {
 };
 
 describe('ErrorBoundary', () => {
-  let errorSpy: jest.SpyInstance;
+  let errorSpy: vi.SpyInstance;
 
   beforeAll(() => {
-    errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterAll(() => {

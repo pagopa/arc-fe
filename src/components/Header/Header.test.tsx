@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { useUserInfo } from 'hooks/useUserInfo';
 import React from 'react';
@@ -7,33 +7,33 @@ import { Header } from './index';
 import { ArcRoutes } from 'routes/routes';
 
 // Mocking external dependencies
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
-jest.mock('hooks/useUserInfo', () => ({
-  useUserInfo: jest.fn()
+vi.mock('hooks/useUserInfo', () => ({
+  useUserInfo: vi.fn()
 }));
 
-jest.mock('utils', () => ({
+vi.mock('utils', () => ({
   config: {
     pagopaLink: 'https://example.com',
     product: 'Product Name'
   }
 }));
 
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
 describe('Header component', () => {
-  const mockNavigate = jest.fn();
-  const mockOnAssistanceClick = jest.fn();
+  const mockNavigate = vi.fn();
+  const mockOnAssistanceClick = vi.fn();
 
   beforeEach(() => {
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-    (useUserInfo as jest.Mock).mockReturnValue({
+    (useNavigate as Mock).mockReturnValue(mockNavigate);
+    (useUserInfo as Mock).mockReturnValue({
       userInfo: {
         userId: '123',
         name: 'John',
@@ -43,7 +43,7 @@ describe('Header component', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should render as expected', () => {
@@ -64,7 +64,7 @@ describe('Header component', () => {
   });
 
   it('should call onAssistanceClick assistance button click', () => {
-    const onAssistanceClik = jest.fn();
+    const onAssistanceClik = vi.fn();
     render(<Header onAssistanceClick={onAssistanceClik} />);
     const button = screen.getByText('Assistenza');
     fireEvent.click(button);
@@ -83,7 +83,7 @@ describe('Header component', () => {
 
   it('should clear session and local storage and navigate to login when "Esci" is clicked', () => {
     // Mock localStorage and sessionStorage
-    const mockStorage = jest.spyOn(Storage.prototype, 'clear');
+    const mockStorage = vi.spyOn(Storage.prototype, 'clear');
 
     // Render the Header component
     render(<Header />);

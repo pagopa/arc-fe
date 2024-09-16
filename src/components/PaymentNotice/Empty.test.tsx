@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaymentNotice } from './index';
 import i18n from 'translations/i18n';
@@ -9,13 +9,13 @@ void i18n.init({
   resources: {}
 });
 
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
-jest.mock('@pagopa/mui-italia', () => ({
-  IllusSharingInfo: jest.fn(() => <div>Illustration</div>)
+vi.mock('@pagopa/mui-italia', () => ({
+  IllusSharingInfo: vi.fn(() => <div>Illustration</div>)
 }));
 
 describe('PaymentNotice.Empty Component', () => {

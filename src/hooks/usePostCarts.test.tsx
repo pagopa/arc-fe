@@ -6,18 +6,19 @@ import { PaymentNoticeSingleType } from 'models/PaymentNotice';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import React, { ReactNode } from 'react';
 import { useUserEmail } from './useUserEmail';
+import { Mock } from 'vitest';
 
-jest.mock('utils', () => ({
+vi.mock('utils', () => ({
   cartsClient: {
-    postCarts: jest.fn()
+    postCarts: vi.fn()
   },
   converters: {
-    singleNoticeToCartsRequest: jest.fn()
+    singleNoticeToCartsRequest: vi.fn()
   }
 }));
 
-jest.mock('./useUserEmail', () => ({
-  useUserEmail: jest.fn()
+vi.mock('./useUserEmail', () => ({
+  useUserEmail: vi.fn()
 }));
 
 export const createWrapper = () => {
@@ -28,19 +29,19 @@ export const createWrapper = () => {
 };
 
 describe('usePostCarts', () => {
-  const mockOnSuccess = jest.fn();
+  const mockOnSuccess = vi.fn();
   const mockSingleNotice: PaymentNoticeSingleType = mockNotice;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should call utils.converters.singleNoticeToCartsRequest and utils.cartsClient.postCarts', async () => {
     const mockData = 'Response with URL=https://redirect.com';
 
-    (utils.converters.singleNoticeToCartsRequest as jest.Mock).mockReturnValue(mockSingleNotice);
-    (utils.cartsClient.postCarts as jest.Mock).mockResolvedValue({ data: mockData });
-    (useUserEmail as jest.Mock).mockResolvedValue('test@test.it');
+    (utils.converters.singleNoticeToCartsRequest as Mock).mockReturnValue(mockSingleNotice);
+    (utils.cartsClient.postCarts as Mock).mockResolvedValue({ data: mockData });
+    (useUserEmail as Mock).mockResolvedValue('test@test.it');
 
     const { result } = renderHook(() => usePostCarts({ onSuccess: mockOnSuccess }), {
       wrapper: createWrapper()

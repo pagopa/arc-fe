@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { HealthCheck } from '.';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 
 describe('HealthCheck component', () => {
   it('should render nothing without causing error', () => {

@@ -20,7 +20,7 @@ describe('environmental variables default values', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
-    jest.resetModules(); // Most important - it clears the cache
+    vi.resetModules(); // Most important - it clears the cache
     process.env = { ...OLD_ENV }; // Make a copy
   });
 
@@ -46,7 +46,7 @@ describe('environmental variables default values', () => {
 
   test('type checks work correctly trying to assign not allowed value to APIHOST', () => {
     process.env.APIHOST = 'wrong url';
-    const logSpy = jest.spyOn(global.console, 'error');
+    const logSpy = vi.spyOn(global.console, 'error');
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('.').default;
     expect(logSpy).toHaveBeenCalled();

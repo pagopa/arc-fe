@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { PaymentNotices } from '.';
-import '@testing-library/jest-dom';
+import '@testing-library/vi-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useStore } from 'store/GlobalStore';
 import { useMediaQuery } from '@mui/material';
@@ -9,10 +9,10 @@ import utils from 'utils';
 import converters from 'utils/converters';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+vi.mock('@mui/material/useMediaQuery', () => vi.fn());
 
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils', () => ({
+  ...vi.importActual('utils'),
   storage: {
     pullPaymentsOptIn: {
       set: () => true,
@@ -25,28 +25,28 @@ jest.mock('utils', () => ({
     checkoutHost: 'string'
   },
   loaders: {
-    getPaymentNotices: jest.fn()
+    getPaymentNotices: vi.fn()
   }
 }));
-jest.mock('store/GlobalStore', () => ({
-  useStore: jest.fn()
+vi.mock('store/GlobalStore', () => ({
+  useStore: vi.fn()
 }));
-jest.mock('store/PaymentNoticeStore', () => ({
-  paymentNoticeState: { removeItem: jest.fn(), state: null }
+vi.mock('store/PaymentNoticeStore', () => ({
+  paymentNoticeState: { removeItem: vi.fn(), state: null }
 }));
-jest.mock('utils/converters', () => ({
-  prepareNoticesData: jest.fn()
+vi.mock('utils/converters', () => ({
+  prepareNoticesData: vi.fn()
 }));
 
 describe('PaymentNoticeRoute', () => {
-  (useMediaQuery as jest.Mock).mockReturnValue(false);
+  (useMediaQuery as Mock).mockReturnValue(false);
 
   beforeEach(() => {
-    (useStore as jest.Mock).mockReturnValue({ state: { paymentNotice: null } });
+    (useStore as Mock).mockReturnValue({ state: { paymentNotice: null } });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   it('renders without crashing', () => {
     const mockQueryResult = {
@@ -63,8 +63,8 @@ describe('PaymentNoticeRoute', () => {
     };
     const queryClient = new QueryClient();
 
-    (utils.loaders.getPaymentNotices as jest.Mock).mockReturnValue(mockQueryResult);
-    (converters.prepareNoticesData as jest.Mock).mockReturnValue(mockNormalizedData);
+    (utils.loaders.getPaymentNotices as Mock).mockReturnValue(mockQueryResult);
+    (converters.prepareNoticesData as Mock).mockReturnValue(mockNormalizedData);
     render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
@@ -79,8 +79,8 @@ describe('PaymentNoticeRoute', () => {
     const mockNormalizedData = null;
     const queryClient = new QueryClient();
 
-    (utils.loaders.getPaymentNotices as jest.Mock).mockReturnValue(mockQueryResult);
-    (converters.prepareNoticesData as jest.Mock).mockReturnValue(mockNormalizedData);
+    (utils.loaders.getPaymentNotices as Mock).mockReturnValue(mockQueryResult);
+    (converters.prepareNoticesData as Mock).mockReturnValue(mockNormalizedData);
     render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
@@ -94,8 +94,8 @@ describe('PaymentNoticeRoute', () => {
     const mockNormalizedData = { paymentNotice: [] };
     const queryClient = new QueryClient();
 
-    (utils.loaders.getPaymentNotices as jest.Mock).mockReturnValue(mockQueryResult);
-    (converters.prepareNoticesData as jest.Mock).mockReturnValue(mockNormalizedData);
+    (utils.loaders.getPaymentNotices as Mock).mockReturnValue(mockQueryResult);
+    (converters.prepareNoticesData as Mock).mockReturnValue(mockNormalizedData);
     render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
