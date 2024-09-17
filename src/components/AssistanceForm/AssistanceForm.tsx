@@ -43,8 +43,10 @@ export const AssistanceForm = () => {
           const form = document.getElementById('jwtForm') as HTMLFormElement;
           const jwtString = document.getElementById('jwtString') as HTMLInputElement;
           const returnTo = document.getElementById('returnTo') as HTMLInputElement;
+          const actionUrl = document.getElementById('jwtForm') as HTMLInputElement;
           jwtString.setAttribute('value', zendeskAssistance.assistanceToken);
           returnTo.setAttribute('value', zendeskAssistance.returnTo);
+          actionUrl.setAttribute('action', zendeskAssistance.actionUrl);
 
           form.submit();
         });
@@ -163,7 +165,7 @@ export const AssistanceForm = () => {
         </Stack>
       </form>
       <Box display="none">
-        <form id="jwtForm" method="POST" action="https://pagopa.zendesk.com/access/jwt">
+        <form id="jwtForm" method="POST">
           <input readOnly type="hidden" id="jwtString" data-testid="jwtString" name="jwt" />
           <input readOnly type="hidden" id="returnTo" data-testid="returnTo" name="return_to" />
         </form>
