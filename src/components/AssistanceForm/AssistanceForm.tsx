@@ -43,7 +43,7 @@ export const AssistanceForm = () => {
           const form = document.getElementById('jwtForm') as HTMLFormElement;
           const jwtString = document.getElementById('jwtString') as HTMLInputElement;
           const returnTo = document.getElementById('returnTo') as HTMLInputElement;
-          const actionUrl = document.getElementById('jwtForm') as HTMLInputElement;
+          const actionUrl = document.getElementById('jwtForm') as HTMLFormElement;
           jwtString.setAttribute('value', zendeskAssistance.assistanceToken);
           returnTo.setAttribute('value', zendeskAssistance.returnTo);
           actionUrl.setAttribute('action', zendeskAssistance.actionUrl);
