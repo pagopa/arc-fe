@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
 import { Link } from '@mui/material';
 import { useUserInfo } from 'hooks/useUserInfo';
+import { sessionClear } from 'utils/session';
 
 export interface HeaderProps {
   onAssistanceClick?: () => void;
@@ -24,10 +25,14 @@ export const Header = (props: HeaderProps) => {
   const { onAssistanceClick = () => null } = props;
   const navigate = useNavigate();
 
-  function logout() {
-    window.sessionStorage.clear();
-    window.localStorage.clear();
-    navigate(ArcRoutes.LOGIN);
+  async function logoutUser() {
+    try {
+      await utils.apiClient.logout.getLogoutEndpoint();
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      sessionClear(() => navigate(ArcRoutes.LOGIN));
+    }
   }
 
   const { userInfo } = useUserInfo();
@@ -53,7 +58,7 @@ export const Header = (props: HeaderProps) => {
     {
       id: 'logout',
       label: 'Esci',
-      onClick: () => logout(),
+      onClick: logoutUser,
       icon: <LogoutRoundedIcon fontSize="small" color="inherit" />
     }
   ];

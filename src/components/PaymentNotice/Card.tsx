@@ -49,7 +49,7 @@ export const _Card = (notice: PaymentNoticeType) => {
   return (
     <Paper elevation={16}>
       <Stack
-        role="listitem"
+        role="option"
         component="article"
         onClick={() => viewDetail()}
         borderRadius={1}

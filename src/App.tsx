@@ -23,134 +23,140 @@ import AuthCallback from 'routes/AuthCallback';
 import Resources from 'routes/Resources';
 import { getTokenOneidentity } from 'utils/loaders';
 import { PreLoginLayout } from 'components/PreLoginLayout';
+import { ApiClient } from 'components/ApiClient';
 
 const router = createBrowserRouter([
   {
-    path: '*',
-    element: <Navigate replace to={ArcRoutes.LOGIN} />,
-    ErrorBoundary: () => {
-      throw useRouteError();
-    }
-  },
-  {
-    path: ArcRoutes.COURTESY_PAGE,
-    element: <CourtesyPage />
-  },
-  {
-    path: ArcRoutes.LOGIN,
-    element: (
-      <PreLoginLayout>
-        <Login />
-      </PreLoginLayout>
-    )
-  },
-  {
-    path: ArcRoutes.RESOURCES,
-    element: (
-      <PreLoginLayout>
-        <Resources />
-      </PreLoginLayout>
-    ),
-    errorElement: <ErrorFallback />
-  },
-  {
-    path: ArcRoutes.AUTH_CALLBACK,
-    element: <AuthCallback />,
-    loader: ({ request }) => getTokenOneidentity(request)
-  },
-  {
-    path: `${utils.config.deployPath}/`,
-    element: (
-      <RouteGuard
-        itemKeys={['accessToken']}
-        storage={window.localStorage}
-        redirectTo={ArcRoutes.LOGIN}>
-        <Layout />
-      </RouteGuard>
-    ),
-    ErrorBoundary: () => {
-      throw useRouteError();
-    },
+    element: <ApiClient client={utils.apiClient} />,
     children: [
       {
-        path: ArcRoutes.ASSISTANCE,
-        element: <Assistance />,
-        errorElement: <ErrorFallback />,
-        handle: {
-          backButton: true,
-          backButtonText: 'exit',
-          backButtonFunction: () => {
-            utils.modal.open(utils.modal.ModalId.ASSISTANCEBACK);
-          },
-          sidebar: {
-            visibile: false
-          }
-        } as RouteHandleObject
-      },
-      {
-        path: ArcRoutes.USER,
-        element: <UserRoute />,
-        errorElement: <ErrorFallback />,
-        handle: {
-          backButton: true,
-          sidebar: {
-            visibile: false
-          }
-        } as RouteHandleObject
-      },
-      {
-        path: ArcRoutes.DASHBOARD,
-        element: <DashboardRoute />,
-        // TEMPORARY ERROR ELEMENT
-        errorElement: <ErrorFallback />
-      },
-      {
-        path: ArcRoutes.TRANSACTION,
-        element: <TransactionRoute />,
-        loader: ({ params }) => Promise.resolve(params.id),
-        // TEMPORARY ERROR ELEMENT
-        errorElement: <ErrorFallback />,
-        handle: {
-          crumbs: {
-            elements: [
-              { name: 'transactions', fontWeight: 600, href: ArcRoutes.TRANSACTIONS },
-              {
-                name: 'transactionDetail',
-                fontWeight: 400,
-                color: theme.palette.grey[700]
-              }
-            ]
-          }
-        } as RouteHandleObject
-      },
-      {
-        path: ArcRoutes.TRANSACTIONS,
-        element: <TransactionsList />,
-        // TEMPORARY ERROR ELEMENT
-        errorElement: <ErrorFallback />
-      },
-      {
-        path: ArcRoutes.PAYMENT_NOTICES,
-        element: <PaymentNotices />,
-        errorElement: <ErrorFallback />
-      },
-
-      {
-        path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
-        element: <PaymentNoticeDetail />,
-        errorElement: <ErrorFallback />,
-        handle: {
-          crumbs: {
-            elements: [
-              { name: 'paymentNotices', fontWeight: 600, href: ArcRoutes.PAYMENT_NOTICES },
-              {
-                name: 'paymentNoticeDetail',
-                fontWeight: 400,
-                color: theme.palette.grey[700]
-              }
-            ]
-          }
+        path: '*',
+        element: <Navigate replace to={ArcRoutes.LOGIN} />,
+        ErrorBoundary: () => {
+          throw useRouteError();
         }
+      },
+      {
+        path: ArcRoutes.COURTESY_PAGE,
+        element: <CourtesyPage />
+      },
+      {
+        path: ArcRoutes.LOGIN,
+        element: (
+          <PreLoginLayout>
+            <Login />
+          </PreLoginLayout>
+        )
+      },
+      {
+        path: ArcRoutes.RESOURCES,
+        element: (
+          <PreLoginLayout>
+            <Resources />
+          </PreLoginLayout>
+        ),
+        errorElement: <ErrorFallback />
+      },
+      {
+        path: ArcRoutes.AUTH_CALLBACK,
+        element: <AuthCallback />,
+        loader: ({ request }) => getTokenOneidentity(request)
+      },
+      {
+        path: `${utils.config.deployPath}/`,
+        element: (
+          <RouteGuard
+            itemKeys={['accessToken']}
+            storage={window.localStorage}
+            redirectTo={ArcRoutes.LOGIN}>
+            <Layout />
+          </RouteGuard>
+        ),
+        ErrorBoundary: () => {
+          throw useRouteError();
+        },
+        children: [
+          {
+            path: ArcRoutes.ASSISTANCE,
+            element: <Assistance />,
+            errorElement: <ErrorFallback />,
+            handle: {
+              backButton: true,
+              backButtonText: 'exit',
+              backButtonFunction: () => {
+                utils.modal.open(utils.modal.ModalId.ASSISTANCEBACK);
+              },
+              sidebar: {
+                visibile: false
+              }
+            } as RouteHandleObject
+          },
+          {
+            path: ArcRoutes.USER,
+            element: <UserRoute />,
+            errorElement: <ErrorFallback />,
+            handle: {
+              backButton: true,
+              sidebar: {
+                visibile: false
+              }
+            } as RouteHandleObject
+          },
+          {
+            path: ArcRoutes.DASHBOARD,
+            element: <DashboardRoute />,
+            // TEMPORARY ERROR ELEMENT
+            errorElement: <ErrorFallback />
+          },
+          {
+            path: ArcRoutes.TRANSACTION,
+            element: <TransactionRoute />,
+            loader: ({ params }) => Promise.resolve(params.id),
+            // TEMPORARY ERROR ELEMENT
+            errorElement: <ErrorFallback />,
+            handle: {
+              crumbs: {
+                elements: [
+                  { name: 'transactions', fontWeight: 600, href: ArcRoutes.TRANSACTIONS },
+                  {
+                    name: 'transactionDetail',
+                    fontWeight: 400,
+                    color: theme.palette.grey[700]
+                  }
+                ]
+              }
+            } as RouteHandleObject
+          },
+          {
+            path: ArcRoutes.TRANSACTIONS,
+            element: <TransactionsList />,
+            // TEMPORARY ERROR ELEMENT
+            errorElement: <ErrorFallback />
+          },
+          {
+            path: ArcRoutes.PAYMENT_NOTICES,
+            element: <PaymentNotices />,
+            errorElement: <ErrorFallback />
+          },
+
+          {
+            path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
+            element: <PaymentNoticeDetail />,
+            errorElement: <ErrorFallback />,
+            handle: {
+              crumbs: {
+                elements: [
+                  { name: 'paymentNotices', fontWeight: 600, href: ArcRoutes.PAYMENT_NOTICES },
+                  {
+                    name: 'paymentNoticeDetail',
+                    fontWeight: 400,
+                    color: theme.palette.grey[700]
+                  }
+                ]
+              }
+            }
+          }
+        ]
       }
     ]
   }

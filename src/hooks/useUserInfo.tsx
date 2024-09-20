@@ -1,3 +1,4 @@
+import { UserMemo } from 'models/User';
 import { useEffect } from 'react';
 import { useStore } from 'store/GlobalStore';
 import { STATE } from 'store/types';
@@ -11,7 +12,8 @@ export const useUserInfo = () => {
   useEffect(() => {
     if (isSuccess && data) {
       delete data.email;
-      setState(STATE.USER_INFO, data);
+      const user: UserMemo = { name: data.name, familyName: data.familyName, userId: data.userId };
+      setState(STATE.USER_INFO, user);
     }
   }, [isSuccess]);
 

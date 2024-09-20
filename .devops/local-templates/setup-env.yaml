@@ -16,10 +16,6 @@ parameters:
     type: string
     default: ''
 
-  - name: 'show_status_info'
-    type: boolean
-    default: false
-
   - name: 'checkout_host'
     type: string
     default: ''
@@ -52,7 +48,6 @@ steps:
       ARC_FE_ENV=${{ parameters.env }} \
       ARC_FE_ENTITIES_LOGO_CDN=${{ parameters.cdn_logos }} \
       ARC_FE_ASSISTANCE_LINK=${{ parameters.assistance_link }} \
-      ARC_FE_SHOW_STATUS_INFO=${{ parameters.show_status_info }} \
       ARC_FE_CHECKOUT_HOST=${{ parameters.checkout_host }} \
       ARC_FE_LOGIN_URL=${{ parameters.login_url }} \
       ARC_FE_CHECKOUT_PLATFORM_URL=${{ parameters.checkout_platform_url }} \

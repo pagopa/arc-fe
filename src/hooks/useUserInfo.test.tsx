@@ -46,8 +46,9 @@ describe('useUserInfo hook', () => {
 
     renderHook(() => useUserInfo(), { wrapper });
 
-    const userNoEmail = { ...dataMock };
+    const userNoEmail = { ...dataMock } as Partial<typeof dataMock>;
     delete userNoEmail.email;
+    delete userNoEmail.fiscalCode;
 
     // Wait for the effect to trigger and update the state
     await waitFor(() => {
