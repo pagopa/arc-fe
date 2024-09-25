@@ -42,7 +42,8 @@ export default defineConfig({
       store: path.resolve(__dirname, './src/store'),
       stories: path.resolve(__dirname, './src/stories'),
       translations: path.resolve(__dirname, './src/translations'),
-      utils: path.resolve(__dirname, './src/utils')
+      utils: path.resolve(__dirname, './src/utils'),
+      __tests__: path.resolve(__dirname, './src/__tests__')
     }
   }
 });

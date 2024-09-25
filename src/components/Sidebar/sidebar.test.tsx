@@ -4,13 +4,15 @@ import { MemoryRouter } from 'react-router-dom';
 import '../../translations/i18n';
 import React from 'react';
 import Sidebar from './index';
-import i18n from '../../translations/i18n';
 import { ThemeProvider } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { theme } from '@pagopa/mui-italia';
 import useCollapseMenu from 'hooks/useCollapseMenu';
 import { Mock } from 'vitest';
 import utils from 'utils';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+
+i18nTestSetup({});
 
 vi.mock('utils');
 vi.mock('hooks/useCollapseMenu');
@@ -26,10 +28,6 @@ vi.mock('./utils', () => ({
     setOverlay: () => {}
   }
 }));
-
-void i18n.init({
-  resources: {}
-});
 
 const SidebarWithRouter = () => (
   <ThemeProvider theme={theme}>

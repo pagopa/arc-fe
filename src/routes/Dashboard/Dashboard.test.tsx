@@ -12,8 +12,20 @@ import loaders from 'utils/loaders';
 import storage from 'utils/storage';
 import { Mock } from 'vitest';
 import { Signal } from '@preact/signals-react';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-const queryClient = new QueryClient();
+i18nTestSetup({
+  app: {
+    dashboard: {
+      title: 'greetings, {{username}}'
+    },
+    paymentNotice: {
+      preview: {
+        title: 'notice preview title'
+      }
+    }
+  }
+});
 
 vi.mock('utils/converters');
 vi.mock('utils/loaders');
@@ -36,6 +48,7 @@ vi.mock('hooks/useUserInfo', () => ({
   useUserInfo: vi.fn()
 }));
 
+const queryClient = new QueryClient();
 describe('DashboardRoute', () => {
   (useMediaQuery as Mock).mockReturnValue(false);
   const navigate = vi.fn();
@@ -115,14 +128,14 @@ describe('DashboardRoute', () => {
 
     render(<DashboardWithState />);
     await waitFor(() => {
-      expect(screen.getByText('Cerca i tuoi avvisi di pagamento pagoPA')).toBeInTheDocument(); // Check if payment notice is rendered
+      expect(screen.getByText('notice preview title')).toBeInTheDocument(); // Check if payment notice is rendered
     });
   });
 
   it('displays correct user info in the dashboard title', async () => {
     render(<DashboardWithState />);
     await waitFor(() => {
-      expect(screen.getByText('Ciao, test test')).toBeInTheDocument(); // Assuming 'Welcome' is part of the t function
+      expect(screen.getByText('greetings, test test')).toBeInTheDocument(); // Assuming 'Welcome' is part of the t function
     });
   });
 });

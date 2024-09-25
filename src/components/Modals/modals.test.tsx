@@ -9,6 +9,16 @@ import { ArcRoutes } from 'routes/routes';
 import '@testing-library/jest-dom';
 import utils from 'utils';
 import { ModalId } from 'utils/modal';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+
+i18nTestSetup({
+  app: {
+    routes: {
+      consent: 'test agree',
+      exit: 'test exit'
+    }
+  }
+});
 
 const mockedUsedNavigate = vi.fn();
 vi.mock('react-router-dom', async (importActual) => ({
@@ -73,7 +83,7 @@ describe('Modals: ', () => {
         <AssistanceBackModal open />
       </ModalWithRouter>
     );
-    const button = screen.getByText('Esci');
+    const button = screen.getByText('test exit');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
     expect(mockedUsedNavigate).toHaveBeenCalledWith(-1);
@@ -93,7 +103,7 @@ describe('Modals: ', () => {
         <PullPaymentsModal open />
       </ModalWithRouter>
     );
-    const button = screen.getByText('Consenti');
+    const button = screen.getByText('test agree');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
     expect(mockedUsedNavigate).toHaveBeenCalledWith(ArcRoutes.PAYMENT_NOTICES);

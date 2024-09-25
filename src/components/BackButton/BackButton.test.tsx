@@ -3,11 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { useNavigate } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { BackButton } from './index';
-import i18n from 'translations/i18n';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+import { Mock } from 'vitest';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()

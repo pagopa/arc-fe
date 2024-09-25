@@ -6,13 +6,11 @@ import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import { PaymentNoticeEnum, PaymentNoticeMultipleType } from 'models/PaymentNotice';
 import { PaymentNotice } from './PaymentNotice';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import i18n from 'translations/i18n';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+
+i18nTestSetup({});
 
 const queryClient = new QueryClient();
-
-void i18n.init({
-  resources: {}
-});
 
 vi.mock('@preact/signals-react', () => ({
   signal: vi.fn(),

@@ -3,11 +3,9 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaymentNotice } from './index';
-import i18n from 'translations/i18n';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
 vi.mock('@preact/signals-react', () => ({
   signal: vi.fn(),

@@ -13,7 +13,7 @@ describe('LoginRoute', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText('Accedi')).toBeInTheDocument();
+      expect(screen.getByLabelText('app.login.login')).toBeInTheDocument();
     });
   });
 });

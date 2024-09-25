@@ -2,11 +2,9 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { PreLoginLayout } from './PreLoginLayout';
 import '@testing-library/jest-dom';
-import i18n from 'translations/i18n';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
 const mockedChangeLanguage = vi.fn();
 global.fetch = vi.fn().mockImplementation(() =>

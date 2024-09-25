@@ -6,14 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { _Card } from './Card';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
-import i18n from 'translations/i18n';
 import { STATE } from 'store/types';
 import utils from 'utils';
 import { Mock } from 'vitest';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
 vi.mock('store/GlobalStore', () => ({
   useStore: vi.fn()

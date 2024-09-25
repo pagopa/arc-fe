@@ -4,12 +4,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionsList, TransactionsListProps } from '.';
 import '@testing-library/jest-dom';
-import i18n from 'translations/i18n';
 import { useMediaQuery } from '@mui/material';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
 vi.mock(import('@mui/material'), async (importActual) => ({
   ...(await importActual()),

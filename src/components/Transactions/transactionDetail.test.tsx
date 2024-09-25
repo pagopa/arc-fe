@@ -2,15 +2,13 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionDetails } from './';
-import i18n from 'translations/i18n';
 import '@testing-library/jest-dom';
 import { getReceipt } from 'utils/files';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+
+i18nTestSetup({});
 
 vi.mock('utils/files');
-
-void i18n.init({
-  resources: {}
-});
 
 const mockUseReceiptData = vi.mocked(getReceipt);
 

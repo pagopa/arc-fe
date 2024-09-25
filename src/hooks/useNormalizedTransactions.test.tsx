@@ -4,9 +4,11 @@ import { useNormalizedTransactions } from './useNormalizedTransactions';
 import { Mock } from 'vitest';
 import converters from 'utils/converters';
 import loaders from 'utils/loaders';
-import i18n from 'translations/i18n';
 import { TransactionsListDTO } from '../../generated/apiClient';
 import { UseQueryResult } from '@tanstack/react-query';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+
+i18nTestSetup({});
 
 vi.mock('utils/loaders');
 vi.mock('utils/converters');
@@ -14,10 +16,6 @@ vi.mock('utils/converters');
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()
 }));
-
-void i18n.init({
-  resources: {}
-});
 
 describe('useNormalizedTransactions', () => {
   const mockNavigate = vi.fn();

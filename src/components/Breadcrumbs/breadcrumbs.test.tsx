@@ -5,13 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { BreadcrumbPath } from 'models/Breadcrumbs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '@testing-library/jest-dom';
-import i18n from 'translations/i18n';
 import { Mock } from 'vitest';
 import { useMediaQuery } from '@mui/material';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()
