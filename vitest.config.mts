@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 import { config } from 'dotenv';
 import path from 'path';
 
@@ -7,13 +7,30 @@ export default defineConfig({
     globals: true,
     setupFiles: './vitest.setup.mts',
     environment: 'jsdom',
+		clearMocks: true,
     coverage: {
       provider: 'v8',
-      reportOnFailure: true
+      reportOnFailure: true,
+      exclude: [
+        ...configDefaults.exclude,
+        '/node_modules/',
+        'src/stories/',
+        'src/index.tsx',
+        'src/App.tsx',
+        'src/global.d.ts',
+        'src/components/Layout',
+        'src/utils/style'
+      ],
+      include: ['**/*.test.ts?(x)'],
+      thresholds: {
+        lines: 80,
+        branches: 80
+      }
     },
     env: {
       ...config({ path: './.env.test' }).parsed
-    }
+    },
+    include: ['**/*.test.ts?(x)']
   },
   resolve: {
     alias: {
