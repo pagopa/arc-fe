@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { ErrorFallback } from 'components/ErrorFallback';
 
 describe('ErrorFallback', () => {

@@ -1,26 +1,28 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { AssistanceForm } from './index';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import utils from 'utils';
-
-vi.mock('utils', () => ({
-  loaders: {
-    getUserInfo: vi.fn()
-  },
-  apiClient: {
-    token: {
-      getZendeskAssistanceToken: vi.fn()
-    }
-  }
-}));
+import { QueryClient, QueryClientProvider, UseQueryResult } from '@tanstack/react-query';
+import { UserInfo } from '../../../generated/apiClient';
+import { AxiosResponse } from 'axios';
+import loaders from 'utils/loaders';
 
 describe('AssistanceForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('renders having e-mail of connected user', async () => {
+  const WrappedAssistanceForm = () => {
+    const queryClient = new QueryClient();
+    return (
+      <QueryClientProvider client={queryClient}>
+        <AssistanceForm />
+      </QueryClientProvider>
+    );
+  };
+
+  it('renders having e-mail of connected user', () => {
     const mockUserData = {
       data: {
         userId: '_1a',
@@ -30,24 +32,27 @@ describe('AssistanceForm Component', () => {
         email: 'ilmilione@virgilio.it'
       }
     };
-    (utils.loaders.getUserInfo as Mock).mockReturnValue(mockUserData);
 
-    render(<AssistanceForm />);
+    vi.spyOn(loaders, 'getUserInfo').mockReturnValue(
+      mockUserData as UseQueryResult<UserInfo, Error>
+    );
 
-    expect(utils.loaders.getUserInfo).toHaveBeenCalledTimes(1);
+    render(<WrappedAssistanceForm />);
+
+    expect(loaders.getUserInfo).toHaveBeenCalledTimes(1);
 
     const email = screen.getByTestId('confirm-email');
     expect(email).toHaveAttribute('value', mockUserData.data.email);
   });
 
   it('renders having confirm button disabled', () => {
-    render(<AssistanceForm />);
+    render(<WrappedAssistanceForm />);
     const confirmButton = screen.getByTestId('assistance-confirm-button');
     expect(confirmButton).toHaveClass('Mui-disabled');
   });
 
   it('turns confirm button enabled correctly', () => {
-    render(<AssistanceForm />);
+    render(<WrappedAssistanceForm />);
     const confirmButton = screen.getByTestId('assistance-confirm-button');
     const email = screen.getByTestId('confirm-email');
     const confirmEmail = screen.getByTestId('assistance-confirm-email');
@@ -72,11 +77,12 @@ describe('AssistanceForm Component', () => {
         returnTo: 'https://www.pagopa.it'
       }
     };
-    (utils.apiClient.token.getZendeskAssistanceToken as Mock).mockReturnValue(
-      mockGetZendeskAssistanceToken
+
+    vi.spyOn(utils.apiClient.token, 'getZendeskAssistanceToken').mockResolvedValue(
+      mockGetZendeskAssistanceToken as AxiosResponse
     );
 
-    render(<AssistanceForm />);
+    render(<WrappedAssistanceForm />);
 
     const confirmButton = screen.getByTestId('assistance-confirm-button');
     const email = screen.getByTestId('confirm-email');

@@ -18,7 +18,7 @@ import * as schemas from '../../generated/zod-schema';
 import { createMock } from 'zodock';
 
 // Mock the utils module
-vi.mock('utils', () => {
+vi.mock('./utils', () => {
   const originalModule = vi.importActual('utils');
   return {
     ...originalModule,

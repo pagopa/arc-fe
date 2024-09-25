@@ -3,7 +3,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionsList, TransactionsListProps } from '.';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import i18n from 'translations/i18n';
 import { useMediaQuery } from '@mui/material';
 
@@ -11,8 +11,8 @@ void i18n.init({
   resources: {}
 });
 
-vi.mock('@mui/material', () => ({
-  ...vi.importActual('@mui/material'),
+vi.mock(import('@mui/material'), async (importActual) => ({
+  ...(await importActual()),
   useMediaQuery: vi.fn()
 }));
 

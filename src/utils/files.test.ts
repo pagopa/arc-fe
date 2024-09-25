@@ -1,7 +1,8 @@
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { getReceipt } from './files';
 import utils from 'utils';
 import { waitFor } from '@testing-library/react';
+import { Mock } from 'vitest';
 
 vi.mock('utils/loaders');
 

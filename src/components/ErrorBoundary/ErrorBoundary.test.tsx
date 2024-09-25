@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 
 // A component that throws an error for testing purposes

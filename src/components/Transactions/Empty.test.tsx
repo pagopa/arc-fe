@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Empty } from './';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 
 describe('EmptyComponent', () => {
   it('renders without crashing', () => {

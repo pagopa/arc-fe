@@ -7,15 +7,10 @@ import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import React, { ReactNode } from 'react';
 import { useUserEmail } from './useUserEmail';
 import { Mock } from 'vitest';
+import converters from 'utils/converters';
+import { AxiosResponse } from 'axios';
 
-vi.mock('utils', () => ({
-  cartsClient: {
-    postCarts: vi.fn()
-  },
-  converters: {
-    singleNoticeToCartsRequest: vi.fn()
-  }
-}));
+vi.mock('utils/converters');
 
 vi.mock('./useUserEmail', () => ({
   useUserEmail: vi.fn()
@@ -36,11 +31,11 @@ describe('usePostCarts', () => {
     vi.clearAllMocks();
   });
 
-  it('should call utils.converters.singleNoticeToCartsRequest and utils.cartsClient.postCarts', async () => {
+  it('should call converters.singleNoticeToCartsRequest and utils.cartsClient.postCarts', async () => {
     const mockData = 'Response with URL=https://redirect.com';
 
-    (utils.converters.singleNoticeToCartsRequest as Mock).mockReturnValue(mockSingleNotice);
-    (utils.cartsClient.postCarts as Mock).mockResolvedValue({ data: mockData });
+    (converters.singleNoticeToCartsRequest as Mock).mockReturnValue(mockSingleNotice);
+    vi.spyOn(utils.cartsClient, 'postCarts').mockResolvedValue({ data: mockData } as AxiosResponse);
     (useUserEmail as Mock).mockResolvedValue('test@test.it');
 
     const { result } = renderHook(() => usePostCarts({ onSuccess: mockOnSuccess }), {
@@ -52,7 +47,7 @@ describe('usePostCarts', () => {
     });
     await waitFor(() => !result.current.isIdle);
 
-    expect(utils.converters.singleNoticeToCartsRequest).toHaveBeenCalledWith(mockSingleNotice);
+    expect(converters.singleNoticeToCartsRequest).toHaveBeenCalledWith(mockSingleNotice);
     expect(utils.cartsClient.postCarts).toHaveBeenCalledWith(mockSingleNotice);
     expect(mockOnSuccess).toHaveBeenCalledWith('https://redirect.com');
   });

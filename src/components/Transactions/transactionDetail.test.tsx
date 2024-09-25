@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionDetails } from './';
 import i18n from 'translations/i18n';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { getReceipt } from 'utils/files';
 
 vi.mock('utils/files');

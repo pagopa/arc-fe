@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import AuthCallback from '.';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();

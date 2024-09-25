@@ -3,7 +3,7 @@ import { ApiClient } from './ApiClient';
 import { Client } from 'models/Client';
 import { setupInterceptors } from 'utils/interceptors';
 import { useNavigate } from 'react-router-dom';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import React from 'react';
 
 // Mock dependencies

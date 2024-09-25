@@ -1,19 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/vi-dom';
-import { useTranslation } from 'react-i18next';
+import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import { PaymentNoticeEnum, PaymentNoticeMultipleType } from 'models/PaymentNotice';
 import { PaymentNotice } from './PaymentNotice';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import i18n from 'translations/i18n';
 
 const queryClient = new QueryClient();
 
-vi.mock('react-i18next', () => ({
-  ...vi.importActual('react-i18next'),
-  useTranslation: vi.fn()
-}));
+void i18n.init({
+  resources: {}
+});
 
 vi.mock('@preact/signals-react', () => ({
   signal: vi.fn(),
@@ -29,12 +28,6 @@ describe('Detail Component', () => {
       </QueryClientProvider>
     );
   };
-
-  beforeEach(() => {
-    (useTranslation as Mock).mockReturnValue({
-      t: (key: string) => key
-    });
-  });
 
   it('renders the single notice data', () => {
     renderWithTheme(<PaymentNotice.Detail paymentNotice={mockNotice} />);

@@ -1,37 +1,30 @@
-import utils from 'utils';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { renderHook, waitFor } from '@testing-library/react';
 import { useNormalizedTransactions } from './useNormalizedTransactions';
 import { Mock } from 'vitest';
+import converters from 'utils/converters';
+import loaders from 'utils/loaders';
+import i18n from 'translations/i18n';
+import { TransactionsListDTO } from '../../generated/apiClient';
+import { UseQueryResult } from '@tanstack/react-query';
 
-vi.mock('utils', () => ({
-  loaders: {
-    getTransactions: vi.fn()
-  },
-  converters: {
-    prepareRowsData: vi.fn()
-  }
-}));
-
-vi.mock('react-i18next', () => ({
-  useTranslation: vi.fn()
-}));
+vi.mock('utils/loaders');
+vi.mock('utils/converters');
 
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()
 }));
 
+void i18n.init({
+  resources: {}
+});
+
 describe('useNormalizedTransactions', () => {
   const mockNavigate = vi.fn();
-  const mockTranslation = {
-    t: vi.fn((key) => key)
-  };
 
   beforeEach(() => {
     vi.clearAllMocks();
     (useNavigate as Mock).mockReturnValue(mockNavigate);
-    (useTranslation as Mock).mockReturnValue(mockTranslation);
   });
 
   it('returns transactions and processes data correctly', async () => {
@@ -43,13 +36,13 @@ describe('useNormalizedTransactions', () => {
     };
 
     const preparedData = [{ id: '1' }, { id: '2' }];
-    (utils.loaders.getTransactions as Mock).mockReturnValue({
+    vi.mocked(loaders.getTransactions).mockReturnValue({
       data: mockTransactions,
       isError: false
-    });
+    } as unknown as UseQueryResult<TransactionsListDTO, Error>);
 
     const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
-    utils.converters.prepareRowsData = mockPrepareRowsData;
+    converters.prepareRowsData = mockPrepareRowsData;
 
     const { result } = renderHook(() => useNormalizedTransactions());
 
@@ -81,7 +74,10 @@ describe('useNormalizedTransactions', () => {
   });
 
   it('handles error state correctly', async () => {
-    (utils.loaders.getTransactions as Mock).mockReturnValue({ data: null, isError: true });
+    vi.mocked(loaders.getTransactions).mockReturnValue({
+      data: null as unknown as TransactionsListDTO,
+      isError: true
+    } as unknown as UseQueryResult<TransactionsListDTO, Error>);
 
     const { result } = renderHook(() => useNormalizedTransactions());
 

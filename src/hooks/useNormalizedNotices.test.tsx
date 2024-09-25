@@ -4,18 +4,12 @@ import converters from 'utils/converters';
 import { useNormalizedNotices } from './useNormalizedNotices';
 import { Mock } from 'vitest';
 
-vi.mock('loaders', () => ({
-  getPaymentNotices: vi.fn()
-}));
-
-vi.mock('utils/converters', () => ({
-  prepareNoticesData: vi.fn()
-}));
+vi.mock('utils/loaders');
+vi.mock('utils/converters');
 
 describe('useNormalizedNotices', () => {
   beforeEach(() => {
-    (utils.loaders.getPaymentNotices as Mock).mockClear();
-    (converters.prepareNoticesData as Mock).mockClear();
+    vi.clearAllMocks();
   });
 
   it('should return normalized notices', () => {

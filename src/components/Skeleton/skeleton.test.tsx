@@ -6,9 +6,12 @@ import {
   PaymentNoticesListSkeleton,
   UserInfoSkeleton
 } from '.';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useMediaQuery } from '@mui/material';
 
-vi.mock('@mui/material/useMediaQuery', () => vi.fn());
+vi.mock('@mui/material', async (importActual) => ({
+  ...(await importActual()),
+  useMediaQuery: vi.fn()
+}));
 
 describe('TransactionListSkeleton component', () => {
   it('should render as expected', () => {
@@ -18,14 +21,14 @@ describe('TransactionListSkeleton component', () => {
 
 describe('TransactionDetailsSkeleton component', () => {
   it('should render as expected', () => {
-    (useMediaQuery as Mock).mockReturnValue(true);
+    vi.mocked(useMediaQuery).mockReturnValue(true);
     render(<TransactionDetailsSkeleton />);
   });
 });
 
 describe('PaymentNoticesListSkeleton component', () => {
   it('should render as expected', () => {
-    (useMediaQuery as Mock).mockReturnValue(true);
+    vi.mocked(useMediaQuery).mockReturnValue(true);
     render(<PaymentNoticesListSkeleton />);
   });
 });

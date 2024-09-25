@@ -4,9 +4,10 @@ import Breadcrumbs, { BreadcrumbsProps } from './Breadcrumbs';
 import { useNavigate } from 'react-router-dom';
 import { BreadcrumbPath } from 'models/Breadcrumbs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import i18n from 'translations/i18n';
+import { Mock } from 'vitest';
+import { useMediaQuery } from '@mui/material';
 
 void i18n.init({
   resources: {}
@@ -16,7 +17,10 @@ vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()
 }));
 
-vi.mock('@mui/material/useMediaQuery', () => vi.fn());
+vi.mock(import('@mui/material'), async (importOriginal) => ({
+  ...(await importOriginal()),
+  useMediaQuery: vi.fn()
+}));
 
 const renderWithTheme = (component: ReactNode) => {
   const theme = createTheme();

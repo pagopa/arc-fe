@@ -1,21 +1,21 @@
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '../../translations/i18n';
 import React from 'react';
 import Sidebar from './index';
 import i18n from '../../translations/i18n';
-import { ThemeProvider, useMediaQuery } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { theme } from '@pagopa/mui-italia';
 import useCollapseMenu from 'hooks/useCollapseMenu';
 import { Mock } from 'vitest';
+import utils from 'utils';
 
-const utilsMock = vi.requireMock('utils');
-vi.mock('hooks/useCollapseMenu', () => vi.fn());
-vi.mock('@mui/material/useMediaQuery', () => vi.fn());
-
-vi.mock('utils', () => ({
-  ...vi.importActual('utils'),
+vi.mock('utils');
+vi.mock('hooks/useCollapseMenu');
+vi.mock('@mui/material/useMediaQuery');
+vi.mock('./utils', () => ({
   sidemenu: {
     status: {
       isMenuCollapsed: { value: true },
@@ -39,8 +39,6 @@ const SidebarWithRouter = () => (
   </ThemeProvider>
 );
 
-vi.mock('@mui/material/useMediaQuery', () => vi.fn());
-
 describe('Sidebar component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -55,7 +53,7 @@ describe('Sidebar component', () => {
   });
 
   test('renders with correct menu items when expanded', () => {
-    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
+    utils.sidemenu.status.isMenuCollapsed.value = false;
     (useCollapseMenu as Mock).mockReturnValue({ setOverlay: vi.fn(), collapsed: false });
 
     render(<SidebarWithRouter />);
@@ -67,7 +65,7 @@ describe('Sidebar component', () => {
   test('toggles sidebar collapse correctly', () => {
     (useCollapseMenu as Mock).mockReturnValue({ setOverlay: vi.fn(), collapsed: true });
 
-    utilsMock.sidemenu.status.isMenuCollapsed.value = true;
+    utils.sidemenu.status.isMenuCollapsed.value = true;
     render(<SidebarWithRouter />);
     expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
   });
@@ -75,7 +73,7 @@ describe('Sidebar component', () => {
   it('renders with sidebar expanded on large screen', () => {
     (useCollapseMenu as Mock).mockReturnValue({ setOverlay: vi.fn(), collapsed: false });
 
-    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
+    utils.sidemenu.status.isMenuCollapsed.value = false;
     (useMediaQuery as Mock).mockImplementation(() => true);
     render(<SidebarWithRouter />);
 
@@ -89,7 +87,7 @@ describe('Sidebar component', () => {
       collapsed: true
     });
 
-    utilsMock.sidemenu.status.isMenuCollapsed.value = true;
+    utils.sidemenu.status.isMenuCollapsed.value = true;
     (useMediaQuery as Mock).mockImplementation(() => false);
     render(<SidebarWithRouter />);
 
@@ -107,7 +105,7 @@ describe('Sidebar component', () => {
     });
 
     (useMediaQuery as Mock).mockImplementation(() => false);
-    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
+    utils.sidemenu.status.isMenuCollapsed.value = false;
 
     render(<SidebarWithRouter />);
 

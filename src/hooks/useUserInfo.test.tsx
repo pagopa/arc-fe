@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { useUserInfo } from './useUserInfo';
 import * as globalStore from 'store/GlobalStore';
 import utils from 'utils';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider, UseQueryResult } from '@tanstack/react-query';
 import React, { ReactNode } from 'react';
 import { State, STATE } from 'store/types';

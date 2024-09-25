@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaymentNotice } from './index';
 import i18n from 'translations/i18n';
@@ -12,10 +12,6 @@ void i18n.init({
 vi.mock('@preact/signals-react', () => ({
   signal: vi.fn(),
   effect: vi.fn()
-}));
-
-vi.mock('@pagopa/mui-italia', () => ({
-  IllusSharingInfo: vi.fn(() => <div>Illustration</div>)
 }));
 
 describe('PaymentNotice.Empty Component', () => {

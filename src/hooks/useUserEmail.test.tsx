@@ -1,11 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import utils from 'utils';
 import { useUserEmail } from './useUserEmail';
-import { Mock } from 'vitest';
-
-vi.mock('loaders', () => ({
-  getUserInfo: vi.fn()
-}));
+import { UseQueryResult } from '@tanstack/react-query';
+import { UserInfo } from '../../generated/apiClient';
 
 describe('useUserEmail', () => {
   it('should return userEmail', async () => {
@@ -19,8 +16,12 @@ describe('useUserEmail', () => {
         email: 'ilmilione@virgilio.it'
       }
     };
+
     const mockEmail = 'ilmilione@virgilio.it';
-    (utils.loaders.getUserInfo as Mock).mockReturnValue(mockQueryResult);
+
+    vi.spyOn(utils.loaders, 'getUserInfo').mockReturnValue(
+      mockQueryResult as UseQueryResult<UserInfo, Error>
+    );
 
     // Act
     const { result } = renderHook(() => useUserEmail());

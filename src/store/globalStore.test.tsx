@@ -1,8 +1,10 @@
 import React from 'react';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { STATE } from './types';
 import { StoreProvider, useStore } from './GlobalStore';
+import { setPaymentNotice } from './PaymentNoticeStore';
+import { setUserInfo } from './UserInfoStore';
 
 vi.mock('@preact/signals-react', () => ({
   signal: vi.fn(),
@@ -58,9 +60,6 @@ describe('StoreProvider and useStore', () => {
   });
 
   it('allows notice state to be updated', () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { setPaymentNotice } = require('./PaymentNoticeStore');
-
     render(
       <StoreProvider>
         <TestNoticeComponent />
@@ -74,9 +73,6 @@ describe('StoreProvider and useStore', () => {
   });
 
   it('allows user info state to be updated', () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { setUserInfo } = require('./UserInfoStore');
-
     render(
       <StoreProvider>
         <TestUserInfoComponent />

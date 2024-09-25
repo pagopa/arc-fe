@@ -3,8 +3,9 @@ import { Client } from 'models/Client';
 import { useNavigate } from 'react-router-dom';
 import { sessionClear } from './session';
 import { ArcRoutes } from 'routes/routes';
+import { Mock } from 'vitest';
 
-vi.mock('utils', () => ({
+vi.mock('./utils', () => ({
   config: {
     tokenHeaderExcludePaths: ['/path1', '/path2']
   }

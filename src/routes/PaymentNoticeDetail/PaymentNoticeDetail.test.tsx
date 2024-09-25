@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import PaymentNoticeDetail from './index';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useStore } from 'store/GlobalStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

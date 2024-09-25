@@ -8,13 +8,13 @@ import utils from 'utils';
 
 const mockedUsedNavigate = vi.fn();
 
-vi.mock('react-router-dom', () => ({
-  ...vi.importActual('react-router-dom'),
+vi.mock(import('react-router-dom'), async (importActual) => ({
+  ...(await importActual()),
   useNavigate: () => mockedUsedNavigate
 }));
 
-vi.mock('@mui/material', () => ({
-  ...vi.importActual('@mui/material'),
+vi.mock(import('@mui/material'), async (importActual) => ({
+  ...(await importActual()),
   useMediaQuery: vi.fn()
 }));
 

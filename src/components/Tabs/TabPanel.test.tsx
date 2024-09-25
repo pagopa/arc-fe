@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TabPanel from './TabPanel';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 
 describe('TabPanel Component', () => {
   test('renders children when value matches activeValue', () => {

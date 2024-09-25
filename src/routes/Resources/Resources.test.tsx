@@ -1,19 +1,21 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Resources from '.';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import useQueryParams from 'hooks/useQueryParams';
 import { Mock } from 'vitest';
 
 const queryClient = new QueryClient();
 
-vi.mock('react-router-dom', () => ({
+vi.mock(import('react-router-dom'), async (importActual) => ({
+  ...(await importActual()),
   useNavigate: vi.fn(),
   useLocation: vi.fn(),
   useLoaderData: vi.fn()
 }));
-vi.mock('hooks/useQueryParams', () => vi.fn());
+
+vi.mock('hooks/useQueryParams');
 
 describe('UserRoute', () => {
   (useQueryParams as Mock).mockReturnValue({ resource: 'vi.fn()' });

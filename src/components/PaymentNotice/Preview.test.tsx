@@ -9,9 +9,14 @@ void i18n.init({
   resources: {}
 });
 
-vi.mock('@pagopa/mui-italia', () => ({
-  IllusSharingInfo: vi.fn(() => <div>Illustration</div>)
-}));
+vi.mock('@pagopa/mui-italia', async () => {
+  const muiItalia = await vi.importActual('@pagopa/mui-italia');
+  const IllusSharingInfo = vi.fn(() => <div>Illustration</div>);
+  return {
+    ...muiItalia,
+    IllusSharingInfo
+  };
+});
 
 vi.mock('@preact/signals-react', () => ({
   signal: vi.fn(),

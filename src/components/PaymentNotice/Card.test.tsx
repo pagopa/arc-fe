@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -9,6 +9,7 @@ import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import i18n from 'translations/i18n';
 import { STATE } from 'store/types';
 import utils from 'utils';
+import { Mock } from 'vitest';
 
 void i18n.init({
   resources: {}

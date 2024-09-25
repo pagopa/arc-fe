@@ -1,10 +1,12 @@
-import '@testing-library/vi-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { useUserInfo } from 'hooks/useUserInfo';
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Header } from './index';
+import { Header, HeaderProps } from './index';
 import { ArcRoutes } from 'routes/routes';
+import { Mock } from 'vitest';
+import { StoreProvider } from 'store/GlobalStore';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Mocking external dependencies
 vi.mock('react-router-dom', () => ({
@@ -12,14 +14,18 @@ vi.mock('react-router-dom', () => ({
 }));
 
 vi.mock('hooks/useUserInfo', () => ({
-  useUserInfo: vi.fn()
+  useUserInfo: () => ({
+    userInfo: {
+      userId: '123',
+      name: 'John',
+      familyName: 'Doe'
+    }
+  })
 }));
 
-vi.mock('utils', () => ({
-  config: {
-    pagopaLink: 'https://example.com',
-    product: 'Product Name'
-  }
+vi.mock('./utils/config', () => ({
+  pagopaLink: 'https://example.com',
+  product: 'Product Name'
 }));
 
 vi.mock('@preact/signals-react', () => ({
@@ -27,19 +33,23 @@ vi.mock('@preact/signals-react', () => ({
   effect: vi.fn()
 }));
 
+const WrappedHeader = (props: HeaderProps) => {
+  const queryClient = new QueryClient();
+  return (
+    <StoreProvider>
+      <QueryClientProvider client={queryClient}>
+        <Header {...props} />
+      </QueryClientProvider>
+    </StoreProvider>
+  );
+};
+
 describe('Header component', () => {
   const mockNavigate = vi.fn();
   const mockOnAssistanceClick = vi.fn();
 
-  beforeEach(() => {
+  beforeAll(() => {
     (useNavigate as Mock).mockReturnValue(mockNavigate);
-    (useUserInfo as Mock).mockReturnValue({
-      userInfo: {
-        userId: '123',
-        name: 'John',
-        familyName: 'Doe'
-      }
-    });
   });
 
   afterEach(() => {
@@ -47,11 +57,11 @@ describe('Header component', () => {
   });
 
   it('should render as expected', () => {
-    render(<Header />);
+    render(<WrappedHeader />);
   });
 
   it('submenu elements should be visible after clicking user element', () => {
-    render(<Header onAssistanceClick={mockOnAssistanceClick} />);
+    render(<WrappedHeader onAssistanceClick={mockOnAssistanceClick} />);
 
     fireEvent.click(screen.getByText('John Doe'));
     // Check if HeaderAccount is rendered
@@ -65,14 +75,14 @@ describe('Header component', () => {
 
   it('should call onAssistanceClick assistance button click', () => {
     const onAssistanceClik = vi.fn();
-    render(<Header onAssistanceClick={onAssistanceClik} />);
+    render(<WrappedHeader onAssistanceClick={onAssistanceClik} />);
     const button = screen.getByText('Assistenza');
     fireEvent.click(button);
     expect(onAssistanceClik).toHaveBeenCalledTimes(1);
   });
 
   it('should navigate to user when profile is clicked', () => {
-    render(<Header />);
+    render(<WrappedHeader />);
     fireEvent.click(screen.getByText('John Doe'));
     const profileButton = screen.getByText('I tuoi dati');
     fireEvent.click(profileButton);
@@ -81,12 +91,12 @@ describe('Header component', () => {
     expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.USER);
   });
 
-  it('should clear session and local storage and navigate to login when "Esci" is clicked', () => {
+  it('should clear session and local storage and navigate to login when "Esci" is clicked', async () => {
     // Mock localStorage and sessionStorage
     const mockStorage = vi.spyOn(Storage.prototype, 'clear');
 
-    // Render the Header component
-    render(<Header />);
+    // Render the WrappedHeader component
+    render(<WrappedHeader />);
 
     // Click on the user dropdown to show the "Esci" (logout) button
     fireEvent.click(screen.getByText('John Doe'));
@@ -94,12 +104,14 @@ describe('Header component', () => {
     const logoutButton = screen.getByText('Esci');
     fireEvent.click(logoutButton);
 
-    // Ensure session and local storage are cleared
-    expect(localStorage.clear).toHaveBeenCalled();
-    expect(sessionStorage.clear).toHaveBeenCalled();
+    await waitFor(() => {
+      // Ensure session and local storage are cleared
+      expect(localStorage.clear).toHaveBeenCalled();
+      expect(sessionStorage.clear).toHaveBeenCalled();
 
-    // Ensure it navigates to the login route
-    expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.LOGIN);
+      // Ensure it navigates to the login route
+      expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.LOGIN);
+    });
 
     mockStorage.mockClear();
   });

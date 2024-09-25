@@ -37,6 +37,7 @@ export const Header = (props: HeaderProps) => {
 
   const { userInfo } = useUserInfo();
 
+  console.debug('userInfo', userInfo);
   const jwtUser: JwtUser | undefined = userInfo
     ? {
         id: userInfo?.userId,

@@ -1,19 +1,16 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import User from '.';
-import '@testing-library/vi-dom';
+import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
 import utils from 'utils';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, UseQueryResult } from '@tanstack/react-query';
+import { Mock } from 'vitest';
+import loaders from 'utils/loaders';
+import { UserInfo } from '../../../generated/apiClient';
 
 const queryClient = new QueryClient();
-vi.mock('utils', () => ({
-  ...vi.importActual('utils'),
-
-  loaders: {
-    getUserInfo: vi.fn()
-  }
-}));
+vi.mock('utils/loaders');
 
 vi.mock('store/GlobalStore', () => ({
   useStore: vi.fn()
@@ -25,8 +22,7 @@ vi.mock('react-router-dom', () => ({
 describe('UserRoute', () => {
   const setState = vi.fn();
 
-  //const preparedData = [{ id: '1' }, { id: '2' }];
-  (utils.loaders.getUserInfo as Mock).mockReturnValue({
+  vi.mocked(loaders.getUserInfo).mockReturnValue({
     data: {
       userId: 'string',
       fiscalCode: 'string',
@@ -35,7 +31,7 @@ describe('UserRoute', () => {
       email: 'string'
     },
     isError: false
-  });
+  } as UseQueryResult<UserInfo, Error>);
 
   beforeEach(() => {
     (useStore as Mock).mockReturnValue({ setState });

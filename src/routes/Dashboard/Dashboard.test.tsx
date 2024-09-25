@@ -3,38 +3,35 @@ import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import Dashboard from '.';
 import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
-import utils from 'utils';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from 'hooks/useUserInfo';
+import converters from 'utils/converters';
+import loaders from 'utils/loaders';
+import storage from 'utils/storage';
+import { Mock } from 'vitest';
+import { Signal } from '@preact/signals-react';
 
 const queryClient = new QueryClient();
-vi.mock('utils', () => ({
-  ...vi.importActual('utils'),
-  storage: {
-    pullPaymentsOptIn: {
-      set: () => true,
-      get: vi.fn()
-    }
-  },
-  loaders: {
-    getTransactions: vi.fn()
-  },
-  converters: {
-    prepareRowsData: vi.fn()
-  },
-  config: {
-    checkoutHost: 'test'
-  }
+
+vi.mock('utils/converters');
+vi.mock('utils/loaders');
+
+vi.mock('@mui/material', async (importActual) => ({
+  ...(await importActual()),
+  useMediaQuery: vi.fn()
 }));
-vi.mock('@mui/material/useMediaQuery', () => vi.fn());
+
 vi.mock('store/GlobalStore', () => ({
   useStore: vi.fn()
 }));
+
 vi.mock('react-router-dom', () => ({
-  useNavigate: vi.fn()
+  useNavigate: vi.fn(),
+  Link: vi.fn()
 }));
+
 vi.mock('hooks/useUserInfo', () => ({
   useUserInfo: vi.fn()
 }));
@@ -56,9 +53,9 @@ describe('DashboardRoute', () => {
   ];
 
   const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
-  utils.converters.prepareRowsData = mockPrepareRowsData;
+  converters.prepareRowsData = mockPrepareRowsData;
 
-  (utils.loaders.getTransactions as Mock).mockReturnValue({
+  (loaders.getTransactions as Mock).mockReturnValue({
     data: mockTransactions,
     isError: false
   });
@@ -72,7 +69,6 @@ describe('DashboardRoute', () => {
         familyName: 'test'
       }
     });
-    (utils.storage.pullPaymentsOptIn.get as Mock).mockReturnValue({ value: true });
   });
 
   afterEach(() => {
@@ -90,7 +86,7 @@ describe('DashboardRoute', () => {
   it('renders without crashing', async () => {
     render(<DashboardWithState />);
     await waitFor(() => {
-      expect(utils.loaders.getTransactions).toHaveBeenCalled();
+      expect(loaders.getTransactions).toHaveBeenCalled();
     });
   });
 
@@ -103,7 +99,7 @@ describe('DashboardRoute', () => {
   });
 
   it('renders a retry page if there is an error', async () => {
-    (utils.loaders.getTransactions as Mock).mockReturnValueOnce({
+    (loaders.getTransactions as Mock).mockReturnValueOnce({
       data: mockTransactions,
       isError: true
     });
@@ -113,7 +109,9 @@ describe('DashboardRoute', () => {
   });
 
   it('shows the payment notice when opt-in is not set', async () => {
-    (utils.storage.pullPaymentsOptIn.get as Mock).mockReturnValueOnce({ value: false });
+    vi.spyOn(storage.pullPaymentsOptIn, 'get').mockReturnValueOnce({
+      value: false
+    } as unknown as Signal<boolean>);
 
     render(<DashboardWithState />);
     await waitFor(() => {

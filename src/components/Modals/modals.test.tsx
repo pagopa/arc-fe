@@ -6,18 +6,18 @@ import PullPaymentsModal from './PullPaymentsModal';
 import DetailNoticeInfoModal from './DetailNoticeInfoModal';
 import { ModalSystem } from './';
 import { ArcRoutes } from 'routes/routes';
-import '@testing-library/vi-dom';
-
-const utilsMock = vi.requireMock('utils');
+import '@testing-library/jest-dom';
+import utils from 'utils';
+import { ModalId } from 'utils/modal';
 
 const mockedUsedNavigate = vi.fn();
-vi.mock('react-router-dom', () => ({
-  ...vi.importActual('react-router-dom'),
+vi.mock('react-router-dom', async (importActual) => ({
+  ...(await importActual()),
   useNavigate: () => mockedUsedNavigate
 }));
 
-vi.mock('utils', () => ({
-  ...vi.importActual('utils'),
+vi.mock(import('utils'), async (importActual) => ({
+  ...(await importActual()),
   storage: {
     pullPaymentsOptIn: {
       set: () => true
@@ -46,6 +46,10 @@ const ModalWithRouter = (props: { children: React.ReactNode }) => (
 );
 
 describe('Modals: ', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('ModalSystem should render nothing as expected', () => {
     const { container } = render(
       <ModalWithRouter>
@@ -114,7 +118,8 @@ describe('Modals: ', () => {
   });
 
   it('ModalSystem should call a modal as expected', () => {
-    utilsMock.modal.status.isOpen.value = true;
+    utils.modal.status.isOpen.value = true;
+    utils.modal.status.id.value = ModalId.OPTIN;
     render(
       <ModalWithRouter>
         <ModalSystem />
@@ -124,8 +129,8 @@ describe('Modals: ', () => {
   });
 
   it('ModalSystem should open the Payment notice info as expected', () => {
-    utilsMock.modal.status.isOpen.value = true;
-    utilsMock.modal.status.id.value = 'PAYMENT_NOTICE_MODAL';
+    utils.modal.status.isOpen.value = true;
+    utils.modal.status.id.value = ModalId.PAYMENT_NOTICE_MODAL;
     render(
       <ModalWithRouter>
         <ModalSystem />
