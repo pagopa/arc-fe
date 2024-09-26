@@ -12,6 +12,7 @@ export default defineConfig({
 		silent: true,
     coverage: {
       provider: 'v8',
+      reporter: ['text', 'json-summary', 'json', 'html', 'lcov'],
       reportOnFailure: true,
       exclude: [
         ...configDefaults.exclude,
