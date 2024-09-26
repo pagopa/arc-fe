@@ -19,8 +19,8 @@
     "type-check": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "yarn generate && storybook build",
-    "test": "TZ=UTC vitest --run",
-    "coverage": "vitest --coverage --run",
+    "test": "vitest",
+    "coverage": "vitest --coverage",
     "axe": "axe localhost:1234, localhost:1234/transactions, localhost:1234/transaction/1, localhost:1234/user,  --include '#root'",
     "serve-coverage-html-report": "npx serve coverage/lcov-report -c ./../../serve.json"
   },

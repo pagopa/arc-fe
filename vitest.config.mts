@@ -8,20 +8,24 @@ export default defineConfig({
     setupFiles: './vitest.setup.mts',
     environment: 'jsdom',
 		clearMocks: true,
+		watch: false,
+		silent: true,
     coverage: {
       provider: 'v8',
       reportOnFailure: true,
       exclude: [
         ...configDefaults.exclude,
-        '/node_modules/',
+				'**/*.test.ts?(x)',
+				'src/__tests__/',
         'src/stories/',
         'src/index.tsx',
         'src/App.tsx',
         'src/global.d.ts',
-        'src/components/Layout',
-        'src/utils/style'
+        'src/components/Layout.tsx',
+        'src/utils/style.tsx',
+        'src/models/',
       ],
-      include: ['**/*.test.ts?(x)'],
+      include: ['src/**/*.ts?(x)'],
       thresholds: {
         lines: 80,
         branches: 80

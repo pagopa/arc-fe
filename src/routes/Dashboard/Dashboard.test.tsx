@@ -3,7 +3,6 @@ import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import Dashboard from '.';
 import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
-import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from 'hooks/useUserInfo';
@@ -13,6 +12,8 @@ import storage from 'utils/storage';
 import { Mock } from 'vitest';
 import { Signal } from '@preact/signals-react';
 import { i18nTestSetup } from '__tests__/i18nTestSetup';
+import { ThemeProvider } from '@mui/material';
+import { theme } from '@pagopa/mui-italia';
 
 i18nTestSetup({
   app: {
@@ -30,11 +31,6 @@ i18nTestSetup({
 vi.mock('utils/converters');
 vi.mock('utils/loaders');
 
-vi.mock('@mui/material', async (importActual) => ({
-  ...(await importActual()),
-  useMediaQuery: vi.fn()
-}));
-
 vi.mock('store/GlobalStore', () => ({
   useStore: vi.fn()
 }));
@@ -48,11 +44,9 @@ vi.mock('hooks/useUserInfo', () => ({
   useUserInfo: vi.fn()
 }));
 
-const queryClient = new QueryClient();
 describe('DashboardRoute', () => {
-  (useMediaQuery as Mock).mockReturnValue(false);
+  const queryClient = new QueryClient();
   const navigate = vi.fn();
-  (useNavigate as Mock).mockReturnValue(navigate);
   const setState = vi.fn();
   const mockTransactions = {
     transactions: [
@@ -66,13 +60,20 @@ describe('DashboardRoute', () => {
   ];
 
   const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
-  converters.prepareRowsData = mockPrepareRowsData;
 
-  (loaders.getTransactions as Mock).mockReturnValue({
-    data: mockTransactions,
-    isError: false
+  beforeAll(() => {
+    vi.mocked(useNavigate).mockReturnValue(navigate);
+    converters.prepareRowsData = mockPrepareRowsData;
+
+    vi.mocked(loaders.getTransactions as Mock).mockReturnValue({
+      data: mockTransactions,
+      isError: false
+    });
+
+    Object.defineProperty(document.documentElement, 'lang', { value: 'it', configurable: true });
   });
-  Object.defineProperty(document.documentElement, 'lang', { value: 'it', configurable: true });
+
+  afterAll(() => {});
 
   beforeEach(() => {
     (useStore as Mock).mockReturnValue({ setState });
@@ -91,7 +92,9 @@ describe('DashboardRoute', () => {
   const DashboardWithState = () => {
     return (
       <QueryClientProvider client={queryClient}>
-        <Dashboard />
+        <ThemeProvider theme={theme}>
+          <Dashboard />
+        </ThemeProvider>
       </QueryClientProvider>
     );
   };
