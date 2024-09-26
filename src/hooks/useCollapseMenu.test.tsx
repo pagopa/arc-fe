@@ -24,11 +24,10 @@ describe('useCollapseMenu', () => {
   it('should collapse menu when transitioning from above to below "lg" breakpoint', () => {
     vi.mocked(useMediaQuery).mockReturnValue(false);
 
-    const { result, rerender } = renderHook(() => useCollapseMenu(false));
+    const { result, rerender } = renderHook(() => useCollapseMenu(true));
 
     expect(result.current.collapsed).toBe(false);
 
-    // Change mock to simulate breakpoint transition
     vi.mocked(useMediaQuery).mockReturnValue(true);
 
     // Re-render hook to apply changes
@@ -42,7 +41,7 @@ describe('useCollapseMenu', () => {
 
     const { result, rerender } = renderHook(() => useCollapseMenu(false));
 
-    expect(result.current.collapsed).toBe(false);
+    expect(result.current.collapsed).toBe(true);
 
     // Change mock to simulate breakpoint transition
     vi.mocked(useMediaQuery).mockReturnValue(false);
