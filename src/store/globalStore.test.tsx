@@ -3,20 +3,22 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { STATE } from './types';
 import { StoreProvider, useStore } from './GlobalStore';
+import { setPaymentNotice } from './PaymentNoticeStore';
+import { setUserInfo } from './UserInfoStore';
 
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
 // Mock the external dependencies
-jest.mock('./PaymentNoticeStore', () => ({
+vi.mock('./PaymentNoticeStore', () => ({
   paymentNoticeState: { state: { value: { id: 1, debtorFullName: 'Test notice' } } },
-  setPaymentNotice: jest.fn()
+  setPaymentNotice: vi.fn()
 }));
-jest.mock('./UserInfoStore.ts', () => ({
+vi.mock('./UserInfoStore.ts', () => ({
   userInfoState: { state: { value: { name: 'John' } } },
-  setUserInfo: jest.fn()
+  setUserInfo: vi.fn()
 }));
 
 describe('StoreProvider and useStore', () => {
@@ -58,9 +60,6 @@ describe('StoreProvider and useStore', () => {
   });
 
   it('allows notice state to be updated', () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { setPaymentNotice } = require('./PaymentNoticeStore');
-
     render(
       <StoreProvider>
         <TestNoticeComponent />
@@ -74,9 +73,6 @@ describe('StoreProvider and useStore', () => {
   });
 
   it('allows user info state to be updated', () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { setUserInfo } = require('./UserInfoStore');
-
     render(
       <StoreProvider>
         <TestUserInfoComponent />

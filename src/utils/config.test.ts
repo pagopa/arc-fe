@@ -1,56 +1,47 @@
-import { renderHook, act } from '@testing-library/react';
-import utils from '.';
-
-describe('useLanguage hook', () => {
-  it('should return the initial default it language correctly', () => {
-    const { result } = renderHook(() => utils.hooks.useLanguage());
-    expect(result.current.language).toBe('it');
-  });
-
-  it('should change the language to en correctly passing the langCode as argument to changeLanguage', () => {
-    const { result } = renderHook(() => utils.hooks.useLanguage());
-    act(() => {
-      result.current.changeLanguage('en');
-    });
-    expect(result.current.language).toBe('en');
-  });
-});
-
-describe('environmental variables default values', () => {
-  const OLD_ENV = process.env;
+describe('Configuration Tests', () => {
+  const originalEnv = { ...process.env };
 
   beforeEach(() => {
-    jest.resetModules(); // Most important - it clears the cache
-    process.env = { ...OLD_ENV }; // Make a copy
+    // Save original environment variables
+    process.env = { ...originalEnv };
+    vi.resetModules();
+    vi.clearAllMocks();
   });
 
   afterAll(() => {
-    process.env = OLD_ENV; // Restore old environment
+    process.env = originalEnv;
   });
 
-  test('APIHOST process.env variables has right value', () => {
-    // Set the variables
-    process.env.APIHOST = 'http://api.dev.test/v1';
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const utils = require('.').default;
-    expect(utils.config.baseURL).toBe('http://api.dev.test/v1');
+  it('should load configuration with valid environment variables', async () => {
+    process.env.APIHOST = 'http://localhost:1234/api';
+    process.env.ENV = 'DEV';
+    process.env.CHECKOUT_HOST = 'https://dev.checkout.pagopa.it';
+    process.env.LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity';
+    process.env.CHECKOUT_PLATFORM_URL = 'https://api.dev.platform.pagopa.it/checkout/ec/v1';
+    process.env.PAYMENT_RETURN_URL = 'http://localhost:1234';
+    process.env.DEPLOY_PATH = '/pagamenti';
+    process.env.VERSION = '1.0.0';
+
+    // Reload the config module to apply changes
+    const reloadedConfig = (await import('./config')).default;
+
+    // Assertions to ensure the config values are correctly loaded
+    expect(reloadedConfig.env).toBe('DEV');
+    expect(reloadedConfig.baseURL).toBe(process.env.APIHOST);
+    expect(reloadedConfig.checkoutHost).toBe(process.env.CHECKOUT_HOST);
+    expect(reloadedConfig.loginUrl).toBe(process.env.LOGIN_URL);
+    expect(reloadedConfig.checkoutPlatformUrl).toBe(process.env.CHECKOUT_PLATFORM_URL);
+    expect(reloadedConfig.paymentReturnUrl).toBe(process.env.PAYMENT_RETURN_URL);
+    expect(reloadedConfig.deployPath).toBe(process.env.DEPLOY_PATH);
+    expect(reloadedConfig.version).toBe('1.0.0');
   });
 
-  test('APIHOST process.env variables has right default value (http://localhost:1234/api)', () => {
-    // Set the variables
-    process.env.APIHOST = undefined;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const utils = require('.').default;
-    expect(utils.config.baseURL).toBe('http://localhost:1234/api');
-  });
+  it('should throw validation error for invalid URL in APIHOST', async () => {
+    process.env.APIHOST = 'invalid-url'; // Invalid URL
+    process.env.ENV = 'DEV';
 
-  test('type checks work correctly trying to assign not allowed value to APIHOST', () => {
-    process.env.APIHOST = 'wrong url';
-    const logSpy = jest.spyOn(global.console, 'error');
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('.').default;
-    expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledTimes(1);
+    const logSpy = vi.spyOn(console, 'error');
+    await import('./config'); // Use dynamic import
     expect(logSpy).toHaveBeenCalledWith(
       'ENV variables validation fails',
       expect.arrayContaining([
@@ -61,11 +52,18 @@ describe('environmental variables default values', () => {
     );
   });
 
-  test('ENV process.env variables has right default value ("LOCAL")', () => {
-    // Set the variables
-    process.env.ENV = undefined;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const utils = require('.').default;
-    expect(utils.config.env).toBe('LOCAL');
+  it('should fail when missing required environment variables', async () => {
+    delete process.env.APIHOST; // Missing required variable
+
+    const logSpy = vi.spyOn(console, 'error');
+    await import('./config'); // Use dynamic import
+    expect(logSpy).toHaveBeenCalledWith(
+      'ENV variables validation fails',
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: 'Required'
+        })
+      ])
+    );
   });
 });

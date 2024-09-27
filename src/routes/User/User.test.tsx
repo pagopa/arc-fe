@@ -4,29 +4,25 @@ import User from '.';
 import '@testing-library/jest-dom';
 import { useStore } from 'store/GlobalStore';
 import utils from 'utils';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, UseQueryResult } from '@tanstack/react-query';
+import { Mock } from 'vitest';
+import loaders from 'utils/loaders';
+import { UserInfo } from '../../../generated/apiClient';
 
 const queryClient = new QueryClient();
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils/loaders');
 
-  loaders: {
-    getUserInfo: jest.fn()
-  }
+vi.mock('store/GlobalStore', () => ({
+  useStore: vi.fn()
 }));
-
-jest.mock('store/GlobalStore', () => ({
-  useStore: jest.fn()
-}));
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
 describe('UserRoute', () => {
-  const setState = jest.fn();
+  const setState = vi.fn();
 
-  //const preparedData = [{ id: '1' }, { id: '2' }];
-  (utils.loaders.getUserInfo as jest.Mock).mockReturnValue({
+  vi.mocked(loaders.getUserInfo).mockReturnValue({
     data: {
       userId: 'string',
       fiscalCode: 'string',
@@ -35,14 +31,14 @@ describe('UserRoute', () => {
       email: 'string'
     },
     isError: false
-  });
+  } as UseQueryResult<UserInfo, Error>);
 
   beforeEach(() => {
-    (useStore as jest.Mock).mockReturnValue({ setState });
+    (useStore as Mock).mockReturnValue({ setState });
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   it('renders without crashing', async () => {
     render(

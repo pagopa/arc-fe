@@ -2,31 +2,30 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import Transaction from '.';
 import '@testing-library/jest-dom';
-import utils from 'utils';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, UseQueryResult } from '@tanstack/react-query';
+import { Mock } from 'vitest';
+import { TransactionsListDTO } from '../../../generated/apiClient';
+import loaders from 'utils/loaders';
 
-const queryClient = new QueryClient();
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils/loaders');
+vi.mock('utils/converters');
 
-  loaders: {
-    getTransactions: jest.fn(),
-    getTransactionDetails: jest.fn()
-  },
-  converters: {
-    prepareRowsData: jest.fn(),
-    prepareTransactionDetailData: jest.fn()
-  },
-  config: {
+vi.mock(import('utils/config'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
     checkoutHost: 'test'
-  }
-}));
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn(),
-  useLoaderData: jest.fn()
+  };
+});
+
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn(),
+  useLoaderData: vi.fn()
 }));
 
 describe('TransactionRoute', () => {
+  const queryClient = new QueryClient();
+
   const mockTransactions = {
     transactions: [
       { id: '1', paidByMe: true, registeredToMe: false },
@@ -35,14 +34,15 @@ describe('TransactionRoute', () => {
   };
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   it('renders without crashing', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    vi.mocked(loaders.getTransactions).mockReturnValue({
       data: mockTransactions,
       isError: false
-    });
-    (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
+    } as unknown as UseQueryResult<TransactionsListDTO, Error>);
+
+    (loaders.getTransactionDetails as Mock).mockReturnValue({
       data: mockTransactions.transactions[0],
       isError: false
     });
@@ -52,16 +52,16 @@ describe('TransactionRoute', () => {
       </QueryClientProvider>
     );
     await waitFor(() => {
-      expect(utils.loaders.getTransactionDetails).toHaveBeenCalled();
+      expect(loaders.getTransactionDetails).toHaveBeenCalled();
     });
   });
 
   it('renders without crashing error', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (loaders.getTransactions as Mock).mockReturnValue({
       data: null,
       isError: true
     });
-    (utils.loaders.getTransactionDetails as jest.Mock).mockReturnValue({
+    (loaders.getTransactionDetails as Mock).mockReturnValue({
       data: null,
       isError: true
     });

@@ -7,17 +7,27 @@ import DetailNoticeInfoModal from './DetailNoticeInfoModal';
 import { ModalSystem } from './';
 import { ArcRoutes } from 'routes/routes';
 import '@testing-library/jest-dom';
+import utils from 'utils';
+import { ModalId } from 'utils/modal';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-const utilsMock = jest.requireMock('utils');
+i18nTestSetup({
+  app: {
+    routes: {
+      consent: 'test agree',
+      exit: 'test exit'
+    }
+  }
+});
 
-const mockedUsedNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+const mockedUsedNavigate = vi.fn();
+vi.mock('react-router-dom', async (importActual) => ({
+  ...(await importActual()),
   useNavigate: () => mockedUsedNavigate
 }));
 
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock(import('utils'), async (importActual) => ({
+  ...(await importActual()),
   storage: {
     pullPaymentsOptIn: {
       set: () => true
@@ -46,6 +56,10 @@ const ModalWithRouter = (props: { children: React.ReactNode }) => (
 );
 
 describe('Modals: ', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('ModalSystem should render nothing as expected', () => {
     const { container } = render(
       <ModalWithRouter>
@@ -69,7 +83,7 @@ describe('Modals: ', () => {
         <AssistanceBackModal open />
       </ModalWithRouter>
     );
-    const button = screen.getByText('Esci');
+    const button = screen.getByText('test exit');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
     expect(mockedUsedNavigate).toHaveBeenCalledWith(-1);
@@ -89,7 +103,7 @@ describe('Modals: ', () => {
         <PullPaymentsModal open />
       </ModalWithRouter>
     );
-    const button = screen.getByText('Consenti');
+    const button = screen.getByText('test agree');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
     expect(mockedUsedNavigate).toHaveBeenCalledWith(ArcRoutes.PAYMENT_NOTICES);
@@ -114,7 +128,8 @@ describe('Modals: ', () => {
   });
 
   it('ModalSystem should call a modal as expected', () => {
-    utilsMock.modal.status.isOpen.value = true;
+    utils.modal.status.isOpen.value = true;
+    utils.modal.status.id.value = ModalId.OPTIN;
     render(
       <ModalWithRouter>
         <ModalSystem />
@@ -124,8 +139,8 @@ describe('Modals: ', () => {
   });
 
   it('ModalSystem should open the Payment notice info as expected', () => {
-    utilsMock.modal.status.isOpen.value = true;
-    utilsMock.modal.status.id.value = 'PAYMENT_NOTICE_MODAL';
+    utils.modal.status.isOpen.value = true;
+    utils.modal.status.id.value = ModalId.PAYMENT_NOTICE_MODAL;
     render(
       <ModalWithRouter>
         <ModalSystem />

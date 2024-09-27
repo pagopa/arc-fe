@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import Login from '.';
-import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
 
 describe('LoginRoute', () => {
   it('renders without crashing', async () => {
@@ -13,7 +13,7 @@ describe('LoginRoute', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText('Accedi')).toBeInTheDocument();
+      expect(screen.getByLabelText('app.login.login')).toBeInTheDocument();
     });
   });
 });

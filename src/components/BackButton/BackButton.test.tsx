@@ -3,19 +3,18 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { useNavigate } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { BackButton } from './index';
-import i18n from 'translations/i18n';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+import { Mock } from 'vitest';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
 describe('BackButton Component', () => {
-  const navigate = jest.fn();
-  (useNavigate as jest.Mock).mockReturnValue(navigate);
+  const navigate = vi.fn();
+  (useNavigate as Mock).mockReturnValue(navigate);
 
   it('renders correctly with the translated text', () => {
     render(<BackButton />);

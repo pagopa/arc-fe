@@ -1,23 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { useTranslation } from 'react-i18next';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import { PaymentNoticeEnum, PaymentNoticeMultipleType } from 'models/PaymentNotice';
 import { PaymentNotice } from './PaymentNotice';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
+
+i18nTestSetup({});
 
 const queryClient = new QueryClient();
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: jest.fn()
-}));
-
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  signal: vi.fn(),
+  effect: vi.fn()
 }));
 
 describe('Detail Component', () => {
@@ -29,12 +26,6 @@ describe('Detail Component', () => {
       </QueryClientProvider>
     );
   };
-
-  beforeEach(() => {
-    (useTranslation as jest.Mock).mockReturnValue({
-      t: (key: string) => key
-    });
-  });
 
   it('renders the single notice data', () => {
     renderWithTheme(<PaymentNotice.Detail paymentNotice={mockNotice} />);

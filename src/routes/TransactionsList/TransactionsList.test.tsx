@@ -2,39 +2,48 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import TransactionsList from '.';
 import '@testing-library/jest-dom';
-import utils from 'utils';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Mock } from 'vitest';
+import loaders from 'utils/loaders';
 
 const queryClient = new QueryClient();
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
 
-  loaders: {
-    getTransactions: jest.fn()
-  },
-  converters: {
-    prepareRowsData: jest.fn()
-  },
-  config: {
+vi.mock('utils/loaders');
+vi.mock('utils/converters');
+
+vi.mock(import('utils/config'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
     checkoutHost: 'test'
-  }
-}));
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+  };
+});
 
-jest.mock('store/GlobalStore', () => ({
-  useStore: jest.fn()
+vi.mock(import('@mui/material'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useMediaQuery: vi.fn()
+  };
+});
+
+vi.mock('store/GlobalStore', () => ({
+  useStore: vi.fn()
 }));
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
 describe('TransactionListRoute', () => {
-  (useMediaQuery as jest.Mock).mockReturnValue(false);
+  beforeEach(() => {
+    vi.mocked(useMediaQuery).mockReturnValue(false);
+  });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
+
   it('renders without crashing', async () => {
     const mockTransactions = {
       transactions: [
@@ -43,7 +52,7 @@ describe('TransactionListRoute', () => {
       ]
     };
 
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (loaders.getTransactions as Mock).mockReturnValue({
       data: mockTransactions,
       isError: false
     });
@@ -53,11 +62,11 @@ describe('TransactionListRoute', () => {
       </QueryClientProvider>
     );
     await waitFor(() => {
-      expect(utils.loaders.getTransactions).toHaveBeenCalled();
+      expect(loaders.getTransactions).toHaveBeenCalled();
     });
   });
   it('renders with error', async () => {
-    (utils.loaders.getTransactions as jest.Mock).mockReturnValue({
+    (loaders.getTransactions as Mock).mockReturnValue({
       data: null,
       isError: true
     });
@@ -67,7 +76,7 @@ describe('TransactionListRoute', () => {
       </QueryClientProvider>
     );
     await waitFor(() => {
-      expect(utils.loaders.getTransactions).toHaveBeenCalled();
+      expect(loaders.getTransactions).toHaveBeenCalled();
     });
   });
 });

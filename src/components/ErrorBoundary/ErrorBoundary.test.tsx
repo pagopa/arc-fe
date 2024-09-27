@@ -9,10 +9,10 @@ const ErrorThrowingComponent = () => {
 };
 
 describe('ErrorBoundary', () => {
-  let errorSpy: jest.SpyInstance;
+  let errorSpy: vi.SpyInstance;
 
   beforeAll(() => {
-    errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterAll(() => {

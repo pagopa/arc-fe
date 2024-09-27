@@ -2,26 +2,24 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionDetails } from './';
-import i18n from 'translations/i18n';
 import '@testing-library/jest-dom';
 import { getReceipt } from 'utils/files';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-jest.mock('utils/files');
+i18nTestSetup({});
 
-void i18n.init({
-  resources: {}
-});
+vi.mock('utils/files');
 
-const mockUseReceiptData = jest.mocked(getReceipt);
+const mockUseReceiptData = vi.mocked(getReceipt);
 
 describe('TransactionDetails component', () => {
   it('should render as expected', () => {
-    mockUseReceiptData.mockImplementation(jest.fn());
+    mockUseReceiptData.mockImplementation(vi.fn());
     render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
   });
 
   it('should truncate transactionId if longer than 20 ', () => {
-    mockUseReceiptData.mockImplementation(jest.fn());
+    mockUseReceiptData.mockImplementation(vi.fn());
 
     render(
       <TransactionDetails

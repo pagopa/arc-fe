@@ -2,12 +2,12 @@ import { sessionClear } from './session';
 
 describe('sessionClear', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should clear sessionStorage and localStorage', () => {
     // Mock the sessionStorage and localStorage
-    const storageSpy = jest.spyOn(Storage.prototype, 'clear');
+    const storageSpy = vi.spyOn(Storage.prototype, 'clear');
 
     sessionClear();
 
@@ -17,7 +17,7 @@ describe('sessionClear', () => {
 
   it('should call the onSuccess callback if provided', () => {
     // Mock the onSuccess callback
-    const onSuccess = jest.fn();
+    const onSuccess = vi.fn();
 
     // Call the function
     sessionClear(onSuccess);

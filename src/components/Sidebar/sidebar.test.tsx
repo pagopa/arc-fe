@@ -4,17 +4,20 @@ import { MemoryRouter } from 'react-router-dom';
 import '../../translations/i18n';
 import React from 'react';
 import Sidebar from './index';
-import i18n from '../../translations/i18n';
-import { ThemeProvider, useMediaQuery } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { theme } from '@pagopa/mui-italia';
 import useCollapseMenu from 'hooks/useCollapseMenu';
+import { Mock } from 'vitest';
+import utils from 'utils';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-const utilsMock = jest.requireMock('utils');
-jest.mock('hooks/useCollapseMenu', () => jest.fn());
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+i18nTestSetup({});
 
-jest.mock('utils', () => ({
-  ...jest.requireActual('utils'),
+vi.mock('utils');
+vi.mock('hooks/useCollapseMenu');
+vi.mock('@mui/material/useMediaQuery');
+vi.mock('./utils', () => ({
   sidemenu: {
     status: {
       isMenuCollapsed: { value: true },
@@ -26,10 +29,6 @@ jest.mock('utils', () => ({
   }
 }));
 
-void i18n.init({
-  resources: {}
-});
-
 const SidebarWithRouter = () => (
   <ThemeProvider theme={theme}>
     <MemoryRouter>
@@ -38,15 +37,13 @@ const SidebarWithRouter = () => (
   </ThemeProvider>
 );
 
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
-
 describe('Sidebar component', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should render as expected', () => {
-    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: false });
+    (useCollapseMenu as Mock).mockReturnValue({ setOverlay: vi.fn(), collapsed: false });
 
     render(<SidebarWithRouter />);
     const hamburgerButton = screen.getByTestId('hamburgerButton');
@@ -54,8 +51,8 @@ describe('Sidebar component', () => {
   });
 
   test('renders with correct menu items when expanded', () => {
-    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
-    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: false });
+    utils.sidemenu.status.isMenuCollapsed.value = false;
+    (useCollapseMenu as Mock).mockReturnValue({ setOverlay: vi.fn(), collapsed: false });
 
     render(<SidebarWithRouter />);
     // Check if menu items are rendered
@@ -64,32 +61,32 @@ describe('Sidebar component', () => {
   });
 
   test('toggles sidebar collapse correctly', () => {
-    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: true });
+    (useCollapseMenu as Mock).mockReturnValue({ setOverlay: vi.fn(), collapsed: true });
 
-    utilsMock.sidemenu.status.isMenuCollapsed.value = true;
+    utils.sidemenu.status.isMenuCollapsed.value = true;
     render(<SidebarWithRouter />);
     expect(screen.queryByText('menu.homepage')).not.toBeTruthy();
   });
 
   it('renders with sidebar expanded on large screen', () => {
-    (useCollapseMenu as jest.Mock).mockReturnValue({ setOverlay: jest.fn(), collapsed: false });
+    (useCollapseMenu as Mock).mockReturnValue({ setOverlay: vi.fn(), collapsed: false });
 
-    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
-    (useMediaQuery as jest.Mock).mockImplementation(() => true);
+    utils.sidemenu.status.isMenuCollapsed.value = false;
+    (useMediaQuery as Mock).mockImplementation(() => true);
     render(<SidebarWithRouter />);
 
     expect(screen.getByLabelText('menu.navigationMenu')).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('renders with sidebar collapsed on small screen', () => {
-    (useCollapseMenu as jest.Mock).mockReturnValue({
-      setOverlay: jest.fn(),
-      changeMenuState: jest.fn(),
+    (useCollapseMenu as Mock).mockReturnValue({
+      setOverlay: vi.fn(),
+      changeMenuState: vi.fn(),
       collapsed: true
     });
 
-    utilsMock.sidemenu.status.isMenuCollapsed.value = true;
-    (useMediaQuery as jest.Mock).mockImplementation(() => false);
+    utils.sidemenu.status.isMenuCollapsed.value = true;
+    (useMediaQuery as Mock).mockImplementation(() => false);
     render(<SidebarWithRouter />);
 
     const hamburgerButton = screen.getByTestId('hamburgerButton');
@@ -98,15 +95,15 @@ describe('Sidebar component', () => {
   });
 
   it('renders close icon and handles click to collapse', () => {
-    (useCollapseMenu as jest.Mock).mockReturnValue({
-      setOverlay: jest.fn(),
+    (useCollapseMenu as Mock).mockReturnValue({
+      setOverlay: vi.fn(),
       overlay: true,
-      changeMenuState: jest.fn(),
+      changeMenuState: vi.fn(),
       collapsed: false
     });
 
-    (useMediaQuery as jest.Mock).mockImplementation(() => false);
-    utilsMock.sidemenu.status.isMenuCollapsed.value = false;
+    (useMediaQuery as Mock).mockImplementation(() => false);
+    utils.sidemenu.status.isMenuCollapsed.value = false;
 
     render(<SidebarWithRouter />);
 
