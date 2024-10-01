@@ -16,11 +16,6 @@ vi.mock('@pagopa/mui-italia', async () => {
   };
 });
 
-vi.mock('@preact/signals-react', () => ({
-  signal: vi.fn(),
-  effect: vi.fn()
-}));
-
 describe('PaymentNotice.Preview Component', () => {
   const renderWithTheme = (ui: React.ReactElement) => {
     const theme = createTheme();

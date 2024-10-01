@@ -38,11 +38,6 @@ vi.mock('./utils', () => {
   };
 });
 
-vi.mock('@preact/signals-react', () => ({
-  signal: vi.fn(),
-  effect: vi.fn()
-}));
-
 describe('api loaders', () => {
   const queryClient = new QueryClient();
   const wrapper = ({ children }: { children: ReactNode }) => (

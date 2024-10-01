@@ -18,10 +18,6 @@ vi.mock(import('@mui/material'), async (importActual) => ({
 vi.mock('utils/loaders');
 vi.mock('utils/converters');
 
-vi.mock(import('@preact/signals-react'), async (importOriginal) => ({
-  ...(await importOriginal())
-}));
-
 vi.mock('./store/PaymentNoticeStore', () => ({
   paymentNoticeState: { removeItem: vi.fn(), state: null }
 }));
