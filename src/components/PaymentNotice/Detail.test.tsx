@@ -12,11 +12,6 @@ i18nTestSetup({});
 
 const queryClient = new QueryClient();
 
-vi.mock('@preact/signals-react', () => ({
-  signal: vi.fn(),
-  effect: vi.fn()
-}));
-
 describe('Detail Component', () => {
   const renderWithTheme = (ui: React.ReactElement) => {
     const theme = createTheme();

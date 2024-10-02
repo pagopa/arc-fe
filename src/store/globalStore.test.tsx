@@ -6,11 +6,6 @@ import { StoreProvider, useStore } from './GlobalStore';
 import { setPaymentNotice } from './PaymentNoticeStore';
 import { setUserInfo } from './UserInfoStore';
 
-vi.mock('@preact/signals-react', () => ({
-  signal: vi.fn(),
-  effect: vi.fn()
-}));
-
 // Mock the external dependencies
 vi.mock('./PaymentNoticeStore', () => ({
   paymentNoticeState: { state: { value: { id: 1, debtorFullName: 'Test notice' } } },

@@ -28,11 +28,6 @@ vi.mock('./utils/config', () => ({
   product: 'Product Name'
 }));
 
-vi.mock('@preact/signals-react', () => ({
-  signal: vi.fn(),
-  effect: vi.fn()
-}));
-
 const WrappedHeader = (props: HeaderProps) => {
   const queryClient = new QueryClient();
   return (

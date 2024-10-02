@@ -7,11 +7,6 @@ import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
 i18nTestSetup({});
 
-vi.mock('@preact/signals-react', () => ({
-  signal: vi.fn(),
-  effect: vi.fn()
-}));
-
 describe('PaymentNotice.Empty Component', () => {
   const renderWithTheme = (ui: React.ReactElement) => {
     const theme = createTheme();
