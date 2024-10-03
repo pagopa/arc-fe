@@ -10,36 +10,28 @@ import { Mock } from 'vitest';
 import { State, StoreContextProps } from 'store/types';
 import loaders from 'utils/loaders';
 import { useMediaQuery } from '@mui/material';
+import utils from 'utils';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 vi.mock(import('@mui/material'), async (importActual) => ({
   ...(await importActual()),
   useMediaQuery: vi.fn()
 }));
+
 vi.mock('utils/loaders');
 vi.mock('utils/converters');
 
 vi.mock('./store/PaymentNoticeStore', () => ({
   paymentNoticeState: { removeItem: vi.fn(), state: null }
 }));
-vi.mock('./utils/converters');
-
-vi.mock(import('utils/storage'), async (importOriginal) => {
-  const mod = await importOriginal();
-  return {
-    ...mod,
-    pullPaymentsOptIn: {
-      get: { value: true },
-      set: vi.fn()
-    }
-  };
-});
 
 describe('PaymentNoticeRoute', () => {
   (useMediaQuery as Mock).mockReturnValue(false);
 
   beforeEach(() => {
     vi.spyOn(GlobalStore, 'useStore').mockReturnValue({
-      state: { paymentNotice: undefined } as State
+      state: { paymentNotice: undefined } as State,
+      setState: vi.fn()
     } as StoreContextProps);
   });
 
@@ -49,16 +41,20 @@ describe('PaymentNoticeRoute', () => {
 
   const WrappedPaymentNotices = () => {
     const queryClient = new QueryClient();
+    const theme = createTheme();
     return (
-      <MemoryRouter>
-        <QueryClientProvider client={queryClient}>
-          <PaymentNotices />
-        </QueryClientProvider>
-      </MemoryRouter>
+      <ThemeProvider theme={theme}>
+        <MemoryRouter>
+          <QueryClientProvider client={queryClient}>
+            <PaymentNotices />
+          </QueryClientProvider>
+        </MemoryRouter>
+      </ThemeProvider>
     );
   };
 
   it('renders without crashing', () => {
+    utils.storage.pullPaymentsOptIn.set();
     const mockQueryResult = {
       data: [
         { id: 1, notice: 'Notice 1' },
@@ -79,6 +75,7 @@ describe('PaymentNoticeRoute', () => {
   });
 
   it('renders without crashing no payment notices', () => {
+    utils.storage.pullPaymentsOptIn.set();
     const mockQueryResult = { data: null };
     const mockNormalizedData = null;
 
@@ -86,7 +83,9 @@ describe('PaymentNoticeRoute', () => {
     (converters.prepareNoticesData as Mock).mockReturnValue(mockNormalizedData);
     render(<WrappedPaymentNotices />);
   });
+
   it('renders without crashing empty notice array', () => {
+    utils.storage.pullPaymentsOptIn.set();
     const mockQueryResult = { data: [] };
     const mockNormalizedData = { paymentNotice: [] };
 
