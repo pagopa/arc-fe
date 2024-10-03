@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Box, Button, Card, CardActions } from '@mui/material';
 import { ErrorOutline } from '@mui/icons-material';
 
+interface ErrorProps {
+  onRetry: () => void;
+}
+
 /**
  * This component is considered private and should not be used directly.
  * Instead, use `PaymentNotice.Error` for rendering the card.
@@ -12,7 +16,7 @@ import { ErrorOutline } from '@mui/icons-material';
  * @component
  * @private
  */
-export const _Error = () => {
+export const _Error = (props: ErrorProps) => {
   const { t } = useTranslation();
   return (
     <Card
@@ -26,6 +30,7 @@ export const _Error = () => {
           <Typography variant="body1">{t('app.paymentNotice.error.description')}</Typography>
           <Box mt={3} width={'100%'}>
             <Button
+              onClick={props.onRetry}
               variant="text"
               aria-label={t('app.paymentNotice.error.button')}
               role="button"

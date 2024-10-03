@@ -41,7 +41,8 @@ export const _Card = (notice: PaymentNoticeType) => {
   const navigate = useNavigate();
   const { setState } = useStore();
 
-  function viewDetail() {
+  function viewDetail(e: React.MouseEvent) {
+    e.stopPropagation();
     setState(STATE.PAYMENT_NOTICE, notice);
     navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}`);
   }
@@ -51,7 +52,7 @@ export const _Card = (notice: PaymentNoticeType) => {
       <Stack
         role="option"
         component="article"
-        onClick={() => viewDetail()}
+        onClick={viewDetail}
         borderRadius={1}
         padding={3}
         gap={3}
@@ -80,7 +81,7 @@ export const _Card = (notice: PaymentNoticeType) => {
               />
             </Stack>
           )}
-          <IconButton aria-label={t('app.paymentNotice.card.detail')} onClick={() => viewDetail()}>
+          <IconButton aria-label={t('app.paymentNotice.card.detail')} onClick={viewDetail}>
             <ArrowForwardIosIcon color="primary" fontSize="small" />
           </IconButton>
         </Stack>
