@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import lang from '../translations/lang';
 import { Footer as MUIFooter } from '@pagopa/mui-italia';
-import utils from 'utils';
 import { ArcRoutes } from 'routes/routes';
+import { useLanguage } from 'hooks/useLanguage';
 
 interface FooterProps {
   loggedUser?: boolean;
@@ -11,7 +11,7 @@ interface FooterProps {
 export const Footer = (props: FooterProps) => {
   const { t } = useTranslation();
   const { loggedUser = true } = props;
-  const { language, changeLanguage } = utils.hooks.useLanguage();
+  const { language, changeLanguage } = useLanguage();
 
   return (
     <MUIFooter

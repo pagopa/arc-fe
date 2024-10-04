@@ -3,20 +3,21 @@ import { Client } from 'models/Client';
 import { useNavigate } from 'react-router-dom';
 import { sessionClear } from './session';
 import { ArcRoutes } from 'routes/routes';
+import { Mock } from 'vitest';
 
-jest.mock('utils', () => ({
+vi.mock('./utils', () => ({
   config: {
     tokenHeaderExcludePaths: ['/path1', '/path2']
   }
 }));
 
-jest.mock('./session', () => ({
-  sessionClear: jest.fn(),
-  refreshToken: jest.fn()
+vi.mock('./session', () => ({
+  sessionClear: vi.fn(),
+  refreshToken: vi.fn()
 }));
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
 describe('setupInterceptors', () => {
@@ -24,24 +25,24 @@ describe('setupInterceptors', () => {
     instance: {
       interceptors: {
         request: {
-          use: jest.fn()
+          use: vi.fn()
         },
         response: {
-          use: jest.fn()
+          use: vi.fn()
         }
       }
     }
   } as unknown as Client;
 
-  const navigate = jest.fn();
+  const navigate = vi.fn();
 
   beforeEach(() => {
     window.localStorage.clear();
-    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    (useNavigate as Mock).mockReturnValue(navigate);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should set up request interceptor', () => {
@@ -54,8 +55,7 @@ describe('setupInterceptors', () => {
     const accessToken = 'token';
     window.localStorage.setItem('accessToken', accessToken);
     setupInterceptors(client, navigate);
-    const requestInterceptor = (client.instance.interceptors.request.use as jest.Mock).mock
-      .calls[0][0];
+    const requestInterceptor = (client.instance.interceptors.request.use as Mock).mock.calls[0][0];
     const result = requestInterceptor(request);
     expect(result.headers['Authorization']).toBe(`Bearer ${accessToken}`);
   });
@@ -63,8 +63,7 @@ describe('setupInterceptors', () => {
   it('should not add Authorization header to request if token is not present', () => {
     const request = { url: '/path3', headers: {} };
     setupInterceptors(client, navigate);
-    const requestInterceptor = (client.instance.interceptors.request.use as jest.Mock).mock
-      .calls[0][0];
+    const requestInterceptor = (client.instance.interceptors.request.use as Mock).mock.calls[0][0];
     const result = requestInterceptor(request);
     expect(result.headers['Authorization']).toBeUndefined();
   });
@@ -76,13 +75,13 @@ describe('setupInterceptors', () => {
 
   it('should call refreshToken and sessionClear on 401 error', () => {
     const error = { response: { status: 401 } };
-    (sessionClear as jest.Mock).mockImplementation((onSuccess) => {
+    (sessionClear as Mock).mockImplementation((onSuccess) => {
       if (onSuccess) {
         onSuccess();
       }
     });
     setupInterceptors(client, navigate);
-    const responseInterceptor = (client.instance.interceptors.response.use as jest.Mock).mock
+    const responseInterceptor = (client.instance.interceptors.response.use as Mock).mock
       .calls[0][1];
     responseInterceptor(error);
     expect(sessionClear).toHaveBeenCalledTimes(1);

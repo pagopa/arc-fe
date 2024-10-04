@@ -4,18 +4,21 @@ import Resources from '.';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import useQueryParams from 'hooks/useQueryParams';
+import { Mock } from 'vitest';
 
 const queryClient = new QueryClient();
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn(),
-  useLocation: jest.fn(),
-  useLoaderData: jest.fn()
+vi.mock(import('react-router-dom'), async (importActual) => ({
+  ...(await importActual()),
+  useNavigate: vi.fn(),
+  useLocation: vi.fn(),
+  useLoaderData: vi.fn()
 }));
-jest.mock('hooks/useQueryParams', () => jest.fn());
+
+vi.mock('hooks/useQueryParams');
 
 describe('UserRoute', () => {
-  (useQueryParams as jest.Mock).mockReturnValue({ resource: 'jest.fn()' });
+  (useQueryParams as Mock).mockReturnValue({ resource: 'vi.fn()' });
 
   beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,7 +28,7 @@ describe('UserRoute', () => {
   afterEach(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (global as any).OneTrust;
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders without crashing', async () => {

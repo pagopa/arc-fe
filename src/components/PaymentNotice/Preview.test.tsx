@@ -3,20 +3,18 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaymentNotice } from './index';
-import i18n from 'translations/i18n';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
+i18nTestSetup({});
+
+vi.mock('@pagopa/mui-italia', async () => {
+  const muiItalia = await vi.importActual('@pagopa/mui-italia');
+  const IllusSharingInfo = vi.fn(() => <div>Illustration</div>);
+  return {
+    ...muiItalia,
+    IllusSharingInfo
+  };
 });
-
-jest.mock('@pagopa/mui-italia', () => ({
-  IllusSharingInfo: jest.fn(() => <div>Illustration</div>)
-}));
-
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
-}));
 
 describe('PaymentNotice.Preview Component', () => {
   const renderWithTheme = (ui: React.ReactElement) => {
@@ -41,12 +39,12 @@ describe('PaymentNotice.Preview Component', () => {
     renderWithTheme(<PaymentNotice.Preview />);
 
     // Simulate a large screen
-    window.matchMedia = jest.fn().mockImplementation((query) => ({
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query.includes('min-width'),
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn()
+      addListener: vi.fn(),
+      removeListener: vi.fn()
     }));
 
     renderWithTheme(<PaymentNotice.Preview />);
@@ -56,12 +54,12 @@ describe('PaymentNotice.Preview Component', () => {
 
   it('does not render the illustration on small screens', () => {
     // Simulate a small screen
-    window.matchMedia = jest.fn().mockImplementation((query) => ({
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: !query.includes('min-width'),
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn()
+      addListener: vi.fn(),
+      removeListener: vi.fn()
     }));
 
     renderWithTheme(<PaymentNotice.Preview />);

@@ -6,16 +6,16 @@ import { BrowserRouter } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import utils from 'utils';
 
-const mockedUsedNavigate = jest.fn();
+const mockedUsedNavigate = vi.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+vi.mock(import('react-router-dom'), async (importActual) => ({
+  ...(await importActual()),
   useNavigate: () => mockedUsedNavigate
 }));
 
-jest.mock('@mui/material', () => ({
-  ...jest.requireActual('@mui/material'),
-  useMediaQuery: jest.fn()
+vi.mock(import('@mui/material'), async (importActual) => ({
+  ...(await importActual()),
+  useMediaQuery: vi.fn()
 }));
 
 const { name, altImg, srcImg } = dummyTransactionsData.all[0].payee;
@@ -24,7 +24,7 @@ const { label } = dummyTransactionsData.all[0].status;
 
 describe('Transaction row table component', () => {
   it('should call a function to perform a router update on click', () => {
-    (useMediaQuery as ReturnType<typeof jest.fn>).mockImplementation(() => false);
+    (useMediaQuery as ReturnType<typeof vi.fn>).mockImplementation(() => false);
     render(
       <BrowserRouter>
         <Transaction
@@ -52,7 +52,7 @@ describe('Transaction row table component', () => {
   });
 
   it('should render without problems', () => {
-    (useMediaQuery as ReturnType<typeof jest.fn>).mockImplementation(() => true);
+    (useMediaQuery as ReturnType<typeof vi.fn>).mockImplementation(() => true);
     render(
       <BrowserRouter>
         <Transaction

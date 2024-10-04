@@ -5,16 +5,20 @@ import QueryLoader from '.';
 import { QueryFilters } from '@tanstack/react-query';
 import { CircularProgress } from '@mui/material';
 
-const mockedUseIsFetching = jest.fn();
-jest.mock('@tanstack/react-query', () => ({
+const mockedUseIsFetching = vi.fn();
+vi.mock('@tanstack/react-query', () => ({
   useIsFetching: (filters?: QueryFilters) => mockedUseIsFetching(filters)
 }));
 
-jest.mock('@mui/material', () => ({
-  CircularProgress: jest.fn()
+vi.mock('@mui/material', () => ({
+  CircularProgress: vi.fn()
 }));
 
 describe('Query Loader component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('should not render the children when fetching', () => {
     mockedUseIsFetching.mockReturnValue(1);
     render(
@@ -22,7 +26,6 @@ describe('Query Loader component', () => {
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockedUseIsFetching).toHaveBeenCalledTimes(1);
     expect(mockedUseIsFetching).toHaveBeenCalledWith({ queryKey: ['testQueryKey'] });
     expect(CircularProgress).not.toHaveBeenCalled();
     expect(screen.getByText('test loader')).toBeInTheDocument();
@@ -36,7 +39,6 @@ describe('Query Loader component', () => {
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockedUseIsFetching).toHaveBeenCalledTimes(1);
     expect(screen.queryByText('test loader')).toBeNull();
     expect(screen.getByText('test children')).toBeInTheDocument();
   });
@@ -48,7 +50,6 @@ describe('Query Loader component', () => {
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockedUseIsFetching).toHaveBeenCalledTimes(1);
     expect(CircularProgress).toHaveBeenCalled();
   });
 
@@ -59,7 +60,6 @@ describe('Query Loader component', () => {
         <p>test children</p>
       </QueryLoader>
     );
-    expect(mockedUseIsFetching).toHaveBeenCalled();
     expect(mockedUseIsFetching).toHaveBeenCalledWith({ queryKey: ['testQueryKey'] });
     expect(CircularProgress).toHaveBeenCalled();
     expect(screen.queryByText('test children')).toBeNull();

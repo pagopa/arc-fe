@@ -158,7 +158,7 @@ describe('return a transactionDetail object', () => {
         transactionId: 'string',
         authCode: 'string',
         rrn: 'string',
-        transactionDate: 'string',
+        transactionDate: new Date().toISOString(),
         pspName: 'string',
         walletInfo: { accountHolder: 'string', brand: 'string', blurredNumber: 'string' },
         paymentMethod: 'BBT',

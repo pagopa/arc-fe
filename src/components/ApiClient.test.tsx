@@ -7,25 +7,25 @@ import '@testing-library/jest-dom';
 import React from 'react';
 
 // Mock dependencies
-jest.mock('utils/interceptors', () => ({
-  setupInterceptors: jest.fn()
+vi.mock('utils/interceptors', () => ({
+  setupInterceptors: vi.fn()
 }));
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn(),
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn(),
   Outlet: () => <div>Outlet Component</div>
 }));
 
 describe('ApiClient Component', () => {
   const mockClient = {} as Client;
-  const navigate = jest.fn();
+  const navigate = vi.fn();
 
   beforeEach(() => {
-    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    (useNavigate as Mock).mockReturnValue(navigate);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders without crashing', () => {

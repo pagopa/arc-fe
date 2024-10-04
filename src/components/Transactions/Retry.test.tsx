@@ -9,9 +9,9 @@ describe('Retry Component', () => {
   });
 
   it('calls action function without crashing', () => {
-    const action = jest.fn();
+    const action = vi.fn();
     render(<Retry action={action} />);
-    const button = screen.getByRole('button', { name: 'Riprova' });
+    const button = screen.getByRole('button', { name: 'app.transactions.error.retry' });
     fireEvent.click(button);
     expect(action).toHaveBeenCalled();
   });

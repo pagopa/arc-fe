@@ -5,7 +5,6 @@ import * as zodSchema from '../../generated/zod-schema';
 import config from './config';
 import converters from './converters';
 import { datetools } from './datetools';
-import hooks from './hooks';
 import loaders from './loaders';
 import modal from './modal';
 import sidemenu from './sidemenu';
@@ -21,7 +20,6 @@ export default {
   checkoutSchema,
   config,
   datetools,
-  hooks,
   loaders,
   modal,
   sidemenu,

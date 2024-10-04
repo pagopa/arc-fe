@@ -6,18 +6,14 @@ import { PaymentNoticeSingleType } from 'models/PaymentNotice';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
 import React, { ReactNode } from 'react';
 import { useUserEmail } from './useUserEmail';
+import { Mock } from 'vitest';
+import converters from 'utils/converters';
+import { AxiosResponse } from 'axios';
 
-jest.mock('utils', () => ({
-  cartsClient: {
-    postCarts: jest.fn()
-  },
-  converters: {
-    singleNoticeToCartsRequest: jest.fn()
-  }
-}));
+vi.mock('utils/converters');
 
-jest.mock('./useUserEmail', () => ({
-  useUserEmail: jest.fn()
+vi.mock('./useUserEmail', () => ({
+  useUserEmail: vi.fn()
 }));
 
 export const createWrapper = () => {
@@ -28,19 +24,19 @@ export const createWrapper = () => {
 };
 
 describe('usePostCarts', () => {
-  const mockOnSuccess = jest.fn();
+  const mockOnSuccess = vi.fn();
   const mockSingleNotice: PaymentNoticeSingleType = mockNotice;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
-  it('should call utils.converters.singleNoticeToCartsRequest and utils.cartsClient.postCarts', async () => {
+  it('should call converters.singleNoticeToCartsRequest and utils.cartsClient.postCarts', async () => {
     const mockData = 'Response with URL=https://redirect.com';
 
-    (utils.converters.singleNoticeToCartsRequest as jest.Mock).mockReturnValue(mockSingleNotice);
-    (utils.cartsClient.postCarts as jest.Mock).mockResolvedValue({ data: mockData });
-    (useUserEmail as jest.Mock).mockResolvedValue('test@test.it');
+    (converters.singleNoticeToCartsRequest as Mock).mockReturnValue(mockSingleNotice);
+    vi.spyOn(utils.cartsClient, 'postCarts').mockResolvedValue({ data: mockData } as AxiosResponse);
+    (useUserEmail as Mock).mockResolvedValue('test@test.it');
 
     const { result } = renderHook(() => usePostCarts({ onSuccess: mockOnSuccess }), {
       wrapper: createWrapper()
@@ -51,7 +47,7 @@ describe('usePostCarts', () => {
     });
     await waitFor(() => !result.current.isIdle);
 
-    expect(utils.converters.singleNoticeToCartsRequest).toHaveBeenCalledWith(mockSingleNotice);
+    expect(converters.singleNoticeToCartsRequest).toHaveBeenCalledWith(mockSingleNotice);
     expect(utils.cartsClient.postCarts).toHaveBeenCalledWith(mockSingleNotice);
     expect(mockOnSuccess).toHaveBeenCalledWith('https://redirect.com');
   });

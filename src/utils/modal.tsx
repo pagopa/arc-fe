@@ -1,6 +1,6 @@
 import { signal } from '@preact/signals-react';
 
-enum ModalId {
+export enum ModalId {
   OPTIN = 'OPTIN',
   ASSISTANCEBACK = 'ASSISTANCEBACK',
   PAYMENT_NOTICE_MODAL = 'PAYMENT_NOTICE_MODAL'

@@ -1,10 +1,11 @@
 import { renderHook, act } from '@testing-library/react';
 import { effect, signal } from '@preact/signals-react';
 import { usePersistentSignal } from './usePersistentSignal';
+import { Mock } from 'vitest';
 
-jest.mock('@preact/signals-react', () => ({
-  effect: jest.fn(),
-  signal: jest.fn()
+vi.mock('@preact/signals-react', () => ({
+  effect: vi.fn(),
+  signal: vi.fn()
 }));
 
 describe('usePersistentSignal', () => {
@@ -13,19 +14,19 @@ describe('usePersistentSignal', () => {
 
   beforeEach(() => {
     mockSignal = { value: undefined };
-    jest.spyOn(window.localStorage.__proto__, 'getItem').mockClear();
-    jest.spyOn(window.localStorage.__proto__, 'setItem').mockClear();
-    jest.spyOn(window.localStorage.__proto__, 'removeItem').mockClear();
+    vi.spyOn(window.localStorage.__proto__, 'getItem').mockClear();
+    vi.spyOn(window.localStorage.__proto__, 'setItem').mockClear();
+    vi.spyOn(window.localStorage.__proto__, 'removeItem').mockClear();
 
-    (signal as jest.Mock).mockImplementation(() => mockSignal);
-    (effect as jest.Mock).mockImplementation((callback) => {
+    (signal as Mock).mockImplementation(() => mockSignal);
+    (effect as Mock).mockImplementation((callback) => {
       mockEffectCleanup = callback();
       return mockEffectCleanup;
     });
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('should initialize with the value from localStorage', () => {
@@ -62,7 +63,7 @@ describe('usePersistentSignal', () => {
 
   it('should throw error and return value if json is invalid', () => {
     const key = 'testKey';
-    const logSpy = jest.spyOn(global.console, 'error');
+    const logSpy = vi.spyOn(global.console, 'error');
 
     localStorage.setItem(key, 'invalid json');
 

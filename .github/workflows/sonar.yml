@@ -1,4 +1,4 @@
-name: 'sonar_scan'
+name: 'coverage'
 on:
   pull_request:
     branches:
@@ -10,13 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
       - name: Install dependencies
         run: yarn
       - name: Generate api client
         run: yarn generate
       - name: Test and coverage
-        run: yarn jest --coverage
+        run: yarn coverage
+      - uses: davelosert/vitest-coverage-report-action@v2 # v2
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

@@ -3,20 +3,9 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaymentNotice } from './index';
-import i18n from 'translations/i18n';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
-});
-
-jest.mock('@preact/signals-react', () => ({
-  signal: jest.fn(),
-  effect: jest.fn()
-}));
-
-jest.mock('@pagopa/mui-italia', () => ({
-  IllusSharingInfo: jest.fn(() => <div>Illustration</div>)
-}));
+i18nTestSetup({});
 
 describe('PaymentNotice.Empty Component', () => {
   const renderWithTheme = (ui: React.ReactElement) => {

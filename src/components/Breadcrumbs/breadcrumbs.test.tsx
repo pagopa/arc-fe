@@ -4,19 +4,21 @@ import Breadcrumbs, { BreadcrumbsProps } from './Breadcrumbs';
 import { useNavigate } from 'react-router-dom';
 import { BreadcrumbPath } from 'models/Breadcrumbs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import '@testing-library/jest-dom';
-import i18n from 'translations/i18n';
+import { Mock } from 'vitest';
+import { useMediaQuery } from '@mui/material';
+import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
-void i18n.init({
-  resources: {}
-});
+i18nTestSetup({});
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn()
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
 }));
 
-jest.mock('@mui/material/useMediaQuery', () => jest.fn());
+vi.mock(import('@mui/material'), async (importOriginal) => ({
+  ...(await importOriginal()),
+  useMediaQuery: vi.fn()
+}));
 
 const renderWithTheme = (component: ReactNode) => {
   const theme = createTheme();
@@ -24,8 +26,8 @@ const renderWithTheme = (component: ReactNode) => {
 };
 
 describe('Breadcrumbs Component', () => {
-  const navigate = jest.fn();
-  (useNavigate as jest.Mock).mockReturnValue(navigate);
+  const navigate = vi.fn();
+  (useNavigate as Mock).mockReturnValue(navigate);
   const separator = <span>/</span>;
 
   const crumbs: BreadcrumbPath = {
@@ -38,21 +40,21 @@ describe('Breadcrumbs Component', () => {
   };
 
   it('renders breadcrumbs correctly', () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true); // mdUp as true
+    (useMediaQuery as Mock).mockReturnValue(true); // mdUp as true
     renderWithTheme(<Breadcrumbs {...defaultProps} />);
     expect(screen.getByText('app.routes.home')).toBeInTheDocument();
     expect(screen.getByText('app.routes.about')).toBeInTheDocument();
   });
 
   it('navigates on breadcrumb click', () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true); // mdUp as true
+    (useMediaQuery as Mock).mockReturnValue(true); // mdUp as true
     renderWithTheme(<Breadcrumbs {...defaultProps} />);
     fireEvent.click(screen.getByText('app.routes.home'));
     expect(navigate).toHaveBeenCalledWith('/home');
   });
 
   it('renders back button on small screens', () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(false); // mdUp as false
+    (useMediaQuery as Mock).mockReturnValue(false); // mdUp as false
     renderWithTheme(<Breadcrumbs {...defaultProps} />);
     expect(screen.getByLabelText('app.routes.back')).toBeInTheDocument();
     fireEvent.click(screen.getByLabelText('app.routes.back'));
@@ -60,7 +62,7 @@ describe('Breadcrumbs Component', () => {
   });
 
   it('renders only the first breadcrumb on small screens', () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(false); // mdUp as false
+    (useMediaQuery as Mock).mockReturnValue(false); // mdUp as false
     renderWithTheme(<Breadcrumbs {...defaultProps} />);
     expect(screen.getByText('app.routes.home')).toBeInTheDocument();
     expect(screen.queryByText('app.routes.about')).not.toBeInTheDocument();
