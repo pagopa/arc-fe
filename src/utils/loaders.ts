@@ -17,7 +17,7 @@ const getNoticesList = (size?: number) =>
     queryKey: ['noticesList'],
     queryFn: async () => {
       const { data: noticesList } = await utils.apiClient.notices.getNoticesList({ size });
-      parseAndLog(zodSchema.noticesListDTOSchema, noticesList, false);
+      parseAndLog(zodSchema.noticesListDTOSchema, noticesList);
       return noticesList;
     }
   });
@@ -37,9 +37,7 @@ const getPaymentNotices = () =>
     queryKey: ['paymentNotices'],
     queryFn: async () => {
       const { data } = await utils.apiClient.paymentNotices.getPaymentNotices({});
-      // not throwing error here because we have a problem with date format
-      // to be fixed
-      parseAndLog(zodSchema.paymentNoticesListDTOSchema, data, false);
+      parseAndLog(zodSchema.paymentNoticesListDTOSchema, data);
       return data;
     }
   });
