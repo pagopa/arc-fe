@@ -48,8 +48,8 @@ describe('DashboardRoute', () => {
   const queryClient = new QueryClient();
   const navigate = vi.fn();
   const setState = vi.fn();
-  const mockTransactions = {
-    transactions: [
+  const mockNoticesList = {
+    notices: [
       { id: '1', payeeName: 'clickable', paidByMe: true, registeredToMe: false },
       { id: '2', paidByMe: false, registeredToMe: true }
     ]
@@ -65,8 +65,8 @@ describe('DashboardRoute', () => {
     vi.mocked(useNavigate).mockReturnValue(navigate);
     converters.prepareRowsData = mockPrepareRowsData;
 
-    vi.mocked(loaders.getTransactions as Mock).mockReturnValue({
-      data: mockTransactions,
+    vi.mocked(loaders.getNoticesList as Mock).mockReturnValue({
+      data: mockNoticesList,
       isError: false
     });
 
@@ -102,7 +102,7 @@ describe('DashboardRoute', () => {
   it('renders without crashing', async () => {
     render(<DashboardWithState />);
     await waitFor(() => {
-      expect(loaders.getTransactions).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toHaveBeenCalled();
     });
   });
 
@@ -115,8 +115,8 @@ describe('DashboardRoute', () => {
   });
 
   it('renders a retry page if there is an error', async () => {
-    (loaders.getTransactions as Mock).mockReturnValueOnce({
-      data: mockTransactions,
+    (loaders.getNoticesList as Mock).mockReturnValueOnce({
+      data: mockNoticesList,
       isError: true
     });
 

@@ -17,7 +17,7 @@ const getNoticesList = (size?: number) =>
     queryKey: ['noticesList'],
     queryFn: async () => {
       const { data: noticesList } = await utils.apiClient.notices.getNoticesList({ size });
-      parseAndLog(zodSchema.noticesListDTOSchema, noticesList);
+      parseAndLog(zodSchema.noticesListDTOSchema, noticesList, false);
       return noticesList;
     }
   });

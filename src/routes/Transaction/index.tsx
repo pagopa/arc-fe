@@ -5,7 +5,7 @@ import QueryLoader from 'components/QueryLoader';
 import { TransactionDetailsSkeleton } from 'components/Skeleton';
 import { TransactionDetails } from 'components/Transactions';
 
-export default function Transaction() {
+export default function Notice() {
   const id = useLoaderData();
   const { data, isError } = utils.loaders.getTransactionDetails(id as string);
   const transactionDetailData = data && utils.converters.prepareTransactionDetailData(data);

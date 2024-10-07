@@ -4,7 +4,7 @@ import Transaction from '.';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider, UseQueryResult } from '@tanstack/react-query';
 import { Mock } from 'vitest';
-import { TransactionsListDTO } from '../../../generated/apiClient';
+import { NoticesListDTO } from '../../../generated/apiClient';
 import loaders from 'utils/loaders';
 
 vi.mock('utils/loaders');
@@ -26,8 +26,8 @@ vi.mock('react-router-dom', () => ({
 describe('TransactionRoute', () => {
   const queryClient = new QueryClient();
 
-  const mockTransactions = {
-    transactions: [
+  const mockNoticesList = {
+    notices: [
       { id: '1', paidByMe: true, registeredToMe: false },
       { id: '2', paidByMe: false, registeredToMe: true }
     ]
@@ -37,13 +37,13 @@ describe('TransactionRoute', () => {
     vi.clearAllMocks();
   });
   it('renders without crashing', async () => {
-    vi.mocked(loaders.getTransactions).mockReturnValue({
-      data: mockTransactions,
+    vi.mocked(loaders.getNoticesList).mockReturnValue({
+      data: mockNoticesList,
       isError: false
-    } as unknown as UseQueryResult<TransactionsListDTO, Error>);
+    } as unknown as UseQueryResult<NoticesListDTO, Error>);
 
     (loaders.getTransactionDetails as Mock).mockReturnValue({
-      data: mockTransactions.transactions[0],
+      data: mockNoticesList.notices[0],
       isError: false
     });
     render(
@@ -57,7 +57,7 @@ describe('TransactionRoute', () => {
   });
 
   it('renders without crashing error', async () => {
-    (loaders.getTransactions as Mock).mockReturnValue({
+    (loaders.getNoticesList as Mock).mockReturnValue({
       data: null,
       isError: true
     });
