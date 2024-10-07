@@ -12,15 +12,13 @@ const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true):
   }
 };
 
-const getTransactions = (size?: number) =>
+const getNoticesList = (size?: number) =>
   useQuery({
-    queryKey: ['transactions'],
+    queryKey: ['noticesList'],
     queryFn: async () => {
-      const { data: transactions } = await utils.apiClient.transactions.getTransactionsList({
-        size
-      });
-      parseAndLog(zodSchema.transactionsListDTOSchema, transactions);
-      return transactions;
+      const { data: noticesList } = await utils.apiClient.notices.getNoticesList({ size });
+      parseAndLog(zodSchema.noticesListDTOSchema, noticesList);
+      return noticesList;
     }
   });
 
@@ -106,7 +104,7 @@ export default {
   getReceiptData,
   getTokenOneidentity,
   getTransactionDetails,
-  getTransactions,
+  getNoticesList,
   getUserInfo,
   getUserInfoOnce
 };
