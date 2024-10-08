@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import TransactionsList from '.';
+import NoticesList from '.';
 import '@testing-library/jest-dom';
 import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -45,38 +45,38 @@ describe('TransactionListRoute', () => {
   });
 
   it('renders without crashing', async () => {
-    const mockTransactions = {
-      transactions: [
+    const mockNoticesList = {
+      notices: [
         { id: '1', paidByMe: true, registeredToMe: false },
         { id: '2', paidByMe: false, registeredToMe: true }
       ]
     };
 
-    (loaders.getTransactions as Mock).mockReturnValue({
-      data: mockTransactions,
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: mockNoticesList,
       isError: false
     });
     render(
       <QueryClientProvider client={queryClient}>
-        <TransactionsList />
+        <NoticesList />
       </QueryClientProvider>
     );
     await waitFor(() => {
-      expect(loaders.getTransactions).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toHaveBeenCalled();
     });
   });
   it('renders with error', async () => {
-    (loaders.getTransactions as Mock).mockReturnValue({
+    (loaders.getNoticesList as Mock).mockReturnValue({
       data: null,
       isError: true
     });
     render(
       <QueryClientProvider client={queryClient}>
-        <TransactionsList />
+        <NoticesList />
       </QueryClientProvider>
     );
     await waitFor(() => {
-      expect(loaders.getTransactions).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toHaveBeenCalled();
     });
   });
 });

@@ -16,18 +16,18 @@ import { useTranslation } from 'react-i18next';
 import { Search } from '@mui/icons-material';
 import { theme } from '@pagopa/mui-italia';
 import QueryLoader from 'components/QueryLoader';
-import { useNormalizedTransactions } from 'hooks/useNormalizedTransactions';
+import { useNormalizedNoticesList } from 'hooks/useNormalizedNoticesList';
 import Empty from 'components/Transactions/Empty';
 import Retry from 'components/Transactions/Retry';
 import { TransactionListSkeleton } from 'components/Skeleton';
 
-export default function TransactionsListPage() {
+export default function NoticesListPage() {
   const { t } = useTranslation();
-  const transactions = useNormalizedTransactions();
+  const noticesList = useNormalizedNoticesList();
 
   const {
     queryResult: { data, error, refetch }
-  } = transactions;
+  } = noticesList;
 
   const MainContent = ({
     all,
@@ -110,13 +110,13 @@ export default function TransactionsListPage() {
       </Grid>
       <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="transactions">
         {(() => {
-          if (error || !data || !data.transactions) return <Retry action={refetch} />;
-          if (data.transactions.length === 0) return <Empty />;
+          if (error || !data || !data.notices) return <Retry action={refetch} />;
+          if (data.notices.length === 0) return <Empty />;
           return (
             <MainContent
-              all={transactions.all}
-              paidByMe={transactions.paidByMe}
-              registeredToMe={transactions.registeredToMe}
+              all={noticesList.all}
+              paidByMe={noticesList.paidByMe}
+              registeredToMe={noticesList.registeredToMe}
             />
           );
         })()}

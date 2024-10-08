@@ -23,6 +23,9 @@ vi.mock('./utils', () => {
   return {
     ...originalModule,
     apiClient: {
+      notices: {
+        getNoticesList: vi.fn()
+      },
       transactions: {
         getTransactionsList: vi.fn(),
         getTransactionDetails: vi.fn(),
@@ -55,15 +58,15 @@ describe('api loaders', () => {
       vi.clearAllMocks();
     });
 
-    it('getTransactions calls API and schema parser correctly', async () => {
+    it('getNoticesList calls API and schema parser correctly', async () => {
       // you can generate a specific field, even if optionale, using .require()
-      const dataMock = createMock(schemas.transactionsListDTOSchema.required());
+      const dataMock = createMock(schemas.noticesListDTOSchema.required());
 
       const apiMock = vi
-        .spyOn(utils.apiClient.transactions, 'getTransactionsList')
+        .spyOn(utils.apiClient.notices, 'getNoticesList')
         .mockResolvedValue({ data: dataMock } as AxiosResponse);
 
-      const { result } = renderHook(() => loaders.getTransactions(), { wrapper });
+      const { result } = renderHook(() => loaders.getNoticesList(), { wrapper });
 
       await waitFor(() => {
         expect(apiMock).toHaveBeenCalled();
