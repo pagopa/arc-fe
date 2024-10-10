@@ -15,11 +15,15 @@ export interface TabsProps {
   ariaLabel?: string;
   /** the zero based index of the initial active Tab */
   initialActiveTab?: number;
+  /** function triggered on tab change event
+   * @param {number} value - the zero based index of the active Tab
+   */
+  onChange?: (value: number) => void;
 }
 
 export const Tabs = (props: TabsProps) => {
   const { activeTab, changeActiveTab } = useTabs(props.initialActiveTab);
-  const { tabs, hideTabs = false, ariaLabel } = props;
+  const { tabs, hideTabs = false, ariaLabel, onChange } = props;
   return tabs.length > 0 ? (
     <>
       <MuiTabs
@@ -29,7 +33,10 @@ export const Tabs = (props: TabsProps) => {
         variant="scrollable"
         scrollButtons="auto"
         value={activeTab}
-        onChange={(_, value: number) => changeActiveTab(value)}>
+        onChange={(_, value: number) => {
+          onChange?.(value);
+          changeActiveTab(value);
+        }}>
         {tabs.map(({ title, disabled }, index) => (
           <Tab
             sx={{ maxWidth: '100vw', flexGrow: '2' }}

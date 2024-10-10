@@ -22,12 +22,39 @@ import Retry from 'components/Transactions/Retry';
 import { TransactionListSkeleton } from 'components/Skeleton';
 
 export default function NoticesListPage() {
+  const [noticeQueryParams, setNoticeQueryParams] = React.useState<{
+    paidByMe?: boolean;
+    registeredToMe?: boolean;
+  }>({});
+  const [activeTab, setActiveTab] = React.useState(0);
+
   const { t } = useTranslation();
-  const noticesList = useNormalizedNoticesList();
+  const noticesList = useNormalizedNoticesList(noticeQueryParams);
 
   const {
     queryResult: { data, error, refetch }
   } = noticesList;
+
+  const onChange = (activeTab: number) => {
+    setActiveTab(activeTab);
+    switch (activeTab) {
+      case 0:
+        setNoticeQueryParams({});
+        break;
+      case 1:
+        setNoticeQueryParams({ paidByMe: true });
+        break;
+      case 2:
+        setNoticeQueryParams({ registeredToMe: true });
+        break;
+      default:
+        setNoticeQueryParams({});
+    }
+  };
+
+  React.useEffect(() => {
+    refetch();
+  }, [activeTab]);
 
   const MainContent = ({
     all,
@@ -41,7 +68,8 @@ export default function NoticesListPage() {
     return (
       <Tabs
         ariaLabel="tabs"
-        initialActiveTab={0}
+        initialActiveTab={activeTab}
+        onChange={onChange}
         tabs={[
           {
             title: t('app.transactions.all'),
@@ -108,7 +136,7 @@ export default function NoticesListPage() {
           </FormControl>
         </Grid>
       </Grid>
-      <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="transactions">
+      <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="noticesList">
         {(() => {
           if (error || !data || !data.notices) return <Retry action={refetch} />;
           if (data.notices.length === 0) return <Empty />;

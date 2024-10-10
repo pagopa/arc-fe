@@ -15,7 +15,7 @@ import { useUserInfo } from 'hooks/useUserInfo';
 
 const Dashboard = () => {
   const { t } = useTranslation();
-  const { data, isError, refetch } = utils.loaders.getNoticesList(5);
+  const { data, isError, refetch } = utils.loaders.getNoticesList({ size: 5 });
   const theme = useTheme();
   const optIn = utils.storage.pullPaymentsOptIn.get();
   const { userInfo } = useUserInfo();
