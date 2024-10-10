@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import NoticesList from '.';
 import '@testing-library/jest-dom';
 import { useMediaQuery } from '@mui/material';
@@ -85,6 +85,72 @@ describe('NoticesListRoute', () => {
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+  });
+
+  it('gives a proper feedback when no data is returned', async () => {
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: []
+      },
+      isError: false,
+      refetch: vi.fn()
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+    expect(screen.getByTestId('paid.notices.empty.title')).toBeInTheDocument();
+  });
+
+  it('filters works properly', async () => {
+    const mockNoticesList = {
+      notices: [{ id: '1' }, { id: '2' }]
+    };
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNoticesList
+      },
+      isError: false,
+      refetch: vi.fn()
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({});
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.paidByMe'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({ paidByMe: true });
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.ownedByMe'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({ registeredToMe: true });
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.all'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({});
     });
   });
 });
