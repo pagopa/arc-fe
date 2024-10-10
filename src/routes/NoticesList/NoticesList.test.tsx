@@ -31,11 +31,12 @@ vi.mock(import('@mui/material'), async (importOriginal) => {
 vi.mock('store/GlobalStore', () => ({
   useStore: vi.fn()
 }));
+
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()
 }));
 
-describe('TransactionListRoute', () => {
+describe('NoticesListRoute', () => {
   beforeEach(() => {
     vi.mocked(useMediaQuery).mockReturnValue(false);
   });
@@ -54,27 +55,34 @@ describe('TransactionListRoute', () => {
 
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: mockNoticesList,
-      isError: false
+      isError: false,
+      refetch: vi.fn()
     });
+
     render(
       <QueryClientProvider client={queryClient}>
         <NoticesList />
       </QueryClientProvider>
     );
+
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
     });
   });
+
   it('renders with error', async () => {
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: null,
-      isError: true
+      isError: true,
+      refetch: vi.fn()
     });
+
     render(
       <QueryClientProvider client={queryClient}>
         <NoticesList />
       </QueryClientProvider>
     );
+
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
     });
