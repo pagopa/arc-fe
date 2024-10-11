@@ -21,12 +21,18 @@ import Empty from 'components/Transactions/Empty';
 import Retry from 'components/Transactions/Retry';
 import { TransactionListSkeleton } from 'components/Skeleton';
 
+enum NoticesTabs {
+  all,
+  paidByMe,
+  registeredToMe
+}
+
 export default function NoticesListPage() {
   const [noticeQueryParams, setNoticeQueryParams] = React.useState<{
     paidByMe?: boolean;
     registeredToMe?: boolean;
   }>({});
-  const [activeTab, setActiveTab] = React.useState(0);
+  const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
 
   const { t } = useTranslation();
   const noticesList = useNormalizedNoticesList(noticeQueryParams);
@@ -35,20 +41,17 @@ export default function NoticesListPage() {
     queryResult: { data, error, refetch }
   } = noticesList;
 
-  const onChange = (activeTab: number) => {
+  const onChange = (activeTab: NoticesTabs) => {
     setActiveTab(activeTab);
     switch (activeTab) {
-      case 0:
+      case NoticesTabs.all:
         setNoticeQueryParams({});
         break;
-      case 1:
+      case NoticesTabs.paidByMe:
         setNoticeQueryParams({ paidByMe: true });
         break;
-      case 2:
+      case NoticesTabs.registeredToMe:
         setNoticeQueryParams({ registeredToMe: true });
-        break;
-      default:
-        setNoticeQueryParams({});
     }
   };
 

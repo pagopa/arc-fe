@@ -12,10 +12,16 @@ const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true):
   }
 };
 
+interface GetNoticesList {
+  /** max number of elements returned, default 10*/
+  size?: number;
+  paidByMe?: boolean;
+  registeredToMe?: boolean;
+}
 /**
  * Retrieve the paged notices list from arc
  */
-const getNoticesList = (query?: { size?: number; paidByMe?: boolean; registeredToMe?: boolean }) =>
+const getNoticesList = (query?: GetNoticesList) =>
   useQuery({
     queryKey: ['noticesList'],
     queryFn: async () => {

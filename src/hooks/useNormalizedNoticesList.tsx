@@ -1,14 +1,15 @@
 import utils from 'utils';
 import { useTranslation } from 'react-i18next';
 
-interface NoticesListParams {
+interface NormalizedNoticesListParams {
   paidByMe?: boolean;
   registeredToMe?: boolean;
 }
 
-export const useNormalizedNoticesList = (params?: NoticesListParams) => {
+export const useNormalizedNoticesList = (params?: NormalizedNoticesListParams) => {
   const { t } = useTranslation();
-  const queryResult = utils.loaders.getNoticesList(params);
+  // size = 100 to be modified when the pagination will be introduced
+  const queryResult = utils.loaders.getNoticesList({ ...params, size: 100 });
   const { data } = queryResult;
 
   const getNoticesList = () =>
