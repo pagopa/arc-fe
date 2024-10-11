@@ -30,7 +30,6 @@ export default function TransactionDetail({
     try {
       await getReceiptApi(transactionId);
     } catch (err) {
-      console.log(err);
       setToastOpen(true);
     }
   };
@@ -66,7 +65,7 @@ export default function TransactionDetail({
           onClose={() => {
             setToastOpen(false);
           }}
-          sx={{ left: 'auto !important', right: '24px !important' }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           open={toastOpen}>
           <Alert severity="error" variant="outlined">
             {t('app.transactionDetail.downloadReceiptError')}
