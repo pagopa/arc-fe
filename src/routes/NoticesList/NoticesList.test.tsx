@@ -129,28 +129,28 @@ describe('NoticesListRoute', () => {
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({});
+      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
     });
 
     fireEvent.click(screen.getByText('app.transactions.paidByMe'));
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ paidByMe: true });
+      expect(loaders.getNoticesList).toBeCalledWith({ paidByMe: true, size: 100 });
     });
 
     fireEvent.click(screen.getByText('app.transactions.ownedByMe'));
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ registeredToMe: true });
+      expect(loaders.getNoticesList).toBeCalledWith({ registeredToMe: true, size: 100 });
     });
 
     fireEvent.click(screen.getByText('app.transactions.all'));
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({});
+      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
     });
   });
 });
