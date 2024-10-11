@@ -1,11 +1,21 @@
 import { Download } from '@mui/icons-material';
-import { Box, Button, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Snackbar,
+  Stack,
+  Typography,
+  useTheme
+} from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import MasterCard from '../../assets/creditcard/mastercard.png';
 import { type TransactionDetail as TransactionDetailType } from '../../models/TransactionDetail';
-import React from 'react';
+import React, { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { getReceipt } from 'utils/files';
+import { getReceipt as getReceiptApi } from 'utils/files';
 
 export default function TransactionDetail({
   transactionData
@@ -14,7 +24,15 @@ export default function TransactionDetail({
 }) {
   const theme = useTheme();
   const { t } = useTranslation();
+  const [toastOpen, setToastOpen] = useState(false);
 
+  const getReceipt = async (transactionId: string) => {
+    try {
+      await getReceiptApi(transactionId);
+    } catch (err) {
+      setToastOpen(true);
+    }
+  };
   return (
     <Grid container>
       <Stack
@@ -42,6 +60,17 @@ export default function TransactionDetail({
       </Stack>
 
       <Stack spacing={2} mt={3} width={'100%'}>
+        <Snackbar
+          autoHideDuration={6000}
+          onClose={() => {
+            setToastOpen(false);
+          }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          open={toastOpen}>
+          <Alert severity="error" variant="outlined">
+            {t('app.transactionDetail.downloadReceiptError')}
+          </Alert>
+        </Snackbar>
         <Grid container>
           <Grid container item xs={12} md={7}>
             <Box

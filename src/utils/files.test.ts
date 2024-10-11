@@ -9,12 +9,11 @@ vi.mock('utils/loaders');
 describe('files', () => {
   it('should give a console warning if no link is present', async () => {
     const mockTransactionReceipt = utils.loaders.getReceiptData as Mock;
-    mockTransactionReceipt.mockResolvedValue(null);
-    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    getReceipt('1');
+    global.URL.createObjectURL = vitest.fn();
 
+    mockTransactionReceipt.mockResolvedValue(null);
     await waitFor(() => {
-      expect(consoleWarn).toHaveBeenCalled();
+      expect(getReceipt('1')).rejects.toThrowError('receipt');
     });
   });
 });

@@ -137,6 +137,7 @@
         "title": "Informazioni sulla transazione"
       },
       "downloadReceipt": "Scarica ricevuta",
+      "downloadReceiptError":"Non è stato possibile recuperare la ricevuta.",
       "downloadQuiettance": "Scarica quietanza",
       "createdOn": "Creato il",
       "paidBy": "Eseguito da",
