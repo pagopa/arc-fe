@@ -12,11 +12,24 @@ const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true):
   }
 };
 
-const getNoticesList = (size?: number) =>
+interface GetNoticesList {
+  /** max number of elements returned, default 10*/
+  size?: number;
+  paidByMe?: boolean;
+  registeredToMe?: boolean;
+}
+/**
+ * Retrieve the paged notices list from arc
+ */
+const getNoticesList = (query?: GetNoticesList) =>
   useQuery({
     queryKey: ['noticesList'],
     queryFn: async () => {
-      const { data: noticesList } = await utils.apiClient.notices.getNoticesList({ size });
+      const { data: noticesList } = await utils.apiClient.notices.getNoticesList({
+        size: query?.size,
+        paidByMe: query?.paidByMe,
+        registeredToMe: query?.registeredToMe
+      });
       parseAndLog(zodSchema.noticesListDTOSchema, noticesList);
       return noticesList;
     }
@@ -37,7 +50,7 @@ const getPaymentNotices = () =>
     queryKey: ['paymentNotices'],
     queryFn: async () => {
       const { data } = await utils.apiClient.paymentNotices.getPaymentNotices({});
-      parseAndLog(zodSchema.paymentNoticesListDTOSchema, data);
+      parseAndLog(zodSchema.paymentNoticesListDTOSchema, data, false);
       return data;
     }
   });

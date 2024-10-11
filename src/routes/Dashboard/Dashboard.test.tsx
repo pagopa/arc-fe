@@ -6,7 +6,6 @@ import { useStore } from 'store/GlobalStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from 'hooks/useUserInfo';
-import converters from 'utils/converters';
 import loaders from 'utils/loaders';
 import storage from 'utils/storage';
 import { Mock } from 'vitest';
@@ -28,7 +27,6 @@ i18nTestSetup({
   }
 });
 
-vi.mock('utils/converters');
 vi.mock('utils/loaders');
 
 vi.mock('store/GlobalStore', () => ({
@@ -55,15 +53,8 @@ describe('DashboardRoute', () => {
     ]
   };
 
-  const preparedData = [
-    { id: '1', payee: { name: 'clickable', srcImg: '', altImg: '' }, action: vi.fn() }
-  ];
-
-  const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
-
   beforeAll(() => {
     vi.mocked(useNavigate).mockReturnValue(navigate);
-    converters.prepareRowsData = mockPrepareRowsData;
 
     vi.mocked(loaders.getNoticesList as Mock).mockReturnValue({
       data: mockNoticesList,
@@ -122,6 +113,16 @@ describe('DashboardRoute', () => {
 
     render(<DashboardWithState />);
     expect(screen.getByTestId('ErrorOutlineIcon')).toBeInTheDocument();
+  });
+
+  it('renders a feedback message when no paid notices are avaible', async () => {
+    (loaders.getNoticesList as Mock).mockReturnValueOnce({
+      data: { notices: [] },
+      isError: false
+    });
+
+    render(<DashboardWithState />);
+    expect(screen.getByTestId('paid.notices.empty.title')).toBeInTheDocument();
   });
 
   it('shows the payment notice when opt-in is not set', async () => {

@@ -8,7 +8,7 @@ const Empty = () => {
   return (
     <Paper sx={{ padding: 4 }}>
       <Stack alignItems="center" spacing={3}>
-        <Typography variant="body2" fontWeight={600}>
+        <Typography variant="body2" fontWeight={600} data-testid="paid.notices.empty.title">
           {t('app.transactions.empty.title')}
         </Typography>
         <Typography variant="body2">{t('app.transactions.empty.subtitle')}</Typography>

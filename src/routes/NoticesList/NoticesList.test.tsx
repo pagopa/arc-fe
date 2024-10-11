@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import NoticesList from '.';
 import '@testing-library/jest-dom';
 import { useMediaQuery } from '@mui/material';
@@ -31,11 +31,12 @@ vi.mock(import('@mui/material'), async (importOriginal) => {
 vi.mock('store/GlobalStore', () => ({
   useStore: vi.fn()
 }));
+
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()
 }));
 
-describe('TransactionListRoute', () => {
+describe('NoticesListRoute', () => {
   beforeEach(() => {
     vi.mocked(useMediaQuery).mockReturnValue(false);
   });
@@ -54,29 +55,102 @@ describe('TransactionListRoute', () => {
 
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: mockNoticesList,
-      isError: false
+      isError: false,
+      refetch: vi.fn()
     });
+
     render(
       <QueryClientProvider client={queryClient}>
         <NoticesList />
       </QueryClientProvider>
     );
+
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
     });
   });
+
   it('renders with error', async () => {
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: null,
-      isError: true
+      isError: true,
+      refetch: vi.fn()
     });
+
     render(
       <QueryClientProvider client={queryClient}>
         <NoticesList />
       </QueryClientProvider>
     );
+
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+  });
+
+  it('gives a proper feedback when no data is returned', async () => {
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: []
+      },
+      isError: false,
+      refetch: vi.fn()
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+    expect(screen.getByTestId('paid.notices.empty.title')).toBeInTheDocument();
+  });
+
+  it('filters works properly', async () => {
+    const mockNoticesList = {
+      notices: [{ id: '1' }, { id: '2' }]
+    };
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNoticesList
+      },
+      isError: false,
+      refetch: vi.fn()
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.paidByMe'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({ paidByMe: true, size: 100 });
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.ownedByMe'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({ registeredToMe: true, size: 100 });
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.all'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
     });
   });
 });
