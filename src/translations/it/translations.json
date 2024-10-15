@@ -231,5 +231,22 @@
       "231": "Modello 231",
       "followUs": "Seguici su"
     }
+  },
+  "courtesyPage": {
+    "default": {
+      "title": "La pagina che stai cercando non esiste",
+      "body": "Puoi tornare in homepage o visitare una nuova pagina",
+      "cta": "Torna in home"
+    },
+    "401": {
+      "title": "La tua sessione è scaduta",
+      "body": "Per tornare a visualizzare il sito è necessario fare nuovamente login",
+      "cta": "Login"
+    },
+    "403": {
+      "title": "La tua utenza non è autorizzata a visionare questo sito",
+      "body": "Se credi che questo non sia corretto apri una segnalazione",
+      "cta": "Scrivi ad assistenza"
+    }
   }
 }
