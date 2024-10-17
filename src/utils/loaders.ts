@@ -3,6 +3,7 @@ import { STATE } from 'store/types';
 import utils from 'utils';
 import { ZodSchema } from 'zod';
 import * as zodSchema from '../../generated/zod-schema';
+import { AxiosError } from 'axios';
 
 const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true): void | never => {
   const result = schema.safeParse(data);
@@ -105,8 +106,9 @@ export const getTokenOneidentity = async (request: Request) => {
     );
     parseAndLog(zodSchema.tokenResponseSchema, TokenResponse);
     return TokenResponse;
-  } catch {
-    return null;
+  } catch (error) {
+    const code = (error as AxiosError<{ status: number }>).response?.status;
+    return code;
   }
 };
 
