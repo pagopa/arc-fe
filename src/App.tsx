@@ -60,7 +60,13 @@ const router = createBrowserRouter([
       {
         path: ArcRoutes.AUTH_CALLBACK,
         element: <AuthCallback />,
-        loader: ({ request }) => getTokenOneidentity(request)
+        loader: ({ request }) => {
+          try {
+            return getTokenOneidentity(request);
+          } catch {
+            return null;
+          }
+        }
       },
       {
         path: `${utils.config.deployPath}/`,
