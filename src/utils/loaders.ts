@@ -108,7 +108,7 @@ export const getTokenOneidentity = async (request: Request) => {
     return TokenResponse;
   } catch (error) {
     const code = (error as AxiosError<{ status: number }>).response?.status;
-    return code;
+    return code || null;
   }
 };
 
