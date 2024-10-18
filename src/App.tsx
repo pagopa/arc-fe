@@ -8,7 +8,7 @@ import DashboardRoute from './routes/Dashboard';
 import { theme } from '@pagopa/mui-italia';
 import UserRoute from 'routes/User';
 import { RouteHandleObject } from 'models/Breadcrumbs';
-import TransactionsList from 'routes/TransactionsList';
+import NoticesList from 'routes/NoticesList';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 import { ErrorFallback } from 'components/ErrorFallback';
 import { HealthCheck } from 'components/HealthCheck';
@@ -129,7 +129,7 @@ const router = createBrowserRouter([
           },
           {
             path: ArcRoutes.TRANSACTIONS,
-            element: <TransactionsList />,
+            element: <NoticesList />,
             // TEMPORARY ERROR ELEMENT
             errorElement: <ErrorFallback />
           },

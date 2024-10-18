@@ -8,7 +8,7 @@ jobs:
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
         with:
           fetch-depth: 0
       - name: Install dependencies
@@ -17,7 +17,7 @@ jobs:
         run: yarn generate
       - name: Test and coverage
         run: yarn coverage
-      - uses: davelosert/vitest-coverage-report-action@v2 # v2
+      - uses: davelosert/vitest-coverage-report-action@7727b0282e61c3cffa400550cf2ae57c2b16167d # v2
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

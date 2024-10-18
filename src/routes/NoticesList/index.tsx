@@ -16,18 +16,48 @@ import { useTranslation } from 'react-i18next';
 import { Search } from '@mui/icons-material';
 import { theme } from '@pagopa/mui-italia';
 import QueryLoader from 'components/QueryLoader';
-import { useNormalizedTransactions } from 'hooks/useNormalizedTransactions';
+import { useNormalizedNoticesList } from 'hooks/useNormalizedNoticesList';
 import Empty from 'components/Transactions/Empty';
 import Retry from 'components/Transactions/Retry';
 import { TransactionListSkeleton } from 'components/Skeleton';
 
-export default function TransactionsListPage() {
+enum NoticesTabs {
+  all,
+  paidByMe,
+  registeredToMe
+}
+
+export default function NoticesListPage() {
+  const [noticeQueryParams, setNoticeQueryParams] = React.useState<{
+    paidByMe?: boolean;
+    registeredToMe?: boolean;
+  }>({});
+  const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
+
   const { t } = useTranslation();
-  const transactions = useNormalizedTransactions();
+  const noticesList = useNormalizedNoticesList(noticeQueryParams);
 
   const {
     queryResult: { data, error, refetch }
-  } = transactions;
+  } = noticesList;
+
+  const onChange = (activeTab: NoticesTabs) => {
+    setActiveTab(activeTab);
+    switch (activeTab) {
+      case NoticesTabs.all:
+        setNoticeQueryParams({});
+        break;
+      case NoticesTabs.paidByMe:
+        setNoticeQueryParams({ paidByMe: true });
+        break;
+      case NoticesTabs.registeredToMe:
+        setNoticeQueryParams({ registeredToMe: true });
+    }
+  };
+
+  React.useEffect(() => {
+    refetch();
+  }, [activeTab]);
 
   const MainContent = ({
     all,
@@ -41,7 +71,8 @@ export default function TransactionsListPage() {
     return (
       <Tabs
         ariaLabel="tabs"
-        initialActiveTab={0}
+        initialActiveTab={activeTab}
+        onChange={onChange}
         tabs={[
           {
             title: t('app.transactions.all'),
@@ -108,15 +139,15 @@ export default function TransactionsListPage() {
           </FormControl>
         </Grid>
       </Grid>
-      <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="transactions">
+      <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="noticesList">
         {(() => {
-          if (error || !data || !data.transactions) return <Retry action={refetch} />;
-          if (data.transactions.length === 0) return <Empty />;
+          if (error || !data || !data.notices) return <Retry action={refetch} />;
+          if (data.notices.length === 0) return <Empty />;
           return (
             <MainContent
-              all={transactions.all}
-              paidByMe={transactions.paidByMe}
-              registeredToMe={transactions.registeredToMe}
+              all={noticesList.all}
+              paidByMe={noticesList.paidByMe}
+              registeredToMe={noticesList.registeredToMe}
             />
           );
         })()}

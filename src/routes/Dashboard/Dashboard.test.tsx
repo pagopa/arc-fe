@@ -6,7 +6,6 @@ import { useStore } from 'store/GlobalStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from 'hooks/useUserInfo';
-import converters from 'utils/converters';
 import loaders from 'utils/loaders';
 import storage from 'utils/storage';
 import { Mock } from 'vitest';
@@ -28,7 +27,6 @@ i18nTestSetup({
   }
 });
 
-vi.mock('utils/converters');
 vi.mock('utils/loaders');
 
 vi.mock('store/GlobalStore', () => ({
@@ -48,25 +46,18 @@ describe('DashboardRoute', () => {
   const queryClient = new QueryClient();
   const navigate = vi.fn();
   const setState = vi.fn();
-  const mockTransactions = {
-    transactions: [
+  const mockNoticesList = {
+    notices: [
       { id: '1', payeeName: 'clickable', paidByMe: true, registeredToMe: false },
       { id: '2', paidByMe: false, registeredToMe: true }
     ]
   };
 
-  const preparedData = [
-    { id: '1', payee: { name: 'clickable', srcImg: '', altImg: '' }, action: vi.fn() }
-  ];
-
-  const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
-
   beforeAll(() => {
     vi.mocked(useNavigate).mockReturnValue(navigate);
-    converters.prepareRowsData = mockPrepareRowsData;
 
-    vi.mocked(loaders.getTransactions as Mock).mockReturnValue({
-      data: mockTransactions,
+    vi.mocked(loaders.getNoticesList as Mock).mockReturnValue({
+      data: mockNoticesList,
       isError: false
     });
 
@@ -102,7 +93,7 @@ describe('DashboardRoute', () => {
   it('renders without crashing', async () => {
     render(<DashboardWithState />);
     await waitFor(() => {
-      expect(loaders.getTransactions).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toHaveBeenCalled();
     });
   });
 
@@ -115,13 +106,23 @@ describe('DashboardRoute', () => {
   });
 
   it('renders a retry page if there is an error', async () => {
-    (loaders.getTransactions as Mock).mockReturnValueOnce({
-      data: mockTransactions,
+    (loaders.getNoticesList as Mock).mockReturnValueOnce({
+      data: mockNoticesList,
       isError: true
     });
 
     render(<DashboardWithState />);
     expect(screen.getByTestId('ErrorOutlineIcon')).toBeInTheDocument();
+  });
+
+  it('renders a feedback message when no paid notices are avaible', async () => {
+    (loaders.getNoticesList as Mock).mockReturnValueOnce({
+      data: { notices: [] },
+      isError: false
+    });
+
+    render(<DashboardWithState />);
+    expect(screen.getByTestId('paid.notices.empty.title')).toBeInTheDocument();
   });
 
   it('shows the payment notice when opt-in is not set', async () => {

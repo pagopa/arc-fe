@@ -15,7 +15,7 @@ import { useUserInfo } from 'hooks/useUserInfo';
 
 const Dashboard = () => {
   const { t } = useTranslation();
-  const { data, isError, refetch } = utils.loaders.getTransactions(5);
+  const { data, isError, refetch } = utils.loaders.getNoticesList({ size: 5 });
   const theme = useTheme();
   const optIn = utils.storage.pullPaymentsOptIn.get();
   const { userInfo } = useUserInfo();
@@ -23,7 +23,7 @@ const Dashboard = () => {
   const rows =
     data &&
     utils.converters.prepareRowsData({
-      transactions: data.transactions,
+      notices: data.notices,
       status: { label: t('app.transactions.paid') },
       payee: { multi: t('app.transactions.multiEntities') }
     });
@@ -80,7 +80,7 @@ const Dashboard = () => {
         padding={{ xs: 3, md: 2 }}
         margin={{ xs: -3, md: 0 }}
         marginTop={{ xs: 0, sm: 1 }}>
-        <QueryLoader queryKey="transactions" loaderComponent={<TransactionListSkeleton />}>
+        <QueryLoader queryKey="noticesList" loaderComponent={<TransactionListSkeleton />}>
           <Content />
         </QueryLoader>
       </Box>

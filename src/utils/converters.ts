@@ -4,7 +4,7 @@ import {
   PaymentNoticesListDTO,
   PaymentOptionDTO,
   TransactionDetailsDTO,
-  TransactionsListDTO
+  NoticesListDTO
 } from '../../generated/apiClient';
 import { TransactionDetail } from 'models/TransactionDetail';
 import { DateFormat, datetools } from './datetools';
@@ -46,7 +46,7 @@ const formatDateOrMissingValue = withMissingValue(datetools.formatDate);
 const propertyOrMissingValue = withMissingValue((property: string) => property);
 
 interface PrepareRowsData {
-  transactions: TransactionsListDTO['transactions'];
+  notices: NoticesListDTO['notices'];
   status: {
     label: string;
     color?: string;
@@ -62,10 +62,10 @@ interface PrepareRowsData {
 /** This function transforms Transaction[] list returned by transaction service into transactionProps[] item */
 const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
   return (
-    data.transactions?.map((element) => ({
-      date: formatDateOrMissingValue(element.transactionDate),
+    data.notices?.map((element) => ({
+      date: formatDateOrMissingValue(element.noticeDate),
       amount: toEuroOrMissingValue(element.amount),
-      id: propertyOrMissingValue(element.transactionId),
+      id: propertyOrMissingValue(element.eventId),
       payee: {
         name: element.payeeName || data.payee.multi,
         srcImg: element.payeeTaxCode && fromTaxCodeToSrcImage(element.payeeTaxCode),

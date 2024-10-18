@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { TransactionProps } from 'components/Transactions/Transaction';
 import { mockConvertedNotice, mockPaymentNotices } from 'stories/utils/PaymentNoticeMocks';
 import utils from '.';
-import { TransactionDTO, TransactionDetailsDTO } from '../../generated/apiClient';
+import { NoticeDTO, TransactionDetailsDTO } from '../../generated/apiClient';
 
 describe('toEuro function', () => {
   it('should format correctly', () => {
@@ -34,7 +34,7 @@ describe('toEuro function', () => {
 
 describe('prepareRowsData function', () => {
   it('should covert correctly from a Transaction[] shape to the euro symbol', () => {
-    const transactions: TransactionDTO[] = [
+    const notices: NoticeDTO[] = [
       {
         amount: 18000,
         isCart: true,
@@ -42,22 +42,26 @@ describe('prepareRowsData function', () => {
         payeeName: 'Comune di Milano',
         payeeTaxCode: 'MI_XXX',
         registeredToMe: true,
-        transactionDate: '2024-03-27T15:52:15Z',
-        transactionId: '1'
+        noticeDate: '2024-03-27T15:52:15Z',
+        eventId: '1'
       },
       {
         amount: 6520,
         isCart: true,
         paidByMe: true,
         registeredToMe: true,
-        transactionDate: '2022-08-10T15:52:15Z',
-        transactionId: '2'
+        noticeDate: '2022-08-10T15:52:15Z',
+        eventId: '2',
+        payeeTaxCode: 'MI_XXX'
       },
       {
+        amount: 8650,
         isCart: true,
         paidByMe: true,
         registeredToMe: true,
-        transactionDate: '2022-08-10T15:52:15Z'
+        noticeDate: '2022-08-10T15:52:15Z',
+        eventId: '3',
+        payeeTaxCode: 'MI_XXX'
       }
     ];
 
@@ -82,6 +86,7 @@ describe('prepareRowsData function', () => {
         id: '2',
         payee: {
           name: 'Multi',
+          srcImg: 'https://assets.cdn.io.italia.it/logos/organizations/MI_XXX.png',
           altImg: 'Logo Ente'
         },
         status: {
@@ -91,10 +96,11 @@ describe('prepareRowsData function', () => {
       },
       {
         date: '08/10/2022',
-        amount: utils.config.missingValue,
-        id: utils.config.missingValue,
+        amount: '86,50\xa0€',
+        id: '3',
         payee: {
           name: 'Multi',
+          srcImg: 'https://assets.cdn.io.italia.it/logos/organizations/MI_XXX.png',
           altImg: 'Logo Ente'
         },
         status: {
@@ -106,7 +112,7 @@ describe('prepareRowsData function', () => {
     expect(
       JSON.stringify(
         utils.converters.prepareRowsData({
-          transactions,
+          notices,
           status: { label: 'Pagato' },
           payee: { multi: 'Multi' }
         })
@@ -118,7 +124,7 @@ describe('prepareRowsData function', () => {
     expect(
       JSON.stringify(
         utils.converters.prepareRowsData({
-          transactions: undefined,
+          notices: undefined,
           status: { label: 'Pagato' },
           payee: { multi: 'Multi' }
         })
@@ -127,7 +133,7 @@ describe('prepareRowsData function', () => {
   });
 
   it('should return the correct png when given a tax code with leading zeroes', () => {
-    const transactions: TransactionDTO[] = [
+    const notices: NoticeDTO[] = [
       {
         amount: 18000,
         isCart: true,
@@ -135,12 +141,12 @@ describe('prepareRowsData function', () => {
         payeeName: 'Comune di Milano',
         payeeTaxCode: '00493410583',
         registeredToMe: true,
-        transactionDate: '2024-03-27T15:52:15Z',
-        transactionId: '1'
+        noticeDate: '2024-03-27T15:52:15Z',
+        eventId: '1'
       }
     ];
     const result = utils.converters.prepareRowsData({
-      transactions,
+      notices,
       status: { label: 'Pagato' },
       payee: { multi: 'Multi' }
     });

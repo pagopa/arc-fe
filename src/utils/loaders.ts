@@ -3,6 +3,7 @@ import { STATE } from 'store/types';
 import utils from 'utils';
 import { ZodSchema } from 'zod';
 import * as zodSchema from '../../generated/zod-schema';
+import { AxiosError } from 'axios';
 
 const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true): void | never => {
   const result = schema.safeParse(data);
@@ -12,15 +13,26 @@ const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true):
   }
 };
 
-const getTransactions = (size?: number) =>
+interface GetNoticesList {
+  /** max number of elements returned, default 10*/
+  size?: number;
+  paidByMe?: boolean;
+  registeredToMe?: boolean;
+}
+/**
+ * Retrieve the paged notices list from arc
+ */
+const getNoticesList = (query?: GetNoticesList) =>
   useQuery({
-    queryKey: ['transactions'],
+    queryKey: ['noticesList'],
     queryFn: async () => {
-      const { data: transactions } = await utils.apiClient.transactions.getTransactionsList({
-        size
+      const { data: noticesList } = await utils.apiClient.notices.getNoticesList({
+        size: query?.size,
+        paidByMe: query?.paidByMe,
+        registeredToMe: query?.registeredToMe
       });
-      parseAndLog(zodSchema.transactionsListDTOSchema, transactions);
-      return transactions;
+      parseAndLog(zodSchema.noticesListDTOSchema, noticesList);
+      return noticesList;
     }
   });
 
@@ -39,8 +51,6 @@ const getPaymentNotices = () =>
     queryKey: ['paymentNotices'],
     queryFn: async () => {
       const { data } = await utils.apiClient.paymentNotices.getPaymentNotices({});
-      // not throwing error here because we have a problem with date format
-      // to be fixed
       parseAndLog(zodSchema.paymentNoticesListDTOSchema, data, false);
       return data;
     }
@@ -96,8 +106,9 @@ export const getTokenOneidentity = async (request: Request) => {
     );
     parseAndLog(zodSchema.tokenResponseSchema, TokenResponse);
     return TokenResponse;
-  } catch {
-    return null;
+  } catch (error) {
+    const code = (error as AxiosError<{ status: number }>).response?.status;
+    return code;
   }
 };
 
@@ -106,7 +117,7 @@ export default {
   getReceiptData,
   getTokenOneidentity,
   getTransactionDetails,
-  getTransactions,
+  getNoticesList,
   getUserInfo,
   getUserInfoOnce
 };

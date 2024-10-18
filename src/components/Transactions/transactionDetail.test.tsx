@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionDetails } from './';
 import '@testing-library/jest-dom';
@@ -16,6 +16,17 @@ describe('TransactionDetails component', () => {
   it('should render as expected', () => {
     mockUseReceiptData.mockImplementation(vi.fn());
     render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
+  });
+
+  it('should show a toast if an error occurs while fetching the receipt', async () => {
+    mockUseReceiptData.mockImplementation(() => {
+      throw new Error();
+    });
+    render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
+    fireEvent.click(screen.getByTestId('receipt-download-btn'));
+    await waitFor(() =>
+      expect(screen.queryByText('app.transactionDetail.downloadReceiptError')).toBeInTheDocument()
+    );
   });
 
   it('should truncate transactionId if longer than 20 ', () => {
