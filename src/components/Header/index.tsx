@@ -69,7 +69,7 @@ export const Header = (props: HeaderProps) => {
     productUrl: '#no-title',
     linkType: 'external',
     icon: (
-      <Link href={ArcRoutes.DASHBOARD} target="_blank">
+      <Link href={ArcRoutes.DASHBOARD} target="_self">
         <LogoPagoPAProduct color="default" title="PagoPA" />
       </Link>
     )
