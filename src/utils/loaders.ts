@@ -57,7 +57,7 @@ const getPaymentNotices = () =>
   });
 
 export const getReceiptData = async (transactionId: string) => {
-  const { data } = await utils.apiClient.transactions.getTransactionReceipt(transactionId, {
+  const { data } = await utils.apiClient.notices.getNoticeReceipt(transactionId, {
     format: 'blob'
   });
 

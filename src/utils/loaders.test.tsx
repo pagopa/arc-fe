@@ -24,12 +24,12 @@ vi.mock('./utils', () => {
     ...originalModule,
     apiClient: {
       notices: {
-        getNoticesList: vi.fn()
+        getNoticesList: vi.fn(),
+        getNoticeReceipt: vi.fn()
       },
       transactions: {
         getTransactionsList: vi.fn(),
-        getTransactionDetails: vi.fn(),
-        getTransactionReceipt: vi.fn()
+        getTransactionDetails: vi.fn()
       },
       auth: {
         getUserInfo: vi.fn()
@@ -101,7 +101,7 @@ describe('api loaders', () => {
       const transactionId = '1';
 
       const apiMock = vi
-        .spyOn(utils.apiClient.transactions, 'getTransactionReceipt')
+        .spyOn(utils.apiClient.notices, 'getNoticeReceipt')
         .mockResolvedValue({ data: null } as AxiosResponse);
 
       renderHook(() => loaders.getReceiptData(transactionId), { wrapper });
