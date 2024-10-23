@@ -7,7 +7,7 @@
     },
     "user": {
       "title": "I tuoi dati",
-      "subtitle": "Questi dati vengono ricavati dal tuo SPID o CIE e non sono modificabili.",
+      "subtitle": "Questi dati vengono ricavati dal tuo SPID o CIE. Per modificarli, rivolgiti al tuo fornitore di identità digitale.",
       "info": {
         "name": "Nome",
         "surname": "Cognome",
