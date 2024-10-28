@@ -43,3 +43,8 @@ test_reports/
 *storybook.log
 storybook-static/
 storybook-static-develop/
+
+### Terraform ###
+**/.terraform/*
+*.tfstate
+*.tfstate.*
