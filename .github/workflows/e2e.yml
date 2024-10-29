@@ -10,18 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo ENVIRONMENT
-        run: echo 'Environment is $env.ENVIRONMENT'
+        run: echo "Environment is $ENVIRONMENT"
 
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.14.0'
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '18.14.0'
       
-      - name: Install dependecies
-        run: yarn install
+      # - name: Install dependecies
+      #   run: yarn install
 
-      - name: run the FE
-        run: yarn start
+      # - name: run the FE
+      #   run: yarn start
