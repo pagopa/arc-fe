@@ -31,9 +31,11 @@ runs:
  using: 'composite'
  steps:
   - name: Make the script file executable
+    shell: bash
     run: chmod +x env.sh
 
   - name: populate envs
+    shell: bash
     run: env -i \
       ARC_FE_APIHOST=${{ inputs.api_host }} \
       ARC_FE_ENV=${{ inputs.env }} \
@@ -46,4 +48,5 @@ runs:
       ARC_FE_VERSION=${{ inputs.version }}
 
   - name: execute sh script
+    shell: bash
     run: bash env.sh
