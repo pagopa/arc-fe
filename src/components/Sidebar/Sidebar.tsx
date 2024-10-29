@@ -50,7 +50,7 @@ export const Sidebar: React.FC = () => {
       route: ArcRoutes.PAYMENT_NOTICES
     },
     {
-      label: t('menu.receipts'),
+      label: t('menu.receipts.menuTitle'),
       icon: ReceiptLongIcon,
       route: ArcRoutes.TRANSACTIONS
     }

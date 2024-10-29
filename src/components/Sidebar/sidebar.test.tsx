@@ -57,7 +57,7 @@ describe('Sidebar component', () => {
     render(<SidebarWithRouter />);
     // Check if menu items are rendered
     expect(screen.getByText('menu.homepage')).toBeInTheDocument();
-    expect(screen.getByText('menu.receipts')).toBeInTheDocument();
+    expect(screen.getByText('menu.receipts.menuTitle')).toBeInTheDocument();
   });
 
   test('toggles sidebar collapse correctly', () => {

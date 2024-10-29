@@ -94,7 +94,7 @@ export default function NoticesListPage() {
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={7}>
-        <Typography variant="h3">{t('menu.receipts')}</Typography>
+        <Typography variant="h3">{t('menu.receipts.pageTitle')}</Typography>
       </Stack>
       <Grid container spacing={3} mb={3}>
         <Grid item xs={9}>

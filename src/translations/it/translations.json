@@ -195,7 +195,10 @@
   "menu": {
     "description": "Naviga il portale",
     "homepage": "Homepage",
-    "receipts": "Ricevute",
+    "receipts":{
+      "menuTitle":"Ricevute",
+       "pageTitle": "Le tue ricevute"
+    },
     "navigationMenu": "Menù di navigazione",
     "menu": "Menu",
     "paymentNotices": "Avvisi di pagamento"
