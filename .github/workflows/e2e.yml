@@ -3,14 +3,14 @@ name: e2e
 on: [push, pull_request]
 
 env:
-  ENVIRONMENT: ${{ github.ref_name == 'uat' && 'uat' || 'dev' }}
+  ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'uat' || 'dev' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: echo ENVIRONMENT
-        run: echo "Environment is $ENVIRONMENT"
+        run: echo $ENVIRONMENT
 
       # - name: Checkout code
       #   uses: actions/checkout@v2
