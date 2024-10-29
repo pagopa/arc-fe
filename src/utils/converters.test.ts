@@ -185,7 +185,7 @@ describe('return a transactionDetail object', () => {
       ]
     };
 
-    expect(utils.converters.prepareTransactionDetailData(resp)).toHaveProperty('transactionId');
+    expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('transactionId');
   });
 });
 
@@ -196,7 +196,7 @@ describe('return a transactionDetail object even if the response is empty', () =
       carts: [{}]
     };
 
-    expect(utils.converters.prepareTransactionDetailData(resp)).toHaveProperty('transactionId');
+    expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('transactionId');
   });
 });
 

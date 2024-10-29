@@ -7,8 +7,8 @@ import { TransactionDetails } from 'components/Transactions';
 
 export default function Notice() {
   const id = useLoaderData();
-  const { data, isError } = utils.loaders.getTransactionDetails(id as string);
-  const transactionDetailData = data && utils.converters.prepareTransactionDetailData(data);
+  const { data, isError } = utils.loaders.getNoticeDetails(id as string);
+  const transactionDetailData = data && utils.converters.prepareNoticeDetailData(data);
 
   if (isError) {
     return <p>Ops! Something went wrong, please try again</p>;

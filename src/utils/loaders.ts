@@ -36,11 +36,11 @@ const getNoticesList = (query?: GetNoticesList) =>
     }
   });
 
-const getTransactionDetails = (id: string) =>
+const getNoticeDetails = (id: string) =>
   useQuery({
-    queryKey: ['transactionDetail'],
+    queryKey: ['noticeDetails'],
     queryFn: async () => {
-      const { data: transaction } = await utils.apiClient.transactions.getTransactionDetails(id);
+      const { data: transaction } = await utils.apiClient.notices.getNoticeDetails(id);
       parseAndLog(zodSchema.transactionDetailsDTOSchema, transaction);
       return transaction;
     }
@@ -116,7 +116,7 @@ export default {
   getPaymentNotices,
   getReceiptData,
   getTokenOneidentity,
-  getTransactionDetails,
+  getNoticeDetails,
   getNoticesList,
   getUserInfo,
   getUserInfoOnce

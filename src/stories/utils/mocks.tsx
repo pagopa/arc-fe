@@ -1,5 +1,5 @@
 import { TransactionProps } from 'components/Transactions/Transaction';
-import { TransactionDetail } from 'models/TransactionDetail';
+import { TransactionDetail } from 'models/NoticeDetail';
 // import { TransactionReceiptResponse } from '../../../generated/apiClient';
 
 const Transaction_dc379158: TransactionProps = {

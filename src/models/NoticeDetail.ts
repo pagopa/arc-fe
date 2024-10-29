@@ -1,4 +1,4 @@
-export interface TransactionDetail {
+export interface NoticeDetail {
   payer?: {
     name: string;
     taxCode?: string;

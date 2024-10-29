@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import MasterCard from '../../assets/creditcard/mastercard.png';
-import { type TransactionDetail as TransactionDetailType } from '../../models/TransactionDetail';
+import { type TransactionDetail as TransactionDetailType } from '../../models/NoticeDetail';
 import React, { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { getReceipt as getReceiptApi } from 'utils/files';

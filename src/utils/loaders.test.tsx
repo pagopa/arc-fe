@@ -84,7 +84,7 @@ describe('api loaders', () => {
         .spyOn(utils.apiClient.transactions, 'getTransactionDetails')
         .mockResolvedValue({ data: dataMock } as AxiosResponse);
 
-      const { result } = renderHook(() => loaders.getTransactionDetails(transactionId as string), {
+      const { result } = renderHook(() => loaders.getNoticeDetails(transactionId as string), {
         wrapper
       });
 

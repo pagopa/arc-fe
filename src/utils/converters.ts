@@ -3,10 +3,9 @@ import {
   PaymentNoticeDTO,
   PaymentNoticesListDTO,
   PaymentOptionDTO,
-  TransactionDetailsDTO,
   NoticesListDTO
 } from '../../generated/apiClient';
-import { TransactionDetail } from 'models/TransactionDetail';
+import { NoticeDetail } from 'models/NoticeDetail';
 import { DateFormat, datetools } from './datetools';
 import utils from 'utils';
 import {
@@ -19,6 +18,7 @@ import {
   PaymentOptionSingle,
   PaymentOptionType
 } from 'models/PaymentNotice';
+import { NoticeDetailsDTO } from '../../generated/data-contracts';
 
 // This high order function is useful to 'decorate' existing function to add
 // the functionality to manage undefined (not optional) parameters and output a global character instead
@@ -80,37 +80,37 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
   );
 };
 
-const prepareTransactionDetailData = (
-  transactionDetail: TransactionDetailsDTO
-): TransactionDetail | undefined => {
-  const { infoTransaction, carts } = transactionDetail;
+const prepareNoticeDetailData = (
+  noticeDetail: NoticeDetailsDTO
+): NoticeDetail | undefined => {
+  const { infoNotice, carts } = noticeDetail;
   const total =
-    infoTransaction?.amount && infoTransaction?.fee && infoTransaction.amount + infoTransaction.fee;
+  infoNotice?.amount && infoNotice?.fee && infoNotice.amount + infoNotice.fee;
   return (
-    infoTransaction && {
-      ...(infoTransaction.payer &&
-        infoTransaction.payer.name && {
+    infoNotice && {
+      ...(infoNotice.payer &&
+        infoNotice.payer.name && {
           payer: {
-            name: infoTransaction.payer.name,
-            taxCode: propertyOrMissingValue(infoTransaction.payer.taxCode)
+            name: infoNotice.payer.name,
+            taxCode: propertyOrMissingValue(infoNotice.payer.taxCode)
           }
         }),
-      ...(infoTransaction.walletInfo &&
-        infoTransaction.walletInfo.accountHolder &&
-        infoTransaction.walletInfo.blurredNumber &&
-        infoTransaction.walletInfo.brand && {
+      ...(infoNotice.walletInfo &&
+        infoNotice.walletInfo.accountHolder &&
+        infoNotice.walletInfo.blurredNumber &&
+        infoNotice.walletInfo.brand && {
           walletInfo: {
-            accountHolder: infoTransaction.walletInfo.accountHolder,
-            brand: infoTransaction.walletInfo.brand,
-            cardNumber: infoTransaction.walletInfo.blurredNumber
+            accountHolder: infoNotice.walletInfo.accountHolder,
+            brand: infoNotice.walletInfo.brand,
+            cardNumber: infoNotice.walletInfo.blurredNumber
           }
         }),
-      paymentMethod: propertyOrMissingValue(infoTransaction.paymentMethod),
-      authCode: propertyOrMissingValue(infoTransaction.authCode),
-      transactionId: propertyOrMissingValue(infoTransaction.transactionId),
-      PRN: propertyOrMissingValue(infoTransaction.rrn),
-      PSP: propertyOrMissingValue(infoTransaction.pspName),
-      dateTime: formatDateOrMissingValue(infoTransaction.transactionDate, {
+      paymentMethod: propertyOrMissingValue(infoNotice.paymentMethod),
+      authCode: propertyOrMissingValue(infoNotice.authCode),
+      transactionId: propertyOrMissingValue(infoNotice.eventId),
+      PRN: propertyOrMissingValue(infoNotice.rrn),
+      PSP: propertyOrMissingValue(infoNotice.pspName),
+      dateTime: formatDateOrMissingValue(infoNotice.eventId, {
         format: DateFormat.LONG,
         withTime: true,
         second: '2-digit'
@@ -121,8 +121,8 @@ const prepareTransactionDetailData = (
       creditorEntity: propertyOrMissingValue(carts?.[0].payee?.name),
       creditorFiscalCode: propertyOrMissingValue(carts?.[0].payee?.taxCode),
       noticeCode: propertyOrMissingValue(carts?.[0].refNumberValue),
-      partialAmount: toEuroOrMissingValue(infoTransaction.amount, 2),
-      fee: toEuroOrMissingValue(infoTransaction.fee, 2),
+      partialAmount: toEuroOrMissingValue(infoNotice.amount, 2),
+      fee: toEuroOrMissingValue(infoNotice.fee, 2),
       total: toEuroOrMissingValue(total),
       status: 'SUCCESS'
     }
@@ -234,7 +234,7 @@ const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => (
 export default {
   prepareNoticesData,
   prepareRowsData,
-  prepareTransactionDetailData,
+  prepareNoticeDetailData,
   singleNoticeToCartsRequest,
   toEuro,
   withMissingValue
