@@ -16,7 +16,7 @@ jobs:
           node-version: '18.14.0'
       
       - name: Install dependecies
-        run: yarn
+        run: yarn install
 
-      - name: run tests
-        run: yarn test
+      - name: run the FE
+        run: yarn start
