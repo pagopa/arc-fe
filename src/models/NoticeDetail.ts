@@ -10,7 +10,7 @@ export interface NoticeDetail {
   };
   paymentMethod?: string;
   authCode: string;
-  transactionId: string;
+  eventId: string;
   PRN: string;
   PSP: string;
   dateTime: string;

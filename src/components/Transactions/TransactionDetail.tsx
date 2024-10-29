@@ -12,16 +12,12 @@ import {
 } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import MasterCard from '../../assets/creditcard/mastercard.png';
-import { type TransactionDetail as TransactionDetailType } from '../../models/NoticeDetail';
+import { type NoticeDetail as NoticeDetailType } from '../../models/NoticeDetail';
 import React, { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { getReceipt as getReceiptApi } from 'utils/files';
 
-export default function TransactionDetail({
-  transactionData
-}: {
-  transactionData: TransactionDetailType;
-}) {
+export default function TransactionDetail({ noticeData }: { noticeData: NoticeDetailType }) {
   const theme = useTheme();
   const { t } = useTranslation();
   const [toastOpen, setToastOpen] = useState(false);
@@ -52,7 +48,7 @@ export default function TransactionDetail({
           sx={{ width: { xs: '100%', sm: 'fit-content' } }}
           size="large"
           onClick={() => {
-            getReceipt(transactionData.transactionId);
+            getReceipt(noticeData.eventId);
           }}
           variant="contained">
           {t('app.transactionDetail.downloadReceipt')}
@@ -83,7 +79,7 @@ export default function TransactionDetail({
               <Grid container>
                 <Grid item xs={12}>
                   <Typography variant="h4" fontSize={{ xs: 22, md: 24 }}>
-                    {transactionData.subject}
+                    {noticeData.subject}
                   </Typography>
 
                   <Stack spacing={2} pt={3}>
@@ -97,7 +93,7 @@ export default function TransactionDetail({
                       </Grid>
                       <Grid item>
                         <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                          {transactionData.partialAmount}
+                          {noticeData.partialAmount}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -111,7 +107,7 @@ export default function TransactionDetail({
                       </Grid>
                       <Grid item>
                         <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                          {transactionData.creditorEntity}
+                          {noticeData.creditorEntity}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -129,10 +125,10 @@ export default function TransactionDetail({
                           direction={{ xs: 'column', sm: 'row', md: 'column' }}
                           spacing={{ xs: 0, sm: 1, md: 0 }}>
                           <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                            {transactionData.debtor}
+                            {noticeData.debtor}
                           </Typography>
                           <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                            ({transactionData.debtorFiscalCode})
+                            ({noticeData.debtorFiscalCode})
                           </Typography>
                         </Stack>
                       </Grid>
@@ -147,7 +143,7 @@ export default function TransactionDetail({
                       </Grid>
                       <Grid item>
                         <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                          {transactionData.noticeCode}
+                          {noticeData.noticeCode}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -161,7 +157,7 @@ export default function TransactionDetail({
                       </Grid>
                       <Grid item>
                         <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                          {transactionData.creditorFiscalCode}
+                          {noticeData.creditorFiscalCode}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -186,7 +182,7 @@ export default function TransactionDetail({
                           sx={{ wordBreak: 'break-word' }}
                           fontSize={{ xs: '22', md: '24' }}
                           variant="h6">
-                          <b>{transactionData.total}</b>
+                          <b>{noticeData.total}</b>
                         </Typography>
                       </Grid>
                       <Grid item mt={2}>
@@ -196,7 +192,7 @@ export default function TransactionDetail({
                           color={theme.palette.text.secondary}>
                           <Trans
                             i18nKey="app.transactionDetail.totalLabel"
-                            values={{ fee: transactionData.fee, psp: transactionData.PSP }}
+                            values={{ fee: noticeData.fee, psp: noticeData.PSP }}
                           />
                         </Typography>
                       </Grid>
@@ -221,7 +217,7 @@ export default function TransactionDetail({
                 </Typography>
               </Stack>
 
-              {transactionData?.payer && (
+              {noticeData?.payer && (
                 <Grid item xs={12} sm={12}>
                   <Typography sx={{ wordBreak: 'break-word' }} color={theme.palette.text.secondary}>
                     {t('app.transactionDetail.paidBy')}
@@ -231,11 +227,11 @@ export default function TransactionDetail({
                     spacing={{ xs: 0, sm: 1, md: 0 }}
                     pb={2}>
                     <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                      {transactionData.payer.name}
+                      {noticeData.payer.name}
                     </Typography>
-                    {transactionData.payer.taxCode && (
+                    {noticeData.payer.taxCode && (
                       <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                        ({transactionData.payer.taxCode})
+                        ({noticeData.payer.taxCode})
                       </Typography>
                     )}
                   </Stack>
@@ -245,7 +241,7 @@ export default function TransactionDetail({
 
               <Grid item xs={12} sm={12}>
                 <Stack spacing={2}>
-                  {transactionData?.walletInfo && (
+                  {noticeData?.walletInfo && (
                     <>
                       <Grid container>
                         <Grid item xs={1} paddingTop={3.065} pr={2}>
@@ -262,7 +258,7 @@ export default function TransactionDetail({
                               sx={{ wordBreak: 'break-word' }}
                               fontSize={16}
                               fontWeight={600}>
-                              {`${transactionData.paymentMethod} ${transactionData.walletInfo.cardNumber}`}
+                              {`${noticeData.paymentMethod} ${noticeData.walletInfo.cardNumber}`}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -275,7 +271,7 @@ export default function TransactionDetail({
                           {t('app.transactionDetail.accountHolder')}
                         </Typography>
                         <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                          {transactionData.walletInfo.accountHolder}
+                          {noticeData.walletInfo.accountHolder}
                         </Typography>
                       </Stack>
                       <Divider />
@@ -289,7 +285,7 @@ export default function TransactionDetail({
                       {t('app.transactionDetail.PSP')}
                     </Typography>
                     <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
-                      {transactionData.PSP}
+                      {noticeData.PSP}
                     </Typography>
                   </Stack>
                   <Divider />
@@ -300,7 +296,7 @@ export default function TransactionDetail({
                       {t('app.transactionDetail.dateAndTime')}
                     </Typography>
                     <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
-                      {transactionData.dateTime}
+                      {noticeData.dateTime}
                     </Typography>
                   </Stack>
                   <Divider />
@@ -317,15 +313,12 @@ export default function TransactionDetail({
                           color={theme.palette.primary.main}
                           fontSize={16}
                           sx={{ wordBreak: 'break-word' }}>
-                          {transactionData.PRN}
+                          {noticeData.PRN}
                         </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={2} paddingTop={1} textAlign={'end'}>
-                      <CopyToClipboardButton
-                        value={transactionData.PRN.toString()}
-                        color="primary"
-                      />
+                      <CopyToClipboardButton value={noticeData.PRN.toString()} color="primary" />
                     </Grid>
                   </Grid>
                   <Divider />
@@ -341,12 +334,12 @@ export default function TransactionDetail({
                         color={theme.palette.primary.main}
                         fontSize={16}
                         sx={{ wordBreak: 'break-word' }}>
-                        {transactionData.authCode}
+                        {noticeData.authCode}
                       </Typography>
                     </Grid>
                     <Grid item xs={2} paddingTop={1} textAlign={'end'}>
                       <CopyToClipboardButton
-                        value={transactionData.authCode.toString()}
+                        value={noticeData.authCode.toString()}
                         color="primary"
                       />
                     </Grid>
@@ -366,15 +359,15 @@ export default function TransactionDetail({
                           color={theme.palette.primary.main}
                           fontSize={16}
                           sx={{ wordBreak: 'break-word' }}>
-                          {transactionData.transactionId.length > 20
-                            ? transactionData.transactionId.substring(0, 20) + '…'
-                            : transactionData.transactionId}
+                          {noticeData.eventId.length > 20
+                            ? noticeData.eventId.substring(0, 20) + '…'
+                            : noticeData.eventId}
                         </Typography>
                       </Stack>
                     </Grid>
                     <Grid item xs={2} paddingTop={1} textAlign={'end'}>
                       <CopyToClipboardButton
-                        value={transactionData.transactionId.toString()}
+                        value={noticeData.eventId.toString()}
                         color="primary"
                       />
                     </Grid>

@@ -1,5 +1,5 @@
 import { TransactionProps } from 'components/Transactions/Transaction';
-import { TransactionDetail } from 'models/NoticeDetail';
+import { NoticeDetail } from 'models/NoticeDetail';
 // import { TransactionReceiptResponse } from '../../../generated/apiClient';
 
 const Transaction_dc379158: TransactionProps = {
@@ -58,7 +58,7 @@ const Transaction_3d40b8e0: TransactionProps = {
   amount: '392,00 €'
 };
 
-const transactionDetail: TransactionDetail = {
+const transactionDetail: NoticeDetail = {
   payer: {
     name: 'Matteo Rossi',
     taxCode: 'MTTRSS74B23F205K'
@@ -70,7 +70,7 @@ const transactionDetail: TransactionDetail = {
   },
   paymentMethod: 'cc',
   authCode: '1234567890123456800',
-  transactionId: 'F57E2F8E-25FF-4183-AB7B-4…',
+  eventId: 'F57E2F8E-25FF-4183-AB7B-4…',
   PRN: '1234567890',
   PSP: 'Nexi',
   dateTime: '11/02/2023',
@@ -86,9 +86,9 @@ const transactionDetail: TransactionDetail = {
   status: 'Pagato'
 };
 
-const shortTransactionDetail: TransactionDetail = {
+const shortTransactionDetail: NoticeDetail = {
   authCode: '1234567890123456800',
-  transactionId: 'F57E2F8E-25FF-4183-AB7B-4…',
+  eventId: 'F57E2F8E-25FF-4183-AB7B-4…',
   PRN: '1234567890',
   PSP: 'Nexi',
   dateTime: '11/02/2023',
@@ -118,9 +118,9 @@ export const dummyTransactionsData: {
   all: TransactionProps[];
   paidByMe: TransactionProps[];
   ownedByMe: TransactionProps[];
-  transactionData: TransactionDetail;
-  shortTransactionData: TransactionDetail;
-  transactionDetail: TransactionDetail;
+  transactionData: NoticeDetail;
+  shortTransactionData: NoticeDetail;
+  transactionDetail: NoticeDetail;
   transactionReceipt: unknown;
 } = {
   all: [Transaction_dc379158, Transaction_ffe1324e, Transaction_a305f59a, Transaction_3d40b8e0],

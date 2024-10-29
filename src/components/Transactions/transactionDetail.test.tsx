@@ -15,14 +15,14 @@ const mockUseReceiptData = vi.mocked(getReceipt);
 describe('TransactionDetails component', () => {
   it('should render as expected', () => {
     mockUseReceiptData.mockImplementation(vi.fn());
-    render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
+    render(<TransactionDetails noticeData={dummyTransactionsData.transactionData} />);
   });
 
   it('should show a toast if an error occurs while fetching the receipt', async () => {
     mockUseReceiptData.mockImplementation(() => {
       throw new Error();
     });
-    render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
+    render(<TransactionDetails noticeData={dummyTransactionsData.transactionData} />);
     fireEvent.click(screen.getByTestId('receipt-download-btn'));
     await waitFor(() =>
       expect(screen.queryByText('app.transactionDetail.downloadReceiptError')).toBeInTheDocument()
@@ -34,9 +34,9 @@ describe('TransactionDetails component', () => {
 
     render(
       <TransactionDetails
-        transactionData={{
+      noticeData={{
           ...dummyTransactionsData.transactionData,
-          transactionId: '123456789-123456789-123456789'
+          eventId: '123456789-123456789-123456789'
         }}
       />
     );
@@ -46,9 +46,9 @@ describe('TransactionDetails component', () => {
 
     render(
       <TransactionDetails
-        transactionData={{
+      noticeData={{
           ...dummyTransactionsData.transactionData,
-          transactionId: '123456789-123456789-'
+          eventId: '123456789-123456789-'
         }}
       />
     );
@@ -58,14 +58,14 @@ describe('TransactionDetails component', () => {
   });
 
   it('should not render the payer, and card holder section when the info are not avaiable', () => {
-    render(<TransactionDetails transactionData={dummyTransactionsData.shortTransactionData} />);
+    render(<TransactionDetails noticeData={dummyTransactionsData.shortTransactionData} />);
     expect(screen.queryByText('app.transactionDetail.paidBy')).toBeNull();
     expect(screen.queryByText('app.transactionDetail.paymentMethod')).toBeNull();
     expect(screen.queryByText('app.transactionDetail.accountHolder')).toBeNull();
   });
 
   it('should render the payer, and card holder section when the info are avaiable', () => {
-    render(<TransactionDetails transactionData={dummyTransactionsData.transactionData} />);
+    render(<TransactionDetails noticeData={dummyTransactionsData.transactionData} />);
     expect(screen.queryByText('app.transactionDetail.paidBy')).toBeInTheDocument();
     expect(screen.queryByText('Matteo Rossi')).toBeInTheDocument();
     expect(screen.queryByText('(MTTRSS74B23F205K)')).toBeInTheDocument();
