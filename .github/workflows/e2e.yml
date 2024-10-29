@@ -2,11 +2,16 @@ name: e2e
 
 on: [push, pull_request]
 
+env:
+  ENVIRONMENT: ${{ github.ref_name == 'uat' && 'uat' || 'dev' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
+      - name: echo ENVIRONMENT
+        run: echo 'Environment is $env.ENVIRONMENT'
+
       - name: Checkout code
         uses: actions/checkout@v2
       
