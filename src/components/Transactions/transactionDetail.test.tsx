@@ -34,7 +34,7 @@ describe('TransactionDetails component', () => {
 
     render(
       <TransactionDetails
-      noticeData={{
+        noticeData={{
           ...dummyTransactionsData.transactionData,
           eventId: '123456789-123456789-123456789'
         }}
@@ -46,7 +46,7 @@ describe('TransactionDetails component', () => {
 
     render(
       <TransactionDetails
-      noticeData={{
+        noticeData={{
           ...dummyTransactionsData.transactionData,
           eventId: '123456789-123456789-'
         }}

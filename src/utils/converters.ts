@@ -3,7 +3,8 @@ import {
   PaymentNoticeDTO,
   PaymentNoticesListDTO,
   PaymentOptionDTO,
-  NoticesListDTO
+  NoticesListDTO,
+  NoticeDetailsDTO
 } from '../../generated/apiClient';
 import { NoticeDetail } from 'models/NoticeDetail';
 import { DateFormat, datetools } from './datetools';
@@ -18,7 +19,6 @@ import {
   PaymentOptionSingle,
   PaymentOptionType
 } from 'models/PaymentNotice';
-import { NoticeDetailsDTO } from '../../generated/data-contracts';
 
 // This high order function is useful to 'decorate' existing function to add
 // the functionality to manage undefined (not optional) parameters and output a global character instead
@@ -107,7 +107,7 @@ const prepareNoticeDetailData = (noticeDetail: NoticeDetailsDTO): NoticeDetail |
       eventId: propertyOrMissingValue(infoNotice.eventId),
       PRN: propertyOrMissingValue(infoNotice.rrn),
       PSP: propertyOrMissingValue(infoNotice.pspName),
-      dateTime: formatDateOrMissingValue(infoNotice.eventId, {
+      dateTime: formatDateOrMissingValue(infoNotice.noticeDate, {
         format: DateFormat.LONG,
         withTime: true,
         second: '2-digit'

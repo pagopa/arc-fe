@@ -88,7 +88,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                         <Typography
                           sx={{ wordBreak: 'break-word' }}
                           color={theme.palette.text.secondary}>
-                          {t('app.transactionDetail.partialAmount')}
+                          {t('app.transactionDetail.amount')}
                         </Typography>
                       </Grid>
                       <Grid item>
