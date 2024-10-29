@@ -40,9 +40,9 @@ const getNoticeDetails = (id: string) =>
   useQuery({
     queryKey: ['noticeDetails'],
     queryFn: async () => {
-      const { data: transaction } = await utils.apiClient.notices.getNoticeDetails(id);
-      parseAndLog(zodSchema.transactionDetailsDTOSchema, transaction);
-      return transaction;
+      const { data: notice } = await utils.apiClient.notices.getNoticeDetails(id);
+      parseAndLog(zodSchema.noticeDetailsDTOSchema, notice);
+      return notice;
     }
   });
 

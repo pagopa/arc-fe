@@ -80,12 +80,9 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
   );
 };
 
-const prepareNoticeDetailData = (
-  noticeDetail: NoticeDetailsDTO
-): NoticeDetail | undefined => {
+const prepareNoticeDetailData = (noticeDetail: NoticeDetailsDTO): NoticeDetail | undefined => {
   const { infoNotice, carts } = noticeDetail;
-  const total =
-  infoNotice?.amount && infoNotice?.fee && infoNotice.amount + infoNotice.fee;
+  const total = infoNotice?.amount && infoNotice?.fee && infoNotice.amount + infoNotice.fee;
   return (
     infoNotice && {
       ...(infoNotice.payer &&
@@ -107,7 +104,7 @@ const prepareNoticeDetailData = (
         }),
       paymentMethod: propertyOrMissingValue(infoNotice.paymentMethod),
       authCode: propertyOrMissingValue(infoNotice.authCode),
-      transactionId: propertyOrMissingValue(infoNotice.eventId),
+      eventId: propertyOrMissingValue(infoNotice.eventId),
       PRN: propertyOrMissingValue(infoNotice.rrn),
       PSP: propertyOrMissingValue(infoNotice.pspName),
       dateTime: formatDateOrMissingValue(infoNotice.eventId, {

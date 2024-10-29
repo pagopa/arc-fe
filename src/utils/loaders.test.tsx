@@ -25,7 +25,8 @@ vi.mock('./utils', () => {
     apiClient: {
       notices: {
         getNoticesList: vi.fn(),
-        getNoticeReceipt: vi.fn()
+        getNoticeReceipt: vi.fn(),
+        getNoticeDetails: vi.fn()
       },
       transactions: {
         getTransactionsList: vi.fn(),
@@ -75,21 +76,21 @@ describe('api loaders', () => {
       });
     });
 
-    it('getTransactionDetails calls API and schema parser correctly', async () => {
-      const dataMock = createMock(schemas.transactionDetailsDTOSchema);
+    it('getNoticeDetails calls API and schema parser correctly', async () => {
+      const dataMock = createMock(schemas.noticeDetailsDTOSchema);
 
-      const transactionId = dataMock.infoTransaction?.transactionId;
+      const eventId = dataMock.infoNotice?.eventId;
 
       const apiMock = vi
-        .spyOn(utils.apiClient.transactions, 'getTransactionDetails')
+        .spyOn(utils.apiClient.notices, 'getNoticeDetails')
         .mockResolvedValue({ data: dataMock } as AxiosResponse);
 
-      const { result } = renderHook(() => loaders.getNoticeDetails(transactionId as string), {
+      const { result } = renderHook(() => loaders.getNoticeDetails(eventId as string), {
         wrapper
       });
 
       await waitFor(() => {
-        expect(apiMock).toHaveBeenCalledWith(transactionId);
+        expect(apiMock).toHaveBeenCalledWith(eventId);
         expect(result.current.isSuccess).toBeTruthy();
         expect(result.current.data).toEqual(dataMock);
       });

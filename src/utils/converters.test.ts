@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { TransactionProps } from 'components/Transactions/Transaction';
 import { mockConvertedNotice, mockPaymentNotices } from 'stories/utils/PaymentNoticeMocks';
 import utils from '.';
-import { NoticeDTO, TransactionDetailsDTO } from '../../generated/apiClient';
+import { NoticeDetailsDTO, NoticeDTO } from '../../generated/apiClient';
 
 describe('toEuro function', () => {
   it('should format correctly', () => {
@@ -157,14 +157,14 @@ describe('prepareRowsData function', () => {
   });
 });
 
-describe('return a transactionDetail object', () => {
-  it('should return a transaction detail object', () => {
-    const resp: TransactionDetailsDTO = {
-      infoTransaction: {
-        transactionId: 'string',
+describe('return a NoticeDetail object', () => {
+  it('should return a notice detail object', () => {
+    const resp: NoticeDetailsDTO = {
+      infoNotice: {
+        eventId: 'string',
         authCode: 'string',
         rrn: 'string',
-        transactionDate: new Date().toISOString(),
+        noticeDate: new Date().toISOString(),
         pspName: 'string',
         walletInfo: { accountHolder: 'string', brand: 'string', blurredNumber: 'string' },
         paymentMethod: 'BBT',
@@ -185,18 +185,18 @@ describe('return a transactionDetail object', () => {
       ]
     };
 
-    expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('transactionId');
+    expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('eventId');
   });
 });
 
-describe('return a transactionDetail object even if the response is empty', () => {
-  it('should return a transaction detail object', () => {
-    const resp: TransactionDetailsDTO = {
-      infoTransaction: {},
+describe('return a noticeDetail object even if the response is empty', () => {
+  it('should return a notice detail object', () => {
+    const resp: NoticeDetailsDTO = {
+      infoNotice: {},
       carts: [{}]
     };
 
-    expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('transactionId');
+    expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('eventId');
   });
 });
 
