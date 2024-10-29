@@ -1,0 +1,49 @@
+name: 'Setup env vars'
+description: 'env vars needed by the FE'
+
+inputs:
+  api_host:
+    required: true
+
+  env:
+    required: true
+
+  cdn_logos:
+    required: true
+
+  login_url:
+    required: true
+
+  checkout_platform_url:
+    required: true
+
+  payment_return_url:
+    required: true
+
+  deploy_path:
+    required: true
+
+  version:
+    required: true
+
+
+runs:
+ using: 'composite'
+ steps:
+  - name: Make the script file executable
+    run: chmod +x env.sh
+
+  - name: populate envs
+    run: env -i \
+      ARC_FE_APIHOST=${{ inputs.api_host }} \
+      ARC_FE_ENV=${{ inputs.env }} \
+      ARC_FE_ENTITIES_LOGO_CDN=${{ inputs.cdn_logos }} \
+      ARC_FE_CHECKOUT_HOST=${{ inputs.checkout_host }} \
+      ARC_FE_LOGIN_URL=${{ inputs.login_url }} \
+      ARC_FE_CHECKOUT_PLATFORM_URL=${{ inputs.checkout_platform_url }} \
+      ARC_FE_PAYMENT_RETURN_URL=${{ inputs.payment_return_url }} \
+      ARC_FE_DEPLOY_PATH=${{ inputs.deploy_path }} \
+      ARC_FE_VERSION=${{ inputs.version }}
+
+  - name: execute sh script
+    run: bash env.sh

@@ -6,15 +6,29 @@ env:
   ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'uat' || 'dev' }}
 
 jobs:
-  build:
+  fe:
     runs-on: ubuntu-latest
+    environment: $ENVIRONMENT
     steps:
       - name: echo ENVIRONMENT
         run: echo $ENVIRONMENT
+        
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
-      
+      - name: populate environment var
+        uses: ./.github/actions/setup-env.yml
+        with:
+          api_host: 'http://localhost:1234/api'
+          env: 'LOCAL'
+          cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
+          checkout_host: 'https://dev.checkout.pagopa.it'
+          login_url: 'https://api.dev.cittadini.pagopa.it/arc/v1/login/oneidentity'
+          checkout_platform_url: 'https://api.dev.platform.pagopa.it/checkout/ec/v1'
+          payment_return_url: 'http://localhost:1234'
+          version: 'test'
+          deploy_path: '/pagamenti'
+
       # - name: Set up Node.js
       #   uses: actions/setup-node@v2
       #   with:
