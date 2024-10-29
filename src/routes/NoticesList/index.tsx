@@ -81,8 +81,8 @@ export default function NoticesListPage() {
 
   return (
     <>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h3">{t('menu.receipts')}</Typography>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={7}>
+        <Typography variant="h3">{t('menu.receipts.pageTitle')}</Typography>
       </Stack>
 
       <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="noticesList">
