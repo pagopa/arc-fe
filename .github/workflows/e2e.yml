@@ -18,9 +18,8 @@ jobs:
         with:
           path: fe
         
-
       - name: populate environment var
-        uses: fe/.github/actions/setup-env
+        uses: ./fe/.github/actions/setup-env
         with:
           api_host: ${{ vars.API_HOST }}
           checkout_host: ${{ vars.CHECKOUT_HOST }}
