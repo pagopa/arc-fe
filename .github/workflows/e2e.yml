@@ -2,13 +2,12 @@ name: e2e
 
 on: [push, pull_request]
 
-env:
-  ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'uat' || 'dev' }}
-
 jobs:
   fe:
     runs-on: ubuntu-latest
-    environment: ${{ env.ENVIRONMENT }}
+    env:
+      ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'uat' || 'dev' }}
+    environment: ${{ github.ref_name == 'P4PU-598' && 'uat' || 'dev' }}
     steps:
       - name: echo ENVIRONMENT
         run: echo $ENVIRONMENT
