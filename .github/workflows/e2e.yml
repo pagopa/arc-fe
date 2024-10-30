@@ -46,6 +46,7 @@ jobs:
         with:
           repository: pagopa/arc-fe-e2e
           ref: master
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
