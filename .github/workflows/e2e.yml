@@ -42,32 +42,20 @@ jobs:
 
       - name: run the FE
         run: yarn start&
-  
-  e2e-test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: e2e
-    needs:  start-fe
-    environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
 
-    steps:
       - name: Checkout e2e repository
         uses: actions/checkout@v4
         with:
           repository: pagopa/arc-fe-e2e
           path: e2e
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      
       - name: Install dependecies
         run: yarn install
+        working-directory: e2e
       
       - name: Install playwright browsers
         run: yarn playwright install
+        working-directory: e2e
 
       - name: populate environment vars wrinting down an .env file
         run: |
@@ -76,6 +64,8 @@ jobs:
           echo USERNAME=${{ secrets.E2E_USERNAME }} >> .env
           echo PASSWORD=${{ secrets.E2E_PASSWORD }} >> .env
           cat .env
+        working-directory: e2e
 
       - name: runt tests
         run: yarn test
+        working-directory: e2e
