@@ -9,7 +9,6 @@ jobs:
   start-fe:
     env:
       WORKING_DIRECTORY: fe
-
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,7 +24,7 @@ jobs:
       - name: populate environment var
         uses: ./fe/.github/actions/setup-env
         with:
-          working-directory: ${{ env.WORKING_DIRECTORY }}
+          working_directory: ${{ env.WORKING_DIRECTORY }}
           api_host: ${{ vars.API_HOST }}
           checkout_host: ${{ vars.CHECKOUT_HOST }}
           login_url: ${{ vars.LOGIN_URL }}
@@ -41,7 +40,7 @@ jobs:
         run: yarn install
 
       - name: run the FE
-        run: yarn start
+        run: yarn start&
   
   e2e-test:
     runs-on: ubuntu-latest
