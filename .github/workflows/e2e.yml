@@ -10,18 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./fe
+        working-directory: fe
 
     environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
   
     steps:
-      - name: echo ENVIRONMENT
-        run: echo $ENVIRONMENT
+      # - name: echo ENVIRONMENT
+      #   run: echo $ENVIRONMENT
         
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          path: ./fe
+          path: fe
         
       - name: populate environment var
         uses: ./fe/.github/actions/setup-env
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./e2e
+        working-directory: e2e
     needs:  start-fe
     environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
     steps:
@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: pagopa/arc-fe-e2e
-          path: ./e2e
+          path: e2e
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
