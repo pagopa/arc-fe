@@ -19,15 +19,11 @@ jobs:
       - name: populate environment var
         uses: ./.github/actions/setup-env
         with:
-          api_host: 'http://localhost:1234/api'
-          env: 'LOCAL'
-          cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'
-          checkout_host: 'https://dev.checkout.pagopa.it'
-          login_url: 'https://api.dev.cittadini.pagopa.it/arc/v1/login/oneidentity'
-          checkout_platform_url: 'https://api.dev.platform.pagopa.it/checkout/ec/v1'
-          payment_return_url: 'http://localhost:1234'
+          api_host: $LOGIN_URL
+          checkout_host: $CHECKOUT_HOST
+          login_url: $LOGIN_URL
+          checkout_platform_url: $CHECKOUT_PLATFORM_URL
           version: 'test'
-          deploy_path: '/pagamenti'
 
       # - name: Set up Node.js
       #   uses: actions/setup-node@v2

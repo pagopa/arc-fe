@@ -6,10 +6,10 @@ inputs:
     required: true
 
   env:
-    required: true
+    default: 'LOCAL'
 
   cdn_logos:
-    required: true
+    default: 'https://assets.cdn.io.italia.it/logos/organizations'
 
   login_url:
     required: true
@@ -18,10 +18,10 @@ inputs:
     required: true
 
   payment_return_url:
-    required: true
+    default: 'http://localhost:1234'
 
   deploy_path:
-    required: true
+    default: '/pagamenti'
 
   version:
     required: true
