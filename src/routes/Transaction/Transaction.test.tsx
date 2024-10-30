@@ -42,7 +42,7 @@ describe('TransactionRoute', () => {
       isError: false
     } as unknown as UseQueryResult<NoticesListDTO, Error>);
 
-    (loaders.getTransactionDetails as Mock).mockReturnValue({
+    (loaders.getNoticeDetails as Mock).mockReturnValue({
       data: mockNoticesList.notices[0],
       isError: false
     });
@@ -52,7 +52,7 @@ describe('TransactionRoute', () => {
       </QueryClientProvider>
     );
     await waitFor(() => {
-      expect(loaders.getTransactionDetails).toHaveBeenCalled();
+      expect(loaders.getNoticeDetails).toHaveBeenCalled();
     });
   });
 
@@ -61,7 +61,7 @@ describe('TransactionRoute', () => {
       data: null,
       isError: true
     });
-    (loaders.getTransactionDetails as Mock).mockReturnValue({
+    (loaders.getNoticeDetails as Mock).mockReturnValue({
       data: null,
       isError: true
     });

@@ -153,6 +153,7 @@
       "debtor": "Debitore",
       "noticeCode": "Codice avviso",
       "partialAmount": "Importo parziale",
+      "amount": "Importo",
       "commission": "Commissione",
       "total": "Totale",
       "somethingDoesntAddUp": "Qualcosa non torna?",

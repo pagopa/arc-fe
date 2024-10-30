@@ -1,4 +1,4 @@
-export interface TransactionDetail {
+export interface NoticeDetail {
   payer?: {
     name: string;
     taxCode?: string;
@@ -10,7 +10,7 @@ export interface TransactionDetail {
   };
   paymentMethod?: string;
   authCode: string;
-  transactionId: string;
+  eventId: string;
   PRN: string;
   PSP: string;
   dateTime: string;
