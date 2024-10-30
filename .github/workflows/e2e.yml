@@ -22,7 +22,7 @@ jobs:
         with:
           path: ${{ env.WORKING_DIRECTORY }}
         
-      - name: populate environment var
+      - name: populate environment vars
         uses: ./fe/.github/actions/setup-env
         with:
           working_directory: ${{ env.WORKING_DIRECTORY }}
@@ -68,6 +68,14 @@ jobs:
       
       - name: Install playwright browsers
         run: yarn playwright install
+
+      - name: populate environment vars wrinting down an .env file
+        run: |
+          touch .env
+          echo BASE_URL=http://localhost:1234 >> .env
+          echo USERNAME=${{ secrets.E2E_USERNAME }} >> .env
+          echo PASSWORD=${{ secrets.E2E_PASSWORD }} >> .env
+          cat .env
 
       - name: runt tests
         run: yarn test
