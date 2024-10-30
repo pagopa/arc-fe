@@ -9,17 +9,12 @@ locals {
     SONAR_TOKEN = data.azurerm_key_vault_secret.sonar_token[0].value
   } : {}
 
-  env_variables = var.env_short == "u" ? {
-    API_HOST = "https://api.uat.cittadini.pagopa.it/arc/v1"
-    CHECKOUT_HOST = "https://uat.checkout.pagopa.it"
-    CHECKOUT_PLATFORM_URL = "https://api.uat.platform.pagopa.it/checkout/ec/v1'checkout_platform_url"
-    LOGIN_URL = "https://api.uat.cittadini.pagopa.it/arc/v1/login/oneidentity"
-  } : {
-    API_HOST = "https://api.dev.cittadini.pagopa.it/arc/v1"
-    CHECKOUT_HOST = "https://dev.checkout.pagopa.it"
-    CHECKOUT_PLATFORM_URL = "https://api.dev.platform.pagopa.it/checkout/ec/v1'checkout_platform_url"
-    LOGIN_URL = "https://api.dev.cittadini.pagopa.it/arc/v1/login/oneidentity"
-  }
+  env_variables = contains(["d", "u"], var.env_short) ? {
+    API_HOST              = "https://api.${var.env}.cittadini.pagopa.it/arc/v1"
+    CHECKOUT_HOST         = "https://${var.env}.checkout.pagopa.it"
+    CHECKOUT_PLATFORM_URL = "https://api.${var.env}.platform.pagopa.it/checkout/ec/v1"
+    LOGIN_URL             = "https://api.${var.env}.cittadini.pagopa.it/arc/v1/login/oneidentity"
+  } : {}
 
   env_secrets = {
     E2E_USERNAME = try(data.azurerm_key_vault_secret.username_test[0].value, "")
