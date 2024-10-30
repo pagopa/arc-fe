@@ -20,8 +20,8 @@ jobs:
         with:
           api_host: ${{ vars.API_HOST }}
           checkout_host: ${{ vars.CHECKOUT_HOST }}
-          login_url: ${{ env.LOGIN_URL }}
-          checkout_platform_url: ${{ env.CHECKOUT_PLATFORM_URL }}
+          login_url: ${{ vars.LOGIN_URL }}
+          checkout_platform_url: ${{ vars.CHECKOUT_PLATFORM_URL }}
           version: $GITHUB_SHA
 
       # - name: Set up Node.js
