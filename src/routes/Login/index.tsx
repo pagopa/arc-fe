@@ -34,6 +34,7 @@ const Login = () => {
             sx={{
               borderRadius: 2
             }}
+            data-testid="arc-fe-login-button"
             aria-label={t('app.login.login')}>
             <Typography
               sx={{
