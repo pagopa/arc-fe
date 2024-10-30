@@ -6,8 +6,8 @@ jobs:
   fe:
     runs-on: ubuntu-latest
     env:
-      ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'uat' || 'dev' }}
-    environment: ${{ github.ref_name == 'P4PU-598' && 'uat' || 'dev' }}
+      ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
+    environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
     steps:
       - name: echo ENVIRONMENT
         run: echo $ENVIRONMENT
