@@ -44,7 +44,7 @@ jobs:
       - name: Checkout e2e repository
         uses: actions/checkout@v2
         with:
-          name: pagopa/arc-fe-e2e
+          repository: pagopa/arc-fe-e2e
           ref: master
 
       - name: Set up Node.js
