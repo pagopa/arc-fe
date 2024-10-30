@@ -19,10 +19,10 @@ jobs:
       - name: populate environment var
         uses: ./.github/actions/setup-env
         with:
-          api_host: $LOGIN_URL
-          checkout_host: $CHECKOUT_HOST
-          login_url: $LOGIN_URL
-          checkout_platform_url: $CHECKOUT_PLATFORM_URL
+          api_host: ${{ env.API_HOST }}
+          checkout_host: ${{ env.CHECKOUT_HOST }}
+          login_url: ${{ env.LOGIN_URL }}
+          checkout_platform_url: ${{ env.CHECKOUT_PLATFORM_URL }}
           version: 'test'
 
       # - name: Set up Node.js
