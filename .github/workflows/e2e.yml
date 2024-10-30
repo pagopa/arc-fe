@@ -43,7 +43,7 @@ jobs:
     environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
     steps:
       - name: Checkout e2e repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: pagopa/arc-fe-e2e
           path: e2e
