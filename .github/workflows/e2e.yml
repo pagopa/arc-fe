@@ -14,7 +14,9 @@ jobs:
         run: echo $ENVIRONMENT
         
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          path: fe
         
 
       - name: populate environment var
