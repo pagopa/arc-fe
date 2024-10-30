@@ -47,6 +47,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: pagopa/arc-fe-e2e
+          ref: P4PU-598
           path: e2e
 
       - name: Install dependecies
