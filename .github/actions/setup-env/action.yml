@@ -2,6 +2,9 @@ name: 'Setup env vars'
 description: 'env vars needed by the FE'
 
 inputs:
+  working_directory:
+    default: 'fe'
+
   api_host:
     required: true
 
@@ -35,7 +38,9 @@ runs:
  steps:
   - name: Make the script file executable
     shell: bash
+    working-directory: ${{ inputs.working_directory }}
     run: chmod +x env.sh
+
 
   - name: populate envs
     shell: bash
@@ -52,4 +57,5 @@ runs:
 
   - name: execute sh script
     shell: bash
+    working-directory: ${{ inputs.working_directory }}
     run: bash env.sh

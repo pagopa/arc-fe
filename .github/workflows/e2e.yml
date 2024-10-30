@@ -7,25 +7,25 @@ env:
 
 jobs:
   start-fe:
+    env:
+      WORKING_DIRECTORY: fe
+
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: fe
-
+        working-directory: ${{ env.WORKING_DIRECTORY }}
     environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
   
     steps:
-      # - name: echo ENVIRONMENT
-      #   run: echo $ENVIRONMENT
-        
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          path: fe
+          path: ${{ env.WORKING_DIRECTORY }}
         
       - name: populate environment var
         uses: ./fe/.github/actions/setup-env
         with:
+          working-directory: ${{ env.WORKING_DIRECTORY }}
           api_host: ${{ vars.API_HOST }}
           checkout_host: ${{ vars.CHECKOUT_HOST }}
           login_url: ${{ vars.LOGIN_URL }}
