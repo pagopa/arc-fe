@@ -2,11 +2,12 @@ name: e2e
 
 on: [push, pull_request]
 
+env:
+  ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
+
 jobs:
-  fe:
+  start-fe:
     runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
     environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
     steps:
       - name: echo ENVIRONMENT
@@ -34,3 +35,25 @@ jobs:
 
       # - name: run the FE
       #   run: yarn start
+  
+  e2e-test:
+    runs-on: ubuntu-latest
+    needs:  start-fe
+    environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
+    steps:
+      - name: Checkout e2e repository
+        uses: actions/checkout@v2
+        with:
+          name: pagopa/arc-fe-e2e
+          ref: master
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.14.0'
+      
+      - name: Install dependecies
+        run: yarn install
+
+      - name: runt tests
+        run: yarn test
