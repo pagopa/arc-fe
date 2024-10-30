@@ -35,7 +35,7 @@ runs:
  steps:
   - name: Make the script file executable
     shell: bash
-    run: chmod +x env.sh
+    run: chmod +x fe/env.sh
 
   - name: populate envs
     shell: bash
@@ -52,4 +52,4 @@ runs:
 
   - name: execute sh script
     shell: bash
-    run: bash env.sh
+    run: bash fe/env.sh
