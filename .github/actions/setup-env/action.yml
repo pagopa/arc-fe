@@ -17,6 +17,9 @@ inputs:
   checkout_platform_url:
     required: true
 
+  checkout_host:
+    required: true
+
   payment_return_url:
     default: 'http://localhost:1234'
 
