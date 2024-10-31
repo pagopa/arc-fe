@@ -46,30 +46,37 @@ jobs:
       - name: Wait for frontend to be up and running
         run: while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:1234)" != "200" ]]; do sleep 5; done
 
-      # - name: Checkout e2e repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: pagopa/arc-fe-e2e
-      #     ref: P4PU-598
-      #     path: e2e
+      - name: Checkout e2e repository
+        uses: actions/checkout@v4
+        with:
+          repository: pagopa/arc-fe-e2e
+          ref: P4PU-598
+          path: e2e
 
-      # - name: Install dependecies
-      #   run: yarn install
-      #   working-directory: e2e
+      - name: Install dependecies
+        run: yarn install
+        working-directory: e2e
       
-      # - name: Install playwright browsers
-      #   run: yarn playwright install
-      #   working-directory: e2e
+      - name: Install playwright browsers
+        run: yarn playwright install
+        working-directory: e2e
 
-      # - name: populate environment vars writing down an .env file
-      #   run: |
-      #     touch .env
-      #     echo BASE_URL=http://localhost:1234 >> .env
-      #     echo USERNAME=${{ secrets.E2E_USERNAME }} >> .env
-      #     echo PASSWORD=${{ secrets.E2E_PASSWORD }} >> .env
-      #     cat .env
-      #   working-directory: e2e
+      - name: populate environment vars writing down an .env file
+        run: |
+          touch .env
+          echo BASE_URL=http://localhost:1234 >> .env
+          echo USERNAME=${{ secrets.E2E_USERNAME }} >> .env
+          echo PASSWORD=${{ secrets.E2E_PASSWORD }} >> .env
+          cat .env
+        working-directory: e2e
 
-      # - name: runt tests
-      #   run: yarn test
-      #   working-directory: e2e
+      - name: runt tests
+        run: yarn test
+        working-directory: e2e
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
