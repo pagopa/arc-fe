@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: pagopa/arc-fe-e2e
-          ref: main
+          ref: P4PU-598
           path: e2e
 
       - name: Install dependecies
@@ -69,6 +69,7 @@ jobs:
           echo BASE_URL=http://localhost:1234 >> .env
           echo USERNAME=${{ secrets.E2E_USERNAME }} >> .env
           echo PASSWORD=${{ secrets.E2E_PASSWORD }} >> .env
+          echo IDENTITY_PROVIDER_BUTTON_TEST_ID=idp-button-https://validator.dev.oneid.pagopa.it/demo >> .env
           cat .env
         working-directory: e2e
 
