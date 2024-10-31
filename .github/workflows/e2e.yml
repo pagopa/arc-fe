@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
-  NODE_VERSION: '18.14.0'
+  NODE_VERSION: '18.18.0'
 
 jobs:
   start-fe:
@@ -51,12 +51,12 @@ jobs:
       # - name: Wait for frontend to be up and running
       #   run: while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:1234)" != "200" ]]; do sleep 5; done
 
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: fe
-          retention-days: 5
+      # - name: 'Upload Artifact'
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: dist
+      #     path: fe
+      #     retention-days: 5
 
       - name: Checkout e2e repository
         uses: actions/checkout@v4
