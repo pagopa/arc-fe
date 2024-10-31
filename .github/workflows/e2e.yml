@@ -21,27 +21,32 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: ${{ env.WORKING_DIRECTORY }}
-        
-      - name: populate environment vars
-        uses: ./fe/.github/actions/setup-env
-        with:
-          working_directory: ${{ env.WORKING_DIRECTORY }}
-          api_host: ${{ vars.API_HOST }}
-          checkout_host: ${{ vars.CHECKOUT_HOST }}
-          login_url: ${{ vars.LOGIN_URL }}
-          checkout_platform_url: ${{ vars.CHECKOUT_PLATFORM_URL }}
-          version: ${{ github.sha }}
-
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: ${{ env.NODE_VERSION }}
       
-      # - name: Install dependecies
-      #   run: yarn install
+      - name: populate environment vars writing down an .env file
+        run: |
+          rm .env
+          touch .env
+          echo APIHOST=${{ inputs.api_host }} >> .env
+          echo ENV=test >> .env
+          echo ENTITIES_LOGO_CDN=https://assets.cdn.io.italia.it/logos/organizations >> .env
+          echo CHECKOUT_HOST=${{ vars.CHECKOUT_HOST }} >> .env
+          echo LOGIN_URL=${{ vars.LOGIN_URL }} >> .env
+          echo CHECKOUT_PLATFORM_URL=${{ vars.CHECKOUT_PLATFORM_URL }} >> .env
+          echo PAYMENT_RETURN_URL=http://localhost:1234 >> .env
+          echo DEPLOY_PATH=/pagamenti >> .env
+          echo VERSION=${{ github.sha }} >> .env
+          cat .env
 
-      # - name: run fe
-      #   run: yarn start &
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      - name: Install dependecies
+        run: yarn install
+
+      - name: run fe
+        run: yarn start &
     
       # - name: Wait for frontend to be up and running
       #   run: while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:1234)" != "200" ]]; do sleep 5; done
@@ -53,30 +58,30 @@ jobs:
           path: fe
           retention-days: 5
 
-      # - name: Checkout e2e repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: pagopa/arc-fe-e2e
-      #     ref: P4PU-598
-      #     path: e2e
+      - name: Checkout e2e repository
+        uses: actions/checkout@v4
+        with:
+          repository: pagopa/arc-fe-e2e
+          ref: P4PU-598
+          path: e2e
 
-      # - name: Install dependecies
-      #   run: yarn install
-      #   working-directory: e2e
+      - name: Install dependecies
+        run: yarn install
+        working-directory: e2e
       
-      # - name: Install playwright browsers
-      #   run: yarn playwright install
-      #   working-directory: e2e
+      - name: Install playwright browsers
+        run: yarn playwright install
+        working-directory: e2e
 
-      # - name: populate environment vars writing down an .env file
-      #   run: |
-      #     touch .env
-      #     echo BASE_URL=http://localhost:1234 >> .env
-      #     echo USERNAME=${{ secrets.E2E_USERNAME }} >> .env
-      #     echo PASSWORD=${{ secrets.E2E_PASSWORD }} >> .env
-      #     cat .env
-      #   working-directory: e2e
+      - name: populate environment vars writing down an .env file
+        run: |
+          touch .env
+          echo BASE_URL=http://localhost:1234 >> .env
+          echo USERNAME=${{ secrets.E2E_USERNAME }} >> .env
+          echo PASSWORD=${{ secrets.E2E_PASSWORD }} >> .env
+          cat .env
+        working-directory: e2e
 
-      # - name: runt tests
-      #   run: yarn test
-      #   working-directory: e2e
+      - name: runt tests
+        run: yarn test
+        working-directory: e2e
