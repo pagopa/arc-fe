@@ -48,21 +48,11 @@ jobs:
       - name: run fe
         run: yarn start &
     
-      # - name: Wait for frontend to be up and running
-      #   run: while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:1234)" != "200" ]]; do sleep 5; done
-
-      # - name: 'Upload Artifact'
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: dist
-      #     path: fe
-      #     retention-days: 5
-
       - name: Checkout e2e repository
         uses: actions/checkout@v4
         with:
           repository: pagopa/arc-fe-e2e
-          ref: P4PU-598
+          ref: main
           path: e2e
 
       - name: Install dependecies
