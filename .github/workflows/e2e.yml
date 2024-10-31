@@ -26,7 +26,7 @@ jobs:
         run: |
           rm .env
           touch .env
-          echo APIHOST=${{ inputs.api_host }} >> .env
+          echo APIHOST=${{ vars.API_HOST }} >> .env
           echo ENV=test >> .env
           echo ENTITIES_LOGO_CDN=https://assets.cdn.io.italia.it/logos/organizations >> .env
           echo CHECKOUT_HOST=${{ vars.CHECKOUT_HOST }} >> .env
