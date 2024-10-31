@@ -41,7 +41,6 @@ runs:
     working-directory: ${{ inputs.working_directory }}
     run: chmod +x env.sh
 
-
   - name: populate envs
     shell: bash
     run: env -i \
@@ -57,4 +56,10 @@ runs:
 
   - name: execute sh script
     shell: bash
+    working-directory: ${{ inputs.working_directory }}
     run: bash env.sh
+
+  - name: output .env
+    shell: bash
+    working-directory: ${{ inputs.working_directory }}
+    run: cat .env
