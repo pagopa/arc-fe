@@ -57,5 +57,4 @@ runs:
 
   - name: execute sh script
     shell: bash
-    working-directory: ${{ inputs.working_directory }}
     run: bash env.sh
