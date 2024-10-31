@@ -32,25 +32,25 @@ jobs:
           checkout_platform_url: ${{ vars.CHECKOUT_PLATFORM_URL }}
           version: ${{ github.sha }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: ${{ env.NODE_VERSION }}
       
-      - name: Install dependecies
-        run: yarn install
+      # - name: Install dependecies
+      #   run: yarn install
 
-      - name: run fe
-        run: yarn start &
+      # - name: run fe
+      #   run: yarn start &
     
-      - name: Wait for frontend to be up and running
-        run: while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:1234)" != "200" ]]; do sleep 5; done
+      # - name: Wait for frontend to be up and running
+      #   run: while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:1234)" != "200" ]]; do sleep 5; done
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: fe/dist
+          path: fe
           retention-days: 5
 
       # - name: Checkout e2e repository
