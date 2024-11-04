@@ -7,7 +7,7 @@
     },
     "user": {
       "title": "I tuoi dati",
-      "subtitle": "Questi dati vengono ricavati dal tuo SPID o CIE e non sono modificabili.",
+      "subtitle": "Questi dati vengono ricavati dal tuo SPID o CIE. Per modificarli, rivolgiti al tuo fornitore di identità digitale.",
       "info": {
         "name": "Nome",
         "surname": "Cognome",
@@ -153,6 +153,7 @@
       "debtor": "Debitore",
       "noticeCode": "Codice avviso",
       "partialAmount": "Importo parziale",
+      "amount": "Importo",
       "commission": "Commissione",
       "total": "Totale",
       "somethingDoesntAddUp": "Qualcosa non torna?",
@@ -195,7 +196,10 @@
   "menu": {
     "description": "Naviga il portale",
     "homepage": "Homepage",
-    "receipts": "Ricevute",
+    "receipts":{
+      "menuTitle":"Ricevute",
+       "pageTitle": "Le tue ricevute"
+    },
     "navigationMenu": "Menù di navigazione",
     "menu": "Menu",
     "paymentNotices": "Avvisi di pagamento"

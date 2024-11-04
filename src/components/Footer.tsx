@@ -4,6 +4,7 @@ import lang from '../translations/lang';
 import { Footer as MUIFooter } from '@pagopa/mui-italia';
 import { ArcRoutes } from 'routes/routes';
 import { useLanguage } from 'hooks/useLanguage';
+import './Footer.css';
 
 interface FooterProps {
   loggedUser?: boolean;
@@ -157,7 +158,7 @@ export const Footer = (props: FooterProps) => {
       currentLangCode={language}
       languages={lang}
       onExit={() => {}}
-      productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
+      productsJsonUrl="https://selfcare.pagopa.it/assets/products.json"
       hideProductsColumn={false}
       onLanguageChanged={changeLanguage}
     />
