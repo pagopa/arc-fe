@@ -38,7 +38,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
         width="100%"
         gap={3}>
         <Stack direction={{ sm: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} gap={2}>
-          <Typography variant="h2" fontSize={{ xs: 28, md: 32 }}>
+          <Typography variant="h2" fontSize={{ xs: 28, md: 32 }} sx={{ wordBreak: 'break-word' }}>
             {t('app.transactionDetail.title')}
           </Typography>
         </Stack>
