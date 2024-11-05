@@ -1,26 +1,25 @@
 name: e2e
 
-on: [push, pull_request]
+on: [pull_request]
 
 env:
-  ENVIRONMENT: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
   NODE_VERSION: '18.18.0'
 
 jobs:
-  start-fe:
-    env:
-      WORKING_DIRECTORY: fe
+  testing-e2e:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-    environment: ${{ github.ref_name == 'P4PU-598' && 'dev' || 'uat' }}
+    environment: ${{ github.base_ref == 'uat' && 'uat' || 'dev' }}
   
     steps:
-      - name: Checkout code
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Checkout fe code
         uses: actions/checkout@v4
         with:
-          path: ${{ env.WORKING_DIRECTORY }}
+          path: fe
       
       - name: populate environment vars writing down an .env file
         run: |
@@ -36,26 +35,23 @@ jobs:
           echo DEPLOY_PATH=/pagamenti >> .env
           echo VERSION=${{ github.sha }} >> .env
           cat .env
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      
-      - name: Install dependecies
+        working-directory: fe
+  
+      - name: Install fe dependecies
         run: yarn install
-
+        working-directory: fe
+  
       - name: run fe
         run: yarn start &
-    
+        working-directory: fe
+
       - name: Checkout e2e repository
         uses: actions/checkout@v4
         with:
           repository: pagopa/arc-fe-e2e
-          ref: P4PU-598
           path: e2e
 
-      - name: Install dependecies
+      - name: Install e2e dependecies
         run: yarn install
         working-directory: e2e
       
@@ -73,6 +69,6 @@ jobs:
           cat .env
         working-directory: e2e
 
-      - name: runt tests
+      - name: run e2e tests
         run: yarn test
         working-directory: e2e
