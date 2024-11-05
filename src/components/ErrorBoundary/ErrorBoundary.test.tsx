@@ -9,7 +9,6 @@ const ErrorThrowingComponent = () => {
 };
 
 describe('ErrorBoundary', () => {
-  // @ts-ignore
   let errorSpy: vi.SpyInstance;
 
   beforeAll(() => {
