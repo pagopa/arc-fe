@@ -252,6 +252,11 @@
       "title": "La tua utenza non è autorizzata a visionare questo sito",
       "body": "Se credi che questo non sia corretto apri una segnalazione",
       "cta": "Scrivi ad assistenza"
+    },
+    "408": {
+      "title": "Il sistema ha impiegato troppo tempo a rispondere",
+      "body": "Prova ad effettuare nuovamente il login",
+      "cta": "Login"
     }
   }
 }

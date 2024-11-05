@@ -107,7 +107,7 @@ export const getTokenOneidentity = async (request: Request) => {
     parseAndLog(zodSchema.tokenResponseSchema, TokenResponse);
     return TokenResponse;
   } catch (error) {
-    const code = (error as AxiosError<{ status: number }>).response?.status;
+    const code = (error as AxiosError<{ status: number }>).response?.status || 408;
     return code;
   }
 };
