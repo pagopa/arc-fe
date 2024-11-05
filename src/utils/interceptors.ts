@@ -10,7 +10,6 @@ export const setupInterceptors = (client: Client, navigate: NavigateFunction) =>
     (request: InternalAxiosRequestConfig) => {
       const tokenHeaderExcludePaths: string[] = utils.config.tokenHeaderExcludePaths;
       const routeUrl = request.url || '';
-      request.timeout = 6000;
       const accessToken = window.localStorage.getItem('accessToken');
       if (accessToken && !tokenHeaderExcludePaths.includes(routeUrl)) {
         request.headers['Authorization'] = `Bearer ${accessToken}`;
