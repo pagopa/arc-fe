@@ -12,10 +12,12 @@ export const CourtesyPage = () => {
     <Container maxWidth="sm">
       <Box textAlign="center" mt={10}>
         <Typography variant="h4" gutterBottom data-testid="courtesyPage.title">
-          {t(`courtesyPage.${errorMessage}.title`)}
+          {t(`courtesyPage.${errorMessage}.title`, {
+            defaultValue: t('courtesyPage.default.title')
+          })}
         </Typography>
         <Typography variant="body1" paragraph data-testid="courtesyPage.body">
-          {t(`courtesyPage.${errorMessage}.body`)}
+          {t(`courtesyPage.${errorMessage}.body`, { defaultValue: t('courtesyPage.default.body') })}
         </Typography>
         <Button
           component={Link}
@@ -23,7 +25,7 @@ export const CourtesyPage = () => {
           variant="contained"
           color="primary"
           data-testid="courtesyPage.cta">
-          {t(`courtesyPage.${errorMessage}.cta`)}
+          {t(`courtesyPage.${errorMessage}.cta`, { defaultValue: t('courtesyPage.default.cta') })}
         </Button>
       </Box>
     </Container>
