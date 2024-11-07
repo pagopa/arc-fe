@@ -56,6 +56,12 @@ export default function NoticesListPage() {
     setNoticeQueryParams({ ...noticeQueryParams, continuationToken: pages[pageIndex] });
   };
 
+  const resetPagination = () => {
+    setCurrentPages(0);
+    setPages(['']);
+    setNoticeQueryParams({ ...noticeQueryParams, continuationToken: '' });
+  };
+
   // pages
   React.useEffect(() => {
     (async () => {
@@ -71,6 +77,7 @@ export default function NoticesListPage() {
 
   // activetab
   React.useEffect(() => {
+    resetPagination();
     refetch();
   }, [activeTab]);
 
