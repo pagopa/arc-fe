@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 
 export interface TransactionsProps {
   rows?: TransactionProps[];
+  dateOrder?: 'ASC' | 'DESC';
+  onDateOrderClick?: () => void;
 }
 
 const Transactions = (props: TransactionsProps) => {
@@ -23,8 +25,8 @@ const Transactions = (props: TransactionsProps) => {
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} width="60%">
               {t('app.transactions.payee')}
             </TableCell>
-            <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
-              {t('app.transactions.date')}
+            <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} onClick={props.onDateOrderClick}>
+              {t('app.transactions.date')} {props.dateOrder}
             </TableCell>
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
               {t('app.transactions.amount')}

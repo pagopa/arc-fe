@@ -5,6 +5,7 @@ interface NormalizedNoticesListParams {
   paidByMe?: boolean;
   registeredToMe?: boolean;
   continuationToken?: string;
+  ordering?: 'ASC' | 'DESC';
 }
 
 export const useNormalizedNoticesList = (params?: NormalizedNoticesListParams) => {

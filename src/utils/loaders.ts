@@ -19,6 +19,7 @@ interface GetNoticesList {
   paidByMe?: boolean;
   registeredToMe?: boolean;
   continuationToken?: string;
+  ordering?: 'ASC' | 'DESC';
 }
 /**
  * Retrieve the paged notices list from arc
@@ -31,7 +32,9 @@ const getNoticesList = (query?: GetNoticesList, continuationToken?: string) =>
         {
           size: query?.size,
           paidByMe: query?.paidByMe,
-          registeredToMe: query?.registeredToMe
+          registeredToMe: query?.registeredToMe,
+          orderBy: 'TRANSACTION_DATE',
+          ordering: query?.ordering || 'DESC'
         },
         {
           headers: {

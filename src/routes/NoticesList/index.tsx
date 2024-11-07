@@ -22,10 +22,13 @@ export default function NoticesListPage() {
     registeredToMe?: boolean;
     /** continuation token, used to paginate the elements */
     continuationToken?: string;
+    ordering?: 'ASC' | 'DESC';
   }>();
 
   const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
   const [currentPage, setCurrentPages] = React.useState(0);
+  const [dateOrder, setDateOrder] = React.useState<'ASC' | 'DESC'>('DESC');
+
   const [pages, setPages] = React.useState(['']);
 
   const { t } = useTranslation();
@@ -36,7 +39,21 @@ export default function NoticesListPage() {
     queryResult: { data, error, refetch }
   } = noticesList;
 
+  const resetPagination = () => {
+    setCurrentPages(0);
+    setPages(['']);
+    setNoticeQueryParams({ ...noticeQueryParams, continuationToken: '' });
+  };
+
+  const onDateOrderChange = () => {
+    resetPagination();
+    const newDateOrder = dateOrder === 'DESC' ? 'ASC' : 'DESC';
+    setDateOrder(newDateOrder);
+    setNoticeQueryParams({ ...noticeQueryParams, ordering: newDateOrder });
+  };
+
   const onTabChange = (activeTab: NoticesTabs) => {
+    resetPagination();
     setActiveTab(activeTab);
     switch (activeTab) {
       case NoticesTabs.all:
@@ -56,13 +73,6 @@ export default function NoticesListPage() {
     setNoticeQueryParams({ ...noticeQueryParams, continuationToken: pages[pageIndex] });
   };
 
-  const resetPagination = () => {
-    setCurrentPages(0);
-    setPages(['']);
-    setNoticeQueryParams({ ...noticeQueryParams, continuationToken: '' });
-  };
-
-  // pages
   React.useEffect(() => {
     (async () => {
       const response = await refetch();
@@ -73,13 +83,7 @@ export default function NoticesListPage() {
       const isNewToken = !pages.find((oldToken) => oldToken === continuationToken);
       if (isNewToken) setPages([...pages, continuationToken]);
     })();
-  }, [currentPage]);
-
-  // activetab
-  React.useEffect(() => {
-    resetPagination();
-    refetch();
-  }, [activeTab]);
+  }, [currentPage, activeTab, dateOrder]);
 
   const MainContent = ({
     all,
@@ -99,15 +103,33 @@ export default function NoticesListPage() {
           tabs={[
             {
               title: t('app.transactions.all'),
-              content: <TransactionsList rows={all} />
+              content: (
+                <TransactionsList
+                  rows={all}
+                  dateOrder={dateOrder}
+                  onDateOrderClick={onDateOrderChange}
+                />
+              )
             },
             {
               title: t('app.transactions.paidByMe'),
-              content: <TransactionsList rows={paidByMe} />
+              content: (
+                <TransactionsList
+                  rows={paidByMe}
+                  dateOrder={dateOrder}
+                  onDateOrderClick={onDateOrderChange}
+                />
+              )
             },
             {
               title: t('app.transactions.ownedByMe'),
-              content: <TransactionsList rows={registeredToMe} />
+              content: (
+                <TransactionsList
+                  rows={registeredToMe}
+                  dateOrder={dateOrder}
+                  onDateOrderClick={onDateOrderChange}
+                />
+              )
             }
           ]}
         />
