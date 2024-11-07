@@ -22,14 +22,25 @@ export default function NoticesListPage() {
     registeredToMe?: boolean;
     /** continuation token, used to paginate the elements */
     continuationToken?: string;
+    /** date order, the only one avaiable. default DESC */
     ordering?: 'ASC' | 'DESC';
-  }>();
+  }>({ continuationToken: '', ordering: 'DESC' });
 
   const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
   const [currentPage, setCurrentPages] = React.useState(0);
-  const [dateOrder, setDateOrder] = React.useState<'ASC' | 'DESC'>('DESC');
-
+  const [dateOrdering, setDateOrdering] = React.useState<'ASC' | 'DESC'>('DESC');
   const [pages, setPages] = React.useState(['']);
+
+  // console.log(
+  //   'activeTab',
+  //   activeTab,
+  //   'currentPage',
+  //   currentPage,
+  //   'dateOrder',
+  //   dateOrder,
+  //   'pages',
+  //   pages
+  // );
 
   const { t } = useTranslation();
 
@@ -42,18 +53,26 @@ export default function NoticesListPage() {
   const resetPagination = () => {
     setCurrentPages(0);
     setPages(['']);
-    setNoticeQueryParams({ ...noticeQueryParams, continuationToken: '' });
   };
 
-  const onDateOrderChange = () => {
+  const resetDateOrdering = () => {
+    setDateOrdering('DESC');
+  };
+
+  const toggleDateOrder = () => {
     resetPagination();
-    const newDateOrder = dateOrder === 'DESC' ? 'ASC' : 'DESC';
-    setDateOrder(newDateOrder);
-    setNoticeQueryParams({ ...noticeQueryParams, ordering: newDateOrder });
+    const newDateOrdering = dateOrdering === 'DESC' ? 'ASC' : 'DESC';
+    setDateOrdering(newDateOrdering);
+    setNoticeQueryParams({
+      ...noticeQueryParams,
+      ordering: newDateOrdering,
+      continuationToken: ''
+    });
   };
 
   const onTabChange = (activeTab: NoticesTabs) => {
     resetPagination();
+    resetDateOrdering();
     setActiveTab(activeTab);
     switch (activeTab) {
       case NoticesTabs.all:
@@ -83,7 +102,7 @@ export default function NoticesListPage() {
       const isNewToken = !pages.find((oldToken) => oldToken === continuationToken);
       if (isNewToken) setPages([...pages, continuationToken]);
     })();
-  }, [currentPage, activeTab, dateOrder]);
+  }, [currentPage, activeTab, dateOrdering]);
 
   const MainContent = ({
     all,
@@ -106,8 +125,8 @@ export default function NoticesListPage() {
               content: (
                 <TransactionsList
                   rows={all}
-                  dateOrder={dateOrder}
-                  onDateOrderClick={onDateOrderChange}
+                  dateOrdering={dateOrdering}
+                  onDateOrderClick={toggleDateOrder}
                 />
               )
             },
@@ -116,8 +135,8 @@ export default function NoticesListPage() {
               content: (
                 <TransactionsList
                   rows={paidByMe}
-                  dateOrder={dateOrder}
-                  onDateOrderClick={onDateOrderChange}
+                  dateOrdering={dateOrdering}
+                  onDateOrderClick={toggleDateOrder}
                 />
               )
             },
@@ -126,8 +145,8 @@ export default function NoticesListPage() {
               content: (
                 <TransactionsList
                   rows={registeredToMe}
-                  dateOrder={dateOrder}
-                  onDateOrderClick={onDateOrderChange}
+                  dateOrdering={dateOrdering}
+                  onDateOrderClick={toggleDateOrder}
                 />
               )
             }

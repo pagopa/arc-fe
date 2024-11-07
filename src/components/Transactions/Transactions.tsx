@@ -4,12 +4,14 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import Transaction from './Transaction';
-import { TableHead, TableRow, TableCell, useMediaQuery, Theme } from '@mui/material';
+import { TableHead, TableRow, TableCell, useMediaQuery, Theme, Stack } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export interface TransactionsProps {
   rows?: TransactionProps[];
-  dateOrder?: 'ASC' | 'DESC';
+  dateOrdering?: 'ASC' | 'DESC';
   onDateOrderClick?: () => void;
 }
 
@@ -26,7 +28,14 @@ const Transactions = (props: TransactionsProps) => {
               {t('app.transactions.payee')}
             </TableCell>
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} onClick={props.onDateOrderClick}>
-              {t('app.transactions.date')} {props.dateOrder}
+              <Stack direction="row" sx={{ cursor: 'pointer' }}>
+                <span>{t('app.transactions.date')}</span>
+                {props.dateOrdering === 'DESC' ? (
+                  <ArrowDownwardIcon sx={{ width: '18px' }} />
+                ) : (
+                  <ArrowUpwardIcon sx={{ width: '18px' }} />
+                )}
+              </Stack>
             </TableCell>
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>
               {t('app.transactions.amount')}
