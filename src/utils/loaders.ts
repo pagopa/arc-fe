@@ -18,21 +18,29 @@ interface GetNoticesList {
   size?: number;
   paidByMe?: boolean;
   registeredToMe?: boolean;
+  continuationToken?: string;
 }
 /**
  * Retrieve the paged notices list from arc
  */
-const getNoticesList = (query?: GetNoticesList) =>
+const getNoticesList = (query?: GetNoticesList, continuationToken?: string) =>
   useQuery({
     queryKey: ['noticesList'],
     queryFn: async () => {
-      const { data: noticesList } = await utils.apiClient.notices.getNoticesList({
-        size: query?.size,
-        paidByMe: query?.paidByMe,
-        registeredToMe: query?.registeredToMe
-      });
+      const { data: noticesList, headers } = await utils.apiClient.notices.getNoticesList(
+        {
+          size: query?.size,
+          paidByMe: query?.paidByMe,
+          registeredToMe: query?.registeredToMe
+        },
+        {
+          headers: {
+            'x-continuation-token': continuationToken
+          }
+        }
+      );
       parseAndLog(zodSchema.noticesListDTOSchema, noticesList);
-      return noticesList;
+      return { noticesList, continuationToken: headers['x-continuation-token'] as string };
     }
   });
 

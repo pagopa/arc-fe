@@ -23,7 +23,7 @@ const Dashboard = () => {
   const rows =
     data &&
     utils.converters.prepareRowsData({
-      notices: data.notices,
+      notices: data.noticesList.notices,
       status: { label: t('app.transactions.paid') },
       payee: { multi: t('app.transactions.multiEntities') }
     });

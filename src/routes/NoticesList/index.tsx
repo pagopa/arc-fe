@@ -19,17 +19,23 @@ export default function NoticesListPage() {
   const [noticeQueryParams, setNoticeQueryParams] = React.useState<{
     paidByMe?: boolean;
     registeredToMe?: boolean;
+    /** continuation token, used to paginate the elements */
+    token?: string;
   }>({});
+
   const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
+  const [currentPage, setCurrentPages] = React.useState(0);
+  const [pages, setPages] = React.useState(['']);
 
   const { t } = useTranslation();
+
   const noticesList = useNormalizedNoticesList(noticeQueryParams);
 
   const {
     queryResult: { data, error, refetch }
   } = noticesList;
 
-  const onChange = (activeTab: NoticesTabs) => {
+  const onTabChange = (activeTab: NoticesTabs) => {
     setActiveTab(activeTab);
     switch (activeTab) {
       case NoticesTabs.all:
@@ -43,6 +49,26 @@ export default function NoticesListPage() {
     }
   };
 
+  const goToPage = (direction: number) => {
+    const pageIndex = currentPage + direction;
+    setCurrentPages(pageIndex);
+    setNoticeQueryParams({ ...noticeQueryParams, token: pages[pageIndex] });
+  };
+
+  // pages
+  React.useEffect(() => {
+    (async () => {
+      const response = await refetch();
+      const continuationToken = response.data?.continuationToken;
+      // if no token is returned we reach the end
+      if (!continuationToken) return;
+      // is a new token? if not, no need to update the token pages array
+      const isNewToken = !pages.find((oldToken) => oldToken === continuationToken);
+      if (isNewToken) setPages([...pages, continuationToken]);
+    })();
+  }, [currentPage]);
+
+  // activetab
   React.useEffect(() => {
     refetch();
   }, [activeTab]);
@@ -57,25 +83,33 @@ export default function NoticesListPage() {
     registeredToMe: TransactionProps[];
   }) => {
     return (
-      <Tabs
-        ariaLabel="tabs"
-        initialActiveTab={activeTab}
-        onChange={onChange}
-        tabs={[
-          {
-            title: t('app.transactions.all'),
-            content: <TransactionsList rows={all} />
-          },
-          {
-            title: t('app.transactions.paidByMe'),
-            content: <TransactionsList rows={paidByMe} />
-          },
-          {
-            title: t('app.transactions.ownedByMe'),
-            content: <TransactionsList rows={registeredToMe} />
-          }
-        ]}
-      />
+      <>
+        <Tabs
+          ariaLabel="tabs"
+          initialActiveTab={activeTab}
+          onChange={onTabChange}
+          tabs={[
+            {
+              title: t('app.transactions.all'),
+              content: <TransactionsList rows={all} />
+            },
+            {
+              title: t('app.transactions.paidByMe'),
+              content: <TransactionsList rows={paidByMe} />
+            },
+            {
+              title: t('app.transactions.ownedByMe'),
+              content: <TransactionsList rows={registeredToMe} />
+            }
+          ]}
+        />
+        <button disabled={currentPage === 0} onClick={() => goToPage(-1)}>
+          indietro
+        </button>
+        <button disabled={pages[currentPage + 1] === undefined} onClick={() => goToPage(+1)}>
+          avanti
+        </button>
+      </>
     );
   };
 
@@ -87,8 +121,8 @@ export default function NoticesListPage() {
 
       <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="noticesList">
         {(() => {
-          if (error || !data || !data.notices) return <Retry action={refetch} />;
-          if (data.notices.length === 0) return <Empty />;
+          if (error || !data || !data.noticesList.notices) return <Retry action={refetch} />;
+          if (data.noticesList.notices?.length === 0) return <Empty />;
           return (
             <MainContent
               all={noticesList.all}
