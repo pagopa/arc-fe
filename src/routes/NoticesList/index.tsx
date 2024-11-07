@@ -8,6 +8,7 @@ import { useNormalizedNoticesList } from 'hooks/useNormalizedNoticesList';
 import Empty from 'components/Transactions/Empty';
 import Retry from 'components/Transactions/Retry';
 import { TransactionListSkeleton } from 'components/Skeleton';
+import { PaginationItem } from '@mui/material';
 
 enum NoticesTabs {
   all,
@@ -20,8 +21,8 @@ export default function NoticesListPage() {
     paidByMe?: boolean;
     registeredToMe?: boolean;
     /** continuation token, used to paginate the elements */
-    token?: string;
-  }>({});
+    continuationToken?: string;
+  }>();
 
   const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
   const [currentPage, setCurrentPages] = React.useState(0);
@@ -52,7 +53,7 @@ export default function NoticesListPage() {
   const goToPage = (direction: number) => {
     const pageIndex = currentPage + direction;
     setCurrentPages(pageIndex);
-    setNoticeQueryParams({ ...noticeQueryParams, token: pages[pageIndex] });
+    setNoticeQueryParams({ ...noticeQueryParams, continuationToken: pages[pageIndex] });
   };
 
   // pages
@@ -103,15 +104,26 @@ export default function NoticesListPage() {
             }
           ]}
         />
-        <button disabled={currentPage === 0} onClick={() => goToPage(-1)}>
-          indietro
-        </button>
-        <button disabled={pages[currentPage + 1] === undefined} onClick={() => goToPage(+1)}>
-          avanti
-        </button>
       </>
     );
   };
+
+  const Pagination = () => (
+    <Stack direction={'row'} justifyContent={'end'} pt={2}>
+      <PaginationItem
+        disabled={currentPage === 0}
+        onClick={() => goToPage(-1)}
+        size="medium"
+        type="previous"
+      />
+      <PaginationItem
+        disabled={pages[currentPage + 1] === undefined}
+        onClick={() => goToPage(+1)}
+        size="medium"
+        type="next"
+      />
+    </Stack>
+  );
 
   return (
     <>
@@ -124,14 +136,17 @@ export default function NoticesListPage() {
           if (error || !data || !data.noticesList.notices) return <Retry action={refetch} />;
           if (data.noticesList.notices?.length === 0) return <Empty />;
           return (
-            <MainContent
-              all={noticesList.all}
-              paidByMe={noticesList.paidByMe}
-              registeredToMe={noticesList.registeredToMe}
-            />
+            <>
+              <MainContent
+                all={noticesList.all}
+                paidByMe={noticesList.paidByMe}
+                registeredToMe={noticesList.registeredToMe}
+              />
+            </>
           );
         })()}
       </QueryLoader>
+      {pages.length > 1 && <Pagination />}
     </>
   );
 }
