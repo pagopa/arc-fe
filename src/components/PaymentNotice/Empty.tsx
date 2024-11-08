@@ -21,7 +21,12 @@ export const _Empty = () => {
         width: '100%'
       }}>
       <CardActions>
-        <Stack spacing={2} width={'100%'} textAlign={'center'} alignItems={'center'}>
+        <Stack
+          spacing={2}
+          width={'100%'}
+          textAlign={'center'}
+          alignItems={'center'}
+          data-testid="app.paymentNotice.empty">
           <Typography variant="body1" fontWeight={700}>
             {t('app.paymentNotice.empty.title')}
           </Typography>

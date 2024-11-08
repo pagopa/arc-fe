@@ -30,6 +30,7 @@ export const _Error = (props: ErrorProps) => {
           <Typography variant="body1">{t('app.paymentNotice.error.description')}</Typography>
           <Box mt={3} width={'100%'}>
             <Button
+              data-testid="app.paymentNotice.error.button"
               onClick={props.onRetry}
               variant="text"
               aria-label={t('app.paymentNotice.error.button')}

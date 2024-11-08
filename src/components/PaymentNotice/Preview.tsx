@@ -32,7 +32,7 @@ export const _Preview = () => {
           <Typography>{t('app.paymentNotice.preview.description')}</Typography>
         </Stack>
         <Box display="flex" justifyContent={{ xs: 'stretch', sm: 'flex-start' }}>
-          <Button size="large" variant="contained" onClick={open}>
+          <Button size="large" variant="contained" onClick={open} id="searchButtonPaymentNotices">
             {t('app.paymentNotice.preview.action')}
           </Button>
         </Box>

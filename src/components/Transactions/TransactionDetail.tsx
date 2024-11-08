@@ -92,7 +92,10 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          fontWeight={600}
+                          id="transaction-detail-partialAmount">
                           {noticeData.partialAmount}
                         </Typography>
                       </Grid>
@@ -106,7 +109,10 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          fontWeight={600}
+                          id="transaction-detail-creditorEntity">
                           {noticeData.creditorEntity}
                         </Typography>
                       </Grid>
@@ -124,10 +130,16 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                         <Stack
                           direction={{ xs: 'column', sm: 'row', md: 'column' }}
                           spacing={{ xs: 0, sm: 1, md: 0 }}>
-                          <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                          <Typography
+                            sx={{ wordBreak: 'break-word' }}
+                            fontWeight={600}
+                            id="transaction-detail-debtor">
                             {noticeData.debtor}
                           </Typography>
-                          <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                          <Typography
+                            sx={{ wordBreak: 'break-word' }}
+                            fontWeight={600}
+                            id="transaction-detail-debtorFiscalCode">
                             ({noticeData.debtorFiscalCode})
                           </Typography>
                         </Stack>
@@ -142,7 +154,10 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          fontWeight={600}
+                          id="transaction-detail-noticeCode">
                           {noticeData.noticeCode}
                         </Typography>
                       </Grid>
@@ -156,7 +171,10 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          fontWeight={600}
+                          id="transaction-detail-creditorFiscalCode">
                           {noticeData.creditorFiscalCode}
                         </Typography>
                       </Grid>
@@ -179,6 +197,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                       </Grid>
                       <Grid item>
                         <Typography
+                          id="transaction-detail-total"
                           sx={{ wordBreak: 'break-word' }}
                           fontSize={{ xs: '22', md: '24' }}
                           variant="h6">
@@ -284,7 +303,10 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                       color={theme.palette.text.secondary}>
                       {t('app.transactionDetail.PSP')}
                     </Typography>
-                    <Typography sx={{ wordBreak: 'break-word' }} fontWeight={600}>
+                    <Typography
+                      sx={{ wordBreak: 'break-word' }}
+                      fontWeight={600}
+                      id="transaction-detail-psp">
                       {noticeData.PSP}
                     </Typography>
                   </Stack>
@@ -309,6 +331,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                           RRN
                         </Typography>
                         <Typography
+                          id="transaction-detail-rrn"
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           fontSize={16}
@@ -355,6 +378,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                           {t('app.transactionDetail.transactionId')}
                         </Typography>
                         <Typography
+                          id="transaction-detail-eventId"
                           fontWeight={600}
                           color={theme.palette.primary.main}
                           fontSize={16}

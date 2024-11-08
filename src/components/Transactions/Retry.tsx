@@ -13,7 +13,7 @@ const Retry = (props: RetryProps) => {
   const { action } = props;
   return (
     <Paper sx={{ padding: 4 }}>
-      <Stack alignItems="center" spacing={2}>
+      <Stack alignItems="center" spacing={2} data-testid="app.transactions.error">
         <Icon color="error" component={ErrorOutlineIcon} />
         <Typography variant="body2">{t('app.transactions.error.title')}</Typography>
         <Button onClick={action}>{t('app.transactions.error.retry')}</Button>
