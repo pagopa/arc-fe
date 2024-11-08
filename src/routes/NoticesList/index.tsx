@@ -31,17 +31,6 @@ export default function NoticesListPage() {
   const [dateOrdering, setDateOrdering] = React.useState<'ASC' | 'DESC'>('DESC');
   const [pages, setPages] = React.useState(['']);
 
-  // console.log(
-  //   'activeTab',
-  //   activeTab,
-  //   'currentPage',
-  //   currentPage,
-  //   'dateOrder',
-  //   dateOrder,
-  //   'pages',
-  //   pages
-  // );
-
   const { t } = useTranslation();
 
   const noticesList = useNormalizedNoticesList(noticeQueryParams);
