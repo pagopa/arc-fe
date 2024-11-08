@@ -28,10 +28,20 @@ export default function NoticesListPage() {
 
   const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
   const [currentPage, setCurrentPages] = React.useState(0);
-  const [dateOrdering, setDateOrdering] = React.useState<'ASC' | 'DESC'>('DESC');
   const [pages, setPages] = React.useState(['']);
 
   const { t } = useTranslation();
+
+  console.log(
+    'activeTab',
+    activeTab,
+    'currentPage',
+    currentPage,
+    'dateOrding',
+    noticeQueryParams.ordering,
+    'pages',
+    pages
+  );
 
   const noticesList = useNormalizedNoticesList(noticeQueryParams);
 
@@ -44,14 +54,9 @@ export default function NoticesListPage() {
     setPages(['']);
   };
 
-  const resetDateOrdering = () => {
-    setDateOrdering('DESC');
-  };
-
   const toggleDateOrder = () => {
     resetPagination();
-    const newDateOrdering = dateOrdering === 'DESC' ? 'ASC' : 'DESC';
-    setDateOrdering(newDateOrdering);
+    const newDateOrdering = noticeQueryParams.ordering === 'DESC' ? 'ASC' : 'DESC';
     setNoticeQueryParams({
       ...noticeQueryParams,
       ordering: newDateOrdering,
@@ -61,21 +66,31 @@ export default function NoticesListPage() {
 
   const onTabChange = (activeTab: NoticesTabs) => {
     resetPagination();
-    resetDateOrdering();
     setActiveTab(activeTab);
     switch (activeTab) {
       case NoticesTabs.all:
         setNoticeQueryParams({
-          ...noticeQueryParams,
+          ordering: 'DESC',
+          continuationToken: '',
           registeredToMe: undefined,
           paidByMe: undefined
         });
         break;
       case NoticesTabs.paidByMe:
-        setNoticeQueryParams({ ...noticeQueryParams, paidByMe: true, registeredToMe: undefined });
+        setNoticeQueryParams({
+          ordering: 'DESC',
+          continuationToken: '',
+          paidByMe: true,
+          registeredToMe: undefined
+        });
         break;
       case NoticesTabs.registeredToMe:
-        setNoticeQueryParams({ ...noticeQueryParams, registeredToMe: true, paidByMe: undefined });
+        setNoticeQueryParams({
+          ordering: 'DESC',
+          continuationToken: '',
+          registeredToMe: true,
+          paidByMe: undefined
+        });
     }
   };
 
@@ -95,7 +110,7 @@ export default function NoticesListPage() {
       const isNewToken = !pages.find((oldToken) => oldToken === continuationToken);
       if (isNewToken) setPages([...pages, continuationToken]);
     })();
-  }, [currentPage, activeTab, dateOrdering]);
+  }, [currentPage, activeTab, noticeQueryParams.ordering]);
 
   const MainContent = ({
     all,
@@ -118,7 +133,7 @@ export default function NoticesListPage() {
               content: (
                 <TransactionsList
                   rows={all}
-                  dateOrdering={dateOrdering}
+                  dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
               )
@@ -128,7 +143,7 @@ export default function NoticesListPage() {
               content: (
                 <TransactionsList
                   rows={paidByMe}
-                  dateOrdering={dateOrdering}
+                  dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
               )
@@ -138,7 +153,7 @@ export default function NoticesListPage() {
               content: (
                 <TransactionsList
                   rows={registeredToMe}
-                  dateOrdering={dateOrdering}
+                  dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
               )
