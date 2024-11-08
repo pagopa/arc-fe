@@ -167,12 +167,14 @@ export default function NoticesListPage() {
         onClick={() => goToPage(-1)}
         size="medium"
         type="previous"
+        data-testid="notices-pagination-prev"
       />
       <PaginationItem
         disabled={pages[currentPage + 1] === undefined}
         onClick={() => goToPage(+1)}
         size="medium"
         type="next"
+        data-testid="notices-pagination-next"
       />
     </Stack>
   );

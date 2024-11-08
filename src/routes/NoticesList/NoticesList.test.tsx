@@ -153,30 +153,99 @@ describe('NoticesListRoute', () => {
         ''
       );
     });
+  });
 
-    fireEvent.click(screen.getByText('app.transactions.ownedByMe'));
+  it('date order toggles correctly', async () => {
+    const mockNoticesList = {
+      notices: [{ id: '1' }, { id: '2' }]
+    };
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNoticesList.notices,
+        continuationToken: ''
+      },
+      isError: false,
+      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '' } })
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    fireEvent.click(screen.queryAllByText('app.transactions.date')[0]);
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
-        { paidByMe: undefined, registeredToMe: true, size: 10, ordering: 'DESC' },
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'ASC' },
         ''
       );
     });
 
-    fireEvent.click(screen.getByText('app.transactions.all'));
+    fireEvent.click(screen.queryAllByText('app.transactions.date')[0]);
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
-        {
-          size: 10,
-          paidByMe: undefined,
-          registeredToMe: undefined,
-          ordering: 'DESC'
-        },
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
         ''
       );
+    });
+  });
+
+  it('it renders pagination when nedeed', async () => {
+    const mockNoticesList = {
+      notices: [{ id: '1' }, { id: '2' }]
+    };
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNoticesList.notices,
+        continuationToken: '0001'
+      },
+      isError: false,
+      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '0001' } })
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      const prev = screen.getByTestId('notices-pagination-prev');
+      const next = screen.getByTestId('notices-pagination-next');
+      // prev button
+      expect(prev).toBeInTheDocument();
+      expect(prev).toBeDisabled();
+
+      // next button
+      expect(next).toBeInTheDocument();
+      expect(next).not.toBeDisabled();
+    });
+
+    fireEvent.click(screen.getByTestId('notices-pagination-next'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
+        '0001'
+      );
+    });
+
+    await waitFor(() => {
+      const prev = screen.getByTestId('notices-pagination-prev');
+      const next = screen.getByTestId('notices-pagination-next');
+      // prev button
+      expect(prev).toBeInTheDocument();
+      expect(prev).not.toBeDisabled();
+
+      // next button
+      expect(next).toBeInTheDocument();
+      expect(next).toBeDisabled();
     });
   });
 });
