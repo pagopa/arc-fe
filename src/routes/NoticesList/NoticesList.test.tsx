@@ -52,11 +52,13 @@ describe('NoticesListRoute', () => {
         { id: '2', paidByMe: false, registeredToMe: true }
       ]
     };
-
     (loaders.getNoticesList as Mock).mockReturnValue({
-      data: mockNoticesList,
+      data: {
+        notices: mockNoticesList.notices,
+        continuationToken: ''
+      },
       isError: false,
-      refetch: vi.fn()
+      refetch: () => ({ data: { continuationToken: '' } })
     });
 
     render(
@@ -74,7 +76,7 @@ describe('NoticesListRoute', () => {
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: null,
       isError: true,
-      refetch: vi.fn()
+      refetch: () => ({ data: null })
     });
 
     render(
@@ -91,10 +93,11 @@ describe('NoticesListRoute', () => {
   it('gives a proper feedback when no data is returned', async () => {
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: {
-        notices: []
+        notices: [],
+        continuationToken: ''
       },
       isError: false,
-      refetch: vi.fn()
+      refetch: () => ({ data: { notices: [], continuationToken: '' } })
     });
 
     render(
@@ -115,10 +118,11 @@ describe('NoticesListRoute', () => {
     };
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: {
-        notices: mockNoticesList
+        notices: mockNoticesList.notices,
+        continuationToken: ''
       },
       isError: false,
-      refetch: vi.fn()
+      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '' } })
     });
 
     render(
@@ -129,28 +133,50 @@ describe('NoticesListRoute', () => {
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        {
+          size: 10,
+          paidByMe: undefined,
+          registeredToMe: undefined,
+          ordering: 'DESC'
+        },
+        ''
+      );
     });
 
     fireEvent.click(screen.getByText('app.transactions.paidByMe'));
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ paidByMe: true, size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: true, size: 10, ordering: 'DESC' },
+        ''
+      );
     });
 
     fireEvent.click(screen.getByText('app.transactions.ownedByMe'));
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ registeredToMe: true, size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { paidByMe: undefined, registeredToMe: true, size: 10, ordering: 'DESC' },
+        ''
+      );
     });
 
     fireEvent.click(screen.getByText('app.transactions.all'));
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        {
+          size: 10,
+          paidByMe: undefined,
+          registeredToMe: undefined,
+          ordering: 'DESC'
+        },
+        ''
+      );
     });
   });
 });

@@ -21,9 +21,9 @@ export default function NoticesListPage() {
     paidByMe?: boolean;
     registeredToMe?: boolean;
     /** continuation token, used to paginate the elements */
-    continuationToken?: string;
+    continuationToken: string;
     /** date order, the only one avaiable. default DESC */
-    ordering?: 'ASC' | 'DESC';
+    ordering: 'ASC' | 'DESC';
   }>({ continuationToken: '', ordering: 'DESC' });
 
   const [activeTab, setActiveTab] = React.useState(NoticesTabs.all);
@@ -76,13 +76,17 @@ export default function NoticesListPage() {
     setActiveTab(activeTab);
     switch (activeTab) {
       case NoticesTabs.all:
-        setNoticeQueryParams({});
+        setNoticeQueryParams({
+          ...noticeQueryParams,
+          registeredToMe: undefined,
+          paidByMe: undefined
+        });
         break;
       case NoticesTabs.paidByMe:
-        setNoticeQueryParams({ paidByMe: true });
+        setNoticeQueryParams({ ...noticeQueryParams, paidByMe: true, registeredToMe: undefined });
         break;
       case NoticesTabs.registeredToMe:
-        setNoticeQueryParams({ registeredToMe: true });
+        setNoticeQueryParams({ ...noticeQueryParams, registeredToMe: true, paidByMe: undefined });
     }
   };
 
@@ -181,8 +185,8 @@ export default function NoticesListPage() {
 
       <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="noticesList">
         {(() => {
-          if (error || !data || !data.noticesList.notices) return <Retry action={refetch} />;
-          if (data.noticesList.notices?.length === 0) return <Empty />;
+          if (error || !data || !data.notices) return <Retry action={refetch} />;
+          if (data.notices?.length === 0) return <Empty />;
           return (
             <>
               <MainContent
