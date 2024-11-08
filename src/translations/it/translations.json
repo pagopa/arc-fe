@@ -79,7 +79,7 @@
     "paymentNotice": {
       "preview": {
         "title": "Cerca i tuoi avvisi di pagamento pagoPA",
-        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome predisposti dagli enti aderenti al servizio",
+        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome che gli Enti Creditori ci hanno comunicato.",
         "action": "Cerca i tuoi avvisi"
       },
       "empty": {
