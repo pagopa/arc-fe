@@ -32,17 +32,6 @@ export default function NoticesListPage() {
 
   const { t } = useTranslation();
 
-  console.log(
-    'activeTab',
-    activeTab,
-    'currentPage',
-    currentPage,
-    'dateOrding',
-    noticeQueryParams.ordering,
-    'pages',
-    pages
-  );
-
   const noticesList = useNormalizedNoticesList(noticeQueryParams);
 
   const {
