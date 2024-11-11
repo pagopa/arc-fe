@@ -109,6 +109,10 @@
         "info": "Gli avvisi sono stati recuperati dagli archivi degli enti creditori aderenti al servizio.",
         "action": "Segnala un problema"
       },
+      "noticesAlert": {
+        "info": "Questi sono gli avvisi di pagamento che gli enti hanno comunicato a PagoPA. Se non trovi un avviso, rivolgiti all’Ente Creditore oppure premi su ‘Paga un avviso’ e inserisci i dati.",
+        "action": "Paga un avviso"
+        },
       "optin": {
         "title": "Consenti a PagoPA di ricercare i tuoi avvisi?",
         "body": "Se confermi, consenti a PagoPA di ricercare gli avvisi di pagamento a tuo nome tra gli archivi degli enti aderenti al servizio.",

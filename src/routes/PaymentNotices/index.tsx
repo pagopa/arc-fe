@@ -9,10 +9,13 @@ import { useTranslation } from 'react-i18next';
 import { useStore } from 'store/GlobalStore';
 import { STATE } from 'store/types';
 import utils from 'utils';
+import { Alert } from 'components/Alerts/Alert';
 
 const Notices = () => {
   const { data, isError, refetch } = useNormalizedNotices();
   const { setState } = useStore();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     setState(STATE.PAYMENT_NOTICE, {});
@@ -23,6 +26,13 @@ const Notices = () => {
     if (!data?.paymentNotices?.length) return <PaymentNotice.Empty />;
     return (
       <Stack gap={5} component="section">
+        <Alert
+          message={t('app.paymentNotices.noticesAlert.info')}
+          action={{
+            href: utils.config.checkoutHost,
+            message: t('app.paymentNotices.noticesAlert.action')
+          }}
+        />
         <PaymentNotice.List paymentNotices={data.paymentNotices} />
         <PaymentNotice.Info />
       </Stack>
