@@ -97,7 +97,7 @@ export default function NoticesListPage() {
       if (!continuationToken) return;
       // is a new token? if not, no need to update the token pages array
       const isNewToken = !pages.find((oldToken) => oldToken === continuationToken);
-      if (isNewToken) setPages([...pages, continuationToken]);
+      if (isNewToken) setPages((prevPages) => [...prevPages, continuationToken]);
     })();
   }, [currentPage, activeTab, noticeQueryParams.ordering]);
 

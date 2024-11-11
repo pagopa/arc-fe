@@ -13,9 +13,11 @@ export interface TransactionsProps {
   rows?: TransactionProps[];
   dateOrdering?: 'ASC' | 'DESC';
   onDateOrderClick?: () => void;
+  hideDateOrdering?: boolean;
 }
 
 const Transactions = (props: TransactionsProps) => {
+  const { hideDateOrdering = false } = props;
   const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
@@ -30,11 +32,13 @@ const Transactions = (props: TransactionsProps) => {
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} onClick={props.onDateOrderClick}>
               <Stack direction="row" sx={{ cursor: 'pointer' }}>
                 <span>{t('app.transactions.date')}</span>
-                {props.dateOrdering === 'DESC' ? (
-                  <ArrowDownwardIcon sx={{ width: '18px' }} />
-                ) : (
-                  <ArrowUpwardIcon sx={{ width: '18px' }} />
-                )}
+                {!hideDateOrdering ? (
+                  props.dateOrdering === 'DESC' ? (
+                    <ArrowDownwardIcon sx={{ width: '18px' }} />
+                  ) : (
+                    <ArrowUpwardIcon sx={{ width: '18px' }} />
+                  )
+                ) : null}
               </Stack>
             </TableCell>
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }}>

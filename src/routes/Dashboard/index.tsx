@@ -37,7 +37,7 @@ const Dashboard = () => {
   const Content = () => {
     if (isError || !rows) return <Retry action={refetch} />;
     if (rows.length === 0) return <Empty />;
-    return <TransactionsList rows={rows} />;
+    return <TransactionsList rows={rows} hideDateOrdering />;
   };
 
   return (
