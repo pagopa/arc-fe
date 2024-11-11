@@ -54,7 +54,7 @@ describe('api loaders', () => {
     vi.clearAllMocks();
   });
 
-  describe('transactionsApi', () => {
+  describe('Notices API', () => {
     beforeEach(() => {
       vi.clearAllMocks();
     });
@@ -63,16 +63,20 @@ describe('api loaders', () => {
       // you can generate a specific field, even if optionale, using .require()
       const dataMock = createMock(schemas.noticesListDTOSchema.required());
 
-      const apiMock = vi
-        .spyOn(utils.apiClient.notices, 'getNoticesList')
-        .mockResolvedValue({ data: dataMock } as AxiosResponse);
+      const apiMock = vi.spyOn(utils.apiClient.notices, 'getNoticesList').mockResolvedValue({
+        data: dataMock,
+        headers: {}
+      } as AxiosResponse);
 
-      const { result } = renderHook(() => loaders.getNoticesList(), { wrapper });
+      const { result } = renderHook(
+        () => loaders.getNoticesList({ ordering: 'DESC', size: 10 }, ''),
+        { wrapper }
+      );
 
       await waitFor(() => {
         expect(apiMock).toHaveBeenCalled();
         expect(result.current.isSuccess).toBeTruthy();
-        expect(result.current.data).toEqual(dataMock);
+        expect(result.current.data?.notices).toEqual(dataMock.notices);
       });
     });
 

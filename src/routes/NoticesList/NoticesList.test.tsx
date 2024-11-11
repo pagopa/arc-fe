@@ -52,11 +52,13 @@ describe('NoticesListRoute', () => {
         { id: '2', paidByMe: false, registeredToMe: true }
       ]
     };
-
     (loaders.getNoticesList as Mock).mockReturnValue({
-      data: mockNoticesList,
+      data: {
+        notices: mockNoticesList.notices,
+        continuationToken: ''
+      },
       isError: false,
-      refetch: vi.fn()
+      refetch: () => ({ data: { continuationToken: '' } })
     });
 
     render(
@@ -74,7 +76,7 @@ describe('NoticesListRoute', () => {
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: null,
       isError: true,
-      refetch: vi.fn()
+      refetch: () => ({ data: null })
     });
 
     render(
@@ -91,10 +93,11 @@ describe('NoticesListRoute', () => {
   it('gives a proper feedback when no data is returned', async () => {
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: {
-        notices: []
+        notices: [],
+        continuationToken: ''
       },
       isError: false,
-      refetch: vi.fn()
+      refetch: () => ({ data: { notices: [], continuationToken: '' } })
     });
 
     render(
@@ -115,10 +118,11 @@ describe('NoticesListRoute', () => {
     };
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: {
-        notices: mockNoticesList
+        notices: mockNoticesList.notices,
+        continuationToken: ''
       },
       isError: false,
-      refetch: vi.fn()
+      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '' } })
     });
 
     render(
@@ -129,28 +133,136 @@ describe('NoticesListRoute', () => {
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        {
+          size: 10,
+          paidByMe: undefined,
+          registeredToMe: undefined,
+          ordering: 'DESC'
+        },
+        ''
+      );
     });
 
     fireEvent.click(screen.getByText('app.transactions.paidByMe'));
-
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ paidByMe: true, size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: true, size: 10, ordering: 'DESC' },
+        ''
+      );
     });
 
     fireEvent.click(screen.getByText('app.transactions.ownedByMe'));
-
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ registeredToMe: true, size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: true, paidByMe: undefined, size: 10, ordering: 'DESC' },
+        ''
+      );
     });
 
     fireEvent.click(screen.getByText('app.transactions.all'));
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
+        ''
+      );
+    });
+  });
+
+  it('date order toggles correctly', async () => {
+    const mockNoticesList = {
+      notices: [{ id: '1' }, { id: '2' }]
+    };
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNoticesList.notices,
+        continuationToken: ''
+      },
+      isError: false,
+      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '' } })
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    fireEvent.click(screen.queryAllByText('app.transactions.date')[0]);
 
     await waitFor(() => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
-      expect(loaders.getNoticesList).toBeCalledWith({ size: 100 });
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'ASC' },
+        ''
+      );
+    });
+
+    fireEvent.click(screen.queryAllByText('app.transactions.date')[0]);
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
+        ''
+      );
+    });
+  });
+
+  it('it renders pagination when nedeed', async () => {
+    const mockNoticesList = {
+      notices: [{ id: '1' }, { id: '2' }]
+    };
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNoticesList.notices,
+        continuationToken: '0001'
+      },
+      isError: false,
+      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '0001' } })
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      const prev = screen.getByTestId('notices-pagination-prev');
+      const next = screen.getByTestId('notices-pagination-next');
+      // prev button
+      expect(prev).toBeInTheDocument();
+      expect(prev).toBeDisabled();
+
+      // next button
+      expect(next).toBeInTheDocument();
+      expect(next).not.toBeDisabled();
+    });
+
+    fireEvent.click(screen.getByTestId('notices-pagination-next'));
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
+        '0001'
+      );
+    });
+
+    await waitFor(() => {
+      const prev = screen.getByTestId('notices-pagination-prev');
+      const next = screen.getByTestId('notices-pagination-next');
+      // prev button
+      expect(prev).toBeInTheDocument();
+      expect(prev).not.toBeDisabled();
+
+      // next button
+      expect(next).toBeInTheDocument();
+      expect(next).toBeDisabled();
     });
   });
 });

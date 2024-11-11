@@ -13,26 +13,39 @@ const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true):
   }
 };
 
-interface GetNoticesList {
+interface GetNoticesListQuery {
   /** max number of elements returned, default 10*/
-  size?: number;
+  size: number;
   paidByMe?: boolean;
   registeredToMe?: boolean;
+  ordering: 'ASC' | 'DESC';
 }
 /**
  * Retrieve the paged notices list from arc
  */
-const getNoticesList = (query?: GetNoticesList) =>
+const getNoticesList = (query: GetNoticesListQuery, continuationToken: string) =>
   useQuery({
     queryKey: ['noticesList'],
     queryFn: async () => {
-      const { data: noticesList } = await utils.apiClient.notices.getNoticesList({
-        size: query?.size,
-        paidByMe: query?.paidByMe,
-        registeredToMe: query?.registeredToMe
-      });
+      const { data: noticesList, headers } = await utils.apiClient.notices.getNoticesList(
+        {
+          size: query.size,
+          paidByMe: query.paidByMe,
+          registeredToMe: query.registeredToMe,
+          orderBy: 'TRANSACTION_DATE',
+          ordering: query.ordering
+        },
+        {
+          headers: {
+            'x-continuation-token': continuationToken
+          }
+        }
+      );
       parseAndLog(zodSchema.noticesListDTOSchema, noticesList);
-      return noticesList;
+      return {
+        notices: noticesList.notices,
+        continuationToken: headers['x-continuation-token']
+      };
     }
   });
 
@@ -51,7 +64,7 @@ const getPaymentNotices = () =>
     queryKey: ['paymentNotices'],
     queryFn: async () => {
       const { data } = await utils.apiClient.paymentNotices.getPaymentNotices({});
-      parseAndLog(zodSchema.paymentNoticesListDTOSchema, data, false);
+      parseAndLog(zodSchema.paymentNoticesListDTOSchema, data);
       return data;
     }
   });

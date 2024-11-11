@@ -15,7 +15,13 @@ import { useUserInfo } from 'hooks/useUserInfo';
 
 const Dashboard = () => {
   const { t } = useTranslation();
-  const { data, isError, refetch } = utils.loaders.getNoticesList({ size: 5 });
+  const { data, isError, refetch } = utils.loaders.getNoticesList(
+    {
+      size: 5,
+      ordering: 'DESC'
+    },
+    ''
+  );
   const theme = useTheme();
   const optIn = utils.storage.pullPaymentsOptIn.get();
   const { userInfo } = useUserInfo();
@@ -31,7 +37,7 @@ const Dashboard = () => {
   const Content = () => {
     if (isError || !rows) return <Retry action={refetch} />;
     if (rows.length === 0) return <Empty />;
-    return <TransactionsList rows={rows} />;
+    return <TransactionsList rows={rows} hideDateOrdering />;
   };
 
   return (
