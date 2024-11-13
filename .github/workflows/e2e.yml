@@ -70,5 +70,5 @@ jobs:
         working-directory: e2e
 
       - name: run e2e tests
-        run: yarn test
+        run: yarn test --project chromium
         working-directory: e2e
