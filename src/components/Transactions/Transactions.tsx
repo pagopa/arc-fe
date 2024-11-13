@@ -23,7 +23,7 @@ const Transactions = (props: TransactionsProps) => {
 
   return (
     <TableContainer sx={{ bgcolor: 'transparent', height: 'fit-content' }}>
-      <Table aria-label="Storico table">
+      <Table aria-label="Storico table" id="transactions-table">
         <TableHead sx={{ display: mdUp ? 'table-head' : 'none' }}>
           <TableRow>
             <TableCell sx={{ paddingTop: 0.75, paddingBottom: 1 }} width="60%">

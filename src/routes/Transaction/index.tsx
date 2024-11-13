@@ -11,7 +11,7 @@ export default function Notice() {
   const noticeDetailData = data && utils.converters.prepareNoticeDetailData(data);
 
   if (isError) {
-    return <p>Ops! Something went wrong, please try again</p>;
+    return <p id="transaction-detail-error">Ops! Something went wrong, please try again</p>;
   }
 
   return (

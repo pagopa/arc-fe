@@ -50,6 +50,7 @@ export const _Card = (notice: PaymentNoticeType) => {
   return (
     <Paper elevation={16}>
       <Stack
+        data-testid="payment-notices-item"
         role="option"
         component="article"
         onClick={viewDetail}
@@ -81,7 +82,10 @@ export const _Card = (notice: PaymentNoticeType) => {
               />
             </Stack>
           )}
-          <IconButton aria-label={t('app.paymentNotice.card.detail')} onClick={viewDetail}>
+          <IconButton
+            data-testid="payment-notices-item-cta"
+            aria-label={t('app.paymentNotice.card.detail')}
+            onClick={viewDetail}>
             <ArrowForwardIosIcon color="primary" fontSize="small" />
           </IconButton>
         </Stack>

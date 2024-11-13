@@ -39,6 +39,7 @@ export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] 
         </Typography>
       </Stack>
       <Stack
+        id="payment-notices-list"
         gap={3}
         component="section"
         role="listbox"

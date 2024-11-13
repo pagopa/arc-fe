@@ -51,12 +51,18 @@ const PullPaymentsModal = (props: { open: boolean }) => {
                 />
               </Typography>
               <Stack pt={2} direction={'row'} spacing={2} justifyContent={'end'}>
-                <Button variant="outlined" size="large" color="primary" onClick={utils.modal.close}>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  color="primary"
+                  onClick={utils.modal.close}
+                  id="pull-payments-modal-ko">
                   {t('app.routes.cancel')}
                 </Button>
                 <Button
                   variant="contained"
                   size="large"
+                  id="pull-payments-modal-ok"
                   onClick={() => {
                     if (utils.storage.pullPaymentsOptIn.set()) {
                       navigate(ArcRoutes.PAYMENT_NOTICES);
