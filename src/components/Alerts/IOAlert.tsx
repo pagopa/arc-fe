@@ -1,25 +1,15 @@
 import React from 'react';
-import { Alert, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import style from '../../utils/style';
+import { Alert } from './Alert';
 
 const IOAlert = () => {
   const { t } = useTranslation();
 
   return (
     <Alert
-      severity="info"
-      sx={{
-        borderLeft: `solid 4px ${style.theme.palette.info.main}`,
-        '& .MuiAlert-icon': {
-          alignItems: 'center'
-        }
-      }}>
-      <Typography variant="body2" marginInlineStart={1}>
-        {t('app.dashboard.IOAlert.title')}
-      </Typography>
-      <Button>{t('app.dashboard.IOAlert.cta')}</Button>
-    </Alert>
+      message={t('app.dashboard.IOAlert.title')}
+      action={{ message: t('app.dashboard.IOAlert.cta'), href: '' }}
+    />
   );
 };
 

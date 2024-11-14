@@ -26,8 +26,9 @@ export const Alert = ({
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
         alignItems: { xs: 'flex-start', md: 'center' },
-        gap: 1,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        width: '100%',
+        gap: 1
       }
     }}>
     <Typography variant="body2" width="80%">
