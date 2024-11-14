@@ -5,6 +5,7 @@ import { setupInterceptors } from 'utils/interceptors';
 import { useNavigate } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import React from 'react';
+import { Mock } from 'vitest';
 
 // Mock dependencies
 vi.mock('utils/interceptors', () => ({
