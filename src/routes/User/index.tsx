@@ -11,12 +11,24 @@ export default function UserRoute() {
 
   const { data } = utils.loaders.getUserInfo();
 
-  const UserRowInfo = ({ label, data }: { label: string; data: string }) => (
+  const UserRowInfo = ({
+    label,
+    data,
+    testid = 'UserRowInfo'
+  }: {
+    label: string;
+    data: string;
+    testid: string;
+  }) => (
     <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }} gap={{ md: 1 }}>
-      <Typography component="div" width={{ sm: '20%', md: '25%' }} variant="body2">
+      <Typography
+        component="div"
+        width={{ sm: '20%', md: '25%' }}
+        variant="body2"
+        data-testid={`${testid}.label`}>
         {label}
       </Typography>
-      <Typography component="div" variant="subtitle2">
+      <Typography component="div" variant="subtitle2" data-testid={`${testid}.value`}>
         {data}
       </Typography>
     </Stack>
@@ -26,10 +38,14 @@ export default function UserRoute() {
     <>
       <Stack direction="column" gap={3}>
         <Stack direction="column" gap={2}>
-          <Typography variant="h4" fontSize={{ md: 32 }} component="h1">
+          <Typography
+            variant="h4"
+            fontSize={{ md: 32 }}
+            component="h1"
+            data-testid="app.user.title">
             {t('app.user.title')}
           </Typography>
-          <Typography variant="body2" component="h2">
+          <Typography variant="body2" component="h2" data-testid="app.user.subtitle">
             {t('app.user.subtitle')}
           </Typography>
         </Stack>
@@ -43,18 +59,22 @@ export default function UserRoute() {
               <UserRowInfo
                 label={t('app.user.info.name')}
                 data={data?.name || utils.config.missingValue}
+                testid="app.user.info.name"
               />
               <UserRowInfo
                 label={t('app.user.info.surname')}
                 data={data?.familyName || utils.config.missingValue}
+                testid="app.user.info.surname"
               />
               <UserRowInfo
                 label={t('app.user.info.identifier')}
                 data={data?.fiscalCode || utils.config.missingValue}
+                testid="app.user.info.identifier"
               />
               <UserRowInfo
                 label={t('app.user.info.email')}
                 data={data?.email || utils.config.missingValue}
+                testid="app.user.info.email"
               />
             </QueryLoader>
           </Stack>

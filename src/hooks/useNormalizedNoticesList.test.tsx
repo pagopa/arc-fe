@@ -4,7 +4,7 @@ import { useNormalizedNoticesList } from './useNormalizedNoticesList';
 import { Mock } from 'vitest';
 import converters from 'utils/converters';
 import loaders from 'utils/loaders';
-import { NoticesListDTO } from '../../generated/apiClient';
+import { NoticeDTO } from '../../generated/apiClient';
 import { UseQueryResult } from '@tanstack/react-query';
 import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
@@ -26,25 +26,25 @@ describe('useNormalizedNoticesList', () => {
   });
 
   it('returns all notices and processes data correctly', async () => {
-    const mockNoticesList = {
-      notices: [
-        { id: '1', paidByMe: true, registeredToMe: false },
-        { id: '2', paidByMe: false, registeredToMe: true },
-        { id: '3', paidByMe: true, registeredToMe: true }
-      ]
-    };
+    const mockNoticesList = [
+      { id: '1', paidByMe: true, registeredToMe: false },
+      { id: '2', paidByMe: false, registeredToMe: true },
+      { id: '3', paidByMe: true, registeredToMe: true }
+    ];
 
     const preparedData = [{ id: '1' }, { id: '2' }, { id: '3' }];
 
     vi.mocked(loaders.getNoticesList).mockReturnValue({
-      data: mockNoticesList,
+      data: { notices: mockNoticesList, continuationToken: '' },
       isError: false
-    } as unknown as UseQueryResult<NoticesListDTO, Error>);
+    } as unknown as UseQueryResult<{ notices: NoticeDTO[]; continuationToken: string }, Error>);
 
     const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
     converters.prepareRowsData = mockPrepareRowsData;
 
-    const { result } = renderHook(() => useNormalizedNoticesList());
+    const { result } = renderHook(() =>
+      useNormalizedNoticesList({ continuationToken: '', ordering: 'DESC' })
+    );
 
     await waitFor(() => {
       expect(result.current.all).toEqual(preparedData);
@@ -54,7 +54,7 @@ describe('useNormalizedNoticesList', () => {
 
       expect(mockPrepareRowsData).toBeCalledTimes(1);
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
-        notices: mockNoticesList.notices,
+        notices: mockNoticesList,
         status: { label: 'app.transactions.paid' },
         payee: { multi: 'app.transactions.multiEntities' }
       });
@@ -62,25 +62,25 @@ describe('useNormalizedNoticesList', () => {
   });
 
   it('returns payedByMe notices and processes data correctly', async () => {
-    const mockNoticesList = {
-      notices: [
-        { id: '1', paidByMe: true, registeredToMe: false },
-        { id: '2', paidByMe: false, registeredToMe: true },
-        { id: '3', paidByMe: true, registeredToMe: true }
-      ]
-    };
+    const mockNoticesList = [
+      { id: '1', paidByMe: true, registeredToMe: false },
+      { id: '2', paidByMe: false, registeredToMe: true },
+      { id: '3', paidByMe: true, registeredToMe: true }
+    ];
 
     const preparedData = [{ id: '1' }, { id: '3' }];
 
     vi.mocked(loaders.getNoticesList).mockReturnValue({
-      data: mockNoticesList,
+      data: { notices: mockNoticesList, continuationToken: '' },
       isError: false
-    } as unknown as UseQueryResult<NoticesListDTO, Error>);
+    } as unknown as UseQueryResult<{ notices: NoticeDTO[]; continuationToken: string }, Error>);
 
     const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
     converters.prepareRowsData = mockPrepareRowsData;
 
-    const { result } = renderHook(() => useNormalizedNoticesList({ paidByMe: true }));
+    const { result } = renderHook(() =>
+      useNormalizedNoticesList({ paidByMe: true, continuationToken: '', ordering: 'DESC' })
+    );
 
     await waitFor(() => {
       expect(result.current.all).toEqual([]);
@@ -90,7 +90,7 @@ describe('useNormalizedNoticesList', () => {
 
       expect(mockPrepareRowsData).toBeCalledTimes(1);
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
-        notices: mockNoticesList.notices,
+        notices: mockNoticesList,
         status: { label: 'app.transactions.paid' },
         payee: { multi: 'app.transactions.multiEntities' }
       });
@@ -98,24 +98,24 @@ describe('useNormalizedNoticesList', () => {
   });
 
   it('returns registeredToMe notices and processes data correctly', async () => {
-    const mockNoticesList = {
-      notices: [
-        { id: '1', paidByMe: true, registeredToMe: false },
-        { id: '2', paidByMe: false, registeredToMe: true },
-        { id: '3', paidByMe: true, registeredToMe: true }
-      ]
-    };
+    const mockNoticesList = [
+      { id: '1', paidByMe: true, registeredToMe: false },
+      { id: '2', paidByMe: false, registeredToMe: true },
+      { id: '3', paidByMe: true, registeredToMe: true }
+    ];
 
     const preparedData = [{ id: '2' }, { id: '3' }];
     vi.mocked(loaders.getNoticesList).mockReturnValue({
-      data: mockNoticesList,
+      data: { notices: mockNoticesList, continuationToken: '' },
       isError: false
-    } as unknown as UseQueryResult<NoticesListDTO, Error>);
+    } as unknown as UseQueryResult<{ notices: NoticeDTO[]; continuationToken: string }, Error>);
 
     const mockPrepareRowsData = vi.fn().mockReturnValue(preparedData);
     converters.prepareRowsData = mockPrepareRowsData;
 
-    const { result } = renderHook(() => useNormalizedNoticesList({ registeredToMe: true }));
+    const { result } = renderHook(() =>
+      useNormalizedNoticesList({ registeredToMe: true, continuationToken: '', ordering: 'DESC' })
+    );
 
     await waitFor(() => {
       expect(result.current.all).toEqual([]);
@@ -125,7 +125,7 @@ describe('useNormalizedNoticesList', () => {
 
       expect(mockPrepareRowsData).toBeCalledTimes(1);
       expect(mockPrepareRowsData).toHaveBeenCalledWith({
-        notices: mockNoticesList.notices,
+        notices: mockNoticesList,
         status: { label: 'app.transactions.paid' },
         payee: { multi: 'app.transactions.multiEntities' }
       });
@@ -134,11 +134,13 @@ describe('useNormalizedNoticesList', () => {
 
   it('handles error state correctly', async () => {
     vi.mocked(loaders.getNoticesList).mockReturnValue({
-      data: null as unknown as NoticesListDTO,
+      data: null,
       isError: true
-    } as unknown as UseQueryResult<NoticesListDTO, Error>);
+    } as unknown as UseQueryResult<{ notices: NoticeDTO[]; continuationToken: string }, Error>);
 
-    const { result } = renderHook(() => useNormalizedNoticesList());
+    const { result } = renderHook(() =>
+      useNormalizedNoticesList({ continuationToken: '', ordering: 'DESC' })
+    );
 
     await waitFor(() => {
       expect(result.current.all).toEqual([]);

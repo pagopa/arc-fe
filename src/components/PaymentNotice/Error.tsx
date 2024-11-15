@@ -27,9 +27,12 @@ export const _Error = (props: ErrorProps) => {
       <CardActions>
         <Stack spacing={2} width={'100%'} textAlign={'center'} alignItems={'center'}>
           <ErrorOutline color="error" />
-          <Typography variant="body1">{t('app.paymentNotice.error.description')}</Typography>
+          <Typography variant="body1" data-testid="app.paymentNotice.error.description">
+            {t('app.paymentNotice.error.description')}
+          </Typography>
           <Box mt={3} width={'100%'}>
             <Button
+              data-testid="app.paymentNotice.error.button"
               onClick={props.onRetry}
               variant="text"
               aria-label={t('app.paymentNotice.error.button')}

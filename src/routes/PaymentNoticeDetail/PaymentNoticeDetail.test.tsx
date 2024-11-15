@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useStore } from 'store/GlobalStore';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Mock } from 'vitest';
 
 vi.mock('store/GlobalStore', () => ({
   useStore: vi.fn()

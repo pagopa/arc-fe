@@ -66,7 +66,8 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                           ml={2}
                           component={'dl'}
                           display={'flex'}
-                          flexDirection={'column'}>
+                          flexDirection={'column'}
+                          data-testid="app.paymentNoticeDetail.amount">
                           <Typography
                             component="dt"
                             order="2"
@@ -101,7 +102,12 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                         <Grid item alignContent={'center'}>
                           <AccountBalance htmlColor={theme.palette.grey[700]} />
                         </Grid>
-                        <Grid item xs={8} ml={2} component={'dl'}>
+                        <Grid
+                          item
+                          xs={8}
+                          ml={2}
+                          component={'dl'}
+                          data-testid="app.paymentNoticeDetail.paFullname">
                           <Typography
                             color={theme.palette.text.secondary}
                             variant="body1"
@@ -122,7 +128,12 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                         <Grid item alignContent={'center'}>
                           <ReceiptLong htmlColor={theme.palette.grey[700]} />
                         </Grid>
-                        <Grid item xs={9} ml={2} component={'dl'}>
+                        <Grid
+                          item
+                          xs={9}
+                          ml={2}
+                          component={'dl'}
+                          data-testid="app.paymentNoticeDetail.subject">
                           <Typography
                             component="dt"
                             color={theme.palette.text.secondary}
@@ -144,7 +155,12 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                         <Grid item alignContent={'center'}>
                           <DateRange htmlColor={theme.palette.grey[700]} />
                         </Grid>
-                        <Grid item xs={9} ml={2} component={'dl'}>
+                        <Grid
+                          item
+                          xs={9}
+                          ml={2}
+                          component={'dl'}
+                          data-testid="app.paymentNoticeDetail.dueDate">
                           <Typography
                             color={theme.palette.text.secondary}
                             variant="body1"
@@ -161,7 +177,11 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                     <Divider />
                     <Grid container item columnGap={2} justifyContent={'space-between'}>
                       <Grid container item xs={9}>
-                        <Grid item xs={9} component={'dl'}>
+                        <Grid
+                          item
+                          xs={9}
+                          component={'dl'}
+                          data-testid="app.paymentNoticeDetail.iuv">
                           <Typography
                             sx={{ wordBreak: 'break-word' }}
                             component="dt"
@@ -185,7 +205,12 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                       </Grid>
                     </Grid>
                     <Divider />
-                    <Grid container item columnGap={2} justifyContent={'space-between'}>
+                    <Grid
+                      container
+                      item
+                      columnGap={2}
+                      justifyContent={'space-between'}
+                      data-testid="app.paymentNoticeDetail.paTaxCode">
                       <Grid container item xs={9}>
                         <Grid item xs={9} component={'dl'}>
                           <Typography
@@ -218,7 +243,10 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                     <Typography variant="body1" fontSize={14} fontWeight={700} component={'h2'}>
                       {t('app.paymentNoticeDetail.card2.title').toUpperCase()}
                     </Typography>
-                    <Grid container component={'dl'}>
+                    <Grid
+                      container
+                      component={'dl'}
+                      data-testid="app.paymentNoticeDetail.firstInstallmentDate">
                       <Grid item xs={12} sm={6}>
                         <Typography variant="body1" fontSize={16} component="dt">
                           {t('app.paymentNoticeDetail.card2.firstInstallmentDate')}
@@ -230,7 +258,10 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid container component={'dl'}>
+                    <Grid
+                      container
+                      component={'dl'}
+                      data-testid="app.paymentNoticeDetail.firstInstallmentAmount">
                       <Grid item xs={12} sm={6}>
                         <Typography variant="body1" fontSize={16} component="dt">
                           {t('app.paymentNoticeDetail.card2.firstInstallmentAmount')}
@@ -245,6 +276,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                     <Grid container>
                       <Grid item xs={12}>
                         <Button
+                          id="payment-notice-pay-button"
                           variant="contained"
                           fullWidth
                           onClick={() => {

@@ -79,7 +79,7 @@
     "paymentNotice": {
       "preview": {
         "title": "Cerca i tuoi avvisi di pagamento pagoPA",
-        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome predisposti dagli enti aderenti al servizio",
+        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome che gli Enti Creditori ci hanno comunicato.",
         "action": "Cerca i tuoi avvisi"
       },
       "empty": {
@@ -105,10 +105,13 @@
       "notice": "avvisi",
       "updated": "Aggiornato il",
       "loading": "Stiamo cercando tra gli archivi degli enti creditori aderenti al servizio...",
-      "alert": {
-        "info": "Gli avvisi sono stati recuperati dagli archivi degli enti creditori aderenti al servizio.",
-        "action": "Segnala un problema"
+      "bottomAlert": {
+        "info": "Gli avvisi di pagamento ci sono stati comunicati dagli Enti Creditori. In caso di problemi, rivolgiti all’ente."
       },
+      "noticesAlert": {
+        "info": "Questi sono gli avvisi di pagamento che gli enti hanno comunicato a PagoPA. Se non trovi un avviso, rivolgiti all’Ente Creditore oppure premi su ‘Paga un avviso’ e inserisci i dati.",
+        "action": "Paga un avviso"
+        },
       "optin": {
         "title": "Consenti a PagoPA di ricercare i tuoi avvisi?",
         "body": "Se confermi, consenti a PagoPA di ricercare gli avvisi di pagamento a tuo nome tra gli archivi degli enti aderenti al servizio.",

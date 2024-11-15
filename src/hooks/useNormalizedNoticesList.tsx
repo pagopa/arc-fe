@@ -4,12 +4,21 @@ import { useTranslation } from 'react-i18next';
 interface NormalizedNoticesListParams {
   paidByMe?: boolean;
   registeredToMe?: boolean;
+  continuationToken: string;
+  ordering: 'ASC' | 'DESC';
 }
 
-export const useNormalizedNoticesList = (params?: NormalizedNoticesListParams) => {
+export const useNormalizedNoticesList = (params: NormalizedNoticesListParams) => {
   const { t } = useTranslation();
-  // size = 100 to be modified when the pagination will be introduced
-  const queryResult = utils.loaders.getNoticesList({ ...params, size: 100 });
+  const queryResult = utils.loaders.getNoticesList(
+    {
+      size: 10,
+      ordering: params.ordering,
+      paidByMe: params.paidByMe,
+      registeredToMe: params.registeredToMe
+    },
+    params?.continuationToken
+  );
   const { data } = queryResult;
 
   const getNoticesList = () =>
@@ -22,10 +31,11 @@ export const useNormalizedNoticesList = (params?: NormalizedNoticesListParams) =
       : [];
 
   const noticesList = {
-    all: !params?.paidByMe && !params?.registeredToMe ? getNoticesList() : [],
-    paidByMe: params?.paidByMe ? getNoticesList() : [],
-    registeredToMe: params?.registeredToMe ? getNoticesList() : [],
-    queryResult
+    all: !params.paidByMe && !params.registeredToMe ? getNoticesList() : [],
+    paidByMe: params.paidByMe ? getNoticesList() : [],
+    registeredToMe: params.registeredToMe ? getNoticesList() : [],
+    queryResult,
+    token: data?.continuationToken
   };
 
   return noticesList;
