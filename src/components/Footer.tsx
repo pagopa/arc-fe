@@ -157,7 +157,6 @@ export const Footer = (props: FooterProps) => {
       }}
       currentLangCode={language}
       languages={lang}
-      onExit={() => {}}
       productsJsonUrl="https://selfcare.pagopa.it/assets/products.json"
       hideProductsColumn={false}
       onLanguageChanged={changeLanguage}
