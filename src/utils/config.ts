@@ -5,7 +5,6 @@ import { z, ZodError } from 'zod';
 /** APIHOST default value works in conjunction with the proxy server. See the .proxyrc file */
 const {
   APIHOST = 'http://localhost:1234/api',
-  ENV = 'LOCAL',
   ENTITIES_LOGO_CDN,
   CHECKOUT_HOST = 'https://dev.checkout.pagopa.it',
   LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity',
@@ -15,10 +14,7 @@ const {
   VERSION = ''
 } = process.env;
 
-type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
-
 // ENV variables validation
-const ENV_Schema: z.ZodType<ENVIRONMENT> = z.enum(['LOCAL', 'DEV', 'UAT', 'PROD']);
 const VERSION_schema = z.string();
 const APIHOST_schema = z.string().url();
 const ENTITIES_LOGO_CDN_schema = z.string().url();
@@ -28,7 +24,6 @@ const CHECKOUT_PLATFORM_URL_schema = z.string().url();
 const PAYMENT_RETURN_URL_schema = z.string().url();
 const DEPLOY_PATH_schema = z.string();
 try {
-  ENV_Schema.parse(process.env.ENV);
   APIHOST_schema.parse(process.env.APIHOST);
   ENTITIES_LOGO_CDN_schema.parse(process.env.ENTITIES_LOGO_CDN);
   CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
@@ -42,7 +37,6 @@ try {
 }
 
 type Config = {
-  env: ENVIRONMENT;
   version: string;
   baseURL: string;
   pagopaLink: RootLinkType;
@@ -67,8 +61,6 @@ const pagopaLink: RootLinkType = {
 };
 
 const config: Config = {
-  /** Running environment, usually valued by pipelines */
-  env: ENV as ENVIRONMENT,
   /** Running version, usually valued by pipelines */
   version: VERSION,
   /** the prefix of all api calls
