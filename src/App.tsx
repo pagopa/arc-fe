@@ -81,11 +81,7 @@ const router = createBrowserRouter([
             element: <Assistance />,
             errorElement: <ErrorFallback />,
             handle: {
-              backButton: true,
-              backButtonText: 'exit',
-              backButtonFunction: () => {
-                utils.modal.open(utils.modal.ModalId.ASSISTANCEBACK);
-              },
+              backButton: false,
               sidebar: {
                 visibile: false
               }
