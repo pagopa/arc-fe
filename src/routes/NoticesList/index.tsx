@@ -7,6 +7,7 @@ import QueryLoader from 'components/QueryLoader';
 import { useNormalizedNoticesList } from 'hooks/useNormalizedNoticesList';
 import Empty from 'components/Transactions/Empty';
 import Retry from 'components/Transactions/Retry';
+import NoData from 'components/Transactions/NoData';
 import { TransactionListSkeleton } from 'components/Skeleton';
 import { PaginationItem } from '@mui/material';
 
@@ -129,22 +130,26 @@ export default function NoticesListPage() {
             },
             {
               title: t('app.transactions.paidByMe'),
-              content: (
+              content: paidByMe.length ? (
                 <TransactionsList
                   rows={paidByMe}
                   dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
+              ) : (
+                <NoData />
               )
             },
             {
               title: t('app.transactions.ownedByMe'),
-              content: (
+              content: registeredToMe.length ? (
                 <TransactionsList
                   rows={registeredToMe}
                   dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
+              ) : (
+                <NoData />
               )
             }
           ]}
@@ -153,6 +158,8 @@ export default function NoticesListPage() {
     );
   };
 
+  //console.log(noticesList);
+  //console.log(isLoading, isFetching, isRefetching);
   const Pagination = () => (
     <Stack direction={'row'} justifyContent={'end'} pt={2}>
       <PaginationItem
@@ -181,7 +188,13 @@ export default function NoticesListPage() {
       <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="noticesList">
         {(() => {
           if (error || !data || !data.notices) return <Retry action={refetch} />;
-          if (data.notices?.length === 0) return <Empty />;
+          //** this means that the Empty component needs to be displayed only for 'all' Tab */
+          if (
+            data.notices?.length === 0 &&
+            !noticeQueryParams.paidByMe &&
+            !noticeQueryParams.registeredToMe
+          )
+            return <Empty />;
           return (
             <>
               <MainContent
