@@ -44,7 +44,7 @@ export default function NoticesListPage() {
     [activeTab, currentPage, noticeQueryParams.ordering]
   );
 
-  const { error, refetch, isFetching } = queryResult;
+  const { isError, refetch, isFetching } = queryResult;
 
   const data = utils.converters.prepareRowsData({
     notices: queryResult.data?.notices || [],
@@ -187,9 +187,9 @@ export default function NoticesListPage() {
         <Typography variant="h3">{t('menu.receipts.pageTitle')}</Typography>
       </Stack>
 
-      <QueryLoader loaderComponent={<TransactionListSkeleton />} loading={isFetching} atLeast={500}>
+      <QueryLoader loaderComponent={<TransactionListSkeleton />} loading={isFetching}>
         {(() => {
-          if (error) return <Retry action={refetch} />;
+          if (isError) return <Retry action={refetch} />;
           //** this means that the Empty component needs to be displayed only for 'all' Tab */
           if (data.length === 0 && activeTab === NoticesTabs.all) return <Empty />;
           return <MainContent data={data} />;
