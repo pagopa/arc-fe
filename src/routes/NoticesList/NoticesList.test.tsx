@@ -233,71 +233,62 @@ describe('NoticesListRoute', () => {
     });
   });
 
-  // it('it renders pagination when nedeed', async () => {
-  //   (loaders.getNoticesList as Mock)
-  //     .mockReturnValueOnce({
-  //       data: {
-  //         notices: mockNotices,
-  //         continuationToken: '0001'
-  //       },
-  //       isError: false
-  //     })
-  //     .mockReturnValueOnce({
-  //       data: {
-  //         notices: mockNotices,
-  //         continuationToken: ''
-  //       },
-  //       isError: false
-  //     });
+  it('it renders pagination when nedeed', async () => {
+    (loaders.getNoticesList as Mock)
+      .mockReturnValueOnce({
+        data: {
+          notices: mockNotices,
+          continuationToken: '0001'
+        },
+        isError: false
+      })
+      .mockReturnValueOnce({
+        data: {
+          notices: mockNotices,
+          continuationToken: ''
+        },
+        isError: false
+      });
 
-  //   render(
-  //     <QueryClientProvider client={queryClient}>
-  //       <NoticesList />
-  //     </QueryClientProvider>
-  //   );
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
 
-  //   await waitFor(() => {
-  //     expect(loaders.getNoticesList).toHaveBeenCalled();
-  //     expect(loaders.getNoticesList).toBeCalledWith(
-  //       { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
-  //       '',
-  //       [0, 0, 'DESC']
-  //     );
-  //   });
+    await waitFor(() => {
+      const prev = screen.getByTestId('notices-pagination-prev');
+      const next = screen.getByTestId('notices-pagination-next');
+      // prev button
+      expect(prev).toBeInTheDocument();
+      expect(prev).toBeDisabled();
 
-  //   await waitFor(() => {
-  //     const prev = screen.getByTestId('notices-pagination-prev');
-  //     const next = screen.getByTestId('notices-pagination-next');
-  //     // prev button
-  //     expect(prev).toBeInTheDocument();
-  //     expect(prev).toBeDisabled();
+      // next button
+      expect(next).toBeInTheDocument();
+      expect(next).not.toBeDisabled();
+    });
 
-  //     // next button
-  //     expect(next).toBeInTheDocument();
-  //     expect(next).not.toBeDisabled();
-  //   });
+    fireEvent.click(screen.getByTestId('notices-pagination-next'));
 
-  //   fireEvent.click(screen.getByTestId('notices-pagination-next'));
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+      expect(loaders.getNoticesList).toBeCalledWith(
+        { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
+        '0001',
+        [0, 1, 'DESC']
+      );
+    });
 
-  //   await waitFor(() => {
-  //     expect(loaders.getNoticesList).toHaveBeenCalled();
-  //     expect(loaders.getNoticesList).toBeCalledWith(
-  //       { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
-  //       '0001',
-  //       [0, 0, 'DESC']
-  //     );
-  //   });
+    await waitFor(() => {
+      const prev = screen.getByTestId('notices-pagination-prev');
+      const next = screen.getByTestId('notices-pagination-next');
+      // prev button
+      expect(prev).toBeInTheDocument();
+      expect(prev).not.toBeDisabled();
 
-  //   await waitFor(() => {
-  //     const prev = screen.getByTestId('notices-pagination-prev');
-  //     const next = screen.getByTestId('notices-pagination-next');
-  //     // prev button
-  //     expect(prev).toBeInTheDocument();
-  //     expect(prev).not.toBeDisabled();
-
-  //     // next button
-  //     expect(next).toBeInTheDocument();
-  //     expect(next).toBeDisabled();
-  //   });
-  // });
+      // next button
+      expect(next).toBeInTheDocument();
+      expect(next).toBeDisabled();
+    });
+  });
 });
