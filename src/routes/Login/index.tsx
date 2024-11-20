@@ -21,7 +21,8 @@ const Login = () => {
       marginTop={16}
       marginBottom={16}
       flexWrap={'wrap'}
-      justifyContent={'center'}>
+      justifyContent={'center'}
+      direction={'column'}>
       <Box width={'100%'}>
         <Stack textAlign={'center'} justifyContent={'center'} alignItems={'center'} spacing={4}>
           <LogoPagoPAProduct color="default" title="PagoPA" size={100} />
