@@ -16,5 +16,5 @@ jobs:
     steps:
       - uses: Slashgear/action-check-pr-title@860e8dc639f8e60335a6f5e8936ba67ed2536890 # v4.3.0
         with:
-          regexp: '(feat|fix|chore|ci|test|breaking): \[P4PU(-[0-9]{2,4})?\] .+'
+          regexp: '(feat|fix|chore|ci|test|build|docs|perf|refactor|chore|breaking): \[P4PU(-[0-9]{2,4})?\] .+'
           helpMessage: "Example: 'feat: [P4PU-1041] example of title'"
