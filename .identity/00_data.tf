@@ -18,14 +18,16 @@ data "github_organization_teams" "all" {
 
 # Key Vault - Username E2E
 data "azurerm_key_vault_secret" "username_test" {
-  count        = contains(["d", "u"], var.env_short) ? 1 : 0
+  count = var.env_short == "p" ? 1 : 0
+
   key_vault_id = data.azurerm_key_vault.key_vault.id
   name         = "e2e-username"
 }
 
 # Key Vault - Passowrd E2E
 data "azurerm_key_vault_secret" "password_test" {
-  count        = contains(["d", "u"], var.env_short) ? 1 : 0
+  count = var.env_short == "p" ? 1 : 0
+
   key_vault_id = data.azurerm_key_vault.key_vault.id
   name         = "e2e-password"
 }
