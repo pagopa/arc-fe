@@ -1,5 +1,5 @@
 {
-  "branches": ["main", "master", "P4PU-707", "test"],
+  "branches": ["main", "master", "P4PU-707"],
   "ci": false,
   "plugins": [
     [
