@@ -7,10 +7,10 @@ on:
     branches:
       - master
       - P4PU-707
-    paths-ignore:
-      - "CODEOWNERS"
-      - "**.md"
-      - ".**"
+    # paths-ignore:
+    #   - "CODEOWNERS"
+    #   - "**.md"
+    #   - ".**"
   workflow_dispatch:
 
 jobs:
