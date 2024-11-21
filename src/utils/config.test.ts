@@ -14,7 +14,6 @@ describe('Configuration Tests', () => {
 
   it('should load configuration with valid environment variables', async () => {
     process.env.APIHOST = 'http://localhost:1234/api';
-    process.env.ENV = 'DEV';
     process.env.CHECKOUT_HOST = 'https://dev.checkout.pagopa.it';
     process.env.LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity';
     process.env.CHECKOUT_PLATFORM_URL = 'https://api.dev.platform.pagopa.it/checkout/ec/v1';
@@ -26,7 +25,6 @@ describe('Configuration Tests', () => {
     const reloadedConfig = (await import('./config')).default;
 
     // Assertions to ensure the config values are correctly loaded
-    expect(reloadedConfig.env).toBe('DEV');
     expect(reloadedConfig.baseURL).toBe(process.env.APIHOST);
     expect(reloadedConfig.checkoutHost).toBe(process.env.CHECKOUT_HOST);
     expect(reloadedConfig.loginUrl).toBe(process.env.LOGIN_URL);
