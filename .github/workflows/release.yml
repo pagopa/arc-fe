@@ -37,6 +37,8 @@ jobs:
         run: yarn --immutable
       - name: build phase
         run: yarn build
+      - name: ZIP build
+        run: zip -r dist.zip dist
       - name: Release
         run: npx semantic-release
         env:

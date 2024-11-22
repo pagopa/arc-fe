@@ -13,7 +13,7 @@
       "@semantic-release/github",
       {
         "assets": [
-          { "path": "dist/**", "label": "distribution" }
+          { "path": "dist.zip", "label":"arc-fe-${nextRelease.gitTag}.zip" }
         ],
         "successComment": false,
         "failComment": false
