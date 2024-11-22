@@ -1,5 +1,5 @@
 {
-  "branches": ["main", "P4PU-707"],
+  "branches": "main",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",

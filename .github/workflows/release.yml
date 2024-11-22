@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - P4PU-707
 
 permissions:
   contents: read # for checkout
