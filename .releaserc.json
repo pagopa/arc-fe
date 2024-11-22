@@ -1,6 +1,5 @@
 {
   "branches": ["main", "P4PU-707"],
-  "ci": false,
   "dryRun": true,
   "plugins": [
     [
@@ -14,6 +13,9 @@
     [
       "@semantic-release/github",
       {
+        "assets": [
+          { "path": "dist", "name": "dist", "label": "distribution" }
+        ],
         "successComment": false,
         "failComment": false
       }
