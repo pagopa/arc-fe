@@ -1,11 +1,10 @@
 name: Release
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
+  # Trigger the workflow on push but only for the main branch
   push:
     branches:
-      - master
+      - main
       - P4PU-707
     # paths-ignore:
     #   - "CODEOWNERS"
@@ -13,9 +12,16 @@ on:
     #   - ".**"
   workflow_dispatch:
 
+permissions:
+  contents: read # for checkout
 jobs:
   release:
-    name: Release
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    name: release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,9 +33,11 @@ jobs:
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 #v4.0.2
         with:
           node-version: 20
-          scope: 'cycjimmy'
+      - name: Install dependecies
+        run: yarn --frozen-lockfile
+      - name: build phase
+        run: yarn build
       - name: Release
-        id: sem-release
-        uses: cycjimmy/semantic-release-action@cb425203a562475bca039ba4dbf90c7f9ac790f4 #v4.1.0
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

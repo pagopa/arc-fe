@@ -1,6 +1,7 @@
 {
-  "branches": ["main", "master", "P4PU-707"],
+  "branches": ["main", "P4PU-707"],
   "ci": false,
+  "dryRun": true,
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
@@ -9,6 +10,13 @@
         "releaseRules": [{ "type": "breaking", "release": "major" }]
       }
     ],
-    "@semantic-release/release-notes-generator"
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/github",
+      {
+        "successComment": false,
+        "failComment": false
+      }
+    ]
   ]
 }
