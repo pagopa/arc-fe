@@ -23,15 +23,18 @@ const QueryLoader = (props: QueryLoaderProps) => {
     queryKey: typeof queryKey === 'string' ? [queryKey] : queryKey
   });
 
+  let timeoutId: number | null = null;
   useEffect(() => {
-    let timeoutId: number | null = null;
     if (props.atLeast && isFetching) {
       timeoutId = setTimeout(() => setAtLeast(0), props.atLeast);
     }
-    return () => {
-      if (timeoutId !== null) clearTimeout(timeoutId);
-    };
   }, [isFetching, props.atLeast]);
+
+  useEffect(() => {
+    return () => {
+      timeoutId !== null && clearTimeout(timeoutId);
+    };
+  }, []);
 
   const loader = loaderComponent || <CircularProgress />;
   return (
