@@ -24,9 +24,13 @@ const QueryLoader = (props: QueryLoaderProps) => {
   });
 
   useEffect(() => {
+    let timeoutId: number | null = null;
     if (props.atLeast && isFetching) {
-      setTimeout(() => setAtLeast(0), props.atLeast);
+      timeoutId = setTimeout(() => setAtLeast(0), props.atLeast);
     }
+    return () => {
+      if (timeoutId !== null) clearTimeout(timeoutId);
+    };
   }, [isFetching, props.atLeast]);
 
   const loader = loaderComponent || <CircularProgress />;
