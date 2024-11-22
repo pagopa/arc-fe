@@ -1,7 +1,6 @@
 {
   "name": "pagopa-arc-fe",
-  "version": "1.0.0",
-  "repository": "https://github.com/pagopa/pagopa-arc-fe.git",
+  "repository": "https://github.com/pagopa/arc-fe.git",
   "author": "pagoPA",
   "license": "MIT",
   "source": "src/index.html",
