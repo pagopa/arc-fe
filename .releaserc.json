@@ -1,6 +1,5 @@
 {
   "branches": ["main", "P4PU-707"],
-  "dryRun": true,
   "plugins": [
     [
       "@semantic-release/commit-analyzer",

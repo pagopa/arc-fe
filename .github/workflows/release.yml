@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 20
       - name: Install dependecies
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
       - name: build phase
         run: yarn build
       - name: Release
