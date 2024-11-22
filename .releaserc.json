@@ -13,7 +13,7 @@
       "@semantic-release/github",
       {
         "assets": [
-          { "path": "dist", "name": "dist", "label": "distribution" }
+          { "path": "dist/**", "label": "distribution" }
         ],
         "successComment": false,
         "failComment": false
