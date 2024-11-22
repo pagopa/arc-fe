@@ -38,7 +38,11 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.COURTESY_PAGE,
-        element: <CourtesyPage />
+        element: (
+          <PreLoginLayout>
+            <CourtesyPage />
+          </PreLoginLayout>
+        )
       },
       {
         path: ArcRoutes.LOGIN,
