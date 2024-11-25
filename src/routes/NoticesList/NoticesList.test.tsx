@@ -9,8 +9,40 @@ import loaders from 'utils/loaders';
 
 const queryClient = new QueryClient();
 
+const mockNotices = [
+  {
+    eventId: 'tst2.888387046189095300-8173-9980-7144-362-0',
+    payeeName: 'ACI Automobile Club Italia',
+    payeeTaxCode: '00493410583',
+    amount: 53322,
+    noticeDate: '2024-11-05T10:57:06Z',
+    isCart: true,
+    paidByMe: true,
+    registeredToMe: true
+  },
+  {
+    eventId: 'tst2.814804283493089500-9470-9311-9402-678-0',
+    payeeName: 'ACI Automobile Club Italia',
+    payeeTaxCode: '00493410583',
+    amount: 53861,
+    noticeDate: '2024-11-05T10:43:56Z',
+    isCart: true,
+    paidByMe: true,
+    registeredToMe: true
+  },
+  {
+    eventId: 'tst2.938002289163866200-6666-6117-6677-612-0',
+    payeeName: 'ACI Automobile Club Italia',
+    payeeTaxCode: '00493410583',
+    amount: 73849,
+    noticeDate: '2024-11-05T10:43:54Z',
+    isCart: true,
+    paidByMe: true,
+    registeredToMe: true
+  }
+];
+
 vi.mock('utils/loaders');
-vi.mock('utils/converters');
 
 vi.mock(import('utils/config'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -46,19 +78,12 @@ describe('NoticesListRoute', () => {
   });
 
   it('renders without crashing', async () => {
-    const mockNoticesList = {
-      notices: [
-        { id: '1', paidByMe: true, registeredToMe: false },
-        { id: '2', paidByMe: false, registeredToMe: true }
-      ]
-    };
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: {
-        notices: mockNoticesList.notices,
+        notices: mockNotices,
         continuationToken: ''
       },
-      isError: false,
-      refetch: () => ({ data: { continuationToken: '' } })
+      isError: false
     });
 
     render(
@@ -75,8 +100,7 @@ describe('NoticesListRoute', () => {
   it('renders with error', async () => {
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: null,
-      isError: true,
-      refetch: () => ({ data: null })
+      isError: true
     });
 
     render(
@@ -96,8 +120,7 @@ describe('NoticesListRoute', () => {
         notices: [],
         continuationToken: ''
       },
-      isError: false,
-      refetch: () => ({ data: { notices: [], continuationToken: '' } })
+      isError: false
     });
 
     render(
@@ -113,16 +136,12 @@ describe('NoticesListRoute', () => {
   });
 
   it('filters works properly', async () => {
-    const mockNoticesList = {
-      notices: [{ id: '1' }, { id: '2' }]
-    };
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: {
-        notices: mockNoticesList.notices,
+        notices: mockNotices,
         continuationToken: ''
       },
-      isError: false,
-      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '' } })
+      isError: false
     });
 
     render(
@@ -140,7 +159,8 @@ describe('NoticesListRoute', () => {
           registeredToMe: undefined,
           ordering: 'DESC'
         },
-        ''
+        '',
+        [0, 0, 'DESC']
       );
     });
 
@@ -149,7 +169,8 @@ describe('NoticesListRoute', () => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
         { registeredToMe: undefined, paidByMe: true, size: 10, ordering: 'DESC' },
-        ''
+        '',
+        [1, 0, 'DESC']
       );
     });
 
@@ -158,7 +179,8 @@ describe('NoticesListRoute', () => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
         { registeredToMe: true, paidByMe: undefined, size: 10, ordering: 'DESC' },
-        ''
+        '',
+        [2, 0, 'DESC']
       );
     });
 
@@ -167,22 +189,19 @@ describe('NoticesListRoute', () => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
         { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
-        ''
+        '',
+        [0, 0, 'DESC']
       );
     });
   });
 
   it('date order toggles correctly', async () => {
-    const mockNoticesList = {
-      notices: [{ id: '1' }, { id: '2' }]
-    };
     (loaders.getNoticesList as Mock).mockReturnValue({
       data: {
-        notices: mockNoticesList.notices,
+        notices: mockNotices,
         continuationToken: ''
       },
-      isError: false,
-      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '' } })
+      isError: false
     });
 
     render(
@@ -197,7 +216,8 @@ describe('NoticesListRoute', () => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
         { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'ASC' },
-        ''
+        '',
+        [0, 0, 'ASC']
       );
     });
 
@@ -207,23 +227,28 @@ describe('NoticesListRoute', () => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
         { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
-        ''
+        '',
+        [0, 0, 'DESC']
       );
     });
   });
 
   it('it renders pagination when nedeed', async () => {
-    const mockNoticesList = {
-      notices: [{ id: '1' }, { id: '2' }]
-    };
-    (loaders.getNoticesList as Mock).mockReturnValue({
-      data: {
-        notices: mockNoticesList.notices,
-        continuationToken: '0001'
-      },
-      isError: false,
-      refetch: () => ({ data: { notices: mockNoticesList.notices, continuationToken: '0001' } })
-    });
+    (loaders.getNoticesList as Mock)
+      .mockReturnValueOnce({
+        data: {
+          notices: mockNotices,
+          continuationToken: '0001'
+        },
+        isError: false
+      })
+      .mockReturnValueOnce({
+        data: {
+          notices: mockNotices,
+          continuationToken: ''
+        },
+        isError: false
+      });
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -249,7 +274,8 @@ describe('NoticesListRoute', () => {
       expect(loaders.getNoticesList).toHaveBeenCalled();
       expect(loaders.getNoticesList).toBeCalledWith(
         { registeredToMe: undefined, paidByMe: undefined, size: 10, ordering: 'DESC' },
-        '0001'
+        '0001',
+        [0, 1, 'DESC']
       );
     });
 

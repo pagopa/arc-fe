@@ -1,3 +1,5 @@
+[![semantic-release](https://img.shields.io/badge/semantic%20release-666666?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+
 # pagopa-arc-fe
 
 ## About The Project
@@ -26,7 +28,6 @@ The table below describes all the Environment variables needed by the applicatio
 | Variable name     | Description                                           | type                          |
 | ----------------- | ----------------------------------------------------- | ----------------------------- |
 | APIHOST           | api service host                                      | url                           |
-| ENV               | environment id                                        | "LOCAL", "DEV", "UAT", "PROD" |
 | ASSISTANCE_LINK   | Link for assistance page                              | url                           |
 | ENTITIES_LOGO_CDN | cdn link for logos                                    | url                           |
 | LOGIN_URL         | Link for login button                                 | url                           |

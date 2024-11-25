@@ -3,60 +3,51 @@ name: e2e
 on: [pull_request]
 
 env:
-  NODE_VERSION: '18.18.0'
+  NODE_VERSION: '22.11.0'
 
 jobs:
   testing-e2e:
     runs-on: ubuntu-latest
-    environment: ${{ github.base_ref == 'uat' && 'uat' || 'dev' }}
   
     steps:
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Checkout fe code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           path: fe
-      
-      - name: populate environment vars writing down an .env file
+
+      - name: populate environment vars using a specific .env.ENVIRONMENT FILE
         run: |
           rm .env
-          touch .env
-          echo APIHOST=${{ vars.API_HOST }} >> .env
-          echo ENV=test >> .env
-          echo ENTITIES_LOGO_CDN=https://assets.cdn.io.italia.it/logos/organizations >> .env
-          echo CHECKOUT_HOST=${{ vars.CHECKOUT_HOST }} >> .env
-          echo LOGIN_URL=${{ vars.LOGIN_URL }} >> .env
-          echo CHECKOUT_PLATFORM_URL=${{ vars.CHECKOUT_PLATFORM_URL }} >> .env
-          echo PAYMENT_RETURN_URL=http://localhost:1234 >> .env
-          echo DEPLOY_PATH=/pagamenti >> .env
+          mv .env.${{ github.base_ref == 'uat' && 'uat' || 'dev' }} .env
           echo VERSION=${{ github.sha }} >> .env
           cat .env
         working-directory: fe
   
-      - name: Install fe dependecies
-        run: yarn install
+      - name: Install FE dependecies
+        run: yarn install --immutable
         working-directory: fe
   
       - name: run fe
         run: yarn start &
         working-directory: fe
 
-      - name: Checkout e2e repository
-        uses: actions/checkout@v4
+      - name: Checkout E2E repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           repository: pagopa/arc-fe-e2e
           path: e2e
 
-      - name: Install e2e dependecies
-        run: yarn install
+      - name: Install E2E dependecies
+        run: yarn install --immutable
         working-directory: e2e
       
       - name: Install playwright browsers
-        run: yarn playwright install
+        run: yarn playwright install chromium
         working-directory: e2e
 
       - name: populate environment vars writing down an .env file

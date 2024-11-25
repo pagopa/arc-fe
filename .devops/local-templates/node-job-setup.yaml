@@ -71,6 +71,6 @@ steps:
 
 - bash: |
     echo "current folder: $(pwd)"
-    yarn install
+    yarn install --immutable
   workingDirectory: ${{ parameters.projectDir }}    
   displayName: 'Install node modules'

@@ -13,7 +13,7 @@ trigger:
 pr: none
 
 variables:
-  NODE_VERSION: '18.14.0'
+  NODE_VERSION: '22.11.0'
   npm_config_cache: $(Pipeline.Workspace)/.npm
   vmImageNameDefault: 'ubuntu-latest'
   cdn_logos: 'https://assets.cdn.io.italia.it/logos/organizations'

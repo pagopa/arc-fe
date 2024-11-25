@@ -11,7 +11,6 @@ import {
   Box
 } from '@mui/material';
 import { Trans, useTranslation } from 'react-i18next';
-import { ArrowBack } from '@mui/icons-material';
 import utils from 'utils';
 import { zendeskAssistanceTokenResponseSchema } from '../../../generated/zod-schema';
 
@@ -144,14 +143,6 @@ export const AssistanceForm = () => {
             />
           </Typography>
           <Stack direction={'row'} justifyContent={'space-between'}>
-            <Button
-              variant="outlined"
-              size="large"
-              color="primary"
-              startIcon={<ArrowBack />}
-              onClick={() => utils.modal.open(utils.modal.ModalId.ASSISTANCEBACK)}>
-              {t('app.routes.exit')}
-            </Button>
             <Button
               type="submit"
               data-testid="assistance-confirm-button"
