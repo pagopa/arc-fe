@@ -3,15 +3,11 @@ name: e2e
 on: [pull_request]
 
 env:
-  NODE_VERSION: '18.18.0'
+  NODE_VERSION: '22.11.0'
 
 jobs:
   testing-e2e:
     runs-on: ubuntu-latest
-# unfortunately using environment implies a deployment
-# this is a problem for us, read the following for more info
-# https://github.com/actions/runner/issues/2120    
-#    environment: ${{ github.base_ref == 'uat' && 'uat' || 'dev' }}
   
     steps:
       - name: Set up Node.js
@@ -31,43 +27,27 @@ jobs:
           echo VERSION=${{ github.sha }} >> .env
           cat .env
         working-directory: fe
-
-#      - name: populate environment vars writing down an .env file
-#        run: |
-#          rm .env
-#          touch .env
-#          echo APIHOST=${{ vars.API_HOST }} >> .env
-#          echo ENV=test >> .env
-#          echo ENTITIES_LOGO_CDN=https://assets.cdn.io.italia.it/logos/organizations >> .env
-#          echo CHECKOUT_HOST=${{ vars.CHECKOUT_HOST }} >> .env
-#          echo LOGIN_URL=${{ vars.LOGIN_URL }} >> .env
-#          echo CHECKOUT_PLATFORM_URL=${{ vars.CHECKOUT_PLATFORM_URL }} >> .env
-#          echo PAYMENT_RETURN_URL=http://localhost:1234 >> .env
-#          echo DEPLOY_PATH=/pagamenti >> .env
-#          echo VERSION=${{ github.sha }} >> .env
-#          cat .env
-#        working-directory: fe
   
-      - name: Install fe dependecies
-        run: yarn install
+      - name: Install FE dependecies
+        run: yarn install --immutable
         working-directory: fe
   
       - name: run fe
         run: yarn start &
         working-directory: fe
 
-      - name: Checkout e2e repository
+      - name: Checkout E2E repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           repository: pagopa/arc-fe-e2e
           path: e2e
 
-      - name: Install e2e dependecies
-        run: yarn install
+      - name: Install E2E dependecies
+        run: yarn install --immutable
         working-directory: e2e
       
       - name: Install playwright browsers
-        run: yarn playwright install
+        run: yarn playwright install chromium
         working-directory: e2e
 
       - name: populate environment vars writing down an .env file

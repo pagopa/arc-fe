@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  # Trigger the workflow on push but only for the main branch
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read # for checkout
+jobs:
+  release:
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 #v4.0.2
+        with:
+          node-version: 22.11.0
+      - name: Install dependecies
+        run: yarn --immutable
+      - name: build phase
+        run: yarn build
+      - name: ZIP build
+        run: zip -r dist.zip dist
+      - name: Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

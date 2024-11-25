@@ -1,7 +1,6 @@
 {
   "name": "pagopa-arc-fe",
-  "version": "1.0.0",
-  "repository": "https://github.com/pagopa/pagopa-arc-fe.git",
+  "repository": "https://github.com/pagopa/arc-fe.git",
   "author": "pagoPA",
   "license": "MIT",
   "source": "src/index.html",
@@ -59,6 +58,7 @@
     "prettier": "^3.2.5",
     "process": "^0.11.10",
     "rimraf": "^5.0.5",
+    "semantic-release": "^24.2.0",
     "storybook": "8.1.11",
     "swagger-typescript-api": "^13.0.3",
     "ts-node": "^10.9.2",

@@ -1,3 +1,5 @@
+[![semantic-release](https://img.shields.io/badge/semantic%20release-666666?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+
 # pagopa-arc-fe
 
 ## About The Project
