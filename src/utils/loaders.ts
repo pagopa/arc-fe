@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, QueryKey } from '@tanstack/react-query';
 import { STATE } from 'store/types';
 import utils from 'utils';
 import { ZodSchema } from 'zod';
@@ -23,9 +23,13 @@ interface GetNoticesListQuery {
 /**
  * Retrieve the paged notices list from arc
  */
-const getNoticesList = (query: GetNoticesListQuery, continuationToken: string) =>
+const getNoticesList = (
+  query: GetNoticesListQuery,
+  continuationToken: string,
+  queryKey?: QueryKey
+) =>
   useQuery({
-    queryKey: ['noticesList'],
+    queryKey: queryKey || ['noticesList'],
     queryFn: async () => {
       const { data: noticesList, headers } = await utils.apiClient.notices.getNoticesList(
         {

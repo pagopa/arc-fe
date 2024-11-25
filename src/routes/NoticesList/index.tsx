@@ -4,11 +4,12 @@ import { TransactionsList, TransactionProps } from 'components/Transactions';
 import { Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import QueryLoader from 'components/QueryLoader';
-import { useNormalizedNoticesList } from 'hooks/useNormalizedNoticesList';
 import Empty from 'components/Transactions/Empty';
 import Retry from 'components/Transactions/Retry';
+import NoData from 'components/Transactions/NoData';
 import { TransactionListSkeleton } from 'components/Skeleton';
 import { PaginationItem } from '@mui/material';
+import utils from 'utils';
 
 enum NoticesTabs {
   all,
@@ -32,11 +33,24 @@ export default function NoticesListPage() {
 
   const { t } = useTranslation();
 
-  const noticesList = useNormalizedNoticesList(noticeQueryParams);
+  const queryResult = utils.loaders.getNoticesList(
+    {
+      size: 10,
+      ordering: noticeQueryParams.ordering,
+      paidByMe: noticeQueryParams.paidByMe,
+      registeredToMe: noticeQueryParams.registeredToMe
+    },
+    noticeQueryParams.continuationToken,
+    [activeTab, currentPage, noticeQueryParams.ordering]
+  );
 
-  const {
-    queryResult: { data, error, refetch }
-  } = noticesList;
+  const { isError, refetch, isFetching } = queryResult;
+
+  const data = utils.converters.prepareRowsData({
+    notices: queryResult.data?.notices || [],
+    status: { label: t('app.transactions.paid') },
+    payee: { multi: t('app.transactions.multiEntities') }
+  });
 
   const resetPagination = () => {
     setCurrentPages(0);
@@ -91,25 +105,16 @@ export default function NoticesListPage() {
 
   React.useEffect(() => {
     (async () => {
-      const response = await refetch();
-      const continuationToken = response.data?.continuationToken;
+      const continuationToken = queryResult.data?.continuationToken;
       // if no token is returned we reach the end
       if (!continuationToken) return;
       // is a new token? if not, no need to update the token pages array
       const isNewToken = !pages.find((oldToken) => oldToken === continuationToken);
       if (isNewToken) setPages((prevPages) => [...prevPages, continuationToken]);
     })();
-  }, [currentPage, activeTab, noticeQueryParams.ordering]);
+  }, [queryResult.data?.continuationToken]);
 
-  const MainContent = ({
-    all,
-    paidByMe,
-    registeredToMe
-  }: {
-    all: TransactionProps[];
-    paidByMe: TransactionProps[];
-    registeredToMe: TransactionProps[];
-  }) => {
+  const MainContent = ({ data }: { data: TransactionProps[] }) => {
     return (
       <>
         <Tabs
@@ -121,7 +126,7 @@ export default function NoticesListPage() {
               title: t('app.transactions.all'),
               content: (
                 <TransactionsList
-                  rows={all}
+                  rows={data}
                   dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
@@ -129,22 +134,26 @@ export default function NoticesListPage() {
             },
             {
               title: t('app.transactions.paidByMe'),
-              content: (
+              content: data.length ? (
                 <TransactionsList
-                  rows={paidByMe}
+                  rows={data}
                   dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
+              ) : (
+                <NoData />
               )
             },
             {
               title: t('app.transactions.ownedByMe'),
-              content: (
+              content: data.length ? (
                 <TransactionsList
-                  rows={registeredToMe}
+                  rows={data}
                   dateOrdering={noticeQueryParams.ordering}
                   onDateOrderClick={toggleDateOrder}
                 />
+              ) : (
+                <NoData />
               )
             }
           ]}
@@ -178,21 +187,15 @@ export default function NoticesListPage() {
         <Typography variant="h3">{t('menu.receipts.pageTitle')}</Typography>
       </Stack>
 
-      <QueryLoader loaderComponent={<TransactionListSkeleton />} queryKey="noticesList">
+      <QueryLoader loaderComponent={<TransactionListSkeleton />} loading={isFetching}>
         {(() => {
-          if (error || !data || !data.notices) return <Retry action={refetch} />;
-          if (data.notices?.length === 0) return <Empty />;
-          return (
-            <>
-              <MainContent
-                all={noticesList.all}
-                paidByMe={noticesList.paidByMe}
-                registeredToMe={noticesList.registeredToMe}
-              />
-            </>
-          );
+          if (isError) return <Retry action={refetch} />;
+          //** this means that the Empty component needs to be displayed only for 'all' Tab */
+          if (data.length === 0 && activeTab === NoticesTabs.all) return <Empty />;
+          return <MainContent data={data} />;
         })()}
       </QueryLoader>
+
       {pages.length > 1 && <Pagination />}
     </>
   );
