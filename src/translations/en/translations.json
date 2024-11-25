@@ -1,0 +1,25 @@
+{
+  "app": {
+    "title": "PagoPa - Checkout Evolved",
+    "user": {
+      "title": "Your data",
+      "subtitle": "This data is used to generate receipts.",
+      "info": {
+        "name": "Name",
+        "surname": "Surname",
+        "identifier": "Tax code",
+        "email": "Email"
+      }
+    }
+  },
+  "general": {
+    "and": "&"
+  },
+  "header": {
+    "disclaimer": ""
+  },
+  "aria": {
+    "a11y": "Accessibility"
+  }
+}
+

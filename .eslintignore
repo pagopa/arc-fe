@@ -1,0 +1,11 @@
+# Never lint node_modules
+node_modules
+
+# We shouldn't lint assets nor generated files
+assets
+generated
+
+
+.eslintrc.js
+jest.config.ts
+__mocks__

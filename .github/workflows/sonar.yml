@@ -1,0 +1,30 @@
+name: 'coverage'
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: yarn
+      - name: Generate api client
+        run: yarn generate
+      - name: Test and coverage
+        run: yarn coverage
+      - uses: davelosert/vitest-coverage-report-action@7727b0282e61c3cffa400550cf2ae57c2b16167d # v2
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=${{ vars.SONARCLOUD_ORG }}
+            -Dsonar.projectKey=${{ vars.SONARCLOUD_PROJECT_KEY }}
+            -Dsonar.projectName="${{ vars.SONARCLOUD_PROJECT_NAME }}"

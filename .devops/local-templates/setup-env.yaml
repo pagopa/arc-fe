@@ -1,0 +1,59 @@
+# Azure DevOps pipeline template used to build bundle.
+parameters:
+  - name: 'api_host'
+    type: string
+    default: ''
+
+  - name: 'env'
+    type: string
+    default: ''
+
+  - name: 'cdn_logos'
+    type: string
+    default: ''
+
+  - name: 'assistance_link'
+    type: string
+    default: ''
+
+  - name: 'checkout_host'
+    type: string
+    default: ''
+
+  - name: 'login_url'
+    type: string
+    default: ''
+
+  - name: 'checkout_platform_url'
+    type: string
+    default: ''
+
+  - name: 'payment_return_url'
+    type: string
+    default: ''
+
+  - name: 'version'
+    type: string
+    default: ''
+
+  - name: 'deploy_path'
+    type: string
+    default: ''
+
+steps:
+- bash: |
+    chmod +x env.sh
+    env -i \
+      ARC_FE_APIHOST=${{ parameters.api_host }} \
+      ARC_FE_ENV=${{ parameters.env }} \
+      ARC_FE_ENTITIES_LOGO_CDN=${{ parameters.cdn_logos }} \
+      ARC_FE_ASSISTANCE_LINK=${{ parameters.assistance_link }} \
+      ARC_FE_CHECKOUT_HOST=${{ parameters.checkout_host }} \
+      ARC_FE_LOGIN_URL=${{ parameters.login_url }} \
+      ARC_FE_CHECKOUT_PLATFORM_URL=${{ parameters.checkout_platform_url }} \
+      ARC_FE_PAYMENT_RETURN_URL=${{ parameters.payment_return_url }} \
+      ARC_FE_DEPLOY_PATH=${{ parameters.deploy_path }} \
+      ARC_FE_VERSION=${{ parameters.version }} \
+      bash env.sh
+
+  displayName: 'Populate environment file'

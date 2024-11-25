@@ -1,0 +1,1 @@
+export { PaymentNotice } from './PaymentNotice';
