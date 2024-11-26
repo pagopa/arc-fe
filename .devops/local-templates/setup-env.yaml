@@ -4,6 +4,10 @@ parameters:
     type: string
     default: ''
 
+  - name: 'api_timeout'
+    type: string
+    default: '10000'
+
   - name: 'env'
     type: string
     default: ''
@@ -45,6 +49,7 @@ steps:
     chmod +x env.sh
     env -i \
       ARC_FE_APIHOST=${{ parameters.api_host }} \
+      ARC_FE_API_TIMEOUT=${{ parameters.api_timeout }} \
       ARC_FE_ENV=${{ parameters.env }} \
       ARC_FE_ENTITIES_LOGO_CDN=${{ parameters.cdn_logos }} \
       ARC_FE_ASSISTANCE_LINK=${{ parameters.assistance_link }} \
