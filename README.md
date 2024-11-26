@@ -28,6 +28,7 @@ The table below describes all the Environment variables needed by the applicatio
 | Variable name     | Description                                           | type                          |
 | ----------------- | ----------------------------------------------------- | ----------------------------- |
 | APIHOST           | api service host                                      | url                           |
+| API_TIMEOUT       | after this time api requests will be cancelled        | number                        |
 | ASSISTANCE_LINK   | Link for assistance page                              | url                           |
 | ENTITIES_LOGO_CDN | cdn link for logos                                    | url                           |
 | LOGIN_URL         | Link for login button                                 | url                           |
