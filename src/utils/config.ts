@@ -15,6 +15,8 @@ const {
   VERSION = ''
 } = process.env;
 
+const PARSED_API_TIMEOUT = Number.parseInt(API_TIMEOUT, 10);
+
 // ENV variables validation
 const APIHOST_schema = z.string().url();
 const API_TIMEOUT_schema = z.number();
@@ -27,7 +29,7 @@ const PAYMENT_RETURN_URL_schema = z.string().url();
 const VERSION_schema = z.string();
 try {
   APIHOST_schema.parse(process.env.APIHOST);
-  API_TIMEOUT_schema.parse(process.env.API_TIMEOUT);
+  API_TIMEOUT_schema.parse(PARSED_API_TIMEOUT);
   CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
   CHECKOUT_PLATFORM_URL_schema.parse(process.env.CHECKOUT_PLATFORM_URL);
   DEPLOY_PATH_schema.parse(process.env.DEPLOY_PATH);
@@ -69,7 +71,7 @@ const config: Config = {
   /** after timeout api call is aborted
    * if settet to 0 will wait indefinitely
    **/
-  apiTimeout: Number.parseInt(API_TIMEOUT, 10),
+  apiTimeout: PARSED_API_TIMEOUT,
   /** the prefix of all api calls works
    * in conunction with the auto generated
    * API client see the command generate
