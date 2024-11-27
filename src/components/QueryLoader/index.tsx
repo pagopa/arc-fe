@@ -23,7 +23,7 @@ const QueryLoader = (props: QueryLoaderProps) => {
     queryKey: typeof queryKey === 'string' ? [queryKey] : queryKey
   });
 
-  let timeoutId: number | null = null;
+  let timeoutId: NodeJS.Timeout | null = null;
   useEffect(() => {
     if (props.atLeast && isFetching) {
       timeoutId = setTimeout(() => setAtLeast(0), props.atLeast);
