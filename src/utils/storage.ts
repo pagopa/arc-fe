@@ -1,8 +1,7 @@
 import { signal } from '@preact/signals-react';
 
 enum SessionItems {
-  OPTIN = 'OPTIN',
-  TOKEN = 'accessToken'
+  OPTIN = 'OPTIN'
 }
 
 /** set a session item and return his value. If not possible returs null */
@@ -17,6 +16,23 @@ const setSessionItem = (key: SessionItems, value: string) => {
 
 /** get a session item and return his value. If not possible returns null */
 const getSessionItem = (key: SessionItems) => sessionStorage.getItem(key);
+
+enum StorageItems {
+  TOKEN = 'accessToken'
+}
+
+/** set a session item and return his value. If not possible returs null */
+const setStorageItem = (key: StorageItems, value: string) => {
+  try {
+    localStorage.setItem(key, value);
+    return value;
+  } catch {
+    return null;
+  }
+};
+
+/** get a session item and return his value. If not possible returns null */
+const getStorageItem = (key: StorageItems) => localStorage.getItem(key);
 
 /** clear both session and local storage */
 const clear = () => {
@@ -42,9 +58,9 @@ export default {
     }
   },
   user: {
-    hasToken: () => Boolean(getSessionItem(SessionItems.TOKEN)),
+    hasToken: () => Boolean(getStorageItem(StorageItems.TOKEN)),
     /** clear both session and local storage */
     logOut: clear,
-    setToken: (token: string) => setSessionItem(SessionItems.TOKEN, token)
+    setToken: (token: string) => setStorageItem(StorageItems.TOKEN, token)
   }
 };
