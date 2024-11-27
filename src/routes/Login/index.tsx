@@ -3,6 +3,7 @@ import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
 import utils from 'utils';
 import { useTranslation } from 'react-i18next';
 import { LogoPagoPAProduct } from '@pagopa/mui-italia';
+import { ArcRoutes } from 'routes/routes';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -10,8 +11,7 @@ const Login = () => {
   const theme = useTheme();
 
   useEffect(() => {
-    window.localStorage.clear();
-    window.sessionStorage.clear();
+    if (utils.storage.user.hasToken()) window.location.replace(ArcRoutes.DASHBOARD);
   }, []);
 
   return (
