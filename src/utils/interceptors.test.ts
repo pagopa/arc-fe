@@ -1,7 +1,7 @@
 import { setupInterceptors } from './interceptors';
 import { Client } from 'models/Client';
 import { useNavigate } from 'react-router-dom';
-import { sessionClear } from './session';
+import storage from './storage';
 import { ArcRoutes } from 'routes/routes';
 import { Mock } from 'vitest';
 
@@ -11,10 +11,7 @@ vi.mock('./utils', () => ({
   }
 }));
 
-vi.mock('./session', () => ({
-  sessionClear: vi.fn(),
-  refreshToken: vi.fn()
-}));
+vi.mock('./storage');
 
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn()
@@ -75,16 +72,11 @@ describe('setupInterceptors', () => {
 
   it('should call refreshToken and sessionClear on 401 error', () => {
     const error = { response: { status: 401 } };
-    (sessionClear as Mock).mockImplementation((onSuccess) => {
-      if (onSuccess) {
-        onSuccess();
-      }
-    });
     setupInterceptors(client, navigate);
     const responseInterceptor = (client.instance.interceptors.response.use as Mock).mock
       .calls[0][1];
     responseInterceptor(error);
-    expect(sessionClear).toHaveBeenCalledTimes(1);
+    expect(storage.user.logOut).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith(ArcRoutes.COURTESY_PAGE);
   });
 });

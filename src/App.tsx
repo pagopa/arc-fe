@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '*',
-        element: <Navigate replace to={ArcRoutes.LOGIN} />,
+        element: <Navigate replace to={ArcRoutes.DASHBOARD} />,
         ErrorBoundary: () => {
           throw useRouteError();
         }
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         loader: ({ request }) => getTokenOneidentity(request)
       },
       {
-        path: `${utils.config.deployPath}/`,
+        path: ArcRoutes.DASHBOARD,
         element: (
           <RouteGuard
             itemKeys={['accessToken']}
