@@ -78,7 +78,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
               height={'fit-content'}>
               <Grid container>
                 <Grid item xs={12}>
-                  <Typography variant="h4" fontSize={{ xs: 22, md: 24 }}>
+                  <Typography variant="h4" fontSize={{ xs: 22, md: 24 }} sx={{wordBreak: 'break-word'}}>
                     {noticeData.subject}
                   </Typography>
 
