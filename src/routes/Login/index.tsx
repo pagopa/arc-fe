@@ -4,6 +4,7 @@ import utils from 'utils';
 import { useTranslation } from 'react-i18next';
 import { LogoPagoPAProduct } from '@pagopa/mui-italia';
 import { ArcRoutes } from 'routes/routes';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -15,39 +16,44 @@ const Login = () => {
   }, []);
 
   return (
-    <Grid
-      item
-      display={'flex'}
-      marginTop={16}
-      marginBottom={16}
-      flexWrap={'wrap'}
-      justifyContent={'center'}
-      direction={'column'}>
-      <Box width={'100%'}>
-        <Stack textAlign={'center'} justifyContent={'center'} alignItems={'center'} spacing={4}>
-          <LogoPagoPAProduct color="default" title="PagoPA" size={100} />
-          <Typography variant="h1">{t('app.login.title')}</Typography>
-          <Button
-            variant="contained"
-            size="large"
-            role="button"
-            onClick={() => window.location.replace(utils.config.loginUrl)}
-            sx={{
-              borderRadius: 2
-            }}
-            aria-label={t('app.login.login')}>
-            <Typography
+    <>
+      <Helmet>
+        <title>{`Login - ${t('app.title')} `}</title>
+      </Helmet>
+      <Grid
+        item
+        display={'flex'}
+        marginTop={16}
+        marginBottom={16}
+        flexWrap={'wrap'}
+        justifyContent={'center'}
+        direction={'column'}>
+        <Box width={'100%'}>
+          <Stack textAlign={'center'} justifyContent={'center'} alignItems={'center'} spacing={4}>
+            <LogoPagoPAProduct color="default" title="PagoPA" size={100} />
+            <Typography variant="h1">{t('app.login.title')}</Typography>
+            <Button
+              variant="contained"
+              size="large"
+              role="button"
+              onClick={() => window.location.replace(utils.config.loginUrl)}
               sx={{
-                fontWeight: 'fontWeightMedium',
-                textAlign: 'center',
-                color: theme.palette.primary.contrastText
-              }}>
-              {t('app.login.login')}
-            </Typography>
-          </Button>
-        </Stack>
-      </Box>
-    </Grid>
+                borderRadius: 2
+              }}
+              aria-label={t('app.login.login')}>
+              <Typography
+                sx={{
+                  fontWeight: 'fontWeightMedium',
+                  textAlign: 'center',
+                  color: theme.palette.primary.contrastText
+                }}>
+                {t('app.login.login')}
+              </Typography>
+            </Button>
+          </Stack>
+        </Box>
+      </Grid>
+    </>
   );
 };
 

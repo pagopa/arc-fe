@@ -12,6 +12,7 @@ import { TransactionListSkeleton } from 'components/Skeleton';
 import PaymentButton from 'components/PaymentButton';
 import { Empty, Retry, TransactionsList } from 'components/Transactions';
 import { useUserInfo } from 'hooks/useUserInfo';
+import { Helmet } from 'react-helmet';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -42,6 +43,9 @@ const Dashboard = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`${t('pageTitles.dashboard')} - ${t('app.title')} `}</title>
+      </Helmet>
       <Stack
         flex={1}
         direction={{ xs: 'column', sm: 'row' }}

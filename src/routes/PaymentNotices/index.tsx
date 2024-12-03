@@ -10,6 +10,7 @@ import { useStore } from 'store/GlobalStore';
 import { STATE } from 'store/types';
 import utils from 'utils';
 import { Alert } from 'components/Alerts/Alert';
+import { Helmet } from 'react-helmet';
 
 const Notices = () => {
   const { data, isError, refetch } = useNormalizedNotices();
@@ -55,6 +56,9 @@ export const PaymentNotices = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`${t('pageTitles.paymentnotices')} - ${t('app.title')} `}</title>
+      </Helmet>
       <Typography mb={3} variant="h3" component="h1">
         {t('app.paymentNotices.title')}
       </Typography>

@@ -10,6 +10,7 @@ import NoData from 'components/Transactions/NoData';
 import { TransactionListSkeleton } from 'components/Skeleton';
 import { PaginationItem } from '@mui/material';
 import utils from 'utils';
+import { Helmet } from 'react-helmet';
 
 enum NoticesTabs {
   all,
@@ -183,6 +184,9 @@ export default function NoticesListPage() {
 
   return (
     <>
+      <Helmet>
+        <title>{`${t('pageTitles.notices')} - ${t('app.title')} `}</title>
+      </Helmet>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={7}>
         <Typography variant="h3">{t('menu.receipts.pageTitle')}</Typography>
       </Stack>
