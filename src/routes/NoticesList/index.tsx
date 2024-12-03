@@ -141,7 +141,10 @@ export default function NoticesListPage() {
                   onDateOrderClick={toggleDateOrder}
                 />
               ) : (
-                <NoData />
+                <NoData
+                  title={t('app.paymentNotice.filtered.nodata.paidByMe.title')}
+                  text={t('app.paymentNotice.filtered.nodata.paidByMe.text')}
+                />
               )
             },
             {
@@ -153,7 +156,10 @@ export default function NoticesListPage() {
                   onDateOrderClick={toggleDateOrder}
                 />
               ) : (
-                <NoData />
+                <NoData
+                  title={t('app.paymentNotice.filtered.nodata.ownedByMe.title')}
+                  text={t('app.paymentNotice.filtered.nodata.ownedByMe.text')}
+                />
               )
             }
           ]}
