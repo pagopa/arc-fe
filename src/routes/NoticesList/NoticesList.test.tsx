@@ -6,7 +6,6 @@ import { useMediaQuery } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Mock } from 'vitest';
 import loaders from 'utils/loaders';
-import translation from '../../translations/it/translations.json';
 
 const queryClient = new QueryClient();
 
