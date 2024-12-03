@@ -43,7 +43,7 @@ describe('setupInterceptors', () => {
   });
 
   it('should set up request interceptor', () => {
-    setupInterceptors(client, navigate);
+    setupInterceptors(client);
     expect(client.instance.interceptors.request.use).toHaveBeenCalledTimes(1);
   });
 
@@ -51,7 +51,7 @@ describe('setupInterceptors', () => {
     const request = { url: '/path3', headers: {} };
     const accessToken = 'token';
     window.localStorage.setItem('accessToken', accessToken);
-    setupInterceptors(client, navigate);
+    setupInterceptors(client);
     const requestInterceptor = (client.instance.interceptors.request.use as Mock).mock.calls[0][0];
     const result = requestInterceptor(request);
     expect(result.headers['Authorization']).toBe(`Bearer ${accessToken}`);
@@ -59,24 +59,32 @@ describe('setupInterceptors', () => {
 
   it('should not add Authorization header to request if token is not present', () => {
     const request = { url: '/path3', headers: {} };
-    setupInterceptors(client, navigate);
+    setupInterceptors(client);
     const requestInterceptor = (client.instance.interceptors.request.use as Mock).mock.calls[0][0];
     const result = requestInterceptor(request);
     expect(result.headers['Authorization']).toBeUndefined();
   });
 
   it('should set up response interceptor', () => {
-    setupInterceptors(client, navigate);
+    setupInterceptors(client);
     expect(client.instance.interceptors.response.use).toHaveBeenCalledTimes(1);
   });
 
-  it('should call refreshToken and sessionClear on 401 error', () => {
+  it('should redirect 401 error', () => {
+    const replaceMock = vi.fn();
     const error = { response: { status: 401 } };
-    setupInterceptors(client, navigate);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    vi.spyOn(global as any, 'window', 'get').mockImplementationOnce(() => ({
+      location: {
+        replace: replaceMock
+      }
+    }));
+
+    setupInterceptors(client);
     const responseInterceptor = (client.instance.interceptors.response.use as Mock).mock
       .calls[0][1];
     responseInterceptor(error);
     expect(storage.user.logOut).toHaveBeenCalledTimes(1);
-    expect(navigate).toHaveBeenCalledWith(ArcRoutes.COURTESY_PAGE);
+    expect(replaceMock).toBeCalledWith(`${ArcRoutes.COURTESY_PAGE}?errorcode=401`);
   });
 });

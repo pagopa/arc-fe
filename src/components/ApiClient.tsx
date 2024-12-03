@@ -1,6 +1,6 @@
 import { Client } from 'models/Client';
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { setupInterceptors } from 'utils/interceptors';
 
 type ApiClientProps = {
@@ -8,8 +8,7 @@ type ApiClientProps = {
 };
 
 export const ApiClient = ({ client }: ApiClientProps) => {
-  const navigate = useNavigate();
-  setupInterceptors(client, navigate);
+  setupInterceptors(client);
 
   return <Outlet />;
 };
