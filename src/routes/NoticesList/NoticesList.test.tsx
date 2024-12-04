@@ -291,4 +291,82 @@ describe('NoticesListRoute', () => {
       expect(next).toBeDisabled();
     });
   });
+
+  it('it renders a proper feedback when empty filtered(paidByMe) items are returned', async () => {
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNotices,
+        continuationToken: '0001'
+      },
+      isError: false
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: [],
+        continuationToken: ''
+      },
+      isError: false
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.paidByMe'));
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+
+    expect(
+      screen.getByText('app.paymentNotice.filtered.nodata.paidByMe.title')
+    ).toBeInTheDocument();
+    expect(screen.getByText('app.paymentNotice.filtered.nodata.paidByMe.text')).toBeInTheDocument();
+  });
+
+  it('it renders a proper feedback when empty filtered(ownedByMe) items are returned', async () => {
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: mockNotices,
+        continuationToken: '0001'
+      },
+      isError: false
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoticesList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+
+    (loaders.getNoticesList as Mock).mockReturnValue({
+      data: {
+        notices: [],
+        continuationToken: ''
+      },
+      isError: false
+    });
+
+    fireEvent.click(screen.getByText('app.transactions.ownedByMe'));
+    await waitFor(() => {
+      expect(loaders.getNoticesList).toHaveBeenCalled();
+    });
+
+    expect(
+      screen.getByText('app.paymentNotice.filtered.nodata.ownedByMe.title')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('app.paymentNotice.filtered.nodata.ownedByMe.title')
+    ).toBeInTheDocument();
+  });
 });
