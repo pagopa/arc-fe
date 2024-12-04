@@ -234,6 +234,10 @@
 		"expand": "Espandi il menu"
 	},
 	"ui": {
+		"a11y": {
+			"cart": "Visualizza il carrello dei pagamenti",
+			"home": "Vai alla home page"
+		},
 		"header": {
 			"disclaimer": ""
 		},
