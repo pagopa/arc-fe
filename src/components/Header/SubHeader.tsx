@@ -7,14 +7,22 @@ import { LogoPagoPAProduct } from '@pagopa/mui-italia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ArcRoutes } from 'routes/routes';
 import Typography from '@mui/material/Typography';
+import { useStore } from 'store/GlobalStore';
+import { useCartActions } from 'store/CartStore';
 
 export const SubHeader = () => {
   const { spacing } = useTheme();
 
+  const {
+    state: { cart }
+  } = useStore();
+
+  const { toggleCartDrawer } = useCartActions();
+
   const Cart = () => {
     return (
-      <Button variant="naked" sx={{ gap: 1 }}>
-        <Typography variant="inherit">0,00 €</Typography>
+      <Button variant="naked" sx={{ gap: 1 }} onClick={toggleCartDrawer} name="CartButton">
+        <Typography variant="inherit">{cart.amount}</Typography>
         <ShoppingCartIcon fontSize="small" />
       </Button>
     );

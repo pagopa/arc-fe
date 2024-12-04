@@ -17,6 +17,7 @@ export default defineConfig({
       exclude: [
         ...configDefaults.exclude,
 				'**/*.test.ts?(x)',
+				'**/*.styles.ts?(x)',
 				'src/__tests__/',
         'src/stories/',
         'src/index.tsx',
