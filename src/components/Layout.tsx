@@ -12,6 +12,8 @@ import { BackButton } from './BackButton';
 import { ArcRoutes } from 'routes/routes';
 import { ModalSystem } from './Modals';
 import utils from 'utils';
+import { useStore } from 'store/GlobalStore';
+import { CartDrawer } from './Cart/CartDrawer';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
@@ -21,11 +23,14 @@ const defaultRouteHandle: RouteHandleObject = {
 
 export function Layout() {
   const matches = useMatches();
+  const {
+    state: { cart }
+  } = useStore();
 
   const overlay = utils.sidemenu.status.overlay.value;
   const modalOpen = utils.modal.status.isOpen.value;
 
-  document.body.style.overflow = modalOpen || overlay ? 'hidden' : 'auto';
+  document.body.style.overflow = modalOpen || cart.isOpen || overlay ? 'hidden' : 'auto';
 
   const { crumbs, sidebar, backButton, backButtonText, backButtonFunction } = {
     ...defaultRouteHandle,
@@ -71,6 +76,7 @@ export function Layout() {
             <Footer />
           </Grid>
         </Grid>
+        {cart.isOpen ? <CartDrawer /> : null}
       </Container>
       <ScrollRestoration />
     </>
