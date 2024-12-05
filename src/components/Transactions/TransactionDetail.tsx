@@ -11,7 +11,8 @@ import {
   useTheme
 } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
-import MasterCard from '../../assets/creditcard/mastercard.png';
+import BRAND from './Brand';
+import { BRANDS } from '../../models/NoticeDetail';
 import { type NoticeDetail as NoticeDetailType } from '../../models/NoticeDetail';
 import React, { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -267,7 +268,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                     <>
                       <Grid container>
                         <Grid item xs={1} paddingTop={3.065} pr={2}>
-                          <img src={MasterCard} />
+                          <BRAND name={noticeData.walletInfo.brand as BRANDS} />
                         </Grid>
                         <Grid item xs={10}>
                           <Stack pt={0.75} pl={2}>

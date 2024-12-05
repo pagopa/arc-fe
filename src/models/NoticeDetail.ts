@@ -25,3 +25,15 @@ export interface NoticeDetail {
   total: string;
   status: string;
 }
+
+export enum BRANDS {
+  MASTERCARD = 'MASTERCARD',
+  VISA = 'VISA',
+  AMEX = 'AMEX',
+  MAESTRO = 'MAESTRO',
+  JCB = 'JCB',
+  OTHER = 'OTHER',
+  DINERS = 'DINERS',
+  DISCOVER = 'DISCOVER',
+  UNIONPAY = 'UNIONPAY'
+}
