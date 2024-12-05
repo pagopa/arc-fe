@@ -41,9 +41,9 @@ const toEuro = (amount: number, decimalDigits: number = 2, fractionDigits: numbe
     maximumFractionDigits: fractionDigits
   }).format(amount / Math.pow(10, decimalDigits));
 
-const toEuroOrMissingValue = withMissingValue(toEuro);
-const formatDateOrMissingValue = withMissingValue(datetools.formatDate);
-const propertyOrMissingValue = withMissingValue((property: string) => property);
+export const toEuroOrMissingValue = withMissingValue(toEuro);
+export const formatDateOrMissingValue = withMissingValue(datetools.formatDate);
+export const propertyOrMissingValue = withMissingValue((property: string) => property);
 
 interface PrepareRowsData {
   notices: NoticesListDTO['notices'];
