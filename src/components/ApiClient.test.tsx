@@ -36,7 +36,7 @@ describe('ApiClient Component', () => {
 
   it('sets up interceptors on mount', () => {
     render(<ApiClient client={mockClient} />);
-    expect(setupInterceptors).toHaveBeenCalledWith(mockClient, navigate);
+    expect(setupInterceptors).toHaveBeenCalledWith(mockClient);
     expect(setupInterceptors).toHaveBeenCalledTimes(1);
   });
 });
