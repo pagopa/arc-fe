@@ -296,7 +296,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                                   fontWeight={600}>
                                   {noticeData.paymentMethod == 'PPAL'
                                     ? noticeData.walletInfo.maskedEmail
-                                    : `${noticeData.walletInfo.brand} **** ${noticeData.walletInfo.blurredNumber}`}
+                                    : `${noticeData.walletInfo.brand} ${noticeData.walletInfo.blurredNumber}`}
                                 </Typography>
                               </Stack>
                             </Grid>
