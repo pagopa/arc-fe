@@ -4,7 +4,7 @@ import VISA from '../../assets/creditcard/visa.png';
 import AMEX from '../../assets/creditcard/amex.png';
 import MAESTRO from '../../assets/creditcard/maestro.png';
 import JBC from '../../assets/creditcard/jcb.png';
-import OTHER from '../../assets/creditcard/other.png';
+import OTHER from '../../assets/creditcard/generic.png';
 import DINERS from '../../assets/creditcard/diners.png';
 import DISCOVER from '../../assets/creditcard/discover.png';
 import UNIONPAY from '../../assets/creditcard/unionpay.png';
