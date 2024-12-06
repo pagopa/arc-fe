@@ -4,7 +4,8 @@ import {
   PaymentNoticesListDTO,
   PaymentOptionDTO,
   NoticesListDTO,
-  NoticeDetailsDTO
+  NoticeDetailsDTO,
+  InfoNoticeDTO
 } from '../../generated/apiClient';
 import { NoticeDetail } from 'models/NoticeDetail';
 import { DateFormat, datetools } from './datetools';
@@ -99,10 +100,13 @@ const prepareNoticeDetailData = (noticeDetail: NoticeDetailsDTO): NoticeDetail |
           walletInfo: {
             accountHolder: infoNotice.walletInfo.accountHolder,
             brand: infoNotice.walletInfo.brand,
-            cardNumber: infoNotice.walletInfo.blurredNumber
+            blurredNumber: infoNotice.walletInfo.blurredNumber,
+            maskedEmail: infoNotice.walletInfo.maskedEmail
           }
         }),
-      paymentMethod: propertyOrMissingValue(infoNotice.paymentMethod),
+      paymentMethod: propertyOrMissingValue(
+        infoNotice.paymentMethod
+      ) as InfoNoticeDTO['paymentMethod'],
       authCode: propertyOrMissingValue(infoNotice.authCode),
       eventId: propertyOrMissingValue(infoNotice.eventId),
       PRN: propertyOrMissingValue(infoNotice.rrn),
