@@ -32,7 +32,10 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
     }
   };
 
-  console.log(noticeData);
+  const isPaypal = noticeData.paymentMethod === 'PPAL';
+  const isCard = noticeData.paymentMethod === 'CP' || noticeData.paymentMethod === 'PO';
+  const isUnManaged = !isPaypal && !isCard;
+
   return (
     <Grid container>
       <Stack
@@ -249,7 +252,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
 
                 <Stack spacing={2}>
                   {/* PAYER AND METHOD INFO */}
-                  {noticeData?.payer && (
+                  {noticeData?.payer && !isUnManaged && (
                     <>
                       <Stack
                         direction={{ xs: 'column', sm: 'row', md: 'column' }}
@@ -259,14 +262,19 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                           color={theme.palette.text.secondary}>
                           {t('app.transactionDetail.paidBy')}
                         </Typography>
-                        <Typography sx={{ wordBreak: 'break-word' }} fontSize={16} fontWeight={600}>
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          fontSize={16}
+                          fontWeight={600}
+                          lineHeight={1.8}>
                           {noticeData.payer.name}
                         </Typography>
                         {noticeData.payer.taxCode && (
                           <Typography
                             sx={{ wordBreak: 'break-word' }}
                             fontSize={16}
-                            fontWeight={600}>
+                            fontWeight={600}
+                            lineHeight={1.8}>
                             ({noticeData.payer.taxCode})
                           </Typography>
                         )}
@@ -277,11 +285,8 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                         <>
                           <Grid container>
                             <Grid alignContent={'center'}>
-                              {noticeData.paymentMethod == 'PPAL' ? (
-                                <img alt={'PayPal'} src={paypal} />
-                              ) : (
-                                <BRAND name={noticeData.walletInfo.brand as BRANDS} />
-                              )}
+                              {isPaypal && <img alt={'PayPal'} src={paypal} />}
+                              {isCard && <BRAND name={noticeData.walletInfo.brand as BRANDS} />}
                             </Grid>
                             <Grid item xs={10}>
                               <Stack pl={2}>
@@ -294,9 +299,9 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                                   sx={{ wordBreak: 'break-word' }}
                                   fontSize={16}
                                   fontWeight={600}>
-                                  {noticeData.paymentMethod == 'PPAL'
-                                    ? noticeData.walletInfo.maskedEmail
-                                    : `${noticeData.walletInfo.brand} ${noticeData.walletInfo.blurredNumber}`}
+                                  {isPaypal && noticeData.walletInfo.maskedEmail}
+                                  {isCard &&
+                                    `${noticeData.walletInfo.brand} ${noticeData.walletInfo.blurredNumber}`}
                                 </Typography>
                               </Stack>
                             </Grid>
