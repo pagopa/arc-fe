@@ -1,5 +1,4 @@
 import React from 'react';
-import IOAlert from 'components/Alerts/IOAlert';
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
