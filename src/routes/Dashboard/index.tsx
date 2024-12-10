@@ -61,7 +61,6 @@ const Dashboard = () => {
         <PaymentButton />
       </Stack>
       <Stack gap={5}>
-        <IOAlert />
         {!optIn.value && <PaymentNotice.Preview />}
         <Stack
           direction={{ sm: 'row' }}
