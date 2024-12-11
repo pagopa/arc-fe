@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           repository: pagopa/arc-fe-e2e
-          ref: P4PU-611 
+          ref: main 
           path: e2e
 
       - name: Install E2E dependecies
