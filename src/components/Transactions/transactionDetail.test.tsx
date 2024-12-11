@@ -71,7 +71,7 @@ describe('TransactionDetails component', () => {
     expect(screen.queryByText('(MTTRSS74B23F205K)')).toBeInTheDocument();
 
     expect(screen.queryByText('app.transactionDetail.paymentMethod')).toBeInTheDocument();
-    expect(screen.queryByText('cc ****1234')).toBeInTheDocument();
+    expect(screen.queryByText('MASTERCARD ****1234')).toBeInTheDocument();
 
     expect(screen.queryByText('app.transactionDetail.accountHolder')).toBeInTheDocument();
     expect(screen.queryByText('Luigi Bianchi')).toBeInTheDocument();
