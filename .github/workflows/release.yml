@@ -27,12 +27,6 @@ jobs:
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 #v4.0.2
         with:
           node-version: 22.11.0
-      - name: Install dependecies
-        run: yarn --immutable
-      - name: build phase
-        run: yarn build
-      - name: ZIP build
-        run: zip -r dist.zip dist
       - name: Release
         run: npx semantic-release
         env:
