@@ -47,7 +47,7 @@ jobs:
         working-directory: e2e
       
       - name: Install playwright browsers
-        run: yarn playwright install chromium
+        run: yarn playwright install
         working-directory: e2e
 
       - name: populate environment vars writing down an .env file
@@ -61,5 +61,5 @@ jobs:
         working-directory: e2e
 
       - name: run e2e tests
-        run: yarn test --project chromium
+        run: yarn test
         working-directory: e2e
