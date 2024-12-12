@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "PagoPa - Checkout Evoluto",
+    "title": "Area riservata pagoPA",
     "info": "Informazioni",
     "modal": {
       "close": "Chiudi modale"
@@ -51,7 +51,7 @@
     },
     "transactions": {
       "all": "Tutte",
-      "paidByMe": "Pagate da me",
+      "paidByMe": "Pagate con IO",
       "ownedByMe": "Intestate a me",
       "searchByName": "Cerca per nome",
       "searchBy": "Cerca per",
@@ -87,8 +87,15 @@
         "description": "Se hai ricevuto un avviso pagoPA, premi su ‘Paga un avviso’ e inserisci i dati.",
         "button": "Paga un avviso"
       },
-      "filtered": {
-        "noData": "Nessun dato"
+      "filtered.nodata": {
+        "paidByMe": {
+          "title": "Qui vedrai le ricevute dei pagamenti fatti con l’app IO",
+          "text": "Se hai pagato con un altro canale, per ottenere la ricevuta rivolgiti all’ente creditore."
+        },
+        "ownedByMe": {
+          "title": "Qui vedrai le ricevute dei pagamenti intestati a te",
+          "text": "Se non torvi una ricevuta, rivolgiti all’ente creditore."
+        }
       },
       "error": {
         "description": "Non riusciamo a recuperare i dati a causa di un problema.",
@@ -263,5 +270,14 @@
       "body": "Si è verificato un problema durante l'accesso. Riprova tra qualche minuto.",
       "cta": "Riprova"
     }
+  },
+  "pageTitles" : {
+    "dashboard": "La tua Dashboard",
+    "paymentnotices": "I tuoi avvisi di pagamento",
+    "paymentnotice": "Dettaglio avviso",
+    "notices": "Le tue ricevute di pagamento",
+    "notice": "Dettaglio operazione",
+    "courtesy": "Pagina di cortesia",
+    "userpage": "I tuoi dati"
   }
 }
