@@ -83,7 +83,6 @@ const prepareRowsData = (data: PrepareRowsData): TransactionProps[] => {
 
 const prepareNoticeDetailData = (noticeDetail: NoticeDetailsDTO): NoticeDetail | undefined => {
   const { infoNotice, carts } = noticeDetail;
-  const total = infoNotice?.amount && infoNotice?.fee && infoNotice.amount + infoNotice.fee;
   return (
     infoNotice && {
       ...(infoNotice.payer &&
@@ -124,7 +123,7 @@ const prepareNoticeDetailData = (noticeDetail: NoticeDetailsDTO): NoticeDetail |
       noticeCode: propertyOrMissingValue(carts?.[0].refNumberValue),
       partialAmount: toEuroOrMissingValue(infoNotice.amount, 2),
       fee: toEuroOrMissingValue(infoNotice.fee, 2),
-      total: toEuroOrMissingValue(total),
+      total: toEuroOrMissingValue(infoNotice.totalAmount),
       status: 'SUCCESS'
     }
   );
