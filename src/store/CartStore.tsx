@@ -1,12 +1,13 @@
 import { STATE } from './types';
-import { CartState } from 'models/Cart';
+import { CartItem, CartState } from 'models/Cart';
 import { toEuroOrMissingValue } from 'utils/converters';
 import { useStore } from './GlobalStore';
 import { signal } from '@preact/signals-react';
 
 export const cartState = signal<CartState>({
   amount: toEuroOrMissingValue(0),
-  isOpen: false
+  isOpen: false,
+  items: []
 });
 
 export function setCart(cart: CartState) {
@@ -21,20 +22,38 @@ export const useCartActions = () => {
 
   const setCartAmount = (amount: number) => {
     setState(STATE.CART, {
-      isOpen: cart.isOpen,
+      ...cart,
       amount: toEuroOrMissingValue(amount)
     });
   };
 
   const toggleCartDrawer = () => {
     setState(STATE.CART, {
-      isOpen: !cart.isOpen,
-      amount: cart.amount
+      ...cart,
+      isOpen: !cart.isOpen
     });
+  };
+
+  const addItem = (cartItem: CartItem) => {
+    const items = [...cart.items, cartItem];
+
+    const amount = items.reduce(
+      (accumulatedAmount, cartItem) => accumulatedAmount + cartItem.amount,
+      0
+    );
+
+    setState(STATE.CART, {
+      ...cart,
+      amount: toEuroOrMissingValue(amount),
+      items
+    });
+
+    //setCartAmount(amount);
   };
 
   return {
     setCartAmount,
-    toggleCartDrawer
+    toggleCartDrawer,
+    addItem
   };
 };
