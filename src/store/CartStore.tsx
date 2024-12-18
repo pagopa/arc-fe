@@ -4,6 +4,8 @@ import { toEuroOrMissingValue } from 'utils/converters';
 import { useStore } from './GlobalStore';
 import { signal } from '@preact/signals-react';
 
+const MAXCARTITEMS = 5;
+
 const defaultCart: CartState = {
   amount: toEuroOrMissingValue(0),
   isOpen: false,
@@ -29,6 +31,11 @@ export function setCartAmount(amount: number) {
 }
 
 export function addItem(cartItem: CartItem) {
+  // Max cart items check
+  if (cartState.value.items.length === MAXCARTITEMS) return;
+  // Check for duplicates
+  if (cartState.value.items.some(({ iuv }) => iuv === cartItem.iuv)) return;
+
   const items = [...cartState.value.items, cartItem];
   cartState.value = { ...cartState.value, items };
 
