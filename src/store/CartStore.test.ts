@@ -1,55 +1,48 @@
-import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
-import { useCartActions, cartState } from './CartStore';
-import { useStore } from './GlobalStore';
-import { STATE } from './types';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { cartState, toggleCartDrawer, addItem, resetCart } from './CartStore';
 import { toEuroOrMissingValue } from 'utils/converters';
+import { CartItem } from 'models/Cart';
 
-vi.mock('./GlobalStore', () => ({
-  useStore: vi.fn()
-}));
-
-describe('useCartActions', () => {
-  const mockSetState = vi.fn();
-  const mockState = {
-    cart: {
-      amount: toEuroOrMissingValue(0),
-      isOpen: false
-    }
-  };
-
-  beforeEach(() => {
-    (useStore as Mock).mockReturnValue({
-      setState: mockSetState,
-      state: mockState
-    });
-
-    mockSetState.mockClear();
-    cartState.value = {
-      amount: toEuroOrMissingValue(0),
-      isOpen: false
-    };
-  });
-
-  it('sets the cart amount correctly', () => {
-    const { setCartAmount } = useCartActions();
-    const amount = 50;
-
-    setCartAmount(amount);
-
-    expect(mockSetState).toHaveBeenCalledWith(STATE.CART, {
-      isOpen: false,
-      amount: toEuroOrMissingValue(amount)
-    });
-  });
+describe('cartStore', () => {
+  beforeEach(resetCart);
 
   it('toggles the cart drawer state', () => {
-    const { toggleCartDrawer } = useCartActions();
+    toggleCartDrawer();
+
+    expect(cartState.value.isOpen).toBeTruthy();
 
     toggleCartDrawer();
 
-    expect(mockSetState).toHaveBeenCalledWith(STATE.CART, {
-      isOpen: !mockState.cart.isOpen,
-      amount: mockState.cart.amount
-    });
+    expect(cartState.value.isOpen).toBeFalsy();
+  });
+
+  it('add item to the cart the cart correctly', () => {
+    const item: CartItem = {
+      amount: 100,
+      paFullName: 'ACI',
+      paTaxCode: '77777777',
+      nav: 'testNav123',
+      iuv: 'testIuv123',
+      description: 'A nice description'
+    };
+    addItem(item);
+
+    expect(cartState.value.items).toStrictEqual([item]);
+    expect(cartState.value.items.length).toBe(1);
+    expect(cartState.value.amount).toBe(toEuroOrMissingValue(item.amount));
+
+    const anotherItem: CartItem = {
+      amount: 367,
+      paFullName: 'ACI',
+      paTaxCode: '77777778',
+      nav: 'testNav123',
+      iuv: 'testIuv123',
+      description: 'A nice description'
+    };
+    addItem(anotherItem);
+
+    expect(cartState.value.items).toStrictEqual([item, anotherItem]);
+    expect(cartState.value.items.length).toBe(2);
+    expect(cartState.value.amount).toBe(toEuroOrMissingValue(item.amount + anotherItem.amount));
   });
 });
