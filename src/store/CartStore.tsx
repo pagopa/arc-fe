@@ -1,7 +1,4 @@
-import { STATE } from './types';
 import { CartItem, CartState } from 'models/Cart';
-import { toEuroOrMissingValue } from 'utils/converters';
-import { useStore } from './GlobalStore';
 import { signal, effect } from '@preact/signals-react';
 import utils from 'utils';
 
@@ -28,8 +25,16 @@ export function toggleCartDrawer() {
   cartState.value = { ...cartState.value, isOpen: !cartState.value.isOpen };
 }
 
-export function setCartAmount(amount: number) {
+function setCartAmount(amount: number) {
   cartState.value = { ...cartState.value, amount: amount };
+}
+
+function updateAmount(items: CartItem[]) {
+  const amount = items.reduce(
+    (accumulatedAmount, cartItem) => accumulatedAmount + cartItem.amount,
+    0
+  );
+  setCartAmount(amount);
 }
 
 export function addItem(cartItem: CartItem) {
@@ -41,11 +46,17 @@ export function addItem(cartItem: CartItem) {
   const items = [...cartState.value.items, cartItem];
   cartState.value = { ...cartState.value, items };
 
-  const amount = cartState.value.items.reduce(
-    (accumulatedAmount, cartItem) => accumulatedAmount + cartItem.amount,
-    0
-  );
-  setCartAmount(amount);
+  updateAmount(items);
+}
+
+export function deleteItem(itemId: string) {
+  // nothing to do if empty
+  if (!cartState.value.items.length) return;
+
+  const items = cartState.value.items.filter((item) => item[ITEMID] !== itemId);
+  cartState.value = { ...cartState.value, items };
+
+  updateAmount(items);
 }
 
 export function getCartItems() {
@@ -60,52 +71,7 @@ export function isItemInCart(itemId: string) {
   return cartState.value.items.some((item) => item[ITEMID] === itemId);
 }
 
-// effect subiscribed to carts.items
+// effect subiscribed to cartState signal
 effect(() => {
-  console.log(cartState.value);
   utils.storage.cart.set(cartState.value);
 });
-
-export const useCartActions = () => {
-  const {
-    setState,
-    state: { cart }
-  } = useStore();
-
-  const setCartAmount = (amount: number) => {
-    setState(STATE.CART, {
-      ...cart,
-      amount: toEuroOrMissingValue(amount)
-    });
-  };
-
-  const toggleCartDrawer = () => {
-    setState(STATE.CART, {
-      ...cart,
-      isOpen: !cart.isOpen
-    });
-  };
-
-  const addItem = (cartItem: CartItem) => {
-    const items = [...cart.items, cartItem];
-
-    const amount = items.reduce(
-      (accumulatedAmount, cartItem) => accumulatedAmount + cartItem.amount,
-      0
-    );
-
-    setState(STATE.CART, {
-      ...cart,
-      amount: toEuroOrMissingValue(amount),
-      items
-    });
-
-    //setCartAmount(amount);
-  };
-
-  return {
-    setCartAmount,
-    toggleCartDrawer,
-    addItem
-  };
-};

@@ -15,7 +15,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
-import { useCartActions } from 'store/CartStore';
+import { addItem } from 'store/CartStore';
 /**
  * This component is considered private and should not be used directly.
  * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
@@ -27,7 +27,6 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
   const theme = useTheme();
   const { t } = useTranslation();
   const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
-  const { addItem } = useCartActions();
 
   return paymentNotice?.type === PaymentNoticeEnum.SINGLE ? (
     <>
