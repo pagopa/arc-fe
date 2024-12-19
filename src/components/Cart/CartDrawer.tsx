@@ -5,8 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material';
-import { useStore } from 'store/GlobalStore';
-import { useCartActions } from 'store/CartStore';
+import { toggleCartDrawer, cartState } from 'store/CartStore';
 import { ButtonNaked } from '@pagopa/mui-italia/dist/components/ButtonNaked';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -18,12 +17,6 @@ export const CartDrawer = () => {
   const theme = useTheme();
   const styles = cartDrawerStyles(theme);
   const navigate = useNavigate();
-
-  const {
-    state: { cart }
-  } = useStore();
-
-  const { toggleCartDrawer } = useCartActions();
 
   const onEmptyButtonClick = () => {
     toggleCartDrawer();
@@ -46,7 +39,7 @@ export const CartDrawer = () => {
                 {t('app.cart.header.amount')}
               </Typography>
               <Typography component="span" variant="h6">
-                {cart.amount}
+                {cartState.value.amount}
               </Typography>
             </Stack>
           </Box>
@@ -67,7 +60,7 @@ export const CartDrawer = () => {
       </Box>
 
       {/* Overlay */}
-      {cart.isOpen && (
+      {cartState.value.isOpen && (
         <Box
           sx={styles.overlay}
           aria-hidden="true"
