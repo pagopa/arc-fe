@@ -4,6 +4,6 @@ export type CartItem = Omit<InstallmentDTO, 'status' | 'dueDate'>;
 
 export type CartState = {
   isOpen: boolean;
-  amount: string;
+  amount: number;
   items: CartItem[];
 };

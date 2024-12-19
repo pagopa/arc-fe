@@ -1,6 +1,13 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { cartState, toggleCartDrawer, addItem, resetCart } from './CartStore';
-import { toEuroOrMissingValue } from 'utils/converters';
+import {
+  cartState,
+  toggleCartDrawer,
+  addItem,
+  resetCart,
+  getCartItems,
+  getTotalAmout,
+  isItemInCart
+} from './CartStore';
 import { CartItem } from 'models/Cart';
 
 describe('cartStore', () => {
@@ -27,9 +34,9 @@ describe('cartStore', () => {
     };
     addItem(item);
 
-    expect(cartState.value.items).toStrictEqual([item]);
-    expect(cartState.value.items.length).toBe(1);
-    expect(cartState.value.amount).toBe(toEuroOrMissingValue(item.amount));
+    expect(getCartItems()).toStrictEqual([item]);
+    expect(getCartItems().length).toBe(1);
+    expect(getTotalAmout()).toBe(item.amount);
 
     const anotherItem: CartItem = {
       amount: 367,
@@ -41,9 +48,9 @@ describe('cartStore', () => {
     };
     addItem(anotherItem);
 
-    expect(cartState.value.items).toStrictEqual([item, anotherItem]);
-    expect(cartState.value.items.length).toBe(2);
-    expect(cartState.value.amount).toBe(toEuroOrMissingValue(item.amount + anotherItem.amount));
+    expect(getCartItems()).toStrictEqual([item, anotherItem]);
+    expect(getCartItems().length).toBe(2);
+    expect(getTotalAmout()).toBe(item.amount + anotherItem.amount);
   });
 
   it('does not add item to the cart if already present', () => {
@@ -57,15 +64,15 @@ describe('cartStore', () => {
     };
     addItem(item);
 
-    expect(cartState.value.items).toStrictEqual([item]);
-    expect(cartState.value.items.length).toBe(1);
-    expect(cartState.value.amount).toBe(toEuroOrMissingValue(item.amount));
+    expect(getCartItems()).toStrictEqual([item]);
+    expect(getCartItems().length).toBe(1);
+    expect(getTotalAmout()).toBe(item.amount);
 
     addItem(item);
 
-    expect(cartState.value.items).toStrictEqual([item]);
-    expect(cartState.value.items.length).toBe(1);
-    expect(cartState.value.amount).toBe(toEuroOrMissingValue(item.amount));
+    expect(getCartItems()).toStrictEqual([item]);
+    expect(getCartItems().length).toBe(1);
+    expect(getTotalAmout()).toBe(item.amount);
   });
 
   it('does not add more the 5 item to the cart', () => {
@@ -84,8 +91,8 @@ describe('cartStore', () => {
     addItem({ ...item, iuv: '00005' });
     addItem({ ...item, iuv: '00006' });
 
-    expect(cartState.value.items.length).toBe(5);
-    expect(cartState.value.amount).toBe(toEuroOrMissingValue(100 * 5));
+    expect(getCartItems().length).toBe(5);
+    expect(getTotalAmout()).toBe(100 * 5);
   });
 
   it('resets correctly', () => {
@@ -106,7 +113,29 @@ describe('cartStore', () => {
 
     resetCart();
 
-    expect(cartState.value.items.length).toBe(0);
-    expect(cartState.value.amount).toBe(toEuroOrMissingValue(0));
+    expect(getCartItems().length).toBe(0);
+    expect(getTotalAmout()).toBe(0);
+  });
+
+  it('checks the item presence correctly', () => {
+    const item: CartItem = {
+      amount: 100,
+      paFullName: 'ACI',
+      paTaxCode: '77777777',
+      nav: '00001',
+      iuv: '00001',
+      description: 'A nice description'
+    };
+    addItem(item);
+    addItem({ ...item, iuv: '00002' });
+
+    expect(isItemInCart('00001')).toBeTruthy();
+    expect(isItemInCart('00002')).toBeTruthy();
+    expect(isItemInCart('00003')).toBeFalsy();
+
+    resetCart();
+
+    expect(isItemInCart('00001')).toBeFalsy();
+    expect(isItemInCart('00002')).toBeFalsy();
   });
 });

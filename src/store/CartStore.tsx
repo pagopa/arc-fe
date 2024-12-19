@@ -7,7 +7,7 @@ import { signal } from '@preact/signals-react';
 const MAXCARTITEMS = 5;
 
 const defaultCart: CartState = {
-  amount: toEuroOrMissingValue(0),
+  amount: 0,
   isOpen: false,
   items: []
 };
@@ -27,7 +27,7 @@ export function toggleCartDrawer() {
 }
 
 export function setCartAmount(amount: number) {
-  cartState.value = { ...cartState.value, amount: toEuroOrMissingValue(amount) };
+  cartState.value = { ...cartState.value, amount: amount };
 }
 
 export function addItem(cartItem: CartItem) {
@@ -44,6 +44,18 @@ export function addItem(cartItem: CartItem) {
     0
   );
   setCartAmount(amount);
+}
+
+export function getCartItems() {
+  return cartState.value.items;
+}
+
+export function getTotalAmout() {
+  return cartState.value.amount;
+}
+
+export function isItemInCart(itemId: string) {
+  return cartState.value.items.some((item) => item.iuv === itemId);
 }
 
 export const useCartActions = () => {
