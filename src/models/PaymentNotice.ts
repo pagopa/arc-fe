@@ -21,7 +21,7 @@ export type PaymentInstallmentType = Omit<InstallmentDTO, 'amount'> & {
 };
 
 export type PaymentOptionType = Omit<PaymentOptionDTO, 'amount' | 'installments'> & {
-  amount: number;
+  amount: string;
   amountValue: number;
   dueDate: string;
   description: string;
