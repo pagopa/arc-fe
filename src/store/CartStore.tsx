@@ -2,9 +2,11 @@ import { STATE } from './types';
 import { CartItem, CartState } from 'models/Cart';
 import { toEuroOrMissingValue } from 'utils/converters';
 import { useStore } from './GlobalStore';
-import { signal } from '@preact/signals-react';
+import { signal, effect } from '@preact/signals-react';
+import utils from 'utils';
 
 const MAXCARTITEMS = 5;
+const ITEMID = 'iuv';
 
 const defaultCart: CartState = {
   amount: 0,
@@ -12,7 +14,7 @@ const defaultCart: CartState = {
   items: []
 };
 
-export const cartState = signal<CartState>(defaultCart);
+export const cartState = signal<CartState>(utils.storage.cart.get() || defaultCart);
 
 export function setCart(cart: CartState) {
   cartState.value = cart;
@@ -34,7 +36,7 @@ export function addItem(cartItem: CartItem) {
   // Max cart items check
   if (cartState.value.items.length === MAXCARTITEMS) return;
   // Check for duplicates
-  if (cartState.value.items.some(({ iuv }) => iuv === cartItem.iuv)) return;
+  if (cartState.value.items.some((item) => item[ITEMID] === cartItem.iuv)) return;
 
   const items = [...cartState.value.items, cartItem];
   cartState.value = { ...cartState.value, items };
@@ -55,8 +57,14 @@ export function getTotalAmout() {
 }
 
 export function isItemInCart(itemId: string) {
-  return cartState.value.items.some((item) => item.iuv === itemId);
+  return cartState.value.items.some((item) => item[ITEMID] === itemId);
 }
+
+// effect subiscribed to carts.items
+effect(() => {
+  console.log(cartState.value);
+  utils.storage.cart.set(cartState.value);
+});
 
 export const useCartActions = () => {
   const {

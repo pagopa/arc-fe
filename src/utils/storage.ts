@@ -1,7 +1,9 @@
 import { signal } from '@preact/signals-react';
+import { CartState } from 'models/Cart';
 
 enum SessionItems {
-  OPTIN = 'OPTIN'
+  OPTIN = 'OPTIN',
+  CART = 'CART'
 }
 
 /** set a session item and return his value. If not possible returs null */
@@ -62,5 +64,14 @@ export default {
     /** clear both session and local storage */
     logOut: clear,
     setToken: (token: string) => setStorageItem(StorageItems.TOKEN, token)
+  },
+  cart: {
+    /** sets cart state in session storage */
+    set: (cartState: CartState) => setSessionItem(SessionItems.CART, JSON.stringify(cartState)),
+    /** returns cart state from session storage or null*/
+    get: () => {
+      const sessionItem = getSessionItem(SessionItems.CART);
+      return sessionItem ? (JSON.parse(sessionItem) as CartState) : null;
+    }
   }
 };
