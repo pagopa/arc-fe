@@ -287,7 +287,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                               textAlign: 'center',
                               color: theme.palette.primary.contrastText
                             }}>
-                            aggiungi al carrello
+                            {t('app.paymentNoticeDetail.card2.button1')}
                           </Typography>
                         </Button>
                       </Grid>
