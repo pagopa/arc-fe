@@ -11,8 +11,6 @@ import { IconButton, Paper } from '@mui/material';
 import { ArcRoutes } from 'routes/routes';
 import { useNavigate } from 'react-router-dom';
 import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
-import { useStore } from 'store/GlobalStore';
-import { STATE } from 'store/types';
 
 type InfoProps = { label: string; data: string };
 
@@ -35,20 +33,17 @@ const Info = (props: InfoProps) => (
  * @private
  */
 export const _Card = (notice: PaymentNoticeType) => {
-  const { paymentOptions, paFullName, iupd, type } = notice;
+  const { paymentOptions, paFullName, iupd, type, paTaxCode } = notice;
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
   const navigate = useNavigate();
-  const { setState } = useStore();
 
-  function viewDetail(e: React.MouseEvent) {
-    e.stopPropagation();
-    setState(STATE.PAYMENT_NOTICE, notice);
-    navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}`);
+  function viewDetail() {
+    navigate(`${ArcRoutes.PAYMENT_NOTICES}${iupd}/${paTaxCode}`);
   }
 
   return (
-    <Paper elevation={16}>
+    <Paper elevation={16} id={`payment-notice-${notice.iupd}/${notice.paTaxCode}`}>
       <Stack
         data-testid="payment-notices-item"
         role="option"

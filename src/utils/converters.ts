@@ -5,7 +5,8 @@ import {
   PaymentOptionDTO,
   NoticesListDTO,
   NoticeDetailsDTO,
-  InfoNoticeDTO
+  InfoNoticeDTO,
+  PaymentNoticeDetailsDTO
 } from '../../generated/apiClient';
 import { NoticeDetail } from 'models/NoticeDetail';
 import { DateFormat, datetools } from './datetools';
@@ -13,8 +14,9 @@ import utils from 'utils';
 import {
   NoticeImage,
   PaymentInstallmentType,
+  PaymentNoticeDetailsSINGLE,
+  PaymentNoticeDetailsType,
   PaymentNoticeEnum,
-  PaymentNoticeSingleType,
   PaymentNoticeType,
   PaymentOptionMultiple,
   PaymentOptionSingle,
@@ -173,7 +175,7 @@ const transformPaymentOption = (
  * @param {PaymentNoticeDTO} paymentNotice - The payment notice data transfer object.
  * @returns {PaymentNoticeType} The transformed payment notice object, either as single or multiple type.
  */
-const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeType => {
+const normalizePaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeType => {
   const image: NoticeImage = {
     src: fromTaxCodeToSrcImage(paymentNotice.paTaxCode),
     alt: paymentNotice.paFullName
@@ -201,6 +203,53 @@ const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeT
 };
 
 /**
+ * Transforms a PaymentNoticeDetailsDTO into a PaymentNoticeDetailsType.
+ *
+ * Determines whether it's a single or multiple payment notice based on paymentOptions.length
+ * and transform options and installments accordingly, changing them from a list to an object
+ *
+ * @param {PaymentNoticeDTO} paymentNotice - The payment notice data transfer object.
+ * @returns {PaymentNoticeDetailsType} The transformed payment notice object, either as single or multiple type.
+ */
+const normalizePaymentNoticeDetails = (
+  paymentNotice: PaymentNoticeDetailsDTO
+): PaymentNoticeDetailsType => {
+  if (!paymentNotice?.paymentOptions?.length) {
+    throw new Error('No payment options found');
+  }
+
+  const normalized = {
+    ...paymentNotice,
+    iupd: propertyOrMissingValue(paymentNotice.iupd),
+    paTaxCode: propertyOrMissingValue(paymentNotice.paTaxCode),
+    paFullName: propertyOrMissingValue(paymentNotice.paFullName),
+    paymentOptions: paymentNotice.paymentOptions.map((paymentOption) => ({
+      nav: propertyOrMissingValue(paymentOption.nav),
+      iuv: propertyOrMissingValue(paymentOption.iuv),
+      description: propertyOrMissingValue(paymentOption.description),
+      dueDate: formatDateOrMissingValue(paymentOption.dueDate),
+      amount: toEuroOrMissingValue(paymentOption.amount),
+      amountValue: paymentOption?.amount ?? 0
+    }))
+  };
+
+  if (paymentNotice?.paymentOptions?.length === 1) {
+    return {
+      ...normalized,
+      type: PaymentNoticeEnum.SINGLE,
+      paymentOptions: {
+        ...normalized.paymentOptions[0]
+      }
+    };
+  } else {
+    return {
+      ...normalized,
+      type: PaymentNoticeEnum.MULTIPLE
+    };
+  }
+};
+
+/**
  * Prepares a list of payment notices data by transforming each notice.
  *
  * @param {PaymentNoticesListDTO | undefined} data - The list of payment notices or undefined.
@@ -209,19 +258,19 @@ const transformPaymentNotice = (paymentNotice: PaymentNoticeDTO): PaymentNoticeT
 const prepareNoticesData = (
   data: PaymentNoticesListDTO | undefined
 ): { paymentNotices: PaymentNoticeType[] | undefined } => {
-  const transformed = data?.paymentNotices?.map((notice) => transformPaymentNotice(notice));
+  const transformed = data?.paymentNotices?.map((notice) => normalizePaymentNotice(notice));
 
   return { paymentNotices: transformed };
 };
 
-const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => ({
+const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeDetailsSINGLE) => ({
   paymentNotices: [
     {
       amount: paymentNotice.paymentOptions.amountValue,
       companyName: paymentNotice.paFullName,
       description: paymentNotice.paymentOptions.description,
       fiscalCode: paymentNotice.paTaxCode,
-      noticeNumber: paymentNotice.paymentOptions.installments.nav
+      noticeNumber: paymentNotice.paymentOptions.nav
     }
   ],
   returnUrls: {
@@ -232,9 +281,11 @@ const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeSingleType) => (
 });
 
 export default {
+  normalizePaymentNotice,
+  normalizePaymentNoticeDetails,
+  prepareNoticeDetailData,
   prepareNoticesData,
   prepareRowsData,
-  prepareNoticeDetailData,
   singleNoticeToCartsRequest,
   toEuro,
   withMissingValue
