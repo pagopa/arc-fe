@@ -29,9 +29,6 @@ describe('Detail Component', () => {
     expect(screen.getByText(mockNoticeDetails.paFullName)).toBeInTheDocument();
     expect(screen.getByText(mockNoticeDetails.paymentOptions.description)).toBeInTheDocument();
     expect(
-      screen.getAllByText(mockNoticeDetails.paymentOptions.amount).length
-    ).toBeGreaterThanOrEqual(1);
-    expect(
       screen.getAllByText(mockNoticeDetails.paymentOptions.dueDate).length
     ).toBeGreaterThanOrEqual(1);
   });

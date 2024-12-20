@@ -75,9 +75,7 @@ const getPaymentNotices = () =>
     }
   });
 
-const getPaymentNoticeDetails = ({ params }: { params: Params }) => {
-  const { id, paTaxCode } = params;
-  console.debug('params', params);
+const getPaymentNoticeDetails = ({ params: { id, paTaxCode } }: { params: Params }) => {
   if (!id || !paTaxCode) throw new Error('id and paTaxCode are required');
 
   return () =>
