@@ -15,9 +15,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 import { PaymentNoticeEnum, PaymentNoticeType } from 'models/PaymentNotice';
-import { usePostCarts } from 'hooks/usePostCarts';
-import { useUserEmail } from 'hooks/useUserEmail';
-
+import { addItem } from 'store/CartStore';
 /**
  * This component is considered private and should not be used directly.
  * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
@@ -29,12 +27,6 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
   const theme = useTheme();
   const { t } = useTranslation();
   const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
-  const email = useUserEmail();
-  const carts = usePostCarts({
-    onSuccess: (url) => {
-      window.location.replace(url);
-    }
-  });
 
   return paymentNotice?.type === PaymentNoticeEnum.SINGLE ? (
     <>
@@ -279,9 +271,16 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeType })
                           id="payment-notice-pay-button"
                           variant="contained"
                           fullWidth
-                          onClick={() => {
-                            carts.mutate({ singleNotice: paymentNotice, email });
-                          }}>
+                          onClick={() =>
+                            addItem({
+                              amount: paymentNotice.paymentOptions.amountValue,
+                              paTaxCode: paymentNotice.paTaxCode,
+                              paFullName: paymentNotice.paFullName,
+                              iuv: paymentNotice.paymentOptions.installments.iuv,
+                              nav: paymentNotice.paymentOptions.installments.nav,
+                              description: paymentNotice.paymentOptions.installments.description
+                            })
+                          }>
                           <Typography
                             sx={{
                               fontWeight: 'fontWeightMedium',
