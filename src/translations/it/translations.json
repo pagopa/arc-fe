@@ -202,7 +202,9 @@
 				"firstInstallmentAmount": "Importo",
 				"button1": "Paga ora",
 				"label1": "Oppure",
-				"button2": "Scarica l'avviso pagoPA"
+				"button2": "Scarica l'avviso pagoPA",
+        "addItemToCart": "Aggiungi al carrello",
+        "removeItemFromCart": "Rimuovi dal carrello"
 			},
 			"modal": {
 				"title": "Vedi un importo diverso?",
