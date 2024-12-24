@@ -5,18 +5,24 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material';
-import { toggleCartDrawer, cartState } from 'store/CartStore';
+import { toggleCartDrawer } from 'store/CartStore';
 import { ButtonNaked } from '@pagopa/mui-italia/dist/components/ButtonNaked';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
 import { cartDrawerStyles } from './CartDrawer.styles';
+import { useStore } from 'store/GlobalStore';
+import { toEuroOrMissingValue } from 'utils/converters';
 
 export const CartDrawer = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const styles = cartDrawerStyles(theme);
   const navigate = useNavigate();
+
+  const {
+    state: { cart }
+  } = useStore();
 
   const onEmptyButtonClick = () => {
     toggleCartDrawer();
@@ -39,16 +45,18 @@ export const CartDrawer = () => {
                 {t('app.cart.header.amount')}
               </Typography>
               <Typography component="span" variant="h6">
-                {cartState.value.amount}
+                {toEuroOrMissingValue(cart.amount)}
               </Typography>
             </Stack>
           </Box>
 
           {/* Empty Cart Message */}
-          <Box sx={styles.emptyCartMessage}>
-            <Typography variant="subtitle1">{t('app.cart.empty.title')}</Typography>
-            <Typography variant="body2">{t('app.cart.empty.description')}</Typography>
-          </Box>
+          {cart.items.length === 0 && (
+            <Box sx={styles.emptyCartMessage}>
+              <Typography variant="subtitle1">{t('app.cart.empty.title')}</Typography>
+              <Typography variant="body2">{t('app.cart.empty.description')}</Typography>
+            </Box>
+          )}
 
           {/* Action Button */}
           <Stack justifyContent="center" sx={styles.actionButton}>
@@ -60,7 +68,7 @@ export const CartDrawer = () => {
       </Box>
 
       {/* Overlay */}
-      {cartState.value.isOpen && (
+      {cart.isOpen && (
         <Box
           sx={styles.overlay}
           aria-hidden="true"
