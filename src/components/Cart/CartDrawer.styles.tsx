@@ -9,7 +9,8 @@ export const cartDrawerStyles = (theme: Theme): Record<string, SxProps> => ({
     width: { lg: '30%', md: '40%', sm: '50%', xs: '100%' },
     maxWidth: '417px',
     backgroundColor: theme.palette.background.paper,
-    height: '100%'
+    height: '100%',
+    padding: theme.spacing(3)
   },
   overlay: {
     bgcolor: 'rgba(23, 50, 77, 0.7)',
@@ -23,13 +24,24 @@ export const cartDrawerStyles = (theme: Theme): Record<string, SxProps> => ({
   header: {
     justifyContent: 'flex-end',
     alignItems: 'center',
-    padding: theme.spacing(2)
+    marginBottom: theme.spacing(2)
   },
   cartSummary: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  item: {
     alignItems: 'center',
-    padding: theme.spacing(2)
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
+  },
+  items: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    flexGrow: 1
   },
   emptyCartMessage: {
     gap: theme.spacing(3),
@@ -37,7 +49,5 @@ export const cartDrawerStyles = (theme: Theme): Record<string, SxProps> => ({
     textAlign: 'center',
     maxWidth: theme.spacing(40)
   },
-  actionButton: {
-    margin: theme.spacing(3)
-  }
+  actionButton: {}
 });
