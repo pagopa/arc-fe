@@ -7,12 +7,15 @@ import { LogoPagoPAProduct } from '@pagopa/mui-italia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ArcRoutes } from 'routes/routes';
 import Typography from '@mui/material/Typography';
-import { toggleCartDrawer, cartState } from 'store/CartStore';
+import { toggleCartDrawer } from 'store/CartStore';
 import { useTranslation } from 'react-i18next';
+import utils from 'utils'; // Adjust the import path as necessary
+import { useStore } from 'store/GlobalStore';
 
 export const SubHeader = () => {
   const { spacing } = useTheme();
   const { t } = useTranslation();
+  const { state } = useStore();
 
   const Cart = () => {
     return (
@@ -23,7 +26,7 @@ export const SubHeader = () => {
         aria-label={t('ui.a11y.cart')}
         name="CartButton">
         <Typography variant="inherit" aria-hidden="true">
-          {cartState.value.amount}
+          {utils.converters.toEuro(state.cart.amount)}
         </Typography>
         <ShoppingCartIcon fontSize="small" aria-hidden="true" />
       </Button>
