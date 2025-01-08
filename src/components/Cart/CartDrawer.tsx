@@ -96,9 +96,14 @@ export const CartDrawer = () => {
             <Button variant="outlined" size="large" onClick={onEmptyButtonClick}>
               {t('app.cart.items.back')}
             </Button>
-            <Button variant="contained" size="large" onClick={onPayButton}>
-              {t('app.cart.items.pay')}
-            </Button>
+            {
+              // Show the pay button only if the cart is not empty
+              cart.items.length > 0 && (
+                <Button variant="contained" size="large" onClick={onPayButton}>
+                  {t('app.cart.items.pay')}
+                </Button>
+              )
+            }
           </Stack>
         </Stack>
       </Box>
