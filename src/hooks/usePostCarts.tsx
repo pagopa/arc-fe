@@ -12,7 +12,13 @@ const getRedirect = (data: string) => {
   return url;
 };
 
-export const usePostCarts = ({ onSuccess }: { onSuccess: (url: string) => void }) => {
+export const usePostCarts = ({
+  onSuccess,
+  onError
+}: {
+  onSuccess: (url: string) => void;
+  onError?: () => void;
+}) => {
   const carts = useMutation({
     mutationFn: async ({ notices, email }: { notices: CartItem[]; email?: string }) => {
       const request = utils.converters.cartItemsToCartsRequest(notices);
@@ -21,7 +27,8 @@ export const usePostCarts = ({ onSuccess }: { onSuccess: (url: string) => void }
     },
     onSuccess: (data) => {
       onSuccess(getRedirect(data));
-    }
+    },
+    onError
   });
 
   return carts;

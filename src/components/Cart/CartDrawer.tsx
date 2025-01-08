@@ -26,7 +26,8 @@ export const CartDrawer = () => {
   const carts = usePostCarts({
     onSuccess: (url) => {
       window.location.replace(url);
-    }
+    },
+    onError: () => navigate(`${ArcRoutes.COURTESY_PAGE}?errorcode=422`)
   });
 
   const email = useUserEmail();
