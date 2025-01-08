@@ -15,7 +15,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
 import { PaymentNoticeEnum, PaymentNoticeDetailsType } from 'models/PaymentNotice';
-import { addItem } from 'store/CartStore';
+import { addItem, deleteItem, toggleCartDrawer, isItemInCart } from 'store/CartStore';
 /**
  * This component is considered private and should not be used directly.
  * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
@@ -269,9 +269,21 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                       <Grid item xs={12}>
                         <Button
                           id="payment-notice-pay-button"
-                          variant="contained"
+                          variant={
+                            isItemInCart(paymentNotice.paymentOptions.installments.iuv)
+                              ? 'outlined'
+                              : 'contained'
+                          }
+                          color={
+                            isItemInCart(paymentNotice.paymentOptions.installments.iuv)
+                              ? 'error'
+                              : 'primary'
+                          }
                           fullWidth
-                          onClick={() =>
+                          size="medium"
+                          onClick={() => {
+                            const iuv = paymentNotice.paymentOptions.installments.iuv;
+                            if (isItemInCart(iuv)) return deleteItem(iuv);
                             addItem({
                               amount: paymentNotice.paymentOptions.amountValue,
                               paTaxCode: paymentNotice.paTaxCode,
@@ -279,15 +291,18 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                               iuv: paymentNotice.paymentOptions.installments.iuv,
                               nav: paymentNotice.paymentOptions.installments.nav,
                               description: paymentNotice.paymentOptions.installments.description
-                            })
-                          }>
+                            });
+                            toggleCartDrawer();
+                          }}>
                           <Typography
                             sx={{
                               fontWeight: 'fontWeightMedium',
                               textAlign: 'center',
-                              color: theme.palette.primary.contrastText
+                              color: 'inherit'
                             }}>
-                            {t('app.paymentNoticeDetail.card2.button1')}
+                            {isItemInCart(paymentNotice.paymentOptions.installments.iuv)
+                              ? t('app.paymentNoticeDetail.card2.removeItemFromCart')
+                              : t('app.paymentNoticeDetail.card2.addItemToCart')}
                           </Typography>
                         </Button>
                       </Grid>
