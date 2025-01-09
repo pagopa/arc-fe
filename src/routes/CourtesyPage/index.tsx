@@ -15,6 +15,8 @@ export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ erroCode
       return <img src="/pictograms/genericerror.svg" title="Error" aria-hidden="true" />;
     case ArcErrors['sessione-scaduta']:
       return <img src="/pictograms/expired.svg" title="Expired" aria-hidden="true" />;
+    case '422':
+      return <img src="/pictograms/genericerror.svg" title="Error" aria-hidden="true" />;
     default:
       return <img src="/pictograms/umbrella.svg" title="Something go wrong" aria-hidden="true" />;
   }
