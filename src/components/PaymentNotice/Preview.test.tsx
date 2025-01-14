@@ -4,6 +4,8 @@ import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { PaymentNotice } from './index';
 import { i18nTestSetup } from '__tests__/i18nTestSetup';
+import { useNavigate } from 'react-router-dom';
+import { Mock } from 'vitest';
 
 i18nTestSetup({});
 
@@ -16,7 +18,14 @@ vi.mock('@pagopa/mui-italia', async () => {
   };
 });
 
+vi.mock('react-router-dom', () => ({
+  useNavigate: vi.fn()
+}));
+
 describe('PaymentNotice.Preview Component', () => {
+  const navigate = vi.fn();
+  (useNavigate as Mock).mockReturnValue(navigate);
+
   const renderWithTheme = (ui: React.ReactElement) => {
     const theme = createTheme();
     return render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
