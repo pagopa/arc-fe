@@ -23,7 +23,6 @@ const Dashboard = () => {
     ''
   );
   const theme = useTheme();
-  const optIn = utils.storage.pullPaymentsOptIn.get();
   const { userInfo } = useUserInfo();
 
   const rows =
@@ -60,7 +59,7 @@ const Dashboard = () => {
         <PaymentButton />
       </Stack>
       <Stack gap={5}>
-        {!optIn.value && <PaymentNotice.Preview />}
+        <PaymentNotice.Preview />
         <Stack
           direction={{ sm: 'row' }}
           justifyContent="space-between"
