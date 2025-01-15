@@ -55,7 +55,8 @@ export const _Preview = () => {
             size="large"
             variant="contained"
             onClick={onClick}
-            id="searchButtonPaymentNotices">
+            id="searchButtonPaymentNotices"
+            sx={{ width: { xs: '100%', sm: 'auto' } }}>
             {t('app.paymentNotice.preview.action')}
           </Button>
         </Box>

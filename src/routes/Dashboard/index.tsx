@@ -61,12 +61,11 @@ const Dashboard = () => {
       <Stack gap={5}>
         <PaymentNotice.Preview />
         <Stack
-          direction={{ sm: 'row' }}
+          direction="row"
           justifyContent="space-between"
-          alignItems={{ sm: 'center' }}
-          mb={{ xs: 2, sm: 3 }}
-          spacing={{ xs: 1 }}>
-          <Typography variant="h6" component="h2" marginInlineStart={{ xs: 1, sm: 0 }}>
+          alignItems="center"
+          mb={{ xs: 2, sm: 3 }}>
+          <Typography variant="h6" component="h2" marginInlineStart={1}>
             {t('app.dashboard.lastTransactions')}
           </Typography>
           <Button
@@ -75,8 +74,7 @@ const Dashboard = () => {
             sx={{
               width: theme.spacing(10),
               justifyContent: 'flex-start',
-              p: 0,
-              pt: { xs: 1 }
+              p: 0
             }}>
             {t('app.dashboard.seeAllTransactions')}
           </Button>
