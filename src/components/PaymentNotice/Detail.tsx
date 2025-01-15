@@ -48,7 +48,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
             <Grid item xs={12} md={7}>
               <Card
                 sx={{
-                  padding: 2
+                  padding: { xs: 0, md: 2 }
                 }}>
                 <CardActions>
                   <Stack spacing={2} width={'100%'} alignContent={'center'}>
