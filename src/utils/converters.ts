@@ -126,7 +126,8 @@ const prepareNoticeDetailData = (noticeDetail: NoticeDetailsDTO): NoticeDetail |
       partialAmount: toEuroOrMissingValue(infoNotice.amount, 2),
       fee: toEuroOrMissingValue(infoNotice.fee, 2),
       total: toEuroOrMissingValue(infoNotice.totalAmount),
-      status: 'SUCCESS'
+      status: 'SUCCESS',
+      origin: infoNotice.origin
     }
   );
 };
