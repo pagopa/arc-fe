@@ -1,6 +1,13 @@
 import React from 'react';
 import { ISidebarMenuItem } from 'models/SidebarMenuItem';
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material';
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Tooltip,
+  useTheme
+} from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { SvgIconComponent } from '@mui/icons-material';
 import { alpha } from '@mui/material';
@@ -44,7 +51,11 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
             }
           }
         }}>
-        {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
+        {item.icon && (
+          <Tooltip title={item.label} placement="right" arrow>
+            <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>
+          </Tooltip>
+        )}
         {!collapsed && (
           <ListItemText
             id={`menu-item-${item.label.toLowerCase()}`}
