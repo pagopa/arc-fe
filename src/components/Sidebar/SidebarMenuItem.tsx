@@ -25,7 +25,7 @@ function renderIcon(Icon: SvgIconComponent | (() => JSX.Element)) {
 export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
   const theme = useTheme();
 
-  return (
+  const MenuItem = (
     <ListItem disablePadding>
       <ListItemButton
         end={item.end || false}
@@ -51,11 +51,7 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
             }
           }
         }}>
-        {item.icon && (
-          <Tooltip title={item.label} placement="right" arrow>
-            <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>
-          </Tooltip>
-        )}
+        {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
         {!collapsed && (
           <ListItemText
             id={`menu-item-${item.label.toLowerCase()}`}
@@ -65,5 +61,28 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
         )}
       </ListItemButton>
     </ListItem>
+  );
+
+  return collapsed ? (
+    <Tooltip
+      title={item.label}
+      placement="right"
+      arrow
+      slotProps={{
+        popper: {
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [0, -24]
+              }
+            }
+          ]
+        }
+      }}>
+      {MenuItem}
+    </Tooltip>
+  ) : (
+    MenuItem
   );
 };
