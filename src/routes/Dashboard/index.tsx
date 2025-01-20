@@ -23,7 +23,6 @@ const Dashboard = () => {
     ''
   );
   const theme = useTheme();
-  const optIn = utils.storage.pullPaymentsOptIn.get();
   const { userInfo } = useUserInfo();
 
   const rows =
@@ -54,20 +53,20 @@ const Dashboard = () => {
         mb={5}>
         <Typography variant="h3" aria-label={t('app.dashboard.greeting')}>
           {userInfo?.name &&
-            userInfo?.familyName &&
-            t('app.dashboard.title', { username: `${userInfo.name} ${userInfo.familyName}` })}
+            t('app.dashboard.title', {
+              username: utils.converters.capitalizeFirstLetter(userInfo.name)
+            })}
         </Typography>
         <PaymentButton />
       </Stack>
       <Stack gap={5}>
-        {!optIn.value && <PaymentNotice.Preview />}
+        <PaymentNotice.Preview />
         <Stack
-          direction={{ sm: 'row' }}
+          direction="row"
           justifyContent="space-between"
-          alignItems={{ sm: 'center' }}
-          mb={{ xs: 2, sm: 3 }}
-          spacing={{ xs: 1 }}>
-          <Typography variant="h6" component="h2" marginInlineStart={{ xs: 1, sm: 0 }}>
+          alignItems="center"
+          mb={{ xs: 2, sm: 3 }}>
+          <Typography variant="h6" component="h2" marginInlineStart={1}>
             {t('app.dashboard.lastTransactions')}
           </Typography>
           <Button
@@ -76,8 +75,7 @@ const Dashboard = () => {
             sx={{
               width: theme.spacing(10),
               justifyContent: 'flex-start',
-              p: 0,
-              pt: { xs: 1 }
+              p: 0
             }}>
             {t('app.dashboard.seeAllTransactions')}
           </Button>
