@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { ArcRoutes } from '../routes';
+import { ArcErrors, ArcRoutes } from '../routes';
 import { TokenResponse } from '../../../generated/data-contracts';
 import { Box, CircularProgress } from '@mui/material';
 import { tokenResponseSchema } from '../../../generated/zod-schema';
@@ -16,7 +16,8 @@ export default function AuthCallback() {
     window.location.replace(ArcRoutes.DASHBOARD);
   } else if (typeof result === 'number') {
     // if we have an error code
-    window.location.replace(`${ArcRoutes.COURTESY_PAGE}?errorcode=${result}`);
+    const error = ArcErrors[result] as keyof typeof ArcErrors;
+    window.location.replace(`${ArcRoutes.COURTESY_PAGE}/${error}`);
   } else {
     // otherwhise
     window.location.replace(ArcRoutes.LOGIN);

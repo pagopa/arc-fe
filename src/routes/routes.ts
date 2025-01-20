@@ -8,10 +8,20 @@ export const ArcRoutes = {
   PAYMENT_NOTICES: `${deployPath}/avvisi/`,
   PAYMENT_NOTICE_DETAIL: `${deployPath}/avvisi/:id/:paTaxCode`,
   USER: `${deployPath}/profilo`,
-  COURTESY_PAGE: `${deployPath}/errore`,
+  COURTESY_PAGE: `${deployPath}/errore/:error`,
   LOGIN: `${deployPath}/accesso`,
   ASSISTANCE: `${deployPath}/assistenza`,
   AUTH_CALLBACK: `${deployPath}/auth-callback`,
   PRIVACY_PAGE: `${deployPath}/privacy_page`,
   RESOURCES: `${deployPath}/resources`
 };
+
+export enum ArcErrors {
+  'sessione-scaduta' = 401,
+  /** whitelist: user not authorized to access the resource */
+  'accesso-non-autorizzato' = 403,
+  /** something went wrong with the login */
+  'accesso-non-riuscito' = 408,
+  'avviso-non-pagabile' = 422,
+  'avvio-pagamento' = 423
+}

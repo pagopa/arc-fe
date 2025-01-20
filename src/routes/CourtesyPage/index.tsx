@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, Typography, Container, Box } from '@mui/material';
-import { useSearchParams, Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
+import { ArcErrors } from '../../routes/routes';
 
 interface ErrorIconComponentProps {
   code: string;
@@ -10,9 +11,9 @@ interface ErrorIconComponentProps {
 
 export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ code }) => {
   switch (code) {
-    case '403':
+    case ArcErrors['403']:
       return <img src="/pictograms/genericerror.svg" title="Error" aria-hidden="true" />;
-    case '401':
+    case ArcErrors['401']:
       return <img src="/pictograms/expired.svg" title="Expired" aria-hidden="true" />;
     default:
       return <img src="/pictograms/umbrella.svg" title="Something go wrong" aria-hidden="true" />;
@@ -21,8 +22,8 @@ export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ code }) 
 
 export const CourtesyPage = () => {
   const { t } = useTranslation();
-  const [searchParams] = useSearchParams();
-  const errorMessage = searchParams.get('errorcode') || 'default';
+  const errorDesc = useLoaderData() as keyof typeof ArcErrors;
+  const error = ArcErrors[errorDesc] || 'default';
 
   return (
     <>
@@ -32,19 +33,19 @@ export const CourtesyPage = () => {
       <Container maxWidth="sm">
         <Box textAlign="center" mt={10}>
           <Box my={3}>
-            <ErrorIconComponent code={errorMessage} />
+            <ErrorIconComponent code={ArcErrors[error]} />
           </Box>
           <Typography variant="h4" gutterBottom data-testid="courtesyPage.title">
-            {t(`courtesyPage.${errorMessage}.title`, {
+            {t(`courtesyPage.${error}.title`, {
               defaultValue: t('courtesyPage.default.title')
             })}
           </Typography>
           <Typography variant="body1" paragraph data-testid="courtesyPage.body">
-            {t(`courtesyPage.${errorMessage}.body`, {
+            {t(`courtesyPage.${error}.body`, {
               defaultValue: t('courtesyPage.default.body')
             })}
           </Typography>
-          {errorMessage !== '403' && (
+          {error !== ArcErrors['accesso-non-autorizzato'] && (
             <Button
               component={Link}
               to="/"
@@ -52,7 +53,7 @@ export const CourtesyPage = () => {
               size="large"
               color="primary"
               data-testid="courtesyPage.cta">
-              {t(`courtesyPage.${errorMessage}.cta`, {
+              {t(`courtesyPage.${error}.cta`, {
                 defaultValue: t('courtesyPage.default.cta')
               })}
             </Button>
