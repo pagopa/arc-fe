@@ -4,6 +4,7 @@ import { CourtesyPage } from '.';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorIconComponent } from './index';
+import { ArcErrors } from 'routes/routes';
 
 const queryClient = new QueryClient();
 
@@ -32,14 +33,14 @@ describe('UserRoute', () => {
 
 describe('ErrorIconComponent', () => {
   it('should render the ErrorIconComponent correctly', () => {
-    render(<ErrorIconComponent code="401" />);
+    render(<ErrorIconComponent erroCode={ArcErrors['sessione-scaduta']} />);
     const imgElement = screen.getByTitle('Expired');
     expect(imgElement).toBeInTheDocument();
     expect(imgElement).toHaveAttribute('src', '/pictograms/expired.svg');
   });
 
   it('should render the ErrorIconComponent default correctly', () => {
-    render(<ErrorIconComponent code="900" />);
+    render(<ErrorIconComponent />);
     const imgElement = screen.getByTitle('Something go wrong');
     expect(imgElement).toBeInTheDocument();
     expect(imgElement).toHaveAttribute('src', '/pictograms/umbrella.svg');

@@ -4,6 +4,7 @@ import { dummyTransactionsData } from 'stories/utils/mocks';
 import { Transaction } from './';
 import { BrowserRouter } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
+import { ArcRoutes } from 'routes/routes';
 import utils from 'utils';
 
 const mockedUsedNavigate = vi.fn();
@@ -46,9 +47,7 @@ describe('Transaction row table component', () => {
     const button = screen.getByTestId('transaction-details-button');
     fireEvent.click(button);
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUsedNavigate).toHaveBeenLastCalledWith(
-      `${utils.config.deployPath}/transactions/${id}`
-    );
+    expect(mockedUsedNavigate).toHaveBeenLastCalledWith(`${ArcRoutes.TRANSACTIONS}${id}`);
   });
 
   it('should render without problems', () => {

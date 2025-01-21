@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { _Card } from './Card';
 import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
-import utils from 'utils';
 import { Mock } from 'vitest';
 import { i18nTestSetup } from '__tests__/i18nTestSetup';
+import { ArcRoutes } from 'routes/routes';
 
 i18nTestSetup({});
 
@@ -46,7 +46,7 @@ describe('_Card component', () => {
     fireEvent.click(button);
 
     expect(navigate).toHaveBeenCalledWith(
-      `${utils.config.deployPath}/payment-notices/${mockNotice.iupd}/${mockNotice.paTaxCode}`
+      `${ArcRoutes.PAYMENT_NOTICE_DETAIL.replace(':id', mockNotice.iupd).replace(':paTaxCode', mockNotice.paTaxCode)}`
     );
   });
 });

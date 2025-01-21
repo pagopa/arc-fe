@@ -2,7 +2,7 @@ import { setupInterceptors } from './interceptors';
 import { Client } from 'models/Client';
 import { useNavigate } from 'react-router-dom';
 import storage from './storage';
-import { ArcRoutes } from 'routes/routes';
+import { ArcRoutes, ArcErrors } from 'routes/routes';
 import { Mock } from 'vitest';
 
 vi.mock('./utils', () => ({
@@ -85,6 +85,6 @@ describe('setupInterceptors', () => {
       .calls[0][1];
     responseInterceptor(error);
     expect(storage.user.logOut).toHaveBeenCalledTimes(1);
-    expect(replaceMock).toBeCalledWith(`${ArcRoutes.COURTESY_PAGE}?errorcode=401`);
+    expect(replaceMock).toBeCalledWith(`${ArcRoutes.COURTESY_PAGE}/${ArcErrors['401']}`);
   });
 });
