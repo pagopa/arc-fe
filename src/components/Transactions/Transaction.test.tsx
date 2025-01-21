@@ -5,7 +5,6 @@ import { Transaction } from './';
 import { BrowserRouter } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import { ArcRoutes } from 'routes/routes';
-import utils from 'utils';
 
 const mockedUsedNavigate = vi.fn();
 
