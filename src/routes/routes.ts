@@ -12,8 +12,8 @@ export const ArcRoutes = {
   LOGIN: `${deployPath}/accesso`,
   ASSISTANCE: `${deployPath}/assistenza`,
   AUTH_CALLBACK: `${deployPath}/auth-callback`,
-  PRIVACY_PAGE: `${deployPath}/privacy_page`,
-  RESOURCES: `${deployPath}/resources`
+  TOS: `${deployPath}/termini-di-servizio`,
+  PRIVACY_POLICY: `${deployPath}/informativa-privacy`
 };
 
 export enum ArcErrors {

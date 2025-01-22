@@ -54,13 +54,20 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: ArcRoutes.RESOURCES,
+        path: ArcRoutes.TOS,
         element: (
           <PreLoginLayout>
-            <Resources />
+            <Resources resource="tos" />
           </PreLoginLayout>
-        ),
-        errorElement: <ErrorFallback />
+        )
+      },
+      {
+        path: ArcRoutes.PRIVACY_POLICY,
+        element: (
+          <PreLoginLayout>
+            <Resources resource="pp" />
+          </PreLoginLayout>
+        )
       },
       {
         path: ArcRoutes.AUTH_CALLBACK,

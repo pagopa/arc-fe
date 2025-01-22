@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { Box, Grid, Stack } from '@mui/material';
-import useQueryParams from 'hooks/useQueryParams';
 
-const Resources = () => {
-  const { resource } = useQueryParams();
+interface Props {
+  resource: 'tos' | 'pp';
+}
+
+const Resources = (props: Props) => {
+  const { resource } = props;
   const resourceLink =
     resource == 'tos'
       ? 'https://privacyportalde-cdn.onetrust.com/77f17844-04c3-4969-a11d-462ee77acbe1/privacy-notices/draft/3f089590-8e93-4a08-86d4-40387d57cbad.json'
