@@ -92,11 +92,13 @@ const getPaymentNoticeDetails = ({ params: { id, paTaxCode } }: { params: Params
 };
 
 export const getReceiptData = async (transactionId: string) => {
-  const { data } = await utils.apiClient.notices.getNoticeReceipt(transactionId, {
+  const { data, headers } = await utils.apiClient.notices.getNoticeReceipt(transactionId, {
     format: 'blob'
   });
-
-  return data;
+  const filename =
+    (headers['content-disposition'] as string).split('filename=')[1].replace(/"/g, '') ||
+    `${transactionId}.pdf`;
+  return { data, filename };
 };
 
 const getUserInfo = () => {
