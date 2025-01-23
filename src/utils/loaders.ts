@@ -3,7 +3,6 @@ import { STATE } from 'store/types';
 import utils from 'utils';
 import { ZodSchema } from 'zod';
 import * as zodSchema from '../../generated/zod-schema';
-import { AxiosError } from 'axios';
 import { Params } from 'react-router-dom';
 import converters from './converters';
 
@@ -125,6 +124,7 @@ const getUserInfoOnce = () => {
   });
 };
 
+/** returns the TokenResponse or null if an error occours */
 export const getTokenOneidentity = async (request: Request) => {
   const currentUrl = new URL(request.url);
   const searchParams = new URLSearchParams(currentUrl.search);
@@ -141,9 +141,8 @@ export const getTokenOneidentity = async (request: Request) => {
     );
     parseAndLog(zodSchema.tokenResponseSchema, TokenResponse);
     return TokenResponse;
-  } catch (error) {
-    const code = (error as AxiosError<{ status: number }>).response?.status || 408;
-    return code;
+  } catch {
+    return null;
   }
 };
 
