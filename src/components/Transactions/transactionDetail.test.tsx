@@ -3,14 +3,14 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionDetails } from './';
 import '@testing-library/jest-dom';
-import { getReceipt } from 'utils/files';
+import { downloadReceiptPDF } from 'utils/files';
 import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
 i18nTestSetup({});
 
 vi.mock('utils/files');
 
-const mockUseReceiptData = vi.mocked(getReceipt);
+const mockUseReceiptData = vi.mocked(downloadReceiptPDF);
 
 describe('TransactionDetails component', () => {
   it('should render as expected', () => {
