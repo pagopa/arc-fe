@@ -3,8 +3,13 @@ import utils from 'utils';
 /**
  * Downloads pdf for a transaction
  */
-export const getReceipt = async (transactionId: string) => {
-  const { data, filename } = await utils.loaders.getReceiptData(transactionId);
+export const downloadReceiptPDF = async (transactionId: string) => {
+  const response = await utils.loaders.getReceiptPDF(transactionId);
+  if (!response) {
+    throw new Error('Error getting the PDF');
+  }
+
+  const { data, filename } = response;
   const url = window.URL.createObjectURL(data);
 
   // Create a temporary <a> tag for downloading

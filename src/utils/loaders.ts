@@ -90,14 +90,19 @@ const getPaymentNoticeDetails = ({ params: { id, paTaxCode } }: { params: Params
     });
 };
 
-export const getReceiptData = async (transactionId: string) => {
-  const { data, headers } = await utils.apiClient.notices.getNoticeReceipt(transactionId, {
-    format: 'blob'
-  });
-  const filename =
-    (headers['content-disposition'] as string).split('filename=')[1].replace(/"/g, '') ||
-    `${transactionId}.pdf`;
-  return { data, filename };
+/** returns the object { data: File, filename: string } or null if an error occours */
+export const getReceiptPDF = async (transactionId: string) => {
+  try {
+    const { data, headers } = await utils.apiClient.notices.getNoticeReceipt(transactionId, {
+      format: 'blob'
+    });
+    const filename =
+      (headers['content-disposition'] as string).split('filename=')[1].replace(/"/g, '') ||
+      `${transactionId}.pdf`;
+    return { data, filename };
+  } catch {
+    return null;
+  }
 };
 
 const getUserInfo = () => {
@@ -151,7 +156,7 @@ export const getTokenOneidentity = async (request: Request) => {
 export default {
   getPaymentNotices,
   getPaymentNoticeDetails,
-  getReceiptData,
+  getReceiptPDF,
   getTokenOneidentity,
   getNoticeDetails,
   getNoticesList,
