@@ -10,7 +10,7 @@ export const downloadReceiptPDF = async (transactionId: string) => {
   }
 
   const { data, filename } = response;
-  const url = window.URL.createObjectURL(data);
+  const url = URL.createObjectURL(data);
 
   // Create a temporary <a> tag for downloading
   const a = document.createElement('a');
