@@ -1,25 +1,18 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { ArcRoutes } from '../routes';
-import { TokenResponse } from '../../../generated/data-contracts';
+import { ArcErrors, ArcRoutes } from '../routes';
 import { Box, CircularProgress } from '@mui/material';
-import { tokenResponseSchema } from '../../../generated/zod-schema';
+import { getTokenOneidentity } from 'utils/loaders';
 import utils from 'utils';
 
 export default function AuthCallback() {
-  const result = useLoaderData() as TokenResponse | number;
-  const checkToken = tokenResponseSchema.safeParse(result);
+  const result = useLoaderData() as Awaited<ReturnType<typeof getTokenOneidentity>>;
 
-  if (checkToken.success) {
-    // if we have a formal token
-    utils.storage.user.setToken((result as TokenResponse).accessToken);
+  if (result) {
+    utils.storage.user.setToken(result.accessToken);
     window.location.replace(ArcRoutes.DASHBOARD);
-  } else if (typeof result === 'number') {
-    // if we have an error code
-    window.location.replace(`${ArcRoutes.COURTESY_PAGE}?errorcode=${result}`);
   } else {
-    // otherwhise
-    window.location.replace(ArcRoutes.LOGIN);
+    window.location.replace(`${ArcRoutes.COURTESY_PAGE}/${ArcErrors['408']}`);
   }
 
   return (

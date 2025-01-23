@@ -1,6 +1,6 @@
 import utils from 'utils';
 import { Client } from 'models/Client';
-import { ArcRoutes } from 'routes/routes';
+import { ArcErrors, ArcRoutes } from 'routes/routes';
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const setupInterceptors = (client: Client) => {
@@ -22,7 +22,7 @@ export const setupInterceptors = (client: Client) => {
     (response) => response,
     (error) => {
       if (error.response.status === 401) {
-        const toUrl = `${ArcRoutes.COURTESY_PAGE}?errorcode=401`;
+        const toUrl = `${ArcRoutes.COURTESY_PAGE}/${ArcErrors[401]}`;
         utils.storage.user.logOut();
         window.location.replace(toUrl);
       }

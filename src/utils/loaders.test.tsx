@@ -185,19 +185,18 @@ describe('api loaders', () => {
       expect(token).toEqual(dataMock);
     });
 
-    it('should return error code on failure', async () => {
+    it('should return null on failure', async () => {
       const mockRequest = (url: string): Request =>
         ({
           url
         }) as unknown as Request;
 
-      const mockError = { response: { status: 403 } };
-      vi.mocked(utils.apiClient.token.getAuthenticationToken).mockRejectedValue(mockError);
+      vi.mocked(utils.apiClient.token.getAuthenticationToken).mockRejectedValue(new Error());
 
       const request = mockRequest('https://sito.it/?code=dummyCode&state=dummyState');
       const result = await loaders.getTokenOneidentity(request);
 
-      expect(result).toBe(403);
+      expect(result).toBe(null);
     });
   });
 });
