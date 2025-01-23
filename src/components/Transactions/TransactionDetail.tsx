@@ -17,7 +17,7 @@ import paypal from '../../assets/paypal.png';
 import { type NoticeDetail as NoticeDetailType } from '../../models/NoticeDetail';
 import React, { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { getReceipt as getReceiptApi } from 'utils/files';
+import { downloadReceiptPDF } from 'utils/files';
 
 export default function TransactionDetail({ noticeData }: { noticeData: NoticeDetailType }) {
   const theme = useTheme();
@@ -26,7 +26,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
 
   const getReceipt = async (transactionId: string) => {
     try {
-      await getReceiptApi(transactionId);
+      await downloadReceiptPDF(transactionId);
     } catch (err) {
       setToastOpen(true);
     }

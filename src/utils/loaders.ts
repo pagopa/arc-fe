@@ -3,7 +3,6 @@ import { STATE } from 'store/types';
 import utils from 'utils';
 import { ZodSchema } from 'zod';
 import * as zodSchema from '../../generated/zod-schema';
-import { AxiosError } from 'axios';
 import { Params } from 'react-router-dom';
 import converters from './converters';
 
@@ -91,12 +90,19 @@ const getPaymentNoticeDetails = ({ params: { id, paTaxCode } }: { params: Params
     });
 };
 
-export const getReceiptData = async (transactionId: string) => {
-  const { data } = await utils.apiClient.notices.getNoticeReceipt(transactionId, {
-    format: 'blob'
-  });
-
-  return data;
+/** returns the object { data: File, filename: string } or null if an error occours */
+export const getReceiptPDF = async (transactionId: string) => {
+  try {
+    const { data, headers } = await utils.apiClient.notices.getNoticeReceipt(transactionId, {
+      format: 'blob'
+    });
+    const filename =
+      (headers['content-disposition'] as string).split('filename=')[1].replace(/"/g, '') ||
+      `${transactionId}.pdf`;
+    return { data, filename };
+  } catch {
+    return null;
+  }
 };
 
 const getUserInfo = () => {
@@ -125,6 +131,7 @@ const getUserInfoOnce = () => {
   });
 };
 
+/** returns the TokenResponse or null if an error occours */
 export const getTokenOneidentity = async (request: Request) => {
   const currentUrl = new URL(request.url);
   const searchParams = new URLSearchParams(currentUrl.search);
@@ -141,16 +148,15 @@ export const getTokenOneidentity = async (request: Request) => {
     );
     parseAndLog(zodSchema.tokenResponseSchema, TokenResponse);
     return TokenResponse;
-  } catch (error) {
-    const code = (error as AxiosError<{ status: number }>).response?.status || 408;
-    return code;
+  } catch {
+    return null;
   }
 };
 
 export default {
   getPaymentNotices,
   getPaymentNoticeDetails,
-  getReceiptData,
+  getReceiptPDF,
   getTokenOneidentity,
   getNoticeDetails,
   getNoticesList,
