@@ -1,19 +1,21 @@
 import '@testing-library/jest-dom';
-import { getReceipt } from './files';
+import { downloadReceiptPDF } from './files';
 import utils from 'utils';
-import { waitFor } from '@testing-library/react';
-import { Mock } from 'vitest';
 
-vi.mock('utils/loaders');
-
-describe('files', () => {
-  it('should give a console warning if no link is present', async () => {
-    const mockTransactionReceipt = utils.loaders.getReceiptData as Mock;
-    global.URL.createObjectURL = vitest.fn();
-
-    mockTransactionReceipt.mockResolvedValue(null);
-    await waitFor(() => {
-      expect(getReceipt('1')).rejects.toThrowError('receipt');
+describe('downloadReceiptPDF function', () => {
+  it('is called without error', async () => {
+    vi.spyOn(utils.loaders, 'getReceiptPDF').mockResolvedValue({
+      data: new File([''], 'test.pdf'),
+      filename: 'test.pdf'
     });
+
+    URL.createObjectURL = vitest.fn();
+    URL.revokeObjectURL = vitest.fn();
+    expect(downloadReceiptPDF('1')).resolves.toBeUndefined();
+  });
+
+  it('should trhow an Error when something goes wrong', () => {
+    vi.spyOn(utils.loaders, 'getReceiptPDF').mockResolvedValue(null);
+    expect(downloadReceiptPDF('1')).rejects.toThrowError('Error getting the PDF');
   });
 });

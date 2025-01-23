@@ -111,7 +111,7 @@ describe('api loaders', () => {
         .spyOn(utils.apiClient.notices, 'getNoticeReceipt')
         .mockResolvedValue({ data: null } as AxiosResponse);
 
-      renderHook(() => loaders.getReceiptData(transactionId), { wrapper });
+      renderHook(() => loaders.getReceiptPDF(transactionId), { wrapper });
 
       await waitFor(() => {
         expect(apiMock).toHaveBeenCalledWith(transactionId, { format: 'blob' });
