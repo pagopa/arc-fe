@@ -22,7 +22,7 @@ export const setupInterceptors = (client: Client) => {
     (response) => response,
     (error) => {
       if (error.response.status === 401) {
-        const toUrl = `${ArcRoutes.COURTESY_PAGE}/${ArcErrors[401]}`;
+        const toUrl = ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors[401]);
         utils.storage.user.logOut();
         window.location.replace(toUrl);
       }
