@@ -12,7 +12,7 @@ export default function AuthCallback() {
     utils.storage.user.setToken(result.accessToken);
     window.location.replace(ArcRoutes.DASHBOARD);
   } else {
-    window.location.replace(`${ArcRoutes.COURTESY_PAGE}/${ArcErrors['408']}`);
+    window.location.replace(ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors['408']));
   }
 
   return (
