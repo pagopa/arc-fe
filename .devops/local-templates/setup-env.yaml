@@ -47,6 +47,7 @@ parameters:
 steps:
 - bash: |
     chmod +x env.sh
+    export ENV=${{ parameters.env }}
     env -i \
       ARC_FE_APIHOST=${{ parameters.api_host }} \
       ARC_FE_API_TIMEOUT=${{ parameters.api_timeout }} \
