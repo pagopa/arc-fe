@@ -81,7 +81,6 @@ stages:
       - job: job_build
         displayName: Build
         steps:
-#          - template: templates/node-job-setup/template.yaml@pagopaCommons
           - template: local-templates/node-job-setup.yaml
 
           - template: local-templates/setup-env.yaml
@@ -97,6 +96,11 @@ stages:
               payment_return_url: '$(payment_return_url)'
               deploy_path: '$(DEPLOY_PATH)'
               version: '$(Build.SourceBranchName):$(Build.SourceVersion)'
+
+          # Unfortunately this is required because the parcel-reporter-static-files-copy parcel plugin
+          # does not load the .env file through the dotenv package
+          - script: export ENV=$(environment)
+            displayName: 'Set environment ENV variable'
 
           - script: |
               yarn build
@@ -118,7 +122,6 @@ stages:
           - download: current
             artifact: Bundle
 
-#          - ${{ each app in parameters.apps }}:
           - task: AzureCLI@2
             displayName: 'Sync storage'
             inputs:
