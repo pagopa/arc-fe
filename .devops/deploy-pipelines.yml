@@ -102,6 +102,9 @@ stages:
           - script: export ENV=$(environment)
             displayName: 'Set environment ENV variable'
 
+          - script: echo $ENV
+            displayName: 'echo ENV'
+
           - script: |
               yarn build
             displayName: 'yarn build'
