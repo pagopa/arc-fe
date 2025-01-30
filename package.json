@@ -94,5 +94,28 @@
   "parcelIgnore": [
     "otSDKStub.js",
     "otnotice-1.0.min.js"
+  ],
+  "staticFiles": [
+    {
+      "staticPath": "static/matomo/container_KHGZHzVu.js",
+      "staticOutPath": "matomo",
+      "env": {
+        "ENV": "DEV"
+      }
+    },
+    {
+      "staticPath": "static/matomo/container_DHShZNWx.js",
+      "staticOutPath": "matomo",
+      "env": {
+        "ENV": "UAT"
+      }
+    },
+    {
+      "staticPath": "static/matomo/container_DHShZNWx.js",
+      "staticOutPath": "matomo",
+      "env": {
+        "ENV": "PROD"
+      }
+    }
   ]
 }

@@ -83,7 +83,8 @@ const transactionDetail: NoticeDetail = {
   partialAmount: '250',
   fee: '1',
   total: '251',
-  status: 'Pagato'
+  status: 'Pagato',
+  origin: 'PM'
 };
 
 const shortTransactionDetail: NoticeDetail = {
@@ -101,7 +102,8 @@ const shortTransactionDetail: NoticeDetail = {
   partialAmount: '250',
   fee: '1',
   total: '251',
-  status: 'Pagato'
+  status: 'Pagato',
+  origin: 'PM'
 };
 
 const transactionReceipt = {
