@@ -22,7 +22,6 @@ const matomoMap: Record<ENVIRONMENT, string> = {
 
 const Matomo = () => {
   useEffect(() => {
-    debugger
     // doesn't track on local environments
     if (utils.config.env === "LOCAL" || window.location.hostname === "localhost") return
     var _mtm = (window._mtm = window._mtm || []);
