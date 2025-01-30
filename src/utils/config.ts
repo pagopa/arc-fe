@@ -105,5 +105,4 @@ const config: Config = {
   version: VERSION
 };
 
-console.log(config);
 export default config;
