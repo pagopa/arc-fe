@@ -4,7 +4,8 @@
   ],
   "reporters": [
     "...",
-    "./parcel-static-files-copy.js"
+    "./load-env.js",
+    "parcel-reporter-static-files-copy"
   ],
   "resolvers": [
     "parcel-resolver-ignore",
