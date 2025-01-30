@@ -97,14 +97,6 @@ stages:
               deploy_path: '$(DEPLOY_PATH)'
               version: '$(Build.SourceBranchName):$(Build.SourceVersion)'
 
-          # Unfortunately this is required because the parcel-reporter-static-files-copy parcel plugin
-          # does not load the .env file through the dotenv package
-          - script: export ENV=$(environment)
-            displayName: 'Set environment ENV variable'
-
-          - script: echo $ENV
-            displayName: 'echo ENV'
-
           - script: |
               yarn build
             displayName: 'yarn build'
