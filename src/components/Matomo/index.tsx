@@ -22,8 +22,9 @@ const matomoMap: Record<ENVIRONMENT, string> = {
 
 const Matomo = () => {
   useEffect(() => {
+    debugger
     // doesn't track on local environments
-    if (utils.config.env === "LOCAL") return
+    if (utils.config.env === "LOCAL" || window.location.hostname === "localhost") return
     var _mtm = (window._mtm = window._mtm || []);
     _mtm.push({ 'mtm.startTime': new Date().getTime(), event: 'mtm.Start' });
     var d = document,
