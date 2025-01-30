@@ -97,21 +97,24 @@
   ],
   "staticFiles": [
     {
-      "staticPath": "static/matomo/container_KHGZHzVu.js",
+      "staticPath": "static"
+    },
+    {
+      "staticPath": "src/components/Matomo/js/container_KHGZHzVu.js",
       "staticOutPath": "matomo",
       "env": {
         "ENV": "DEV"
       }
     },
     {
-      "staticPath": "static/matomo/container_DHShZNWx.js",
+      "staticPath": "src/components/Matomo/js/container_DHShZNWx.js",
       "staticOutPath": "matomo",
       "env": {
         "ENV": "UAT"
       }
     },
     {
-      "staticPath": "static/matomo/container_DHShZNWx.js",
+      "staticPath": "src/components/Matomo/js/container_a7fdRBO1.js",
       "staticOutPath": "matomo",
       "env": {
         "ENV": "PROD"

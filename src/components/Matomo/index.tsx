@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { useEffect } from 'react';
-
+import utils from 'utils';
+import { type ENVIRONMENT } from 'utils/config';
 declare global {
   interface Window {
     _mtm: any[];
@@ -12,23 +13,24 @@ declare global {
 // The plugin copies the matomo rigth file to the dist folder based on the environment and the
 // environment variable ENV value. Please don't forget to set the ENV environment variable before
 // running the build command. */
-const matomoMap = {
-  dev: 'pagamenti/matomo/container_KHGZHzVu.js',
-  uat: 'pagamenti/matomo/container_DHShZNWx.js',
-  prod: 'prod'
+const matomoMap: Record<ENVIRONMENT, string> = {
+  "LOCAL": '', // No tracking script for LOCAL
+  "DEV": '/matomo/container_KHGZHzVu.js',
+  "UAT": '/matomo/container_DHShZNWx.js',
+  "PROD": '/matomo/container_a7fdRBO1.js',
 };
 
 const Matomo = () => {
   useEffect(() => {
-    // doesn't track on localhost
-    if (window.location.hostname === 'localhost' || process.env.ENV === 'LOCAL') return
+    // doesn't track on local environments
+    if (utils.config.env === "LOCAL") return
     var _mtm = (window._mtm = window._mtm || []);
     _mtm.push({ 'mtm.startTime': new Date().getTime(), event: 'mtm.Start' });
     var d = document,
       g = d.createElement('script'),
       s = d.getElementsByTagName('script')[0];
     g.async = true;
-    g.src = matomoMap.dev;
+    g.src = matomoMap[utils.config.env];
     if (s.parentNode) {
       s.parentNode.insertBefore(g, s);
     }
