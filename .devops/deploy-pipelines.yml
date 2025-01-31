@@ -81,7 +81,6 @@ stages:
       - job: job_build
         displayName: Build
         steps:
-#          - template: templates/node-job-setup/template.yaml@pagopaCommons
           - template: local-templates/node-job-setup.yaml
 
           - template: local-templates/setup-env.yaml
@@ -118,7 +117,6 @@ stages:
           - download: current
             artifact: Bundle
 
-#          - ${{ each app in parameters.apps }}:
           - task: AzureCLI@2
             displayName: 'Sync storage'
             inputs:
