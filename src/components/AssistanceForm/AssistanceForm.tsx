@@ -14,6 +14,8 @@ import { Trans, useTranslation } from 'react-i18next';
 import utils from 'utils';
 import { zendeskAssistanceTokenResponseSchema } from '../../../generated/zod-schema';
 
+const emailRegExp = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
+
 export const AssistanceForm = () => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -22,11 +24,8 @@ export const AssistanceForm = () => {
   const [emailError, setEmailError] = useState(false);
   const [emailConfirmError, setEmailConfirmError] = useState(false);
   const [emailConfirm, setEmailConfirm] = useState('');
-  const reg = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
-  const [active, setActive] = useState(false);
 
-  async function getAssistanceJWT(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
+  async function getAssistanceJWT() {
     try {
       await utils.apiClient.token
         .getZendeskAssistanceToken({
@@ -54,11 +53,31 @@ export const AssistanceForm = () => {
     }
   }
 
-  useEffect(() => {
-    if (email) setEmailError(!reg.test(email));
-    if (emailConfirm) setEmailConfirmError(email !== emailConfirm);
-    setActive(reg.test(email) && emailConfirm === email);
-  }, [email, emailConfirm]);
+  const validateForm = () => {
+    /* Email */
+    setEmailError(false);
+    if (!emailRegExp.test(email)) {
+      setEmailError(true);
+      setEmailConfirmError(false);
+      document.getElementById('assistance-email')?.focus();
+      return;
+    }
+
+    /* Confirm Email */
+    setEmailConfirmError(false);
+    if (email !== emailConfirm) {
+      setEmailConfirmError(true);
+      document.getElementById('assistance-confirm-email')?.focus();
+      return;
+    }
+    /* if we reach this point, we can proceed */
+    getAssistanceJWT();
+  };
+
+  const onFormConfirm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    validateForm();
+  };
 
   useEffect(() => {
     setEmail(data?.email || '');
@@ -89,6 +108,7 @@ export const AssistanceForm = () => {
                 <Typography variant="body1">{t('app.assistance.cardDescription')}</Typography>
                 <Stack spacing={3}>
                   <TextField
+                    id="assistance-email"
                     inputProps={{ 'data-testid': 'confirm-email' }}
                     role="textbox"
                     aria-required="false"
@@ -110,6 +130,8 @@ export const AssistanceForm = () => {
                     }}
                   />
                   <TextField
+                    id="assistance-confirm-email"
+                    autoFocus
                     inputProps={{ 'data-testid': 'assistance-confirm-email' }}
                     role="textbox"
                     aria-required="false"
@@ -148,8 +170,7 @@ export const AssistanceForm = () => {
               data-testid="assistance-confirm-button"
               variant="contained"
               size="large"
-              onClick={(e) => getAssistanceJWT(e)}
-              disabled={!active}>
+              onClick={onFormConfirm}>
               {t('app.assistance.confirm')}
             </Button>
           </Stack>

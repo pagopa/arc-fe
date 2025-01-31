@@ -85,6 +85,6 @@ describe('setupInterceptors', () => {
       .calls[0][1];
     responseInterceptor(error);
     expect(storage.user.logOut).toHaveBeenCalledTimes(1);
-    expect(replaceMock).toBeCalledWith(`${ArcRoutes.COURTESY_PAGE}/${ArcErrors['401']}`);
+    expect(replaceMock).toBeCalledWith(ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors['401']));
   });
 });

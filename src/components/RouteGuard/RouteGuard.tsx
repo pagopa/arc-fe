@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { ArcRoutes } from 'routes/routes';
+import { ArcErrors, ArcRoutes } from 'routes/routes';
 
 export type RouteGuardProps = {
   redirectTo?: string;
@@ -10,7 +10,7 @@ export type RouteGuardProps = {
 };
 
 export const RouteGuard = ({
-  redirectTo = ArcRoutes.COURTESY_PAGE,
+  redirectTo = ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors['404']),
   storage = sessionStorage,
   itemKeys,
   children
