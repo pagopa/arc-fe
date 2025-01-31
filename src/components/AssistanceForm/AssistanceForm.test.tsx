@@ -13,6 +13,16 @@ describe('AssistanceForm Component', () => {
     vi.clearAllMocks();
   });
 
+  const mockUserData = {
+    data: {
+      userId: '_1a',
+      fiscalCode: 'TINIT-PLOMRC01P30L221D',
+      familyName: 'Polo',
+      name: 'Marco',
+      email: 'ilmilione@virgilio.it'
+    }
+  };
+
   const WrappedAssistanceForm = () => {
     const queryClient = new QueryClient();
     return (
@@ -23,16 +33,6 @@ describe('AssistanceForm Component', () => {
   };
 
   it('renders having e-mail of connected user', () => {
-    const mockUserData = {
-      data: {
-        userId: '_1a',
-        fiscalCode: 'TINIT-PLOMRC01P30L221D',
-        familyName: 'Polo',
-        name: 'Marco',
-        email: 'ilmilione@virgilio.it'
-      }
-    };
-
     vi.spyOn(loaders, 'getUserInfo').mockReturnValue(
       mockUserData as UseQueryResult<UserInfo, Error>
     );
@@ -49,6 +49,29 @@ describe('AssistanceForm Component', () => {
     render(<WrappedAssistanceForm />);
     const confirmButton = screen.getByTestId('assistance-confirm-button');
     expect(confirmButton).not.toHaveClass('Mui-disabled');
+  });
+
+  it('gives a feedback when the form has errors', () => {
+    vi.spyOn(utils.apiClient.token, 'getZendeskAssistanceToken');
+
+    render(<WrappedAssistanceForm />);
+    const confirmButton = screen.getByTestId('assistance-confirm-button');
+    const email = screen.getByTestId('confirm-email');
+    const confirmEmail = screen.getByTestId('assistance-confirm-email');
+
+    fireEvent.change(email, { target: { value: 'wrong email' } });
+    fireEvent.click(confirmButton);
+    expect(screen.getByText('app.assistance.input1Helper')).toBeInTheDocument();
+    expect(utils.apiClient.token.getZendeskAssistanceToken).not.toHaveBeenCalled();
+
+    fireEvent.change(email, { target: { value: 'good@email.it' } });
+    fireEvent.click(confirmButton);
+    expect(screen.getByText('app.assistance.input2Helper')).toBeInTheDocument();
+    expect(utils.apiClient.token.getZendeskAssistanceToken).not.toHaveBeenCalled();
+
+    fireEvent.change(confirmEmail, { target: { value: 'good@email.it' } });
+    fireEvent.click(confirmButton);
+    expect(utils.apiClient.token.getZendeskAssistanceToken).toHaveBeenCalled();
   });
 
   it('confirms email and obtain a zendesk jwt', async () => {
