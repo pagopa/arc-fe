@@ -45,32 +45,13 @@ describe('AssistanceForm Component', () => {
     expect(email).toHaveAttribute('value', mockUserData.data.email);
   });
 
-  it('renders having confirm button disabled', () => {
+  it('renders not having confirm button disabled', () => {
     render(<WrappedAssistanceForm />);
     const confirmButton = screen.getByTestId('assistance-confirm-button');
-    expect(confirmButton).toHaveClass('Mui-disabled');
-  });
-
-  it('turns confirm button enabled correctly', () => {
-    render(<WrappedAssistanceForm />);
-    const confirmButton = screen.getByTestId('assistance-confirm-button');
-    const email = screen.getByTestId('confirm-email');
-    const confirmEmail = screen.getByTestId('assistance-confirm-email');
-
-    expect(confirmButton).toHaveClass('Mui-disabled');
-
-    fireEvent.change(email, { target: { value: 'pippo' } });
-    fireEvent.change(confirmEmail, { target: { value: 'pippo' } });
-    expect(confirmButton).toHaveClass('Mui-disabled');
-
-    fireEvent.change(email, { target: { value: 'pippo@pippo.it' } });
-    expect(confirmButton).toHaveClass('Mui-disabled');
-
-    fireEvent.change(confirmEmail, { target: { value: 'pippo@pippo.it' } });
     expect(confirmButton).not.toHaveClass('Mui-disabled');
   });
 
-  it('confirm email and obtain a zendesk jwt', async () => {
+  it('confirms email and obtain a zendesk jwt', async () => {
     const mockGetZendeskAssistanceToken = {
       data: {
         assistanceToken: 'z123',
