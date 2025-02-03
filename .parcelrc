@@ -4,6 +4,7 @@
   ],
   "reporters": [
     "...",
+    "./load-env.js",
     "parcel-reporter-static-files-copy"
   ],
   "resolvers": [

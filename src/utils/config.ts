@@ -4,6 +4,7 @@ import { z, ZodError } from 'zod';
 /** Useful default values  */
 /** APIHOST default value works in conjunction with the proxy server. See the .proxyrc file */
 const {
+  ENV = 'LOCAL',
   APIHOST = 'http://localhost:1234/api',
   API_TIMEOUT = '10000',
   CHECKOUT_HOST = 'https://dev.checkout.pagopa.it',
@@ -17,7 +18,10 @@ const {
 
 const PARSED_API_TIMEOUT = Number.parseInt(API_TIMEOUT, 10);
 
+export type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
+
 // ENV variables validation
+const ENV_Schema: z.ZodType<ENVIRONMENT> = z.enum(['LOCAL', 'DEV', 'UAT', 'PROD']);
 const APIHOST_schema = z.string().url();
 const API_TIMEOUT_schema = z.number();
 const CHECKOUT_HOST_schema = z.string().url();
@@ -28,6 +32,7 @@ const LOGIN_URL_schema = z.string().url();
 const PAYMENT_RETURN_URL_schema = z.string().url();
 const VERSION_schema = z.string();
 try {
+  ENV_Schema.parse(process.env.ENV);
   APIHOST_schema.parse(process.env.APIHOST);
   API_TIMEOUT_schema.parse(PARSED_API_TIMEOUT);
   CHECKOUT_HOST_schema.parse(process.env.CHECKOUT_HOST);
@@ -42,6 +47,7 @@ try {
 }
 
 type Config = {
+  env: ENVIRONMENT;
   assistanceLink: string;
   apiTimeout: number;
   baseURL: string;
@@ -67,6 +73,8 @@ const pagopaLink: RootLinkType = {
 };
 
 const config: Config = {
+  /** Running environment, usually valued by pipelines */
+  env: ENV as ENVIRONMENT,
   assistanceLink,
   /** after timeout api call is aborted
    * if settet to 0 will wait indefinitely
