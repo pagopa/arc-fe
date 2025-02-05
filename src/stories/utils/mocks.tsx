@@ -65,10 +65,10 @@ const transactionDetail: NoticeDetail = {
   },
   walletInfo: {
     accountHolder: 'Luigi Bianchi',
-    cardNumber: '****1234',
-    brand: 'Mastercard'
+    blurredNumber: '****1234',
+    brand: 'MASTERCARD'
   },
-  paymentMethod: 'cc',
+  paymentMethod: 'CP',
   authCode: '1234567890123456800',
   eventId: 'F57E2F8E-25FF-4183-AB7B-4…',
   PRN: '1234567890',
@@ -83,7 +83,8 @@ const transactionDetail: NoticeDetail = {
   partialAmount: '250',
   fee: '1',
   total: '251',
-  status: 'Pagato'
+  status: 'Pagato',
+  origin: 'UNKNOWN'
 };
 
 const shortTransactionDetail: NoticeDetail = {
@@ -101,7 +102,8 @@ const shortTransactionDetail: NoticeDetail = {
   partialAmount: '250',
   fee: '1',
   total: '251',
-  status: 'Pagato'
+  status: 'Pagato',
+  origin: 'UNKNOWN'
 };
 
 const transactionReceipt = {

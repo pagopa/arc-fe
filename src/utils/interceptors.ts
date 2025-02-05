@@ -1,11 +1,9 @@
-import { NavigateFunction } from 'react-router-dom';
 import utils from 'utils';
 import { Client } from 'models/Client';
-import { sessionClear } from './session';
-import { ArcRoutes } from 'routes/routes';
+import { ArcErrors, ArcRoutes } from 'routes/routes';
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-export const setupInterceptors = (client: Client, navigate: NavigateFunction) => {
+export const setupInterceptors = (client: Client) => {
   client.instance.interceptors.request.use(
     (request: InternalAxiosRequestConfig) => {
       const tokenHeaderExcludePaths: string[] = utils.config.tokenHeaderExcludePaths;
@@ -24,8 +22,9 @@ export const setupInterceptors = (client: Client, navigate: NavigateFunction) =>
     (response) => response,
     (error) => {
       if (error.response.status === 401) {
-        /* This is a placeholder, in this case I think there should be an attempt to refresh the token, or if that's not possible, to redirect at login. */
-        sessionClear(() => navigate(ArcRoutes.COURTESY_PAGE));
+        const toUrl = ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors[401]);
+        utils.storage.user.logOut();
+        window.location.replace(toUrl);
       }
     }
   );

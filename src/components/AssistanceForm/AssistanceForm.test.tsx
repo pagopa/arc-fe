@@ -13,6 +13,16 @@ describe('AssistanceForm Component', () => {
     vi.clearAllMocks();
   });
 
+  const mockUserData = {
+    data: {
+      userId: '_1a',
+      fiscalCode: 'TINIT-PLOMRC01P30L221D',
+      familyName: 'Polo',
+      name: 'Marco',
+      email: 'ilmilione@virgilio.it'
+    }
+  };
+
   const WrappedAssistanceForm = () => {
     const queryClient = new QueryClient();
     return (
@@ -23,16 +33,6 @@ describe('AssistanceForm Component', () => {
   };
 
   it('renders having e-mail of connected user', () => {
-    const mockUserData = {
-      data: {
-        userId: '_1a',
-        fiscalCode: 'TINIT-PLOMRC01P30L221D',
-        familyName: 'Polo',
-        name: 'Marco',
-        email: 'ilmilione@virgilio.it'
-      }
-    };
-
     vi.spyOn(loaders, 'getUserInfo').mockReturnValue(
       mockUserData as UseQueryResult<UserInfo, Error>
     );
@@ -45,32 +45,36 @@ describe('AssistanceForm Component', () => {
     expect(email).toHaveAttribute('value', mockUserData.data.email);
   });
 
-  it('renders having confirm button disabled', () => {
+  it('renders not having confirm button disabled', () => {
     render(<WrappedAssistanceForm />);
     const confirmButton = screen.getByTestId('assistance-confirm-button');
-    expect(confirmButton).toHaveClass('Mui-disabled');
+    expect(confirmButton).not.toHaveClass('Mui-disabled');
   });
 
-  it('turns confirm button enabled correctly', () => {
+  it('gives a feedback when the form has errors', () => {
+    vi.spyOn(utils.apiClient.token, 'getZendeskAssistanceToken');
+
     render(<WrappedAssistanceForm />);
     const confirmButton = screen.getByTestId('assistance-confirm-button');
     const email = screen.getByTestId('confirm-email');
     const confirmEmail = screen.getByTestId('assistance-confirm-email');
 
-    expect(confirmButton).toHaveClass('Mui-disabled');
+    fireEvent.change(email, { target: { value: 'wrong email' } });
+    fireEvent.click(confirmButton);
+    expect(screen.getByText('app.assistance.input1Helper')).toBeInTheDocument();
+    expect(utils.apiClient.token.getZendeskAssistanceToken).not.toHaveBeenCalled();
 
-    fireEvent.change(email, { target: { value: 'pippo' } });
-    fireEvent.change(confirmEmail, { target: { value: 'pippo' } });
-    expect(confirmButton).toHaveClass('Mui-disabled');
+    fireEvent.change(email, { target: { value: 'good@email.it' } });
+    fireEvent.click(confirmButton);
+    expect(screen.getByText('app.assistance.input2Helper')).toBeInTheDocument();
+    expect(utils.apiClient.token.getZendeskAssistanceToken).not.toHaveBeenCalled();
 
-    fireEvent.change(email, { target: { value: 'pippo@pippo.it' } });
-    expect(confirmButton).toHaveClass('Mui-disabled');
-
-    fireEvent.change(confirmEmail, { target: { value: 'pippo@pippo.it' } });
-    expect(confirmButton).not.toHaveClass('Mui-disabled');
+    fireEvent.change(confirmEmail, { target: { value: 'good@email.it' } });
+    fireEvent.click(confirmButton);
+    expect(utils.apiClient.token.getZendeskAssistanceToken).toHaveBeenCalled();
   });
 
-  it('confirm email and obtain a zendesk jwt', async () => {
+  it('confirms email and obtain a zendesk jwt', async () => {
     const mockGetZendeskAssistanceToken = {
       data: {
         assistanceToken: 'z123',

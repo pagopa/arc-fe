@@ -21,7 +21,7 @@ import { RouteGuard } from 'components/RouteGuard';
 import utils from 'utils';
 import AuthCallback from 'routes/AuthCallback';
 import Resources from 'routes/Resources';
-import { getTokenOneidentity } from 'utils/loaders';
+import loaders, { getTokenOneidentity } from 'utils/loaders';
 import { PreLoginLayout } from 'components/PreLoginLayout';
 import { ApiClient } from 'components/ApiClient';
 
@@ -31,13 +31,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: '*',
-        element: <Navigate replace to={ArcRoutes.LOGIN} />,
+        element: <Navigate replace to={ArcRoutes.DASHBOARD} />,
         ErrorBoundary: () => {
           throw useRouteError();
         }
       },
       {
         path: ArcRoutes.COURTESY_PAGE,
+        loader: ({ params }) => Promise.resolve(params.error),
         element: (
           <PreLoginLayout>
             <CourtesyPage />
@@ -53,13 +54,20 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: ArcRoutes.RESOURCES,
+        path: ArcRoutes.TOS,
         element: (
           <PreLoginLayout>
-            <Resources />
+            <Resources resource="tos" />
           </PreLoginLayout>
-        ),
-        errorElement: <ErrorFallback />
+        )
+      },
+      {
+        path: ArcRoutes.PRIVACY_POLICY,
+        element: (
+          <PreLoginLayout>
+            <Resources resource="pp" />
+          </PreLoginLayout>
+        )
       },
       {
         path: ArcRoutes.AUTH_CALLBACK,
@@ -67,7 +75,7 @@ const router = createBrowserRouter([
         loader: ({ request }) => getTokenOneidentity(request)
       },
       {
-        path: `${utils.config.deployPath}/`,
+        path: ArcRoutes.DASHBOARD,
         element: (
           <RouteGuard
             itemKeys={['accessToken']}
@@ -143,6 +151,7 @@ const router = createBrowserRouter([
             path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
             element: <PaymentNoticeDetail />,
             errorElement: <ErrorFallback />,
+            loader: loaders.getPaymentNoticeDetails,
             handle: {
               crumbs: {
                 elements: [

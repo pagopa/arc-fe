@@ -16,6 +16,8 @@ import * as schemas from '../../generated/zod-schema';
 // if a field is set as optionaal
 // it will be generated as undefined
 import { createMock } from 'zodock';
+import { Params } from 'react-router-dom';
+import { mockNoticeDetails, mockPaymentNoticeDetails } from 'stories/utils/PaymentNoticeMocks';
 
 // Mock the utils module
 vi.mock('./utils', () => {
@@ -109,7 +111,7 @@ describe('api loaders', () => {
         .spyOn(utils.apiClient.notices, 'getNoticeReceipt')
         .mockResolvedValue({ data: null } as AxiosResponse);
 
-      renderHook(() => loaders.getReceiptData(transactionId), { wrapper });
+      renderHook(() => loaders.getReceiptPDF(transactionId), { wrapper });
 
       await waitFor(() => {
         expect(apiMock).toHaveBeenCalledWith(transactionId, { format: 'blob' });
@@ -183,19 +185,54 @@ describe('api loaders', () => {
       expect(token).toEqual(dataMock);
     });
 
-    it('should return error code on failure', async () => {
+    it('should return null on failure', async () => {
       const mockRequest = (url: string): Request =>
         ({
           url
         }) as unknown as Request;
 
-      const mockError = { response: { status: 403 } };
-      vi.mocked(utils.apiClient.token.getAuthenticationToken).mockRejectedValue(mockError);
+      vi.mocked(utils.apiClient.token.getAuthenticationToken).mockRejectedValue(new Error());
 
       const request = mockRequest('https://sito.it/?code=dummyCode&state=dummyState');
       const result = await loaders.getTokenOneidentity(request);
 
-      expect(result).toBe(403);
+      expect(result).toBe(null);
+    });
+  });
+});
+
+describe('Payment Notices API', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  const queryClient = new QueryClient();
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <StoreProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </StoreProvider>
+  );
+
+  it('getPaymentNoticeDetails calls API and schema parser correctly', async () => {
+    const apiMock = vi
+      .spyOn(utils.apiClient.paymentNotices, 'getPaymentNoticesDetails')
+      .mockResolvedValue({ data: mockPaymentNoticeDetails } as AxiosResponse);
+
+    const params: Params = {
+      id: mockPaymentNoticeDetails.iupd,
+      paTaxCode: mockPaymentNoticeDetails.paTaxCode
+    };
+
+    const { result } = renderHook(() => loaders.getPaymentNoticeDetails({ params }), {
+      wrapper
+    });
+
+    const query = renderHook(() => result.current(), { wrapper });
+
+    await waitFor(() => {
+      expect(apiMock).toHaveBeenCalledWith(params.id, { paTaxCode: params.paTaxCode });
+      expect(query.result.current.isSuccess).toBeTruthy();
+      expect(query.result.current.data).toEqual(mockNoticeDetails);
     });
   });
 });

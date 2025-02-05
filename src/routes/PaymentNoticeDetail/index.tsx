@@ -1,21 +1,32 @@
 import React from 'react';
 import { PaymentNotice } from 'components/PaymentNotice';
-import { useStore } from 'store/GlobalStore';
-import { Navigate, useParams } from 'react-router-dom';
-import { ArcRoutes } from '../routes';
-import { paymentNoticeState } from 'store/PaymentNoticeStore';
+import { Navigate, useLoaderData } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
+import { UseQueryResult } from '@tanstack/react-query';
+import { PaymentNoticeDetailsType } from 'models/PaymentNotice';
+import { ArcRoutes } from 'routes/routes';
+
+type NoticeDetailLoader = () => UseQueryResult<PaymentNoticeDetailsType, Error>;
 
 export default function PaymentNoticeDetail() {
-  const {
-    state: { paymentNotice }
-  } = useStore();
+  // loader function is passed from the navigation router
+  const noticeDetailQuery = useLoaderData() as NoticeDetailLoader;
 
-  const { id } = useParams();
+  const { data: paymentNotice, isSuccess, isError } = noticeDetailQuery();
 
-  if (!paymentNotice || paymentNotice.iupd !== id) {
-    paymentNoticeState.removeItem();
+  const { t } = useTranslation();
+
+  if (isError) {
     return <Navigate to={ArcRoutes.PAYMENT_NOTICES} />;
   }
 
-  return <PaymentNotice.Detail paymentNotice={paymentNotice} />;
+  return (
+    <>
+      <Helmet>
+        <title>{`${t('pageTitles.paymentnotice')} - ${t('app.title')} `}</title>
+      </Helmet>
+      {isSuccess && <PaymentNotice.Detail paymentNotice={paymentNotice} />}
+    </>
+  );
 }

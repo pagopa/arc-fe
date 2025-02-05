@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
 import { Link } from '@mui/material';
 import { useUserInfo } from 'hooks/useUserInfo';
-import { sessionClear } from 'utils/session';
 
 export interface HeaderProps {
   onAssistanceClick?: () => void;
@@ -31,7 +30,8 @@ export const Header = (props: HeaderProps) => {
     } catch (e) {
       console.warn(e);
     } finally {
-      sessionClear(() => navigate(ArcRoutes.LOGIN));
+      utils.storage.user.logOut();
+      navigate(ArcRoutes.LOGIN);
     }
   }
 
@@ -40,8 +40,8 @@ export const Header = (props: HeaderProps) => {
   const jwtUser: JwtUser | undefined = userInfo
     ? {
         id: userInfo?.userId,
-        name: userInfo?.name,
-        surname: userInfo?.familyName,
+        name: utils.converters.capitalizeFirstLetter(userInfo?.name),
+        surname: utils.converters.capitalizeFirstLetter(userInfo?.familyName),
         email: ''
       }
     : undefined;

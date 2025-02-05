@@ -1,6 +1,11 @@
 import '@testing-library/jest-dom';
 import { TransactionProps } from 'components/Transactions/Transaction';
-import { mockConvertedNotice, mockPaymentNotices } from 'stories/utils/PaymentNoticeMocks';
+import {
+  mockConvertedNotice,
+  mockNoticeDetails,
+  mockPaymentNoticeDetails,
+  mockPaymentNotices
+} from 'stories/utils/PaymentNoticeMocks';
 import utils from '.';
 import { NoticeDetailsDTO, NoticeDTO } from '../../generated/apiClient';
 
@@ -171,6 +176,7 @@ describe('return a NoticeDetail object', () => {
         payer: { name: 'string', taxCode: 'string' },
         amount: 1000,
         fee: 100,
+        totalAmount: 1100,
         origin: 'INTERNAL'
       },
       carts: [
@@ -183,17 +189,6 @@ describe('return a NoticeDetail object', () => {
           refNumberType: 'string'
         }
       ]
-    };
-
-    expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('eventId');
-  });
-});
-
-describe('return a noticeDetail object even if the response is empty', () => {
-  it('should return a notice detail object', () => {
-    const resp: NoticeDetailsDTO = {
-      infoNotice: {},
-      carts: [{}]
     };
 
     expect(utils.converters.prepareNoticeDetailData(resp)).toHaveProperty('eventId');
@@ -225,5 +220,28 @@ describe('prepare notice list', () => {
     expect(
       JSON.stringify(utils.converters.prepareNoticesData(mockPaymentNotices).paymentNotices)
     ).toEqual(JSON.stringify(mockConvertedNotice));
+  });
+});
+
+describe('prepare notice detail', () => {
+  it('should convert correctly', () => {
+    expect(
+      JSON.stringify(utils.converters.normalizePaymentNoticeDetails(mockPaymentNoticeDetails))
+    ).toEqual(JSON.stringify(mockNoticeDetails));
+  });
+});
+
+describe('capitalizeFirstLetter function', () => {
+  it('should convert correctly', () => {
+    expect(utils.converters.capitalizeFirstLetter('marco')).toEqual('Marco');
+    expect(utils.converters.capitalizeFirstLetter('marco polo')).toEqual('Marco Polo');
+    expect(utils.converters.capitalizeFirstLetter('MARCO')).toEqual('Marco');
+    expect(utils.converters.capitalizeFirstLetter('MARCO POLO')).toEqual('Marco Polo');
+
+    expect(utils.converters.capitalizeFirstLetter('Marco polo')).toEqual('Marco Polo');
+    expect(utils.converters.capitalizeFirstLetter('mArCo')).toEqual('Marco');
+    expect(utils.converters.capitalizeFirstLetter('MarCo pOlO')).toEqual('Marco Polo');
+
+    expect(utils.converters.capitalizeFirstLetter(undefined)).toEqual(utils.config.missingValue);
   });
 });

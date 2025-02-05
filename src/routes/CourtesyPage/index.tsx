@@ -1,17 +1,19 @@
 import React from 'react';
 import { Button, Typography, Container, Box } from '@mui/material';
-import { useSearchParams, Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+import { ArcErrors } from '../../routes/routes';
 
 interface ErrorIconComponentProps {
-  code: string;
+  erroCode?: ArcErrors;
 }
 
-export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ code }) => {
-  switch (code) {
-    case '403':
+export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ erroCode }) => {
+  switch (erroCode) {
+    case ArcErrors['accesso-non-autorizzato']:
       return <img src="/pictograms/genericerror.svg" title="Error" aria-hidden="true" />;
-    case '401':
+    case ArcErrors['sessione-scaduta']:
       return <img src="/pictograms/expired.svg" title="Expired" aria-hidden="true" />;
     default:
       return <img src="/pictograms/umbrella.svg" title="Something go wrong" aria-hidden="true" />;
@@ -20,35 +22,44 @@ export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ code }) 
 
 export const CourtesyPage = () => {
   const { t } = useTranslation();
-  const [searchParams] = useSearchParams();
-  const errorMessage = searchParams.get('errorcode') || 'default';
+  const errorDesc = useLoaderData() as keyof typeof ArcErrors;
+  const errorCode = ArcErrors[errorDesc];
 
   return (
-    <Container maxWidth="sm">
-      <Box textAlign="center" mt={10}>
-        <Box my={3}>
-          <ErrorIconComponent code={errorMessage} />
+    <>
+      <Helmet>
+        <title>{`${t('pageTitles.courtesy')} - ${t('app.title')} `}</title>
+      </Helmet>
+      <Container maxWidth="sm">
+        <Box textAlign="center" mt={10}>
+          <Box my={3}>
+            <ErrorIconComponent erroCode={errorCode} />
+          </Box>
+          <Typography variant="h4" gutterBottom data-testid="courtesyPage.title">
+            {t(`courtesyPage.${errorCode}.title`, {
+              defaultValue: t('courtesyPage.default.title')
+            })}
+          </Typography>
+          <Typography variant="body1" paragraph data-testid="courtesyPage.body">
+            {t(`courtesyPage.${errorCode}.body`, {
+              defaultValue: t('courtesyPage.default.body')
+            })}
+          </Typography>
+          {errorCode !== ArcErrors['accesso-non-autorizzato'] && (
+            <Button
+              component={Link}
+              to="/"
+              variant="contained"
+              size="large"
+              color="primary"
+              data-testid="courtesyPage.cta">
+              {t(`courtesyPage.${errorCode}.cta`, {
+                defaultValue: t('courtesyPage.default.cta')
+              })}
+            </Button>
+          )}
         </Box>
-        <Typography variant="h4" gutterBottom data-testid="courtesyPage.title">
-          {t(`courtesyPage.${errorMessage}.title`, {
-            defaultValue: t('courtesyPage.default.title')
-          })}
-        </Typography>
-        <Typography variant="body1" paragraph data-testid="courtesyPage.body">
-          {t(`courtesyPage.${errorMessage}.body`, { defaultValue: t('courtesyPage.default.body') })}
-        </Typography>
-        {errorMessage !== '403' && (
-          <Button
-            component={Link}
-            to="/"
-            variant="contained"
-            size="large"
-            color="primary"
-            data-testid="courtesyPage.cta">
-            {t(`courtesyPage.${errorMessage}.cta`, { defaultValue: t('courtesyPage.default.cta') })}
-          </Button>
-        )}
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };

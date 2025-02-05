@@ -1,17 +1,26 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { Typography, Paper } from '@mui/material';
 
-const NoData = () => {
-  const { t } = useTranslation();
+const NoData = (props: { title: string; text: string }) => {
+  const { title, text } = props;
   return (
-    <Typography
-      variant="body2"
-      fontWeight={600}
-      data-testid="app.paymentNotice.filtered.noData"
-      textAlign="center">
-      {t('app.paymentNotice.filtered.noData')}
-    </Typography>
+    <Paper elevation={0} sx={{ margin: '4px', padding: 2 }}>
+      <Typography
+        mb={2}
+        variant="body2"
+        fontWeight={600}
+        data-testid="app.paymentNotice.filtered.noData"
+        textAlign="center">
+        {title}
+      </Typography>
+      <Typography
+        variant="body2"
+        fontWeight={400}
+        data-testid="app.paymentNotice.filtered.noData"
+        textAlign="center">
+        {text}
+      </Typography>
+    </Paper>
   );
 };
 

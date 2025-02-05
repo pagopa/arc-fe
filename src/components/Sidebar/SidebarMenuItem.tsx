@@ -1,6 +1,13 @@
 import React from 'react';
 import { ISidebarMenuItem } from 'models/SidebarMenuItem';
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material';
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Tooltip,
+  useTheme
+} from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { SvgIconComponent } from '@mui/icons-material';
 import { alpha } from '@mui/material';
@@ -18,7 +25,7 @@ function renderIcon(Icon: SvgIconComponent | (() => JSX.Element)) {
 export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
   const theme = useTheme();
 
-  return (
+  const MenuItem = (
     <ListItem disablePadding>
       <ListItemButton
         end={item.end || false}
@@ -26,7 +33,6 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
         to={item.route}
         onClick={onClick}
         sx={{
-          px: 3,
           '&.hover': {
             backgroundColor: 'none'
           },
@@ -44,7 +50,11 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
             }
           }
         }}>
-        {item.icon && <ListItemIcon aria-hidden="true">{renderIcon(item.icon)}</ListItemIcon>}
+        {item.icon && (
+          <ListItemIcon aria-hidden="true" sx={{ height: 27, width: 27 }}>
+            {renderIcon(item.icon)}
+          </ListItemIcon>
+        )}
         {!collapsed && (
           <ListItemText
             id={`menu-item-${item.label.toLowerCase()}`}
@@ -54,5 +64,28 @@ export const SidebarMenuItem = ({ collapsed, item, onClick }: Props) => {
         )}
       </ListItemButton>
     </ListItem>
+  );
+
+  return collapsed ? (
+    <Tooltip
+      title={item.label}
+      placement="right"
+      arrow
+      slotProps={{
+        popper: {
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [0, -24]
+              }
+            }
+          ]
+        }
+      }}>
+      {MenuItem}
+    </Tooltip>
+  ) : (
+    MenuItem
   );
 };
