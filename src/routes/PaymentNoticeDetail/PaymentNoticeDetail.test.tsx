@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter, useLoaderData } from 'react-router-dom';
 import { UseQueryResult } from '@tanstack/react-query';
 import { PaymentNoticeDetailsType } from 'models/PaymentNotice';
-import { ArcRoutes } from 'routes/routes';
 import PaymentNoticeDetail from '.';
 import { Helmet } from 'react-helmet';
 
@@ -17,6 +16,9 @@ vi.mock('react-router-dom', async () => {
     Navigate: ({ to }: { to: string }) => <div>Redirected to {to}</div>
   };
 });
+
+// Mock dependencies
+vi.mock('@tanstack/react-query');
 
 vi.mock('components/PaymentNotice', () => ({
   PaymentNotice: {
@@ -55,7 +57,7 @@ describe('PaymentNoticeDetail', () => {
     expect(screen.getByText('PaymentNotice.Detail: 12345')).toBeInTheDocument();
   });
 
-  it('redirects to payment notices route when query fails', () => {
+  it('gives a feedback when the fetch fails', () => {
     const mockNoticeDetailQuery: UseQueryResult<PaymentNoticeDetailsType, Error> = {
       isSuccess: false,
       isError: true
@@ -65,7 +67,7 @@ describe('PaymentNoticeDetail', () => {
 
     renderComponent();
 
-    expect(screen.getByText(`Redirected to ${ArcRoutes.PAYMENT_NOTICES}`)).toBeInTheDocument();
+    expect(screen.getByText('app.transactions.error.title')).toBeInTheDocument();
   });
 
   it('renders the page title', () => {
