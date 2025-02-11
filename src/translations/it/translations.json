@@ -13,23 +13,23 @@
         "surname": "Cognome",
         "identifier": "Codice Fiscale",
         "email": "Indirizzo email"
+      }
+    },
+    "cart": {
+      "header": {
+        "title": "Il tuo carrello",
+        "close": "Chiudi carrello",
+        "amount": "Totale Parziale"
       },
-      "cart": {
-        "header": {
-          "title": "Il tuo carrello",
-          "close": "Chiudi carrello",
-          "amount": "Totale Parziale"
-        },
-        "empty": {
-          "title": "Il tuo carrello è vuoto",
-          "description": "Aggiungi uno o più avvisi al tuo carrello per procedere con il pagamento",
-          "button": "Torna agli avvisi"
-        },
-        "items": {
-          "alert": "L’importo è aggiornato in automatico, così paghi sempre quanto dovuto ed eviti more o altri interessi.",
-          "back": "Torna agli avvisi",
-          "pay": "Vai al pagamento"  
-        }
+      "empty": {
+        "title": "Il tuo carrello è vuoto",
+        "description": "Aggiungi uno o più avvisi al tuo carrello per procedere con il pagamento",
+        "button": "Torna agli avvisi"
+      },
+      "items": {
+        "alert": "L’importo è aggiornato in automatico, così paghi sempre quanto dovuto ed eviti more o altri interessi.",
+        "back": "Torna agli avvisi",
+        "pay": "Vai al pagamento"  
       }
     },
     "assistance": {
