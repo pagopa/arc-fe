@@ -9,7 +9,7 @@ import { toggleCartDrawer } from 'store/CartStore';
 import { ButtonNaked } from '@pagopa/mui-italia/dist/components/ButtonNaked';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ArcErrors, ArcRoutes } from 'routes/routes';
+import { ArcRoutes } from 'routes/routes';
 import { cartDrawerStyles } from './CartDrawer.styles';
 import { useStore } from 'store/GlobalStore';
 import { toEuroOrMissingValue } from 'utils/converters';
