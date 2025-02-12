@@ -14,7 +14,7 @@ import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
-import { PaymentNoticeEnum, PaymentNoticeDetailsType } from 'models/PaymentNotice';
+import { PaymentNoticeDetailsType, PaymentNoticeEnum } from 'models/PaymentNotice';
 import { addItem, deleteItem, toggleCartDrawer, isItemInCart } from 'store/CartStore';
 import { useStore } from 'store/GlobalStore';
 /**
@@ -273,19 +273,17 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                         <Button
                           id="payment-notice-pay-button"
                           variant={
-                            isItemInCart(paymentNotice.paymentOptions.installments.iuv)
+                            isItemInCart(paymentNotice.paymentOptions.iuv)
                               ? 'outlined'
                               : 'contained'
                           }
                           color={
-                            isItemInCart(paymentNotice.paymentOptions.installments.iuv)
-                              ? 'error'
-                              : 'primary'
+                            isItemInCart(paymentNotice.paymentOptions.iuv) ? 'error' : 'primary'
                           }
                           fullWidth
                           size="medium"
                           onClick={() => {
-                            const iuv = paymentNotice.paymentOptions.installments.iuv;
+                            const iuv = paymentNotice.paymentOptions.iuv;
                             // add a notification if the cart is full
                             if (cart.items.length >= 5) return;
                             if (isItemInCart(iuv)) return deleteItem(iuv);
@@ -293,9 +291,9 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                               amount: paymentNotice.paymentOptions.amountValue,
                               paTaxCode: paymentNotice.paTaxCode,
                               paFullName: paymentNotice.paFullName,
-                              iuv: paymentNotice.paymentOptions.installments.iuv,
-                              nav: paymentNotice.paymentOptions.installments.nav,
-                              description: paymentNotice.paymentOptions.installments.description
+                              iuv: paymentNotice.paymentOptions.iuv,
+                              nav: paymentNotice.paymentOptions.nav,
+                              description: paymentNotice.paymentOptions.description
                             });
                             toggleCartDrawer();
                           }}>
@@ -305,7 +303,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                               textAlign: 'center',
                               color: 'inherit'
                             }}>
-                            {isItemInCart(paymentNotice.paymentOptions.installments.iuv)
+                            {isItemInCart(paymentNotice.paymentOptions.iuv)
                               ? t('app.paymentNoticeDetail.card2.removeItemFromCart')
                               : t('app.paymentNoticeDetail.card2.addItemToCart')}
                           </Typography>

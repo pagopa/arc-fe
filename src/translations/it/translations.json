@@ -208,7 +208,9 @@
         "firstInstallmentAmount": "Importo",
         "button1": "Paga ora",
         "label1": "Oppure",
-        "button2": "Scarica l'avviso pagoPA"
+        "button2": "Scarica l'avviso pagoPA",
+        "addItemToCart": "Aggiungi al carrello",
+        "removeItemFromCart": "Rimuovi dal carrello"
       },
       "modal": {
         "title": "Vedi un importo diverso?",
@@ -291,6 +293,16 @@
       "title": "Non è stato possibile accedere",
       "body": "Si è verificato un problema durante l'accesso. Riprova tra qualche minuto.",
       "cta": "Riprova"
+    },
+    "422": {
+      "title": "Non possiamo procedere con il pagamento",
+      "body": "Per avere maggiori informazioni sull’avviso contatta l’Ente Creditore.",
+      "cta": "Chiudi"
+    },
+    "423": {
+      "title": "Non siamo riusciti ad avviare il pagamento",
+      "body": "Riprova tra qualche minuto.",
+      "cta": "Chiudi"
     }
   },
   "pageTitles" : {

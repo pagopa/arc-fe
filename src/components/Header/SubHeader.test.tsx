@@ -12,6 +12,18 @@ vi.mock(import('store/CartStore'), async (importOriginal) => {
   };
 });
 
+vi.mock('store/GlobalStore', () => {
+  return {
+    useStore: () => ({
+      state: {
+        cart: {
+          items: []
+        }
+      }
+    })
+  };
+});
+
 describe('SubHeader', () => {
   it('renders the logo and cart components', () => {
     render(<SubHeader />);
