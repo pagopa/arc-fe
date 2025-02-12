@@ -27,8 +27,7 @@ export const CartDrawer = () => {
     onSuccess: (url) => {
       window.location.replace(url);
     },
-    onError: (error: ArcErrors) =>
-      navigate(ArcRoutes.COURTESY_PAGE.replace(':error', error as unknown as string))
+    onError: (error: string) => navigate(ArcRoutes.COURTESY_PAGE.replace(':error', error))
   });
 
   const email = useUserEmail();
@@ -61,7 +60,7 @@ export const CartDrawer = () => {
               <Typography component="span" variant="h6">
                 {t('app.cart.header.amount')}
               </Typography>
-              <Typography component="span" variant="h6">
+              <Typography component="span" variant="h6" id="drawer-cart-amount">
                 {toEuroOrMissingValue(cart.amount)}
               </Typography>
             </Stack>
@@ -101,7 +100,7 @@ export const CartDrawer = () => {
             {
               // Show the pay button only if the cart is not empty
               cart.items.length > 0 && (
-                <Button variant="contained" size="large" onClick={onPayButton}>
+                <Button variant="contained" size="large" onClick={onPayButton} id="pay-button">
                   {t('app.cart.items.pay')}
                 </Button>
               )

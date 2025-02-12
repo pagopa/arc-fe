@@ -25,7 +25,7 @@ export const SubHeader = () => {
         onClick={toggleCartDrawer}
         aria-label={t('ui.a11y.cart')}
         name="CartButton">
-        <Typography variant="inherit" aria-hidden="true">
+        <Typography variant="inherit" aria-hidden="true" id="header-cart-amount">
           {utils.converters.toEuro(state.cart.amount)}
         </Typography>
         <ShoppingCartIcon fontSize="small" aria-hidden="true" />

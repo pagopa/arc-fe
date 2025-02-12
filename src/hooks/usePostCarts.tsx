@@ -19,7 +19,7 @@ export const usePostCarts = ({
   onError
 }: {
   onSuccess: (url: string) => void;
-  onError?: (error: ArcErrors) => void;
+  onError?: (error: string) => void;
 }) => {
   const carts = useMutation({
     mutationFn: async ({ notices, email }: { notices: CartItem[]; email?: string }) => {
@@ -31,9 +31,9 @@ export const usePostCarts = ({
     onError: (error: AxiosError) => {
       if (!onError) return;
       if (error.code == 'ERR_BAD_REQUEST' && error.response?.status === 422) {
-        return onError(ArcErrors['avviso-non-pagabile']);
+        return onError(ArcErrors['422']);
       }
-      onError(ArcErrors['avvio-pagamento']);
+      onError(ArcErrors['423']);
     }
   });
 
