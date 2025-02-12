@@ -271,7 +271,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                     <Grid container>
                       <Grid item xs={12}>
                         <Button
-                          id="payment-notice-pay-button"
+                          id="payment-notice-add-button"
                           variant={
                             isItemInCart(paymentNotice.paymentOptions.iuv)
                               ? 'outlined'
