@@ -14,7 +14,11 @@ import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
-import { PaymentNoticeDetailsType, PaymentNoticeEnum } from 'models/PaymentNotice';
+import {
+  PaymentNoticeDetailsType,
+  PaymentNoticeEnum,
+  PaymentOptionsDetailsType
+} from 'models/PaymentNotice';
 import { addItem, deleteItem, toggleCartDrawer, isItemInCart } from 'store/CartStore';
 import { useStore } from 'store/GlobalStore';
 /**
@@ -31,6 +35,27 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
   const {
     state: { cart }
   } = useStore();
+
+  const handleClick = () => {
+    const { paTaxCode, paFullName } = paymentNotice;
+    // assumig that we have only one payment option
+    // this is not a problem, because we not manage multiple payment options in any case
+    const paymentNoticeSigleOption = paymentNotice.paymentOptions as PaymentOptionsDetailsType;
+    const { iuv, amountValue: amount, nav, description } = paymentNoticeSigleOption;
+    // add a notification if the cart is full
+    if (cart.items.length >= 5) return;
+    if (isItemInCart(iuv)) return deleteItem(iuv);
+    addItem({
+      amount,
+      paTaxCode,
+      paFullName,
+      iuv,
+      nav,
+      description
+    });
+    toggleCartDrawer();
+  };
+
   return paymentNotice?.type === PaymentNoticeEnum.SINGLE ? (
     <>
       <Grid container>
@@ -282,21 +307,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                           }
                           fullWidth
                           size="medium"
-                          onClick={() => {
-                            const iuv = paymentNotice.paymentOptions.iuv;
-                            // add a notification if the cart is full
-                            if (cart.items.length >= 5) return;
-                            if (isItemInCart(iuv)) return deleteItem(iuv);
-                            addItem({
-                              amount: paymentNotice.paymentOptions.amountValue,
-                              paTaxCode: paymentNotice.paTaxCode,
-                              paFullName: paymentNotice.paFullName,
-                              iuv: paymentNotice.paymentOptions.iuv,
-                              nav: paymentNotice.paymentOptions.nav,
-                              description: paymentNotice.paymentOptions.description
-                            });
-                            toggleCartDrawer();
-                          }}>
+                          onClick={handleClick}>
                           <Typography
                             sx={{
                               fontWeight: 'fontWeightMedium',
