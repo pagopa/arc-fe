@@ -14,7 +14,6 @@ import utils from 'utils';
 import {
   NoticeImage,
   PaymentInstallmentType,
-  PaymentNoticeDetailsSINGLE,
   PaymentNoticeDetailsType,
   PaymentNoticeEnum,
   PaymentNoticeType,
@@ -22,6 +21,7 @@ import {
   PaymentOptionSingle,
   PaymentOptionType
 } from 'models/PaymentNotice';
+import { CartItem } from 'models/Cart';
 
 // This high order function is useful to 'decorate' existing function to add
 // the functionality to manage undefined (not optional) parameters and output a global character instead
@@ -44,9 +44,9 @@ const toEuro = (amount: number, decimalDigits: number = 2, fractionDigits: numbe
     maximumFractionDigits: fractionDigits
   }).format(amount / Math.pow(10, decimalDigits));
 
-const toEuroOrMissingValue = withMissingValue(toEuro);
-const formatDateOrMissingValue = withMissingValue(datetools.formatDate);
-const propertyOrMissingValue = withMissingValue((property: string) => property);
+export const toEuroOrMissingValue = withMissingValue(toEuro);
+export const formatDateOrMissingValue = withMissingValue(datetools.formatDate);
+export const propertyOrMissingValue = withMissingValue((property: string) => property);
 
 interface PrepareRowsData {
   notices: NoticesListDTO['notices'];
@@ -264,16 +264,14 @@ const prepareNoticesData = (
   return { paymentNotices: transformed };
 };
 
-const singleNoticeToCartsRequest = (paymentNotice: PaymentNoticeDetailsSINGLE) => ({
-  paymentNotices: [
-    {
-      amount: paymentNotice.paymentOptions.amountValue,
-      companyName: paymentNotice.paFullName,
-      description: paymentNotice.paymentOptions.description,
-      fiscalCode: paymentNotice.paTaxCode,
-      noticeNumber: paymentNotice.paymentOptions.nav
-    }
-  ],
+const cartItemsToCartsRequest = (cartItems: CartItem[]) => ({
+  paymentNotices: cartItems.map((item) => ({
+    amount: item.amount,
+    companyName: item.paFullName,
+    description: item.description,
+    fiscalCode: item.paTaxCode,
+    noticeNumber: item.nav
+  })),
   returnUrls: {
     returnOkUrl: utils.config.paymentReturnUrl,
     returnCancelUrl: utils.config.paymentReturnUrl,
@@ -300,7 +298,7 @@ export default {
   prepareNoticeDetailData,
   prepareNoticesData,
   prepareRowsData,
-  singleNoticeToCartsRequest,
+  cartItemsToCartsRequest,
   toEuro,
   withMissingValue,
   capitalizeFirstLetter: withMissingValue(capitalizeFirstLetter)

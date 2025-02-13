@@ -12,6 +12,18 @@ i18nTestSetup({});
 
 const queryClient = new QueryClient();
 
+vi.mock('store/GlobalStore', () => {
+  return {
+    useStore: () => ({
+      state: {
+        cart: {
+          items: []
+        }
+      }
+    })
+  };
+});
+
 describe('Detail Component', () => {
   const renderWithTheme = (ui: React.ReactElement) => {
     const theme = createTheme();

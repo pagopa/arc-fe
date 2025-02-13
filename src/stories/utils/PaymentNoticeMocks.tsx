@@ -11,6 +11,7 @@ import {
   PaymentNoticesListDTO,
   PaymentOptionStatus
 } from '../../../generated/apiClient';
+import { CartItem } from 'models/Cart';
 
 export const mockNotice: PaymentNoticeSingleType = {
   iupd: '99999000013-aem6jhw5r8ac354id0siqtddw00oq9aj',
@@ -194,5 +195,16 @@ export const mockConvertedNotice: PaymentNoticeType[] = [
       alt: 'EC Demo Pagamenti Pull Test'
     },
     type: PaymentNoticeEnum.SINGLE
+  }
+];
+
+export const mockCartItems: CartItem[] = [
+  {
+    paTaxCode: '99999000013',
+    paFullName: 'EC Demo Pagamenti Pull Test',
+    iuv: '7442658002593149',
+    nav: '37442658002593149',
+    amount: 588,
+    description: 'Test Pull - unica opzione'
   }
 ];
