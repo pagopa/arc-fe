@@ -3,6 +3,7 @@ import {
   cartState,
   toggleCartDrawer,
   addItem,
+  deleteItem,
   resetCart,
   getCartItems,
   getTotalAmout,
@@ -15,11 +16,8 @@ describe('cartStore', () => {
 
   it('toggles the cart drawer state', () => {
     toggleCartDrawer();
-
     expect(cartState.value.isOpen).toBeTruthy();
-
     toggleCartDrawer();
-
     expect(cartState.value.isOpen).toBeFalsy();
   });
 
@@ -51,6 +49,28 @@ describe('cartStore', () => {
     expect(getCartItems()).toStrictEqual([item, anotherItem]);
     expect(getCartItems().length).toBe(2);
     expect(getTotalAmout()).toBe(item.amount + anotherItem.amount);
+  });
+
+  it('does not add item to the cart if already present', () => {
+    const item: CartItem = {
+      amount: 100,
+      paFullName: 'ACI',
+      paTaxCode: '77777777',
+      nav: '00001',
+      iuv: '00001',
+      description: 'A nice description'
+    };
+    addItem(item);
+
+    expect(getCartItems()).toStrictEqual([item]);
+    expect(getCartItems().length).toBe(1);
+    expect(getTotalAmout()).toBe(item.amount);
+
+    addItem(item);
+
+    expect(getCartItems()).toStrictEqual([item]);
+    expect(getCartItems().length).toBe(1);
+    expect(getTotalAmout()).toBe(item.amount);
   });
 
   it('does not add item to the cart if already present', () => {
@@ -113,6 +133,21 @@ describe('cartStore', () => {
 
     resetCart();
 
+    expect(getCartItems().length).toBe(0);
+    expect(getTotalAmout()).toBe(0);
+  });
+
+  it('does nothing when empty and trying to remove an element', () => {
+    const item: CartItem = {
+      amount: 100,
+      paFullName: 'ACI',
+      paTaxCode: '77777777',
+      nav: '00001',
+      iuv: '00001',
+      description: 'A nice description'
+    };
+    resetCart();
+    deleteItem(item.iuv);
     expect(getCartItems().length).toBe(0);
     expect(getTotalAmout()).toBe(0);
   });
