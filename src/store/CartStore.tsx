@@ -1,6 +1,6 @@
 import { CartItem, CartState } from 'models/Cart';
-import { signal, effect } from '@preact/signals-react';
 import utils from 'utils';
+import { usePersistentSignal } from 'hooks/usePersistentSignal';
 
 const MAXCARTITEMS = 5;
 const ITEMID = 'iuv';
@@ -11,7 +11,13 @@ const defaultCart: CartState = {
   items: []
 };
 
-export const cartState = signal<CartState>(utils.storage.cart.get() || defaultCart);
+export const { state: cartState } = usePersistentSignal<CartState>(
+  utils.storage.SessionItems.CART,
+  {
+    storage: sessionStorage,
+    initialValue: defaultCart
+  }
+);
 
 export function setCart(cart: CartState) {
   cartState.value = cart;
@@ -70,8 +76,3 @@ export function getTotalAmout() {
 export function isItemInCart(itemId: string) {
   return cartState.value.items.some((item) => item[ITEMID] === itemId);
 }
-
-// effect subiscribed to cartState signal
-effect(() => {
-  utils.storage.cart.set(cartState.value);
-});
