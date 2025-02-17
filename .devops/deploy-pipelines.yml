@@ -47,7 +47,7 @@ variables:
     checkout_host: '$(PROD_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(PROD_CHECKOUT_PLATFORM_URL)'
     payment_return_url: '$(PROD_PAYMENT_RETURN_URL)'
-    show_notices: '0'
+    show_notices: '1'
 
   # every branch different from past will be considered as DEV
   ${{ else }}:
