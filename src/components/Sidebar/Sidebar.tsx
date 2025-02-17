@@ -54,13 +54,11 @@ export const Sidebar: React.FC = () => {
           }
         ]
       : []),
-    ...[
-      {
-        label: t('menu.receipts.menuTitle'),
-        icon: () => <ReceiptLongIcon sx={{ marginLeft: '-1px' }} />,
-        route: ArcRoutes.TRANSACTIONS
-      }
-    ]
+    {
+      label: t('menu.receipts.menuTitle'),
+      icon: () => <ReceiptLongIcon sx={{ marginLeft: '-1px' }} />,
+      route: ArcRoutes.TRANSACTIONS
+    }
   ];
 
   return (
