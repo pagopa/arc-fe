@@ -53,7 +53,7 @@ export const SubHeader = () => {
       role="banner">
       <Stack direction="row" justifyContent="space-between" p={3} pl={2} pb={2} width="100%">
         <Product />
-        <Cart />
+        {utils.config.showNotices && <Cart />}
       </Stack>
     </Box>
   );
