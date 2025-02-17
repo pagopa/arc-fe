@@ -63,7 +63,7 @@ variables:
     checkout_host: '$(DEV_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(DEV_CHECKOUT_PLATFORM_URL)'
     payment_return_url: '$(DEV_PAYMENT_RETURN_URL)'
-    show_notices: '0'
+    show_notices: '1'
 
 resources:
   repositories:

@@ -32,6 +32,11 @@ The table below describes all the Environment variables needed by the applicatio
 | ASSISTANCE_LINK   | Link for assistance page                              | url                           |
 | ENTITIES_LOGO_CDN | cdn link for logos                                    | url                           |
 | LOGIN_URL         | Link for login button                                 | url                           |
+| SHOW_NOTICES      | show/hide payment notices section (and the cart)      | '0', '1'                      |
+| DEPLOY_PATH       | deploy subpath (default "pagamenti")                  | string                        |
+| ENV               | environment target                                    | LOCAL, DEV, UAT, PROD         |
+| VERSION           | active version (valued by pipeline)                   | string (semvers)              |
+| PAYMENT_RETURN_URL| url to return after a payment with checkout           | url                           |
 
 ### Installation
 
