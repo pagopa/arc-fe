@@ -141,30 +141,37 @@ const router = createBrowserRouter([
             // TEMPORARY ERROR ELEMENT
             errorElement: <ErrorFallback />
           },
-          {
-            path: ArcRoutes.PAYMENT_NOTICES,
-            element: <PaymentNotices />,
-            errorElement: <ErrorFallback />
-          },
-
-          {
-            path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
-            element: <PaymentNoticeDetail />,
-            errorElement: <ErrorFallback />,
-            loader: loaders.getPaymentNoticeDetails,
-            handle: {
-              crumbs: {
-                elements: [
-                  { name: 'paymentNotices', fontWeight: 600, href: ArcRoutes.PAYMENT_NOTICES },
-                  {
-                    name: 'paymentNoticeDetail',
-                    fontWeight: 400,
-                    color: theme.palette.grey[700]
+          ...(utils.config.showNotices
+            ? [
+                {
+                  path: ArcRoutes.PAYMENT_NOTICES,
+                  element: <PaymentNotices />,
+                  errorElement: <ErrorFallback />
+                },
+                {
+                  path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
+                  element: <PaymentNoticeDetail />,
+                  errorElement: <ErrorFallback />,
+                  loader: loaders.getPaymentNoticeDetails,
+                  handle: {
+                    crumbs: {
+                      elements: [
+                        {
+                          name: 'paymentNotices',
+                          fontWeight: 600,
+                          href: ArcRoutes.PAYMENT_NOTICES
+                        },
+                        {
+                          name: 'paymentNoticeDetail',
+                          fontWeight: 400,
+                          color: theme.palette.grey[700]
+                        }
+                      ]
+                    }
                   }
-                ]
-              }
-            }
-          }
+                }
+              ]
+            : [])
         ]
       }
     ]

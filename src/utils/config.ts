@@ -13,10 +13,12 @@ const {
   ENTITIES_LOGO_CDN,
   LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity',
   PAYMENT_RETURN_URL = 'http://localhost:1234',
-  VERSION = ''
+  VERSION = '',
+  SHOW_NOTICES = '1'
 } = process.env;
 
 const PARSED_API_TIMEOUT = Number.parseInt(API_TIMEOUT, 10);
+const PARSED_SHOW_NOTICES = Boolean(Number.parseInt(SHOW_NOTICES, 10));
 
 export type ENVIRONMENT = 'LOCAL' | 'DEV' | 'UAT' | 'PROD';
 
@@ -31,6 +33,7 @@ const ENTITIES_LOGO_CDN_schema = z.string().url();
 const LOGIN_URL_schema = z.string().url();
 const PAYMENT_RETURN_URL_schema = z.string().url();
 const VERSION_schema = z.string();
+const SHOW_NOTICES_schema = z.enum(['0', '1']);
 try {
   ENV_Schema.parse(process.env.ENV);
   APIHOST_schema.parse(process.env.APIHOST);
@@ -42,6 +45,7 @@ try {
   LOGIN_URL_schema.parse(process.env.LOGIN_URL);
   PAYMENT_RETURN_URL_schema.parse(process.env.PAYMENT_RETURN_URL);
   VERSION_schema.parse(process.env.VERSION);
+  SHOW_NOTICES_schema.parse(process.env.SHOW_NOTICES);
 } catch (e) {
   console.error('ENV variables validation fails', (e as ZodError).issues);
 }
@@ -61,6 +65,7 @@ type Config = {
   paymentReturnUrl: string;
   tokenHeaderExcludePaths: string[];
   version: string;
+  showNotices: boolean;
 };
 
 const assistanceLink: string = 'nomeprodotto@assistenza.pagopa.it';
@@ -102,7 +107,8 @@ const config: Config = {
    * */
   tokenHeaderExcludePaths: ['/token/oneidentity'],
   /** Running version, usually valued by pipelines */
-  version: VERSION
+  version: VERSION,
+  showNotices: PARSED_SHOW_NOTICES
 };
 
 export default config;

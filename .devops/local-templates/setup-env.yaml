@@ -44,6 +44,10 @@ parameters:
     type: string
     default: ''
 
+  - name: 'show_notices'
+    type: string
+    default: '1'
+
 steps:
 - bash: |
     chmod +x env.sh
@@ -59,6 +63,7 @@ steps:
       ARC_FE_PAYMENT_RETURN_URL=${{ parameters.payment_return_url }} \
       ARC_FE_DEPLOY_PATH=${{ parameters.deploy_path }} \
       ARC_FE_VERSION=${{ parameters.version }} \
+      ARC_FE_SHOW_NOTICES=${{ parameters.show_notices }} \
       bash env.sh
 
   displayName: 'Populate environment file'

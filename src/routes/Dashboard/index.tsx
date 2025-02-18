@@ -60,7 +60,7 @@ const Dashboard = () => {
         <PaymentButton />
       </Stack>
       <Stack gap={5}>
-        <PaymentNotice.Preview />
+        {utils.config.showNotices && <PaymentNotice.Preview />}
         <Stack
           direction="row"
           justifyContent="space-between"
