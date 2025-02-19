@@ -160,7 +160,12 @@ export const AssistanceForm = () => {
             <Trans
               i18nKey={t('app.assistance.privacy')}
               components={{
-                link1: <Link href="#" fontWeight={800} />
+                link1: (
+                  <Link
+                    href="https://www.pagopa.it/it/privacy-policy-assistenza/"
+                    fontWeight={800}
+                  />
+                )
               }}
             />
           </Typography>
