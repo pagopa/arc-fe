@@ -15,15 +15,10 @@ vi.mock(import('store/CartStore'), async (importOriginal) => {
   };
 });
 
+const mockUseStore = vi.hoisted(() => vi.fn());
 vi.mock('store/GlobalStore', () => {
   return {
-    useStore: () => ({
-      state: {
-        cart: {
-          items: []
-        }
-      }
-    })
+    useStore: mockUseStore
   };
 });
 
@@ -40,6 +35,14 @@ describe('CartDrawer', () => {
   });
 
   it('renders the cart drawer when empty', () => {
+    mockUseStore.mockReturnValue({
+      state: {
+        cart: {
+          items: []
+        }
+      }
+    });
+
     render(
       <QueryClientProvider client={queryClient}>
         <CartDrawer />
@@ -76,5 +79,30 @@ describe('CartDrawer', () => {
 
     expect(toggleCartDrawer).toHaveBeenCalled();
     expect(mockNavigate).toHaveBeenCalledWith(ArcRoutes.PAYMENT_NOTICES);
+  });
+
+  it('allow the click on pay button when the cart is not empty', () => {
+    mockUseStore.mockReturnValue({
+      state: {
+        cart: {
+          items: [
+            {
+              amount: 100,
+              iuv: 'iuvTest',
+              paFullName: 'paFullNameTest',
+              description: 'descriptionTest'
+            }
+          ]
+        }
+      }
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <CartDrawer />
+      </QueryClientProvider>
+    );
+    const payButton = screen.getByText('app.cart.items.pay');
+    fireEvent.click(payButton);
   });
 });
