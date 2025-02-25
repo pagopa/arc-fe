@@ -3,7 +3,7 @@ import utils from 'utils';
 /**
  * Downloads pdf for a transaction
  */
-export const downloadReceiptPDF = async (transactionId: string) => {
+const downloadReceiptPDF = async (transactionId: string) => {
   const response = await utils.loaders.getReceiptPDF(transactionId);
   if (!response) {
     throw new Error('Error getting the PDF');
@@ -27,4 +27,8 @@ export const downloadReceiptPDF = async (transactionId: string) => {
   // Remove the temporary <a> tag and release the URL of the Blob object
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+};
+
+export default {
+  downloadReceiptPDF
 };

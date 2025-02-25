@@ -27,9 +27,11 @@
         "button": "Torna agli avvisi"
       },
       "items": {
-        "alert": "L’importo è aggiornato in automatico, così paghi sempre quanto dovuto ed eviti more o altri interessi.",
+        "alert": "L’importo si aggiorna in automatico, così paghi sempre quanto dovuto ed eviti more o altri interessi. <link1>Vuoi saperne di più?</link1>",
         "back": "Torna agli avvisi",
-        "pay": "Vai al pagamento"  
+        "pay": "Vai al pagamento",
+        "full": "Non puoi aggiungere più di 5 avvisi al carrello",
+        "info": "Puoi pagare fino a 5 avvisi insieme"
       }
     },
     "assistance": {

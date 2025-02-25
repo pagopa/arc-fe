@@ -11,6 +11,7 @@ import { toggleCartDrawer } from 'store/CartStore';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils'; // Adjust the import path as necessary
 import { useStore } from 'store/GlobalStore';
+import { Badge } from '@mui/material';
 
 export const SubHeader = () => {
   const { spacing } = useTheme();
@@ -28,7 +29,15 @@ export const SubHeader = () => {
         <Typography variant="inherit" aria-hidden="true" id="header-cart-amount">
           {utils.converters.toEuro(state.cart.amount)}
         </Typography>
-        <ShoppingCartIcon fontSize="small" aria-hidden="true" />
+        <Badge
+          badgeContent={state.cart.items.length}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          color="primary">
+          <ShoppingCartIcon fontSize="small" aria-hidden="true" />
+        </Badge>
       </Button>
     );
   };

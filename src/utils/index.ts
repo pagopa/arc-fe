@@ -7,9 +7,11 @@ import converters from './converters';
 import { datetools } from './datetools';
 import loaders from './loaders';
 import modal from './modal';
+import notify from './notify';
 import sidemenu from './sidemenu';
 import storage from './storage';
 import style from './style';
+import files from './files';
 
 export default {
   apiClient: new Api({ baseURL: config.baseURL, timeout: config.apiTimeout }),
@@ -21,6 +23,8 @@ export default {
   datetools,
   loaders,
   modal,
+  notify,
+  files,
   sidemenu,
   storage,
   style,
