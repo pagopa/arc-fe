@@ -9,13 +9,13 @@ const Resources = (props: Props) => {
   const { resource } = props;
   const resourceLink =
     resource == 'tos'
-      ? 'https://privacyportalde-cdn.onetrust.com/77f17844-04c3-4969-a11d-462ee77acbe1/privacy-notices/draft/3f089590-8e93-4a08-86d4-40387d57cbad.json'
-      : 'https://privacyportalde-cdn.onetrust.com/77f17844-04c3-4969-a11d-462ee77acbe1/privacy-notices/draft/8f1bdcb7-1b92-4f2f-bb03-43c2ab8bad58.json';
+      ? 'https://privacyportalde-cdn.onetrust.com/77f17844-04c3-4969-a11d-462ee77acbe1/privacy-notices/draft/65d4c60f-2380-4d01-9ce2-0f6711de44b7.json'
+      : 'https://privacyportalde-cdn.onetrust.com/77f17844-04c3-4969-a11d-462ee77acbe1/privacy-notices/draft/d8bf2ad2-aa7c-47bb-90d6-76baa6501e6a.json';
 
   const divId =
     resource == 'tos'
-      ? 'otnotice-3f089590-8e93-4a08-86d4-40387d57cbad'
-      : 'otnotice-8f1bdcb7-1b92-4f2f-bb03-43c2ab8bad58';
+      ? 'otnotice-65d4c60f-2380-4d01-9ce2-0f6711de44b7'
+      : 'otnotice-d8bf2ad2-aa7c-47bb-90d6-76baa6501e6a';
 
   useEffect(() => {
     OneTrust?.NoticeApi?.Initialized.then(function () {
@@ -24,13 +24,7 @@ const Resources = (props: Props) => {
   }, []);
 
   return (
-    <Grid
-      item
-      display={'flex'}
-      marginTop={16}
-      marginBottom={16}
-      flexWrap={'wrap'}
-      justifyContent={'center'}>
+    <Grid item display={'flex'} flexWrap={'wrap'} justifyContent={'center'}>
       <Box width={'100%'}>
         <Stack textAlign={'center'} justifyContent={'center'} alignItems={'center'} spacing={4}>
           <Stack spacing={2} paddingX={1}></Stack>

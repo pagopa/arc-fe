@@ -50,6 +50,22 @@ const router = createBrowserRouter([
         loader: ({ request }) => getTokenOneidentity(request)
       },
       {
+        path: ArcRoutes.TOS,
+        element: (
+          <PreLoginLayout>
+            <Resources resource="tos" />
+          </PreLoginLayout>
+        )
+      },
+      {
+        path: ArcRoutes.PRIVACY_POLICY,
+        element: (
+          <PreLoginLayout>
+            <Resources resource="pp" />
+          </PreLoginLayout>
+        )
+      },
+      {
         path: ArcRoutes.COURTESY_PAGE.replace(':error', ''),
         element: <PreLoginLayout />,
         children: [
@@ -173,14 +189,6 @@ const router = createBrowserRouter([
                 }
               ]
             : []),
-          {
-            path: ArcRoutes.TOS,
-            element: <Resources resource="tos" />
-          },
-          {
-            path: ArcRoutes.PRIVACY_POLICY,
-            element: <Resources resource="pp" />
-          },
           {
             path: ArcRoutes.COURTESY_PAGE,
             loader: ({ params }) => Promise.resolve(params.error),
