@@ -21,6 +21,7 @@ import {
 } from 'models/PaymentNotice';
 import { addItem, deleteItem, toggleCartDrawer, isItemInCart } from 'store/CartStore';
 import { useStore } from 'store/GlobalStore';
+import notify from 'utils/notify';
 /**
  * This component is considered private and should not be used directly.
  * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
@@ -42,8 +43,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
     // this is not a problem, because we not manage multiple payment options in any case
     const paymentNoticeSigleOption = paymentNotice.paymentOptions as PaymentOptionsDetailsType;
     const { iuv, amountValue: amount, nav, description } = paymentNoticeSigleOption;
-    // add a notification if the cart is full
-    if (cart.items.length >= 5) return;
+    if (cart.items.length >= 5) return notify.emit(t('app.cart.items.full'), 'error');
     if (isItemInCart(iuv)) return deleteItem(iuv);
     addItem({
       amount,
@@ -293,7 +293,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid container>
+                    <Grid container justifyContent={'center'}>
                       <Grid item xs={12}>
                         <Button
                           id="payment-notice-add-button"
@@ -320,6 +320,14 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                           </Typography>
                         </Button>
                       </Grid>
+                      <Typography
+                        color={theme.palette.text.secondary}
+                        variant="body1"
+                        component="dt"
+                        fontSize={15}
+                        mt={2}>
+                        {t('app.cart.items.info')}
+                      </Typography>
                     </Grid>
                   </Stack>
                 </CardActions>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid } from '@mui/material';
+import { Alert, Container, Grid, Snackbar } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -41,6 +41,15 @@ export function Layout() {
 
   return (
     <>
+      <Snackbar
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        onClose={utils.notify.dismiss}
+        open={utils.notify.status.isVisible.value}>
+        <Alert severity={utils.notify.status.payload.value?.severity} variant="outlined">
+          {utils.notify.status.payload.value?.text}
+        </Alert>
+      </Snackbar>
       <ModalSystem />
       <Container
         maxWidth={false}

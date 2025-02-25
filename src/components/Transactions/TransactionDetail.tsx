@@ -1,34 +1,23 @@
 import { Download } from '@mui/icons-material';
-import {
-  Alert,
-  Box,
-  Button,
-  Divider,
-  Grid,
-  Snackbar,
-  Stack,
-  Typography,
-  useTheme
-} from '@mui/material';
+import { Alert, Box, Button, Divider, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import BRAND from './Brand';
 import { BRANDS } from '../../models/NoticeDetail';
 import paypal from '../../assets/paypal.png';
 import { type NoticeDetail as NoticeDetailType } from '../../models/NoticeDetail';
-import React, { useState } from 'react';
+import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { downloadReceiptPDF } from 'utils/files';
+import utils from 'utils';
 
 export default function TransactionDetail({ noticeData }: { noticeData: NoticeDetailType }) {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [toastOpen, setToastOpen] = useState(false);
 
   const getReceipt = async (transactionId: string) => {
     try {
-      await downloadReceiptPDF(transactionId);
-    } catch (err) {
-      setToastOpen(true);
+      await utils.files.downloadReceiptPDF(transactionId);
+    } catch {
+      utils.notify.emit(t('app.transactionDetail.downloadReceiptError'));
     }
   };
 
@@ -74,17 +63,6 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
         </Alert>
       )}
       <Stack spacing={2} mt={3} width={'100%'}>
-        <Snackbar
-          autoHideDuration={6000}
-          onClose={() => {
-            setToastOpen(false);
-          }}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          open={toastOpen}>
-          <Alert severity="error" variant="outlined">
-            {t('app.transactionDetail.downloadReceiptError')}
-          </Alert>
-        </Snackbar>
         <Grid container>
           {/* LEFT COLUMN: PAID NOTICE INFO */}
           <Grid container item xs={12} md={7}>
