@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom';
-import { downloadReceiptPDF } from './files';
 import utils from 'utils';
 
 describe('downloadReceiptPDF function', () => {
@@ -11,11 +10,11 @@ describe('downloadReceiptPDF function', () => {
 
     URL.createObjectURL = vitest.fn();
     URL.revokeObjectURL = vitest.fn();
-    expect(downloadReceiptPDF('1')).resolves.toBeUndefined();
+    expect(utils.files.downloadReceiptPDF('1')).resolves.toBeUndefined();
   });
 
   it('should trhow an Error when something goes wrong', () => {
     vi.spyOn(utils.loaders, 'getReceiptPDF').mockResolvedValue(null);
-    expect(downloadReceiptPDF('1')).rejects.toThrowError('Error getting the PDF');
+    expect(utils.files.downloadReceiptPDF('1')).rejects.toThrowError('Error getting the PDF');
   });
 });
