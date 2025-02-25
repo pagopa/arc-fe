@@ -4,10 +4,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import { Alert, Divider, useTheme } from '@mui/material';
+import { Alert, Divider, useTheme, Link } from '@mui/material';
 import { toggleCartDrawer } from 'store/CartStore';
 import { ButtonNaked } from '@pagopa/mui-italia/dist/components/ButtonNaked';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
 import { cartDrawerStyles } from './CartDrawer.styles';
@@ -78,7 +78,19 @@ export const CartDrawer = () => {
           {/* Cart Content */}
           {cart.items.length > 0 && (
             <Stack sx={styles.items}>
-              <Alert severity="info">{t('app.cart.items.alert')}</Alert>
+              <Alert severity="info">
+                <Trans
+                  i18nKey="app.cart.items.alert"
+                  components={{
+                    link1: (
+                      <Link
+                        target="_blank"
+                        href="https://assistenza.ioapp.it/hc/it/articles/31008000237585-L-importo-%C3%A8-diverso-da-quello-previsto"
+                      />
+                    )
+                  }}
+                />
+              </Alert>
               <Stack mt={2} divider={<Divider orientation="horizontal" flexItem />}>
                 {cart.items.map((item) => (
                   <CartItem

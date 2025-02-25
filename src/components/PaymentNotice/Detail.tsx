@@ -320,12 +320,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                           </Typography>
                         </Button>
                       </Grid>
-                      <Typography
-                        color={theme.palette.text.secondary}
-                        variant="body1"
-                        component="dt"
-                        fontSize={15}
-                        mt={2}>
+                      <Typography variant="body1" fontSize={16} mt={2}>
                         {t('app.cart.items.info')}
                       </Typography>
                     </Grid>
