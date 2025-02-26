@@ -70,7 +70,7 @@
     },
     "transactions": {
       "all": "Tutte",
-      "paidByMe": "Pagate con IO",
+      "paidByMe": "Pagate da me",
       "ownedByMe": "Intestate a me",
       "searchByName": "Cerca per nome",
       "searchBy": "Cerca per",
@@ -108,7 +108,7 @@
       },
       "filtered.nodata": {
         "paidByMe": {
-          "title": "Qui vedrai le ricevute dei pagamenti fatti con l’app IO",
+          "title": "Qui vedrai le ricevute dei pagamenti fatti da te",
           "text": "Se hai pagato con un altro canale, per ottenere la ricevuta rivolgiti all’ente creditore."
         },
         "ownedByMe": {
