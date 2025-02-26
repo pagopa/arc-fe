@@ -22,6 +22,7 @@ import {
   PaymentOptionType
 } from 'models/PaymentNotice';
 import { CartItem } from 'models/Cart';
+import { ArcRoutes } from 'routes/routes';
 
 // This high order function is useful to 'decorate' existing function to add
 // the functionality to manage undefined (not optional) parameters and output a global character instead
@@ -273,9 +274,9 @@ const cartItemsToCartsRequest = (cartItems: CartItem[]) => ({
     noticeNumber: item.nav
   })),
   returnUrls: {
-    returnOkUrl: utils.config.paymentReturnUrl,
-    returnCancelUrl: utils.config.paymentReturnUrl,
-    returnErrorUrl: utils.config.paymentReturnUrl
+    returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD,
+    returnCancelUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES,
+    returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES
   }
 });
 

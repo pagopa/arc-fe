@@ -6,6 +6,7 @@ import { mockCartItems } from 'stories/utils/PaymentNoticeMocks';
 import React, { ReactNode } from 'react';
 
 import { AxiosResponse } from 'axios';
+import { ArcRoutes } from 'routes/routes';
 
 export const createWrapper = () => {
   const queryClient = new QueryClient();
@@ -51,9 +52,9 @@ describe('usePostCarts', () => {
         }
       ],
       returnUrls: {
-        returnCancelUrl: 'http://localhost:1234',
-        returnErrorUrl: 'http://localhost:1234',
-        returnOkUrl: 'http://localhost:1234'
+        returnCancelUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES,
+        returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES,
+        returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD
       }
     });
     expect(mockOnSuccess).toHaveBeenCalledWith('https://redirect.com');

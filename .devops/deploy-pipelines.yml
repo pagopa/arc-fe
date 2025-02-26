@@ -31,7 +31,6 @@ variables:
     api_timeout: '10000'
     checkout_host: '$(UAT_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(UAT_CHECKOUT_PLATFORM_URL)'
-    payment_return_url: '$(UAT_PAYMENT_RETURN_URL)'
     show_notices: '1'
 
   ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
@@ -46,7 +45,6 @@ variables:
     api_timeout: '10000'
     checkout_host: '$(PROD_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(PROD_CHECKOUT_PLATFORM_URL)'
-    payment_return_url: '$(PROD_PAYMENT_RETURN_URL)'
     show_notices: '1'
 
   # every branch different from past will be considered as DEV
@@ -62,7 +60,6 @@ variables:
     api_timeout: '0'
     checkout_host: '$(DEV_CHECKOUT_PREFIX_DOMAIN)'
     checkout_platform_url: '$(DEV_CHECKOUT_PLATFORM_URL)'
-    payment_return_url: '$(DEV_PAYMENT_RETURN_URL)'
     show_notices: '1'
 
 resources:
@@ -96,7 +93,6 @@ stages:
               checkout_host: '$(checkout_host)'
               login_url: '$(login_url)'
               checkout_platform_url: '$(checkout_platform_url)'
-              payment_return_url: '$(payment_return_url)'
               deploy_path: '$(DEPLOY_PATH)'
               version: '$(Build.SourceBranchName):$(Build.SourceVersion)'
               show_notices: '$(show_notices)'

@@ -12,7 +12,6 @@ const {
   DEPLOY_PATH = '/pagamenti',
   ENTITIES_LOGO_CDN,
   LOGIN_URL = 'https://api.dev.cittadini-p4pa.pagopa.it/arc/v1/login/oneidentity',
-  PAYMENT_RETURN_URL = 'http://localhost:1234',
   VERSION = '',
   SHOW_NOTICES = '1'
 } = process.env;
@@ -31,7 +30,6 @@ const CHECKOUT_PLATFORM_URL_schema = z.string().url();
 const DEPLOY_PATH_schema = z.string();
 const ENTITIES_LOGO_CDN_schema = z.string().url();
 const LOGIN_URL_schema = z.string().url();
-const PAYMENT_RETURN_URL_schema = z.string().url();
 const VERSION_schema = z.string();
 const SHOW_NOTICES_schema = z.enum(['0', '1']);
 try {
@@ -43,11 +41,10 @@ try {
   DEPLOY_PATH_schema.parse(process.env.DEPLOY_PATH);
   ENTITIES_LOGO_CDN_schema.parse(process.env.ENTITIES_LOGO_CDN);
   LOGIN_URL_schema.parse(process.env.LOGIN_URL);
-  PAYMENT_RETURN_URL_schema.parse(process.env.PAYMENT_RETURN_URL);
   VERSION_schema.parse(process.env.VERSION);
   SHOW_NOTICES_schema.parse(process.env.SHOW_NOTICES);
 } catch (e) {
-  console.error('ENV variables validation fails', (e as ZodError).issues);
+  console.error('ENV variables validation failed', (e as ZodError).issues);
 }
 
 type Config = {
@@ -62,7 +59,6 @@ type Config = {
   loginUrl: string;
   missingValue: string;
   pagopaLink: RootLinkType;
-  paymentReturnUrl: string;
   tokenHeaderExcludePaths: string[];
   version: string;
   showNotices: boolean;
@@ -101,7 +97,6 @@ const config: Config = {
    **/
   missingValue: '-',
   pagopaLink,
-  paymentReturnUrl: PAYMENT_RETURN_URL,
   /** This array is populated by paths that
    * don't need a auth token
    * */
