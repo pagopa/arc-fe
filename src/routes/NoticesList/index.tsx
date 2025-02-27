@@ -45,7 +45,7 @@ export default function NoticesListPage() {
     [activeTab, currentPage, noticeQueryParams.ordering]
   );
 
-  const { isError, refetch, isFetching } = queryResult;
+  const { isError, refetch, isFetching, dataUpdatedAt } = queryResult;
 
   const data = utils.converters.prepareRowsData({
     notices: queryResult.data?.notices || [],
@@ -113,8 +113,9 @@ export default function NoticesListPage() {
       const isNewToken = !pages.find((oldToken) => oldToken === continuationToken);
       if (isNewToken) setPages((prevPages) => [...prevPages, continuationToken]);
     })();
-  }, [queryResult.data?.continuationToken]);
+  }, [queryResult.data?.continuationToken, dataUpdatedAt]); // in same circustances the token is the same, so we need to check the dateUpdatedAt, see P4PU-892
 
+  console.log(queryResult.data?.continuationToken);
   const MainContent = ({ data }: { data: TransactionProps[] }) => {
     return (
       <>
