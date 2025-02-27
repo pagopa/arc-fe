@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, RouterProvider, createBrowserRouter, useRouteError } from 'react-router-dom';
 import { Theme } from './utils/style';
 import { Layout } from './components/Layout';
-import { ArcRoutes } from './routes/routes';
+import { ArcErrors, ArcRoutes } from './routes/routes';
 import TransactionRoute from './routes/Transaction';
 import DashboardRoute from './routes/Dashboard';
 import { theme } from '@pagopa/mui-italia';
@@ -37,21 +37,17 @@ const router = createBrowserRouter([
         }
       },
       {
-        path: ArcRoutes.COURTESY_PAGE,
-        loader: ({ params }) => Promise.resolve(params.error),
-        element: (
-          <PreLoginLayout>
-            <CourtesyPage />
-          </PreLoginLayout>
-        )
-      },
-      {
         path: ArcRoutes.LOGIN,
         element: (
           <PreLoginLayout>
             <Login />
           </PreLoginLayout>
         )
+      },
+      {
+        path: ArcRoutes.AUTH_CALLBACK,
+        element: <AuthCallback />,
+        loader: ({ request }) => getTokenOneidentity(request)
       },
       {
         path: ArcRoutes.TOS,
@@ -70,9 +66,30 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: ArcRoutes.AUTH_CALLBACK,
-        element: <AuthCallback />,
-        loader: ({ request }) => getTokenOneidentity(request)
+        path: ArcRoutes.COURTESY_PAGE.replace(':error', ''),
+        element: <PreLoginLayout />,
+        children: [
+          {
+            path: ArcErrors['401'],
+            loader: () => ArcErrors['401'],
+            element: <CourtesyPage />
+          },
+          {
+            path: ArcErrors['403'],
+            loader: () => ArcErrors['403'],
+            element: <CourtesyPage />
+          },
+          {
+            path: ArcErrors['404'],
+            loader: () => ArcErrors['404'],
+            element: <CourtesyPage />
+          },
+          {
+            path: ArcErrors['408'],
+            loader: () => ArcErrors['408'],
+            element: <CourtesyPage />
+          }
+        ]
       },
       {
         path: ArcRoutes.DASHBOARD,
@@ -141,27 +158,44 @@ const router = createBrowserRouter([
             // TEMPORARY ERROR ELEMENT
             errorElement: <ErrorFallback />
           },
-          {
-            path: ArcRoutes.PAYMENT_NOTICES,
-            element: <PaymentNotices />,
-            errorElement: <ErrorFallback />
-          },
-
-          {
-            path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
-            element: <PaymentNoticeDetail />,
-            errorElement: <ErrorFallback />,
-            loader: loaders.getPaymentNoticeDetails,
-            handle: {
-              crumbs: {
-                elements: [
-                  { name: 'paymentNotices', fontWeight: 600, href: ArcRoutes.PAYMENT_NOTICES },
-                  {
-                    name: 'paymentNoticeDetail',
-                    fontWeight: 400,
-                    color: theme.palette.grey[700]
+          ...(utils.config.showNotices
+            ? [
+                {
+                  path: ArcRoutes.PAYMENT_NOTICES,
+                  element: <PaymentNotices />,
+                  errorElement: <ErrorFallback />
+                },
+                {
+                  path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
+                  element: <PaymentNoticeDetail />,
+                  errorElement: <ErrorFallback />,
+                  loader: loaders.getPaymentNoticeDetails,
+                  handle: {
+                    crumbs: {
+                      elements: [
+                        {
+                          name: 'paymentNotices',
+                          fontWeight: 600,
+                          href: ArcRoutes.PAYMENT_NOTICES
+                        },
+                        {
+                          name: 'paymentNoticeDetail',
+                          fontWeight: 400,
+                          color: theme.palette.grey[700]
+                        }
+                      ]
+                    }
                   }
-                ]
+                }
+              ]
+            : []),
+          {
+            path: ArcRoutes.COURTESY_PAGE,
+            loader: ({ params }) => Promise.resolve(params.error),
+            element: <CourtesyPage />,
+            handle: {
+              sidebar: {
+                visibile: false
               }
             }
           }

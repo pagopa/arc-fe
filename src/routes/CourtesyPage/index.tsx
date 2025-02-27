@@ -12,9 +12,12 @@ interface ErrorIconComponentProps {
 export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ erroCode }) => {
   switch (erroCode) {
     case ArcErrors['accesso-non-autorizzato']:
+    case ArcErrors['avviso-non-pagabile']:
       return <img src="/pictograms/genericerror.svg" title="Error" aria-hidden="true" />;
     case ArcErrors['sessione-scaduta']:
       return <img src="/pictograms/expired.svg" title="Expired" aria-hidden="true" />;
+    case ArcErrors['avvio-pagamento']:
+      return <img src="/pictograms/umbrella.svg" title="Something go wrong" aria-hidden="true" />;
     default:
       return <img src="/pictograms/umbrella.svg" title="Something go wrong" aria-hidden="true" />;
   }

@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { dummyTransactionsData } from 'stories/utils/mocks';
 import { TransactionDetails } from './';
 import '@testing-library/jest-dom';
-import { downloadReceiptPDF } from 'utils/files';
+import utils from 'utils';
 import { i18nTestSetup } from '__tests__/i18nTestSetup';
 
 i18nTestSetup({});
 
 vi.mock('utils/files');
 
-const mockUseReceiptData = vi.mocked(downloadReceiptPDF);
+const mockUseReceiptData = vi.mocked(utils.files.downloadReceiptPDF);
 
 describe('TransactionDetails component', () => {
   it('should render as expected', () => {
@@ -22,11 +22,10 @@ describe('TransactionDetails component', () => {
     mockUseReceiptData.mockImplementation(() => {
       throw new Error();
     });
+    const notifySpy = vi.spyOn(utils.notify, 'emit');
     render(<TransactionDetails noticeData={dummyTransactionsData.transactionData} />);
     fireEvent.click(screen.getByTestId('receipt-download-btn'));
-    await waitFor(() =>
-      expect(screen.queryByText('app.transactionDetail.downloadReceiptError')).toBeInTheDocument()
-    );
+    expect(notifySpy).toHaveBeenCalledWith('app.transactionDetail.downloadReceiptError');
   });
 
   it('should truncate transactionId if longer than 20 ', () => {

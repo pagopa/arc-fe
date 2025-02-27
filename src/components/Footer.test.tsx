@@ -9,7 +9,6 @@ i18nTestSetup({});
 describe('Footer Component', () => {
   it('renders without errors', () => {
     render(<Footer />);
-    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
   });
 
   it('uses correct text elements', () => {

@@ -4,7 +4,8 @@ import {
   TransactionListSkeleton,
   TransactionDetailsSkeleton,
   PaymentNoticesListSkeleton,
-  UserInfoSkeleton
+  UserInfoSkeleton,
+  PaymentNoticeDetails
 } from '.';
 import { useMediaQuery } from '@mui/material';
 
@@ -36,5 +37,11 @@ describe('PaymentNoticesListSkeleton component', () => {
 describe('UserInfoSkeleton component', () => {
   it('should render as expected', () => {
     render(<UserInfoSkeleton />);
+  });
+});
+
+describe('UserInfoSkeleton component', () => {
+  it('should render as expected', () => {
+    render(<PaymentNoticeDetails />);
   });
 });

@@ -32,10 +32,6 @@ parameters:
     type: string
     default: ''
 
-  - name: 'payment_return_url'
-    type: string
-    default: ''
-
   - name: 'version'
     type: string
     default: ''
@@ -43,6 +39,10 @@ parameters:
   - name: 'deploy_path'
     type: string
     default: ''
+
+  - name: 'show_notices'
+    type: string
+    default: '1'
 
 steps:
 - bash: |
@@ -56,9 +56,9 @@ steps:
       ARC_FE_CHECKOUT_HOST=${{ parameters.checkout_host }} \
       ARC_FE_LOGIN_URL=${{ parameters.login_url }} \
       ARC_FE_CHECKOUT_PLATFORM_URL=${{ parameters.checkout_platform_url }} \
-      ARC_FE_PAYMENT_RETURN_URL=${{ parameters.payment_return_url }} \
       ARC_FE_DEPLOY_PATH=${{ parameters.deploy_path }} \
       ARC_FE_VERSION=${{ parameters.version }} \
+      ARC_FE_SHOW_NOTICES=${{ parameters.show_notices }} \
       bash env.sh
 
   displayName: 'Populate environment file'

@@ -1,7 +1,8 @@
 import { signal } from '@preact/signals-react';
 
 enum SessionItems {
-  OPTIN = 'OPTIN'
+  OPTIN = 'OPTIN',
+  CART = 'CART'
 }
 
 /** set a session item and return his value. If not possible returs null */
@@ -43,6 +44,7 @@ const clear = () => {
 const optin = signal<boolean>(Boolean(getSessionItem(SessionItems.OPTIN)));
 
 export default {
+  SessionItems,
   pullPaymentsOptIn: {
     set: () => {
       if (setSessionItem(SessionItems.OPTIN, 'true')) optin.value = true;
