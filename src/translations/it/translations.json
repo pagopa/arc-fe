@@ -7,7 +7,7 @@
     },
     "user": {
       "title": "I tuoi dati",
-      "subtitle": "Questi dati vengono ricavati dal tuo SPID o CIE. Per modificarli, rivolgiti al tuo fornitore di identità digitale.",
+      "subtitle": "Questi dati derivano dal tuo SPID o CIE. Per modificarli, rivolgiti al tuo fornitore di identità digitale.",
       "info": {
         "name": "Nome",
         "surname": "Cognome",
@@ -36,7 +36,7 @@
     },
     "assistance": {
       "title": "Come possiamo aiutarti?",
-      "description": "Se hai bisogno di supporto sull’utilizzo del portale, puoi aprire una richiesta di assistenza.",
+      "description": "Se hai bisogno di supporto sull’utilizzo del portale, inserisci i dati richiesti per ricevere assistenza.",
       "cardTitle": "Il tuo indirizzo email",
       "cardDescription": "Indica l’indirizzo email su cui desideri ricevere le risposte dell’assistenza.",
       "input1Placeholder": "Inserisci l'indirizzo email",
@@ -63,7 +63,7 @@
       "lastTransactions": "Le tue ricevute",
       "seeAllTransactions": "Vedi tutte",
       "IOAlert": {
-        "title": "Vuoi accedere alle tue ricevute e pagare gli avvisi più rapidamente?",
+        "title": "Vuoi accedere alle tue ricevute e pagare gli avvisi più velocemente?",
         "description": "Visualizza e gestisci i tuoi metodi di pagamento e tutte le tue ricevute",
         "cta": "Scarica app IO"
       }
