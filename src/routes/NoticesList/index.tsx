@@ -115,7 +115,6 @@ export default function NoticesListPage() {
     })();
   }, [queryResult.data?.continuationToken, dataUpdatedAt]); // in same circustances the token is the same, so we need to check the dateUpdatedAt, see P4PU-892
 
-  console.log(queryResult.data?.continuationToken);
   const MainContent = ({ data }: { data: TransactionProps[] }) => {
     return (
       <>
