@@ -9,7 +9,7 @@ export const sidebarStyles = (theme: Theme, collapsed: boolean): Record<string, 
     height: '100vh',
     transition: 'width 0.3s ease, height 0.3s ease', // Add transition for smooth resizing
     [theme.breakpoints.between('sm', 'lg')]: { width: collapsed ? '100%' : 'fit-content' },
-    [theme.breakpoints.up('lg')]: { width: 'fit-content', position: 'sticky' },
+    [theme.breakpoints.up('lg')]: { width: 'fit-content', position: 'sticky', zIndex: 1 },
     [theme.breakpoints.down('lg')]: { height: collapsed ? 'fit-content' : '100%' }
   },
   nav: {

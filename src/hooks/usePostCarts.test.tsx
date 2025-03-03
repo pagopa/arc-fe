@@ -2,19 +2,11 @@ import { renderHook, act, waitFor } from '@testing-library/react';
 import { usePostCarts } from './usePostCarts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import utils from 'utils';
-import { PaymentNoticeSingleType } from 'models/PaymentNotice';
-import { mockNotice } from 'stories/utils/PaymentNoticeMocks';
+import { mockCartItems } from 'stories/utils/PaymentNoticeMocks';
 import React, { ReactNode } from 'react';
-import { useUserEmail } from './useUserEmail';
-import { Mock } from 'vitest';
-import converters from 'utils/converters';
+
 import { AxiosResponse } from 'axios';
-
-vi.mock('utils/converters');
-
-vi.mock('./useUserEmail', () => ({
-  useUserEmail: vi.fn()
-}));
+import { ArcRoutes } from 'routes/routes';
 
 export const createWrapper = () => {
   const queryClient = new QueryClient();
@@ -24,31 +16,48 @@ export const createWrapper = () => {
 };
 
 describe('usePostCarts', () => {
-  const mockOnSuccess = vi.fn();
-  const mockSingleNotice: PaymentNoticeSingleType = mockNotice;
-
   beforeEach(() => {
     vi.clearAllMocks();
   });
+  const mockOnSuccess = vi.fn();
+  const mockOnError = vi.fn();
 
-  it('should call converters.singleNoticeToCartsRequest and utils.cartsClient.postCarts', async () => {
+  it('should converters cartItem[] correctly and call onSuccess as callback', async () => {
     const mockData = 'Response with URL=https://redirect.com';
 
-    (converters.singleNoticeToCartsRequest as Mock).mockReturnValue(mockSingleNotice);
     vi.spyOn(utils.cartsClient, 'postCarts').mockResolvedValue({ data: mockData } as AxiosResponse);
-    (useUserEmail as Mock).mockResolvedValue('test@test.it');
 
-    const { result } = renderHook(() => usePostCarts({ onSuccess: mockOnSuccess }), {
-      wrapper: createWrapper()
-    });
+    const { result } = renderHook(
+      () => usePostCarts({ onSuccess: mockOnSuccess, onError: mockOnError }),
+      {
+        wrapper: createWrapper()
+      }
+    );
 
     await act(async () => {
-      await result.current.mutateAsync({ singleNotice: mockSingleNotice });
+      await result.current.mutateAsync({ notices: mockCartItems, email: 'test@test.it' });
     });
+
     await waitFor(() => !result.current.isIdle);
 
-    expect(converters.singleNoticeToCartsRequest).toHaveBeenCalledWith(mockSingleNotice);
-    expect(utils.cartsClient.postCarts).toHaveBeenCalledWith(mockSingleNotice);
+    expect(utils.cartsClient.postCarts).toHaveBeenCalledWith({
+      emailNotice: 'test@test.it',
+      paymentNotices: [
+        {
+          noticeNumber: mockCartItems[0].nav,
+          fiscalCode: mockCartItems[0].paTaxCode,
+          amount: mockCartItems[0].amount,
+          companyName: mockCartItems[0].paFullName,
+          description: mockCartItems[0].description
+        }
+      ],
+      returnUrls: {
+        returnCancelUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES,
+        returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES,
+        returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD
+      }
+    });
     expect(mockOnSuccess).toHaveBeenCalledWith('https://redirect.com');
+    expect(mockOnError).not.toHaveBeenCalled();
   });
 });

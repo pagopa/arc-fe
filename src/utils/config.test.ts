@@ -29,7 +29,6 @@ describe('Configuration Tests', () => {
     expect(reloadedConfig.checkoutHost).toBe(process.env.CHECKOUT_HOST);
     expect(reloadedConfig.loginUrl).toBe(process.env.LOGIN_URL);
     expect(reloadedConfig.checkoutPlatformUrl).toBe(process.env.CHECKOUT_PLATFORM_URL);
-    expect(reloadedConfig.paymentReturnUrl).toBe(process.env.PAYMENT_RETURN_URL);
     expect(reloadedConfig.deployPath).toBe(process.env.DEPLOY_PATH);
     expect(reloadedConfig.version).toBe('1.0.0');
   });
@@ -41,7 +40,7 @@ describe('Configuration Tests', () => {
     const logSpy = vi.spyOn(console, 'error');
     await import('./config'); // Use dynamic import
     expect(logSpy).toHaveBeenCalledWith(
-      'ENV variables validation fails',
+      'ENV variables validation failed',
       expect.arrayContaining([
         expect.objectContaining({
           message: 'Invalid url'
@@ -56,7 +55,7 @@ describe('Configuration Tests', () => {
     const logSpy = vi.spyOn(console, 'error');
     await import('./config'); // Use dynamic import
     expect(logSpy).toHaveBeenCalledWith(
-      'ENV variables validation fails',
+      'ENV variables validation failed',
       expect.arrayContaining([
         expect.objectContaining({
           message: 'Required'

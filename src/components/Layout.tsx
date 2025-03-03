@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid } from '@mui/material';
+import { Alert, Container, Grid, Snackbar } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -12,6 +12,8 @@ import { BackButton } from './BackButton';
 import { ArcRoutes } from 'routes/routes';
 import { ModalSystem } from './Modals';
 import utils from 'utils';
+import { useStore } from 'store/GlobalStore';
+import { CartDrawer } from './Cart/CartDrawer';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
@@ -21,11 +23,14 @@ const defaultRouteHandle: RouteHandleObject = {
 
 export function Layout() {
   const matches = useMatches();
+  const {
+    state: { cart }
+  } = useStore();
 
   const overlay = utils.sidemenu.status.overlay.value;
   const modalOpen = utils.modal.status.isOpen.value;
 
-  document.body.style.overflow = modalOpen || overlay ? 'hidden' : 'auto';
+  document.body.style.overflow = modalOpen || cart.isOpen || overlay ? 'hidden' : 'auto';
 
   const { crumbs, sidebar, backButton, backButtonText, backButtonFunction } = {
     ...defaultRouteHandle,
@@ -36,6 +41,15 @@ export function Layout() {
 
   return (
     <>
+      <Snackbar
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        onClose={utils.notify.dismiss}
+        open={utils.notify.status.isVisible.value}>
+        <Alert severity={utils.notify.status.payload.value?.severity} variant="outlined">
+          {utils.notify.status.payload.value?.text}
+        </Alert>
+      </Snackbar>
       <ModalSystem />
       <Container
         maxWidth={false}
@@ -71,6 +85,7 @@ export function Layout() {
             <Footer />
           </Grid>
         </Grid>
+        {cart.isOpen ? <CartDrawer /> : null}
       </Container>
       <ScrollRestoration />
     </>

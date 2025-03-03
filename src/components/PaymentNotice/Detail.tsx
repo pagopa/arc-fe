@@ -14,10 +14,14 @@ import { CopyToClipboardButton } from '@pagopa/mui-italia';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import utils from 'utils';
-import { PaymentNoticeDetailsType, PaymentNoticeEnum } from 'models/PaymentNotice';
-import { usePostCarts } from 'hooks/usePostCarts';
-import { useUserEmail } from 'hooks/useUserEmail';
-
+import {
+  PaymentNoticeDetailsType,
+  PaymentNoticeEnum,
+  PaymentOptionsDetailsType
+} from 'models/PaymentNotice';
+import { addItem, deleteItem, toggleCartDrawer, isItemInCart } from 'store/CartStore';
+import { useStore } from 'store/GlobalStore';
+import notify from 'utils/notify';
 /**
  * This component is considered private and should not be used directly.
  * Instead, use `PaymentNotice.Card` for rendering the payment notice card.
@@ -29,13 +33,28 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
   const theme = useTheme();
   const { t } = useTranslation();
   const open = () => utils.modal.open(utils.modal.ModalId.PAYMENT_NOTICE_MODAL);
-  const email = useUserEmail();
+  const {
+    state: { cart }
+  } = useStore();
 
-  const carts = usePostCarts({
-    onSuccess: (url) => {
-      window.location.replace(url);
-    }
-  });
+  const handleClick = () => {
+    const { paTaxCode, paFullName } = paymentNotice;
+    // assumig that we have only one payment option
+    // this is not a problem, because we not manage multiple payment options in any case
+    const paymentNoticeSigleOption = paymentNotice.paymentOptions as PaymentOptionsDetailsType;
+    const { iuv, amountValue: amount, nav, description } = paymentNoticeSigleOption;
+    if (cart.items.length >= 5) return notify.emit(t('app.cart.items.full'), 'error');
+    if (isItemInCart(iuv)) return deleteItem(iuv);
+    addItem({
+      amount,
+      paTaxCode,
+      paFullName,
+      iuv,
+      nav,
+      description
+    });
+    toggleCartDrawer();
+  };
 
   return paymentNotice?.type === PaymentNoticeEnum.SINGLE ? (
     <>
@@ -274,25 +293,36 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid container>
+                    <Grid container justifyContent={'center'}>
                       <Grid item xs={12}>
                         <Button
-                          id="payment-notice-pay-button"
-                          variant="contained"
+                          id="payment-notice-add-button"
+                          variant={
+                            isItemInCart(paymentNotice.paymentOptions.iuv)
+                              ? 'outlined'
+                              : 'contained'
+                          }
+                          color={
+                            isItemInCart(paymentNotice.paymentOptions.iuv) ? 'error' : 'primary'
+                          }
                           fullWidth
-                          onClick={() => {
-                            carts.mutate({ singleNotice: paymentNotice, email });
-                          }}>
+                          size="medium"
+                          onClick={handleClick}>
                           <Typography
                             sx={{
                               fontWeight: 'fontWeightMedium',
                               textAlign: 'center',
-                              color: theme.palette.primary.contrastText
+                              color: 'inherit'
                             }}>
-                            {t('app.paymentNoticeDetail.card2.button1')}
+                            {isItemInCart(paymentNotice.paymentOptions.iuv)
+                              ? t('app.paymentNoticeDetail.card2.removeItemFromCart')
+                              : t('app.paymentNoticeDetail.card2.addItemToCart')}
                           </Typography>
                         </Button>
                       </Grid>
+                      <Typography variant="body1" fontSize={16} mt={2}>
+                        {t('app.cart.items.info')}
+                      </Typography>
                     </Grid>
                   </Stack>
                 </CardActions>
