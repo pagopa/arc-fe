@@ -20,7 +20,7 @@ const CookieBanner = () => {
     const d = document,
       g = d.createElement('script'),
       s = d.getElementsByTagName('script')[0];
-    g.src = '/onetrust/scriptTemplates/otSDKStub.js';
+    g.src = '/onetrust/scripttemplates/otSDKStub.js';
     g.type = 'text/javascript';
     g.charset = 'UTF-8';
     g.setAttribute('data-domain-script', cookieBannerMap[utils.config.env]);
