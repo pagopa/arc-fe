@@ -16,8 +16,7 @@ const cookieBannerMap: Record<ENVIRONMENT, string> = {
 
 const CookieBanner = () => {
   useEffect(() => {
-    // not needed in local
-    if (utils.config.env === 'LOCAL' || window.location.hostname === 'localhost') return;
+    if (window.location.hostname === 'localhost') return;
     const d = document,
       g = d.createElement('script'),
       s = d.getElementsByTagName('script')[0];
@@ -25,7 +24,7 @@ const CookieBanner = () => {
     g.type = 'text/javascript';
     g.charset = 'UTF-8';
     g.setAttribute('data-domain-script', cookieBannerMap[utils.config.env]);
-    if (s.parentNode) {
+    if (s?.parentNode) {
       s.parentNode.insertBefore(g, s);
     }
   }, []);
