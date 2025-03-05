@@ -24,6 +24,7 @@ import Resources from 'routes/Resources';
 import loaders, { getTokenOneidentity } from 'utils/loaders';
 import { PreLoginLayout } from 'components/PreLoginLayout';
 import { ApiClient } from 'components/ApiClient';
+import Spontanei from 'routes/Spontanei';
 
 const router = createBrowserRouter([
   {
@@ -194,6 +195,16 @@ const router = createBrowserRouter([
             loader: ({ params }) => Promise.resolve(params.error),
             element: <CourtesyPage />,
             handle: {
+              sidebar: {
+                visibile: false
+              }
+            }
+          },
+          {
+            path: ArcRoutes.SPONTANEI,
+            element: <Spontanei />,
+            handle: {
+              backButton: true,
               sidebar: {
                 visibile: false
               }

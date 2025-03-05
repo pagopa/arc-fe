@@ -9,6 +9,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import utils from 'utils';
 import { useTranslation } from 'react-i18next';
 import { Styles } from './styles';
+import { NavLink } from 'react-router-dom';
+import { ArcRoutes } from 'routes/routes';
 
 const PaymentTypeDrawer = () => {
   const { t } = useTranslation();
@@ -60,12 +62,14 @@ const PaymentTypeDrawer = () => {
                 {t('spontanei.drawer.card2.title')}
               </Typography>
               <Typography>{t('spontanei.drawer.card2.description')}</Typography>
-              <Button variant="naked">
-                <Typography color={'primary'} fontWeight={700}>
-                  {t('spontanei.drawer.card2.cta')}
-                </Typography>
-                <ArrowForwardIcon />
-              </Button>
+              <NavLink to={ArcRoutes.SPONTANEI}>
+                <Button variant="naked">
+                  <Typography color={'primary'} fontWeight={700}>
+                    {t('spontanei.drawer.card2.cta')}
+                  </Typography>
+                  <ArrowForwardIcon />
+                </Button>
+              </NavLink>
             </Stack>
           </Card>
         </Stack>

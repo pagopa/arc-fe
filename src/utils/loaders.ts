@@ -153,6 +153,15 @@ export const getTokenOneidentity = async (request: Request) => {
   }
 };
 
+export const getOrganizations = () =>
+  useQuery({
+    queryKey: ['getOrganizations'],
+    queryFn: async () => {
+      const { data: organizations } = await utils.apiClient.organizations.getOrganizations();
+      return organizations;
+    }
+  });
+
 export default {
   getPaymentNotices,
   getPaymentNoticeDetails,
@@ -161,5 +170,6 @@ export default {
   getNoticeDetails,
   getNoticesList,
   getUserInfo,
-  getUserInfoOnce
+  getUserInfoOnce,
+  getOrganizations
 };
