@@ -4,6 +4,7 @@ import { UserMemo } from 'models/User';
 export interface State {
   [STATE.USER_INFO]: UserMemo | undefined;
   [STATE.CART]: CartState;
+  [STATE.PAYMENT_TYPE_DRAWER_VISIBILITY_STATUS]: boolean;
 }
 
 export interface StoreContextProps {
@@ -13,5 +14,6 @@ export interface StoreContextProps {
 
 export enum STATE {
   USER_INFO = 'userInfo',
-  CART = 'cart'
+  CART = 'cart',
+  PAYMENT_TYPE_DRAWER_VISIBILITY_STATUS = 'paymentTypeDrawerVisibilityStatus'
 }

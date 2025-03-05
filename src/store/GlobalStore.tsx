@@ -1,26 +1,19 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { STATE, State, StoreContextProps } from './types';
-import { setUserInfo, userInfoState } from './UserInfoStore';
-import { UserInfo } from '../../generated/apiClient';
-import { cartState, setCart } from './CartStore';
-import { CartState } from 'models/Cart';
+import { userInfoState } from './UserInfoStore';
+import { cartState } from './CartStore';
+import { paymentTypeDrawerVisibilityStore } from './PaymentTypeDrawerVisibilityStore';
 
 const StoreContext = createContext<StoreContextProps | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const combinedState: State = {
     [STATE.USER_INFO]: userInfoState.state?.value,
-    [STATE.CART]: cartState.value
+    [STATE.CART]: cartState.value,
+    [STATE.PAYMENT_TYPE_DRAWER_VISIBILITY_STATUS]: paymentTypeDrawerVisibilityStore.value
   };
 
-  const setState = (key: STATE, value?: unknown) => {
-    if (key === STATE.USER_INFO) {
-      setUserInfo(value as UserInfo);
-    }
-    if (key === STATE.CART) {
-      setCart(value as CartState);
-    }
-  };
+  const setState = () => undefined;
 
   return (
     <StoreContext.Provider value={{ state: combinedState, setState }}>

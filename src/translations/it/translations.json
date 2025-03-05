@@ -315,5 +315,20 @@
     "notice": "Dettaglio operazione",
     "courtesy": "Pagina di cortesia",
     "userpage": "I tuoi dati"
+  },
+  "spontanei": {
+    "drawer": {
+      "title": "PAGA UN AVVISO",
+      "card1": {
+        "title": "Hai ricevuto un avviso di pagamento?",
+        "description": "Sei già in possesso dei codici o di un QR Code per procedere al pagamento",
+        "cta": "Vai al pagamento"
+      },
+      "card2": {
+        "title": "Vuoi effettuare un pagamento spontaneo?",
+        "description": "Vuoi pagare la Pubblica Amministrazione perchè ti va e perchè sei un buono",
+        "cta": "Configura il pagamento"
+      }
+    }
   }
 }

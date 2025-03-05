@@ -14,6 +14,7 @@ import { ModalSystem } from './Modals';
 import utils from 'utils';
 import { useStore } from 'store/GlobalStore';
 import { CartDrawer } from './Cart/CartDrawer';
+import PaymentTypeDrawer from './Spontanei/PaymentTypeDrawer';
 
 const defaultRouteHandle: RouteHandleObject = {
   sidebar: { visible: true },
@@ -24,7 +25,7 @@ const defaultRouteHandle: RouteHandleObject = {
 export function Layout() {
   const matches = useMatches();
   const {
-    state: { cart }
+    state: { cart, paymentTypeDrawerVisibilityStatus }
   } = useStore();
 
   const overlay = utils.sidemenu.status.overlay.value;
@@ -86,6 +87,7 @@ export function Layout() {
           </Grid>
         </Grid>
         {cart.isOpen ? <CartDrawer /> : null}
+        {paymentTypeDrawerVisibilityStatus ? <PaymentTypeDrawer /> : null}
       </Container>
       <ScrollRestoration />
     </>
