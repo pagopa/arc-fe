@@ -1,92 +1,50 @@
-import React from 'react';
-import {
-  Autocomplete,
-  Button,
-  Card,
-  Stack,
-  Step,
-  StepLabel,
-  Stepper,
-  TextField,
-  Typography
-} from '@mui/material';
+import React, { useEffect } from 'react';
+import { Button, Stack, Typography } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
-import utils from 'utils';
-
-const steps = ['Seleziona l’ente', 'Seleziona il servizio', 'Configura il pagamento'];
-
-const Steps = (props: { activeStep: number }) => (
-  <Stepper activeStep={props.activeStep} alternativeLabel>
-    {steps.map((label) => {
-      return (
-        <Step key={label}>
-          <StepLabel>{label}</StepLabel>
-        </Step>
-      );
-    })}
-  </Stepper>
-);
-
-interface SelezionaEnteProps {
-  setEnte: (ente: string | null) => void;
-}
-
-interface Option {
-  label: string;
-  value: string;
-}
-
-const SelezionaEnte = (props: SelezionaEnteProps) => {
-  const { data } = utils.loaders.getOrganizations();
-
-  const options: Option[] =
-    data?.organizations?.map((org) => ({ label: org.paFullName, value: org.paTaxCode })) || [];
-
-  return (
-    <Card variant="outlined">
-      <Stack spacing={2} padding={4}>
-        <Typography>Seleziona l’ente beneficiario</Typography>
-        <Typography>
-          Inizia a digitare il nome dell’ente beneficiario del pagamento e selezionalo dalla lista.
-        </Typography>
-        <Autocomplete
-          onChange={(_, opt) => props.setEnte((opt as Option | null)?.value || null)}
-          id="free-solo-demo"
-          freeSolo
-          options={options}
-          renderInput={(params) => <TextField {...params} label="Cerca per nome dell'ente" />}
-        />
-      </Stack>
-    </Card>
-  );
-};
-
-const SelezionaServizio = () => 'Seleziona servizio';
-const ConfiguraPagamento = () => 'ConfiguraPagamento';
+import Steps from './steps';
+import SelezionaEnte from './steps/Ente';
+import SelezionaServizio, { Servizio } from './steps/Servizio';
+import ConfiguraPagamento from './steps/Configura';
+import { useTranslation } from 'react-i18next';
 
 const Spontanei = () => {
   const [steps, setSteps] = React.useState(0);
   const [ente, setEnte] = React.useState<string | null>(null);
+  const [servizio, setServizio] = React.useState<Servizio | null>(null);
+  const { t } = useTranslation();
 
   const onContinue = () => {
     setSteps(steps + 1);
   };
 
+  const onBack = () => {
+    if (steps === 0) return;
+    setSteps(steps - 1);
+  };
+
+  useEffect(() => {
+    setEnte(null);
+    setServizio(null);
+  }, [steps]);
+
   return (
     <Stack>
-      <Typography variant="h6">Configura pagamento spontaneo</Typography>
-      <Typography>Compila i campi richiesti e procedi col pagamento.</Typography>
+      <Typography variant="h6">{t('spontanei.form.title')}</Typography>
+      <Typography>{t('spontanei.form.description')}</Typography>
       <Stack spacing={4} mt={4}>
         <Steps activeStep={steps} />
         {steps === 0 && <SelezionaEnte setEnte={setEnte} />}
-        {steps === 1 && <SelezionaServizio />}
+        {steps === 1 && <SelezionaServizio setServizio={setServizio} />}
         {steps === 2 && <ConfiguraPagamento />}
         <Stack direction="row" justifyContent={'space-between'}>
-          <Button variant="outlined" startIcon={<ArrowBack />}>
-            Esci
+          <Button variant="outlined" onClick={onBack} startIcon={<ArrowBack />}>
+            {steps === 0 ? t('spontanei.form.abort') : t('spontanei.form.back')}
           </Button>
-          <Button variant="contained" onClick={onContinue} disabled={steps === 0 && !ente}>
-            Continua
+          <Button
+            variant="contained"
+            onClick={onContinue}
+            disabled={(steps === 0 && !ente) || (steps == 1 && !servizio)}>
+            {t('spontanei.form.continue')}
           </Button>
         </Stack>
       </Stack>

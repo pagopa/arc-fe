@@ -317,6 +317,30 @@
     "userpage": "I tuoi dati"
   },
   "spontanei": {
+    "form": {
+      "title": "Configura pagamento spontaneo",
+      "description": "Compila i campi richiesti e procedi col pagamento.",
+      "steps": {
+        "step1": {
+          "step": "Seleziona l’ente",
+          "title": "Seleziona l’ente beneficiario",
+          "description": "Inizia a digitare il nome dell’ente beneficiario del pagamento e selezionalo dalla lista.",
+          "search": "Cerca per nome dell'ente"
+        },
+        "step2": {
+          "step": "Seleziona il servizio",
+          "title": "Seleziona il servizio",
+          "description": "Inizia a digitare il nome del servizio per il quale vuoi effettuare il pagamento e selezionalo dalla lista.",
+          "search": "Cerca per nome del servizio"
+        },
+        "step3": {
+          "step": "Configura il pagamento"
+        }
+      },
+      "continue": "Continua",
+      "abort": "Esci",
+      "back": "Indietro"
+    },
     "drawer": {
       "title": "PAGA UN AVVISO",
       "card1": {
