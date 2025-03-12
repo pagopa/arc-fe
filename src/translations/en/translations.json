@@ -35,16 +35,16 @@
       }
     },
     "assistance": {
-      "title": "Come possiamo aiutarti?",
-      "description": "Se hai bisogno di supporto sull’utilizzo del portale, inserisci i dati richiesti per ricevere assistenza.",
-      "cardTitle": "Il tuo indirizzo email",
-      "cardDescription": "Indica l’indirizzo email su cui desideri ricevere le risposte dell’assistenza.",
-      "input1Placeholder": "Inserisci l'indirizzo email",
+      "title": "How can we help you?",
+      "description": "If you need assistance, you can open a support request.",
+      "cardTitle": "Your email address",
+      "cardDescription": "Indicate the email address on which you wish to receive replies from support.",
+      "input1Placeholder": "Your email",
       "input1Helper": "Inserisci un indirizzo email valido",
       "input2Helper": "Gli indirizzi email devono coincidere",
       "input2Placeholder": "Conferma l'indirizzo email",
-      "privacy": "Proseguendo dichiari di aver letto la <link1> Privacy Policy </link1> del servizio di assistenza al cittadino",
-      "confirm": "Conferma",
+      "privacy": "By continuing, you declare that you have read <link1> Privacy Policy </link1> of the citizen assistance service.",
+      "confirm": "Continue",
       "modalTitle": "Vuoi davvero uscire?",
       "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
     },
@@ -69,18 +69,18 @@
       }
     },
     "transactions": {
-      "all": "Tutte",
-      "paidByMe": "Pagate da me",
-      "ownedByMe": "Intestate a me",
+      "all": "All",
+      "paidByMe": "I paid for it",
+      "ownedByMe": "In my name",
       "searchByName": "Cerca per nome",
       "searchBy": "Cerca per",
       "orderBy": "Ordina per",
       "mostRecent": "più recente",
       "leastRecent": "meno recente",
-      "payee": "Nome dell’ente",
+      "payee": "Name of institution",
       "status": "Stato",
-      "date": "Data",
-      "amount": "Importo",
+      "date": "Date",
+      "amount": "Amount",
       "higherAmount": "importo più alto",
       "lowerAmount": "importo più basso",
       "multiEntities": "Avvisi Multipli",
@@ -108,12 +108,12 @@
       },
       "filtered.nodata": {
         "paidByMe": {
-          "title": "Qui vedrai le ricevute dei pagamenti fatti da te",
-          "text": "Se hai pagato con un altro canale, per ottenere la ricevuta rivolgiti all’ente creditore."
+          "title": "Here you will see receipts for payments made by you",
+          "text": "If you paid by other channel, you should contact the payee to obtain a receipt."
         },
         "ownedByMe": {
-          "title": "Qui vedrai le ricevute dei pagamenti intestati a te",
-          "text": "Se non torvi una ricevuta, rivolgiti all’ente creditore."
+          "title": "Here you can see receipts for payments made to you.",
+          "text": "Contact the payee if you cannot find a receipt."
         }
       },
       "error": {
@@ -121,25 +121,25 @@
         "button": "Riprova"
       },
       "card": {
-        "amount": "Importo",
+        "amount": "Amount",
         "multiPayment": "Altre opzioni di pagamento",
         "expiringDate": "Rata unica entro il",
         "detail": "Visualizza il dettaglio"
       }
     },
     "paymentNotices": {
-      "title": "I tuoi avvisi di pagamento",
-      "found_one": "Abbiamo trovato {{count}} avviso",
-      "found_other": "Abbiamo trovato {{count}} avvisi",
+      "title": "Your notices",
+      "found_one": "We have found {{count}} notice",
+      "found_other": "We have found {{count}} notices",
       "notice": "avvisi",
-      "updated": "Aggiornato il",
+      "updated": "Updated on",
       "loading": "Stiamo cercando tra gli archivi degli enti creditori aderenti al servizio...",
       "bottomAlert": {
         "info": "Gli avvisi di pagamento ci sono stati comunicati dagli Enti Creditori. In caso di problemi, rivolgiti all’ente."
       },
       "noticesAlert": {
-        "info": "Questi sono gli avvisi di pagamento che gli enti hanno comunicato a PagoPA. Se non trovi un avviso, rivolgiti all’Ente Creditore oppure premi su ‘Paga un avviso’ e inserisci i dati.",
-        "action": "Paga un avviso"
+        "info": "These are the notices that institutions have communicated to PagoPA. If you do not find a notice, contact the payee or click on ‘Pay a notice’ and enter the data.",
+        "action": "Pay a notice"
         },
       "optin": {
         "title": "Consenti a PagoPA di ricercare i tuoi avvisi?",
@@ -157,52 +157,52 @@
       "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
       "breadcrumbsElement": "Elemento breadcrumbs",
       "home": "Homepage",
-      "transactionDetail": "Dettaglio operazione",
-      "transactions": "Ricevute",
+      "transactionDetail": "Transaction detail",
+      "transactions": "Receipts",
       "user": "Your data",
       "paymentNotices": "Avvisi di pagamento",
       "paymentNoticeDetail": "Dettaglio avviso"
     },
     "transactionDetail": {
-      "title": "Dettaglio operazione",
+      "title": "Transaction detail",
       "card2": {
-        "title": "Informazioni sulla transazione"
+        "title": "Transaction Information"
       },
-      "downloadReceipt": "Scarica ricevuta",
+      "downloadReceipt": "Download receipt",
       "downloadReceiptError":"Non è stato possibile recuperare la ricevuta.",
       "noReceipt": "La ricevuta pagoPA non è disponibile. Rivolgiti all’Ente Creditore se hai bisogno della quietanza di pagamento, cioè il documento che attesta di aver saldato un debito.",
       "downloadQuiettance": "Scarica quietanza",
       "createdOn": "Creato il",
-      "paidBy": "Eseguito da",
+      "paidBy": "Executed by",
       "authCode": "Codice autorizzativo",
       "transactionId": "ID Transazione",
-      "accountHolder": "Intestato a",
-      "paymentMethod": "Metodo di pagamento",
-      "PSP": "Gestore della transazione (PSP)",
-      "dateAndTime": "Data e ora",
+      "accountHolder": "Method in the name of",
+      "paymentMethod": "Payment method",
+      "PSP": "Payment service provider",
+      "dateAndTime": "Date and time",
       "subject": "Oggetto",
-      "creditorEntity": "Ente creditore",
-      "creditorFiscalCode": "Codice Fiscale Ente",
-      "debtor": "Debitore",
-      "noticeCode": "Codice avviso",
+      "creditorEntity": "Payee",
+      "creditorFiscalCode": "Payee tax code",
+      "debtor": "Recipient",
+      "noticeCode": "Notice code",
       "partialAmount": "Importo parziale",
-      "amount": "Importo",
+      "amount": "Amount",
       "commission": "Commissione",
-      "total": "Totale",
+      "total": "Total",
       "somethingDoesntAddUp": "Qualcosa non torna?",
       "contactSupport": "Contatta l'assistenza",
-      "totalLabel": "Il totale comprende <strong>{{fee}}</strong> di commissione, applicata da {{psp}}"
+      "totalLabel": "The total includes <strong>{{fee}}</strong> commission charged by {{psp}}."
     },
     "paymentNoticeDetail": {
       "title": "Dettaglio avviso",
       "card1": {
         "title": "Dati del pagamento",
-        "amount": "Importo",
-        "paFullname": "Ente creditore",
+        "amount": "Amount",
+        "paFullname": "Payee",
         "subject": "Oggetto del pagamento",
         "dueDate": "Entro il",
-        "iuv": "Codice avviso",
-        "paTaxCode": "Codice fiscale ente"
+        "iuv": "Notice code",
+        "paTaxCode": "Payee tax code"
       },
       "card2": {
         "title": "Quanto e quando pagare?",
@@ -215,8 +215,8 @@
         "removeItemFromCart": "Rimuovi dal carrello"
       },
       "modal": {
-        "title": "Vedi un importo diverso?",
-        "description": "pagoPA aggiorna automaticamente l'importo per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi."
+        "title": "Do you see a different amount?",
+        "description": "pagoPA automatically updates the amount to ensure that you have paid exactly what you owe and thus avoid penalties or other interest."
       }
     }
   },
@@ -232,7 +232,7 @@
     "description": "Naviga il portale",
     "homepage": "Homepage",
     "receipts":{
-      "menuTitle":"Ricevute",
+      "menuTitle":"Recepits",
        "pageTitle": "Your receipts"
     },
     "navigationMenu": "Menù di navigazione",
@@ -283,28 +283,28 @@
       "cta": "Torna in home"
     },
     "401": {
-      "title": "La tua sessione è scaduta",
-      "body": "Accedi per continuare ad usare il sito.",
-      "cta": "Accedi"
+      "title": "Your session has expired",
+      "body": "Please log in to continue using the site.",
+      "cta": "Login"
     },
     "403": {
-      "title": "Non è stato possibile accedere",
-      "body": "L'Area Riservata di pagoPA è in fase di sviluppo, al momento l'accesso non è disponibile"
+      "title": "It was not possible to access",
+      "body": "The pagoPA private area is under development, access is currently not available."
     },
     "408": {
-      "title": "Non è stato possibile accedere",
-      "body": "Si è verificato un problema durante l'accesso. Riprova tra qualche minuto.",
-      "cta": "Riprova"
+      "title": "It was not possible to access",
+      "body": "A problem occurred while logging in. Please try again in a few minutes.",
+      "cta": "Retry"
     },
     "422": {
-      "title": "Non possiamo procedere con il pagamento",
-      "body": "Per avere maggiori informazioni sull’avviso contatta l’Ente Creditore.",
-      "cta": "Chiudi"
+      "title": "Sorry, we can't go ahead with the payment",
+      "body": "For more information on the notice, contact the payee",
+      "cta": "Close"
     },
     "423": {
-      "title": "Non siamo riusciti ad avviare il pagamento",
-      "body": "Riprova tra qualche minuto.",
-      "cta": "Chiudi"
+      "title": "We couldn't start the payment",
+      "body": "Please try again in a few minutes",
+      "cta": "Close"
     }
   },
   "pageTitles" : {
