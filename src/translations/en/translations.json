@@ -1,25 +1,319 @@
 {
   "app": {
-    "title": "PagoPa - Checkout Evolved",
+    "title": "Area riservata pagoPA",
+    "info": "Informazioni",
+    "modal": {
+      "close": "Chiudi modale"
+    },
     "user": {
       "title": "Your data",
-      "subtitle": "This data is used to generate receipts.",
+      "subtitle": "This data is derived from your SPID or CIE. To change them, contact your digital identity provider.",
       "info": {
         "name": "Name",
         "surname": "Surname",
-        "identifier": "Tax code",
-        "email": "Email"
+        "identifier": "Fiscal Code",
+        "email": "Email address"
+      }
+    },
+    "cart": {
+      "header": {
+        "title": "Il tuo carrello",
+        "close": "Chiudi carrello",
+        "amount": "Totale Parziale"
+      },
+      "empty": {
+        "title": "Il tuo carrello è vuoto",
+        "description": "Aggiungi uno o più avvisi al tuo carrello per procedere con il pagamento",
+        "button": "Torna agli avvisi"
+      },
+      "items": {
+        "alert": "L’importo si aggiorna in automatico, così paghi sempre quanto dovuto ed eviti more o altri interessi. <link1>Vuoi saperne di più?</link1>",
+        "back": "Torna agli avvisi",
+        "pay": "Vai al pagamento",
+        "full": "Non puoi aggiungere più di 5 avvisi al carrello",
+        "info": "Puoi pagare fino a 5 avvisi insieme"
+      }
+    },
+    "assistance": {
+      "title": "Come possiamo aiutarti?",
+      "description": "Se hai bisogno di supporto sull’utilizzo del portale, inserisci i dati richiesti per ricevere assistenza.",
+      "cardTitle": "Il tuo indirizzo email",
+      "cardDescription": "Indica l’indirizzo email su cui desideri ricevere le risposte dell’assistenza.",
+      "input1Placeholder": "Inserisci l'indirizzo email",
+      "input1Helper": "Inserisci un indirizzo email valido",
+      "input2Helper": "Gli indirizzi email devono coincidere",
+      "input2Placeholder": "Conferma l'indirizzo email",
+      "privacy": "Proseguendo dichiari di aver letto la <link1> Privacy Policy </link1> del servizio di assistenza al cittadino",
+      "confirm": "Conferma",
+      "modalTitle": "Vuoi davvero uscire?",
+      "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
+    },
+    "login": {
+      "title": "Area Riservata pagoPA",
+      "description": "La tua area personale in cui gestire i pagamenti pagoPA e scaricare le ricevute.",
+      "terms": "Accedendo accetti i <link1>Termini e condizioni d’uso</link1> del servizio e confermi di avere letto l'<link2>Informativa Privacy </link2> ",
+      "areYouAnEnterprise": "Sei un'impresa?",
+      "accessYourArea": "Accedi alla tua area",
+      "login": "Accedi"
+    },
+    "dashboard": {
+      "title": "Hi {{username}}!",
+      "greetings": "Benvenuto",
+      "newPayment": "Pay a notice",
+      "lastTransactions": "Your receipts",
+      "seeAllTransactions": "See all",
+      "IOAlert": {
+        "title": "Vuoi accedere alle tue ricevute e pagare gli avvisi più velocemente?",
+        "description": "Visualizza e gestisci i tuoi metodi di pagamento e tutte le tue ricevute",
+        "cta": "Scarica app IO"
+      }
+    },
+    "transactions": {
+      "all": "Tutte",
+      "paidByMe": "Pagate da me",
+      "ownedByMe": "Intestate a me",
+      "searchByName": "Cerca per nome",
+      "searchBy": "Cerca per",
+      "orderBy": "Ordina per",
+      "mostRecent": "più recente",
+      "leastRecent": "meno recente",
+      "payee": "Nome dell’ente",
+      "status": "Stato",
+      "date": "Data",
+      "amount": "Importo",
+      "higherAmount": "importo più alto",
+      "lowerAmount": "importo più basso",
+      "multiEntities": "Avvisi Multipli",
+      "paid": "Pagato",
+      "viewDetail": "Visualizza il dettaglio per la transazione",
+      "empty": {
+        "title": "Here you can see your pagoPA receipts",
+        "subtitle": "Pay a notice with any pagoPA-enabled channel."
+      },
+      "error": {
+        "title": "Non riusciamo a recuperare i dati a causa di un problema.",
+        "retry": "Riprova"
+      }
+    },
+    "paymentNotice": {
+      "preview": {
+        "title": "Cerca i tuoi avvisi di pagamento pagoPA",
+        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome che gli Enti Creditori ci hanno comunicato.",
+        "action": "Cerca i tuoi avvisi"
+      },
+      "empty": {
+        "title": "Non abbiamo trovato avvisi da pagare",
+        "description": "Se hai ricevuto un avviso pagoPA, premi su ‘Paga un avviso’ e inserisci i dati.",
+        "button": "Paga un avviso"
+      },
+      "filtered.nodata": {
+        "paidByMe": {
+          "title": "Qui vedrai le ricevute dei pagamenti fatti da te",
+          "text": "Se hai pagato con un altro canale, per ottenere la ricevuta rivolgiti all’ente creditore."
+        },
+        "ownedByMe": {
+          "title": "Qui vedrai le ricevute dei pagamenti intestati a te",
+          "text": "Se non torvi una ricevuta, rivolgiti all’ente creditore."
+        }
+      },
+      "error": {
+        "description": "Non riusciamo a recuperare i dati a causa di un problema.",
+        "button": "Riprova"
+      },
+      "card": {
+        "amount": "Importo",
+        "multiPayment": "Altre opzioni di pagamento",
+        "expiringDate": "Rata unica entro il",
+        "detail": "Visualizza il dettaglio"
+      }
+    },
+    "paymentNotices": {
+      "title": "I tuoi avvisi di pagamento",
+      "found_one": "Abbiamo trovato {{count}} avviso",
+      "found_other": "Abbiamo trovato {{count}} avvisi",
+      "notice": "avvisi",
+      "updated": "Aggiornato il",
+      "loading": "Stiamo cercando tra gli archivi degli enti creditori aderenti al servizio...",
+      "bottomAlert": {
+        "info": "Gli avvisi di pagamento ci sono stati comunicati dagli Enti Creditori. In caso di problemi, rivolgiti all’ente."
+      },
+      "noticesAlert": {
+        "info": "Questi sono gli avvisi di pagamento che gli enti hanno comunicato a PagoPA. Se non trovi un avviso, rivolgiti all’Ente Creditore oppure premi su ‘Paga un avviso’ e inserisci i dati.",
+        "action": "Paga un avviso"
+        },
+      "optin": {
+        "title": "Consenti a PagoPA di ricercare i tuoi avvisi?",
+        "body": "Se confermi, consenti a PagoPA di ricercare gli avvisi di pagamento a tuo nome tra gli archivi degli enti aderenti al servizio.",
+        "privacy": "Proseguendo accetti l’<a1>Informativa Privacy</a1> e i <a2>Termini e Condizioni d’uso</a2> del servizio."
+      }
+    },
+    "routes": {
+      "back": "Indietro",
+      "exit": "Esci",
+      "cancel": "Annulla",
+      "continue": "Continua",
+      "consent": "Consenti",
+      "breadcrumbs": "breadcrumbs",
+      "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
+      "breadcrumbsElement": "Elemento breadcrumbs",
+      "home": "Homepage",
+      "transactionDetail": "Dettaglio operazione",
+      "transactions": "Ricevute",
+      "user": "Your data",
+      "paymentNotices": "Avvisi di pagamento",
+      "paymentNoticeDetail": "Dettaglio avviso"
+    },
+    "transactionDetail": {
+      "title": "Dettaglio operazione",
+      "card2": {
+        "title": "Informazioni sulla transazione"
+      },
+      "downloadReceipt": "Scarica ricevuta",
+      "downloadReceiptError":"Non è stato possibile recuperare la ricevuta.",
+      "noReceipt": "La ricevuta pagoPA non è disponibile. Rivolgiti all’Ente Creditore se hai bisogno della quietanza di pagamento, cioè il documento che attesta di aver saldato un debito.",
+      "downloadQuiettance": "Scarica quietanza",
+      "createdOn": "Creato il",
+      "paidBy": "Eseguito da",
+      "authCode": "Codice autorizzativo",
+      "transactionId": "ID Transazione",
+      "accountHolder": "Intestato a",
+      "paymentMethod": "Metodo di pagamento",
+      "PSP": "Gestore della transazione (PSP)",
+      "dateAndTime": "Data e ora",
+      "subject": "Oggetto",
+      "creditorEntity": "Ente creditore",
+      "creditorFiscalCode": "Codice Fiscale Ente",
+      "debtor": "Debitore",
+      "noticeCode": "Codice avviso",
+      "partialAmount": "Importo parziale",
+      "amount": "Importo",
+      "commission": "Commissione",
+      "total": "Totale",
+      "somethingDoesntAddUp": "Qualcosa non torna?",
+      "contactSupport": "Contatta l'assistenza",
+      "totalLabel": "Il totale comprende <strong>{{fee}}</strong> di commissione, applicata da {{psp}}"
+    },
+    "paymentNoticeDetail": {
+      "title": "Dettaglio avviso",
+      "card1": {
+        "title": "Dati del pagamento",
+        "amount": "Importo",
+        "paFullname": "Ente creditore",
+        "subject": "Oggetto del pagamento",
+        "dueDate": "Entro il",
+        "iuv": "Codice avviso",
+        "paTaxCode": "Codice fiscale ente"
+      },
+      "card2": {
+        "title": "Quanto e quando pagare?",
+        "firstInstallmentDate": "Rata unica entro",
+        "firstInstallmentAmount": "Importo",
+        "button1": "Paga ora",
+        "label1": "Oppure",
+        "button2": "Scarica l'avviso pagoPA",
+        "addItemToCart": "Aggiungi al carrello",
+        "removeItemFromCart": "Rimuovi dal carrello"
+      },
+      "modal": {
+        "title": "Vedi un importo diverso?",
+        "description": "pagoPA aggiorna automaticamente l'importo per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi."
       }
     }
   },
-  "general": {
-    "and": "&"
-  },
-  "header": {
-    "disclaimer": ""
-  },
   "aria": {
-    "a11y": "Accessibility"
+    "a11y": "Accessibilità",
+    "help": "Aiuto"
+  },
+  "general": {
+    "and": "e",
+    "PagoPA": "PagoPA S.p.A"
+  },
+  "menu": {
+    "description": "Naviga il portale",
+    "homepage": "Homepage",
+    "receipts":{
+      "menuTitle":"Ricevute",
+       "pageTitle": "Your receipts"
+    },
+    "navigationMenu": "Menù di navigazione",
+    "menu": "Menu",
+    "paymentNotices": "Avvisi di pagamento"
+  },
+  "sidebar": {
+    "collapse": "Comprimi il menu",
+    "expand": "Espandi il menu"
+  },
+  "ui": {
+    "a11y": {
+      "cart": "Visualizza il carrello dei pagamenti",
+      "home": "Vai alla home page"
+    },
+    "header": {
+      "disclaimer": ""
+    },
+    "footer": {
+      "disclaimer": "",
+      "a11y": "Accessibilità",
+      "help": "Aiuto",
+      "privacy": "Informativa Privacy",
+      "who": "Chi siamo",
+      "pnrr": "PNRR",
+      "media": "Media",
+      "workWithUs": "Lavora con noi",
+      "products": "Prodotti e servizi",
+      "personalData": "Diritto alla protezione dei dati personali",
+      "termsAndConditions": "Termini e condizioni d'uso",
+      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009",
+      "resources": "Risorse",
+      "terms": "Termini e condizioni",
+      "certifications": "Certificazioni",
+      "security": "Sicurezza delle informazioni",
+      "dataProtectionRights": "Diritto alla protezione dei dati personali",
+      "cookie": "Preferenze cookie",
+      "transparentCompany": "Società trasparente",
+      "dislosurePolicy": "Responsabile Disclosure Policy",
+      "231": "Modello 231",
+      "followUs": "Seguici su"
+    }
+  },
+  "courtesyPage": {
+    "default": {
+      "title": "La pagina che stai cercando non esiste",
+      "body": "Puoi tornare in homepage o visitare una nuova pagina",
+      "cta": "Torna in home"
+    },
+    "401": {
+      "title": "La tua sessione è scaduta",
+      "body": "Accedi per continuare ad usare il sito.",
+      "cta": "Accedi"
+    },
+    "403": {
+      "title": "Non è stato possibile accedere",
+      "body": "L'Area Riservata di pagoPA è in fase di sviluppo, al momento l'accesso non è disponibile"
+    },
+    "408": {
+      "title": "Non è stato possibile accedere",
+      "body": "Si è verificato un problema durante l'accesso. Riprova tra qualche minuto.",
+      "cta": "Riprova"
+    },
+    "422": {
+      "title": "Non possiamo procedere con il pagamento",
+      "body": "Per avere maggiori informazioni sull’avviso contatta l’Ente Creditore.",
+      "cta": "Chiudi"
+    },
+    "423": {
+      "title": "Non siamo riusciti ad avviare il pagamento",
+      "body": "Riprova tra qualche minuto.",
+      "cta": "Chiudi"
+    }
+  },
+  "pageTitles" : {
+    "dashboard": "La tua Dashboard",
+    "paymentnotices": "I tuoi avvisi di pagamento",
+    "paymentnotice": "Dettaglio avviso",
+    "notices": "Le tue ricevute di pagamento",
+    "notice": "Dettaglio operazione",
+    "courtesy": "Pagina di cortesia",
+    "userpage": "I tuoi dati"
   }
 }
-
