@@ -249,7 +249,9 @@
       "home": "Vai alla home page"
     },
     "header": {
-      "disclaimer": ""
+      "disclaimer": "",
+      "profile": "I tuoi dati",
+      "logout": "Esci"
     },
     "footer": {
       "disclaimer": "",

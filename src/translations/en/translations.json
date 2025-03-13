@@ -19,15 +19,15 @@
       "header": {
         "title": "Il tuo carrello",
         "close": "Chiudi carrello",
-        "amount": "Totale Parziale"
+        "amount": "Subtotal"
       },
       "empty": {
-        "title": "Il tuo carrello è vuoto",
-        "description": "Aggiungi uno o più avvisi al tuo carrello per procedere con il pagamento",
+        "title": "Your cart is empty",
+        "description": "Add one or more notices to your cart to proceed with payment",
         "button": "Torna agli avvisi"
       },
       "items": {
-        "alert": "L’importo si aggiorna in automatico, così paghi sempre quanto dovuto ed eviti more o altri interessi. <link1>Vuoi saperne di più?</link1>",
+        "alert": "The amount is updated automatically, so you always pay what is due and avoid penalties or other interest. <link1>Vuoi saperne di più?</link1>",
         "back": "Torna agli avvisi",
         "pay": "Vai al pagamento",
         "full": "Non puoi aggiungere più di 5 avvisi al carrello",
@@ -148,7 +148,7 @@
       }
     },
     "routes": {
-      "back": "Indietro",
+      "back": "Back",
       "exit": "Esci",
       "cancel": "Annulla",
       "continue": "Continua",
@@ -249,7 +249,9 @@
       "home": "Vai alla home page"
     },
     "header": {
-      "disclaimer": ""
+      "disclaimer": "",
+      "profile": "Your data",
+      "logout": "Logout"
     },
     "footer": {
       "disclaimer": "",
