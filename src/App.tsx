@@ -38,11 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.LOGIN,
-        element: (
-          <PreLoginLayout>
-            <Login />
-          </PreLoginLayout>
-        )
+        element: <Login />
       },
       {
         path: ArcRoutes.AUTH_CALLBACK,

@@ -10,7 +10,9 @@ const Login = () => {
     // In development it's better to disable this redirect
     // to allow the developer to set a proper valid
     // acessToken and navigate the application on localhost
-    utils.config.env !== 'LOCAL' && window.location.replace(utils.config.loginUrl);
+    if (utils.config.env !== 'LOCAL' || window.location.hostname !== 'localhost') {
+      window.location.replace(utils.config.loginUrl);
+    }
   }, []);
 
   return null;

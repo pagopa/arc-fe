@@ -5,15 +5,13 @@ import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 
 describe('LoginRoute', () => {
-  it('renders without crashing', async () => {
-    render(
+  it('renders nothing without crashing', async () => {
+    const { container } = render(
       <BrowserRouter>
         <Login />
       </BrowserRouter>
     );
 
-    await waitFor(() => {
-      expect(screen.getByLabelText('app.login.login')).toBeInTheDocument();
-    });
+    expect(container).toBeEmptyDOMElement();
   });
 });
