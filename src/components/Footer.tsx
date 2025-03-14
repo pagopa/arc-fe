@@ -41,7 +41,18 @@ export const Footer = () => {
             linkType: 'external',
             onClick: () => window.open(ArcRoutes.TOS, '_blank')?.focus()
           },
-          { label: t('aria.a11y'), ariaLabel: t('aria.a11y'), linkType: 'internal' }
+          {
+            label: t('aria.a11y'),
+            ariaLabel: t('aria.a11y'),
+            linkType: 'external',
+            onClick: () =>
+              window
+                .open(
+                  'https://form.agid.gov.it/view/cbed4100-ff1e-11ef-aef0-65558716aff1',
+                  '_blank'
+                )
+                ?.focus()
+          }
         ]}
         currentLangCode={language}
         languages={lang}
