@@ -334,7 +334,9 @@
           "search": "Cerca per nome del servizio"
         },
         "step3": {
-          "step": "Configura il pagamento"
+          "step": "Configura il pagamento",
+          "title": "Configura il pagamento",
+          "description": "Inserisci l’importo da pagare, se necessario, e aggiungi una causale."
         }
       },
       "continue": "Continua",
