@@ -7,7 +7,8 @@ const Steps = (props: { activeStep: number }) => {
   const steps = [
     t('spontanei.form.steps.step1.step'),
     t('spontanei.form.steps.step2.step'),
-    t('spontanei.form.steps.step3.step')
+    t('spontanei.form.steps.step3.step'),
+    t('spontanei.form.steps.step4.step')
   ];
   return (
     <Stepper activeStep={props.activeStep} alternativeLabel>

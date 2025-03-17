@@ -4,7 +4,7 @@ import utils from 'utils';
 import { useTranslation } from 'react-i18next';
 
 interface SelezionaEnteProps {
-  setEnte: (ente: string | null) => void;
+  setEnte: (ente: { paFullName: string; paTaxCode: string } | null) => void;
 }
 
 interface EnteOption {
@@ -24,7 +24,16 @@ const SelezionaEnte = (props: SelezionaEnteProps) => {
         <Typography variant="h6">{t('spontanei.form.steps.step1.title')}</Typography>
         <Typography>{t('spontanei.form.steps.step1.description')}</Typography>
         <Autocomplete
-          onChange={(_, opt) => props.setEnte((opt as EnteOption | null)?.value || null)}
+          onChange={(_, opt) => {
+            if (opt) {
+              props.setEnte({
+                paFullName: (opt as EnteOption).label,
+                paTaxCode: (opt as EnteOption).value
+              });
+            } else {
+              props.setEnte(null);
+            }
+          }}
           id="free-solo-demo"
           freeSolo
           options={options}

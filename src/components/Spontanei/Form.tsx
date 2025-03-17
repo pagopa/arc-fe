@@ -5,20 +5,33 @@ import Steps from './steps';
 import SelezionaEnte from './steps/Ente';
 import SelezionaServizio, { Servizio } from './steps/Servizio';
 import ConfiguraPagamento from './steps/Configura';
+import Riepilogo from './steps/Riepilogo';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import utils from 'utils';
+import { PaymentNoticeDetailsDTO } from '../../../generated/apiClient';
 
 const Spontanei = () => {
   const [step, setStep] = React.useState(0);
-  const [ente, setEnte] = React.useState<string | null>(null);
+  const [ente, setEnte] = React.useState<{ paFullName: string; paTaxCode: string } | null>(null);
   const [servizio, setServizio] = React.useState<Servizio | null>(null);
   const [amount, setAmount] = React.useState<number>(0);
   const [causale, setCausale] = React.useState('');
+  const [spontaneo, setSpontaneo] = React.useState<PaymentNoticeDetailsDTO | null>(null);
 
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const onContinue = () => {
+  const onContinue = async () => {
+    if (step === 2) {
+      const { data } = await utils.loaders.generateNotice({
+        paFullName: ente?.paFullName || '',
+        paTaxCode: ente?.paTaxCode || '',
+        amount: amount * 100,
+        description: causale
+      });
+      setSpontaneo(data);
+    }
     if (step === 1 && servizio === 'Bollo Auto') {
       window.open('https://www.tributi.regione.lombardia.it/PagoBollo/#/', '');
       return;
@@ -46,6 +59,8 @@ const Spontanei = () => {
   const OnAmountChange =
     servizio !== 'Rinnovo Licenza Caccia' ? (amount: number) => setAmount(amount) : undefined;
 
+  console.log(ente);
+
   return (
     <Stack>
       <Typography variant="h6">{t('spontanei.form.title')}</Typography>
@@ -61,21 +76,24 @@ const Spontanei = () => {
             onAmountChange={OnAmountChange}
           />
         )}
-        <Stack direction="row" justifyContent={'space-between'}>
-          <Button variant="outlined" onClick={onBack} startIcon={<ArrowBack />}>
-            {step === 0 ? t('spontanei.form.abort') : t('spontanei.form.back')}
-          </Button>
-          <Button
-            variant="contained"
-            onClick={onContinue}
-            disabled={
-              (step === 0 && !ente) ||
-              (step == 1 && !servizio) ||
-              (step == 2 && (!causale || !amount))
-            }>
-            {t('spontanei.form.continue')}
-          </Button>
-        </Stack>
+        {step === 3 && spontaneo && <Riepilogo spontaneo={spontaneo} />}
+        {step !== 3 && (
+          <Stack direction="row" justifyContent={'space-between'}>
+            <Button variant="outlined" onClick={onBack} startIcon={<ArrowBack />}>
+              {step === 0 ? t('spontanei.form.abort') : t('spontanei.form.back')}
+            </Button>
+            <Button
+              variant="contained"
+              onClick={onContinue}
+              disabled={
+                (step === 0 && !ente) ||
+                (step == 1 && !servizio) ||
+                (step == 2 && (!causale || !amount))
+              }>
+              {t('spontanei.form.continue')}
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </Stack>
   );

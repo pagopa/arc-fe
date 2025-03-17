@@ -5,6 +5,7 @@ import { ZodSchema } from 'zod';
 import * as zodSchema from '../../generated/zod-schema';
 import { Params } from 'react-router-dom';
 import converters from './converters';
+import { PaymentNoticePayloadDTO } from '../../generated/apiClient';
 
 const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true): void | never => {
   const result = schema.safeParse(data);
@@ -162,6 +163,9 @@ export const getOrganizations = () =>
     }
   });
 
+export const generateNotice = (body: PaymentNoticePayloadDTO) =>
+  utils.apiClient.paymentNotices.postGeneratePaymentNotice(body);
+
 export default {
   getPaymentNotices,
   getPaymentNoticeDetails,
@@ -171,5 +175,6 @@ export default {
   getNoticesList,
   getUserInfo,
   getUserInfoOnce,
-  getOrganizations
+  getOrganizations,
+  generateNotice
 };

@@ -337,6 +337,11 @@
           "step": "Configura il pagamento",
           "title": "Configura il pagamento",
           "description": "Inserisci l’importo da pagare, se necessario, e aggiungi una causale."
+        },
+        "step4": {
+          "step": "Riepilogo",
+          "title": "Dettaglio pagamento spontaneo",
+          "description": "Aggiungi l'avviso nel carrello e procedi con il pagamento"
         }
       },
       "continue": "Continua",
