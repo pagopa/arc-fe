@@ -340,7 +340,7 @@
         },
         "step4": {
           "step": "Riepilogo",
-          "title": "Dettaglio pagamento spontaneo",
+          "title": "Riepilogo",
           "description": "Aggiungi l'avviso nel carrello e procedi con il pagamento"
         }
       },
