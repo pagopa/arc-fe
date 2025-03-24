@@ -30,7 +30,7 @@
         "alert": "The amount is updated automatically, so you always pay what is due and avoid penalties or other interest. <link1>Vuoi saperne di più?</link1>",
         "back": "Back to notices",
         "pay": "Continue and pay",
-        "full": "Non puoi aggiungere più di 5 avvisi al carrello",
+        "full": "You cannot add more than 5 notices to your cart",
         "info": "You can pay up to 5 notices together"
       }
     },
@@ -40,13 +40,13 @@
       "cardTitle": "Your email address",
       "cardDescription": "Indicate the email address on which you wish to receive replies from support.",
       "input1Placeholder": "Your email",
-      "input1Helper": "Inserisci un indirizzo email valido",
-      "input2Helper": "Gli indirizzi email devono coincidere",
-      "input2Placeholder": "Conferma l'indirizzo email",
+      "input1Helper": "Please enter a valid email address",
+      "input2Helper": "Email addresses must match",
+      "input2Placeholder": "Confirm",
       "privacy": "By continuing, you declare that you have read <link1> Privacy Policy </link1> of the citizen assistance service.",
       "confirm": "Continue",
-      "modalTitle": "Vuoi davvero uscire?",
-      "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
+      "modalTitle": "Do you really want to quit?",
+      "modalDescription": "If you quit, the request for assistance will be lost."
     },
     "dashboard": {
       "title": "Hi {{username}}!",
@@ -66,15 +66,15 @@
       "payee": "Name of institution",
       "date": "Date",
       "amount": "Amount",
-      "multiEntities": "Avvisi Multipli",
-      "paid": "Pagato",
+      "multiEntities": "Multiple notices",
+      "paid": "Paid",
       "empty": {
         "title": "Here you can see your pagoPA receipts",
         "subtitle": "Pay a notice with any pagoPA-enabled channel."
       },
       "error": {
-        "title": "Non riusciamo a recuperare i dati a causa di un problema.",
-        "retry": "Retry"
+        "title": "We cannot retrieve the data",
+        "retry": "Try again"
       }
     },
     "paymentNotice": {
@@ -84,9 +84,9 @@
         "action": "Find your notices"
       },
       "empty": {
-        "title": "Non abbiamo trovato avvisi da pagare",
-        "description": "Se hai ricevuto un avviso pagoPA, premi su ‘Paga un avviso’ e inserisci i dati.",
-        "button": "Paga un avviso"
+        "title": "We found no notices to pay",
+        "description": "If you have received a pagoPA notice, click on ‘Pay a notice’ and enter the data.",
+        "button": "Pay a notice"
       },
       "filtered.nodata": {
         "paidByMe": {
@@ -99,14 +99,14 @@
         }
       },
       "error": {
-        "description": "Non riusciamo a recuperare i dati a causa di un problema.",
-        "button": "Riprova"
+        "description": "We cannot retrieve the data.",
+        "button": "Try again"
       },
       "card": {
         "amount": "Amount",
-        "multiPayment": "Altre opzioni di pagamento",
+        "multiPayment": "Other payment options",
         "expiringDate": "Single instalment by",
-        "detail": "Visualizza il dettaglio"
+        "detail": "Show detail"
       }
     },
     "paymentNotices": {
@@ -149,12 +149,12 @@
         "title": "Transaction Information"
       },
       "downloadReceipt": "Download receipt",
-      "downloadReceiptError":"Non è stato possibile recuperare la ricevuta.",
-      "noReceipt": "La ricevuta pagoPA non è disponibile. Rivolgiti all’Ente Creditore se hai bisogno della quietanza di pagamento, cioè il documento che attesta di aver saldato un debito.",
-      "downloadQuiettance": "Scarica quietanza",
+      "downloadReceiptError":"Receipt could not be retrieved",
+      "noReceipt": "The pagoPA receipt is not available. Contact the Payee if you need the payment receipt, i.e. the document certifying that a debt has been settled.",
+      "downloadQuiettance": "Download receipt",
       "paidBy": "Executed by",
-      "authCode": "Codice autorizzativo",
-      "transactionId": "ID Transazione",
+      "authCode": "authorisation code",
+      "transactionId": "Transaction ID",
       "accountHolder": "Method in the name of",
       "paymentMethod": "Payment method",
       "PSP": "Payment service provider",
@@ -170,7 +170,7 @@
     "paymentNoticeDetail": {
       "title": "Notice detail",
       "card1": {
-        "title": "Dati del pagamento",
+        "title": "Payment details",
         "amount": "Amount",
         "paFullname": "Payee",
         "subject": "Payment description",
@@ -182,9 +182,9 @@
         "title": "How much and when to pay?",
         "firstInstallmentDate": "Single instalment by",
         "firstInstallmentAmount": "Amount",
-        "button1": "Paga ora",
-        "label1": "Oppure",
-        "button2": "Scarica l'avviso pagoPA",
+        "button1": "Pay now",
+        "label1": "or",
+        "button2": "Download pagoPA notice",
         "addItemToCart": "Add to cart",
         "removeItemFromCart": "Remove from cart"
       },
@@ -202,27 +202,26 @@
     "PagoPA": "PagoPA S.p.A"
   },
   "menu": {
-    "description": "Naviga il portale",
+    "description": "Browse the website",
     "homepage": "Homepage",
     "receipts":{
       "menuTitle":"Recepits",
        "pageTitle": "Your receipts"
     },
-    "navigationMenu": "Menù di navigazione",
+    "navigationMenu": "Navigation menu",
     "menu": "Menu",
     "paymentNotices": "Payment notices"
   },
   "sidebar": {
-    "collapse": "Comprimi il menu",
-    "expand": "Espandi il menu"
+    "collapse": "Collapse menu",
+    "expand": "Expand the menu"
   },
   "ui": {
     "a11y": {
-      "cart": "Visualizza il carrello dei pagamenti",
-      "home": "Vai alla home page"
+      "cart": "Show payment cart",
+      "home": "Go to home page"
     },
     "header": {
-      "disclaimer": "",
       "profile": "Your data",
       "logout": "Logout"
     },
@@ -231,14 +230,14 @@
       "privacy": "Privacy",
       "personalData": "Data protection",
       "termsAndConditions": "Terms",
-      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009",
+      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009"
     }
   },
   "courtesyPage": {
     "default": {
-      "title": "La pagina che stai cercando non esiste",
-      "body": "Puoi tornare in homepage o visitare una nuova pagina",
-      "cta": "Torna in home"
+      "title": "The page you are looking for does not exist",
+      "body": "You can go back to the homepage or visit a new page",
+      "cta": "Back to homepage"
     },
     "401": {
       "title": "Your session has expired",
