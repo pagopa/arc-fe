@@ -31,10 +31,18 @@ describe('UserRoute', () => {
     vi.clearAllMocks();
   });
 
-  it('renders without crashing', async () => {
+  it('renders tos without crashing', async () => {
     render(
       <QueryClientProvider client={queryClient}>
-        <Resources />
+        <Resources resource="tos" />
+      </QueryClientProvider>
+    );
+  });
+
+  it('renders pp without crashing', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Resources resource="pp" />
       </QueryClientProvider>
     );
   });
