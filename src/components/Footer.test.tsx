@@ -22,5 +22,6 @@ describe('Footer Component', () => {
   it('clicking on links behaves as expected', () => {
     render(<Footer />);
     fireEvent.click(screen.getByText('ui.footer.privacy'));
+    fireEvent.click(screen.getByText('aria.a11y'));
   });
 });

@@ -5,6 +5,7 @@ import { App } from './App';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StoreProvider } from 'store/GlobalStore';
 import Matomo from 'components/Matomo';
+import CookieBanner from 'components/CookieBanner';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -15,6 +16,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <StoreProvider>
         <Matomo />
+        <CookieBanner />
         <App />
       </StoreProvider>
     </QueryClientProvider>

@@ -119,6 +119,27 @@
       "env": {
         "ENV": "PROD"
       }
+    },
+    {
+      "staticPath": "src/components/CookieBanner/assets/019501b5-266d-7001-9222-526523cd490d-test",
+      "staticOutPath": "onetrust/consent/019501b5-266d-7001-9222-526523cd490d-test",
+      "env": {
+        "ENV": "DEV"
+      }
+    },
+    {
+      "staticPath": "src/components/CookieBanner/assets/019501b5-266d-7001-9222-526523cd490d-test",
+      "staticOutPath": "onetrust/consent/019501b5-266d-7001-9222-526523cd490d-test",
+      "env": {
+        "ENV": "UAT"
+      }
+    },
+    {
+      "staticPath": "src/components/CookieBanner/assets/019501b5-266d-7001-9222-526523cd490d",
+      "staticOutPath": "onetrust/consent/019501b5-266d-7001-9222-526523cd490d",
+      "env": {
+        "ENV": "PROD"
+      }
     }
   ]
 }
