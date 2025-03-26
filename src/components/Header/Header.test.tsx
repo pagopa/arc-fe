@@ -60,11 +60,11 @@ describe('Header component', () => {
 
     fireEvent.click(screen.getByText('John Doe'));
     // Check if HeaderAccount is rendered
-    const profileButton = screen.getByText('I tuoi dati');
+    const profileButton = screen.getByText('ui.header.profile');
     expect(profileButton).toBeInTheDocument();
 
     // Check if logout is rendered
-    const product = screen.getByText('Esci');
+    const product = screen.getByText('ui.header.logout');
     expect(product).toBeInTheDocument();
   });
 
@@ -79,7 +79,7 @@ describe('Header component', () => {
   it('should navigate to user when profile is clicked', () => {
     render(<WrappedHeader />);
     fireEvent.click(screen.getByText('John Doe'));
-    const profileButton = screen.getByText('I tuoi dati');
+    const profileButton = screen.getByText('ui.header.profile');
     fireEvent.click(profileButton);
 
     // Ensure it navigates to the user profile route
@@ -96,7 +96,7 @@ describe('Header component', () => {
     // Click on the user dropdown to show the "Esci" (logout) button
     fireEvent.click(screen.getByText('John Doe'));
     // Click on the "Esci" button
-    const logoutButton = screen.getByText('Esci');
+    const logoutButton = screen.getByText('ui.header.logout');
     fireEvent.click(logoutButton);
 
     await waitFor(() => {
