@@ -63,7 +63,9 @@ const Spontanei = () => {
 
   return (
     <Stack>
-      <Typography variant="h6">{t('spontanei.form.title')}</Typography>
+      <Typography variant="h6" mb={1}>
+        {t('spontanei.form.title')}
+      </Typography>
       <Typography>{t('spontanei.form.description')}</Typography>
       <Stack spacing={4} mt={4}>
         <Steps activeStep={step} />
@@ -79,10 +81,11 @@ const Spontanei = () => {
         {step === 3 && spontaneo && <Riepilogo spontaneo={spontaneo} />}
         {step !== 3 && (
           <Stack direction="row" justifyContent={'space-between'}>
-            <Button variant="outlined" onClick={onBack} startIcon={<ArrowBack />}>
+            <Button size="large" variant="outlined" onClick={onBack} startIcon={<ArrowBack />}>
               {step === 0 ? t('spontanei.form.abort') : t('spontanei.form.back')}
             </Button>
             <Button
+              size="large"
               variant="contained"
               onClick={onContinue}
               disabled={
