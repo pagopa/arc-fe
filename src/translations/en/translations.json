@@ -162,7 +162,7 @@
       "creditorEntity": "Payee",
       "creditorFiscalCode": "Payee tax code",
       "debtor": "Recipient",
-      "noticeCode": "Notice code",
+      "noticeCode": "Notice code/IUV",
       "amount": "Amount",
       "total": "Total",
       "totalLabel": "The total includes <strong>{{fee}}</strong> commission charged by {{psp}}."
@@ -175,7 +175,7 @@
         "paFullname": "Payee",
         "subject": "Payment description",
         "dueDate": "No lather than",
-        "iuv": "Notice code",
+        "iuv": "Notice code/IUV",
         "paTaxCode": "Payee tax code"
       },
       "card2": {
