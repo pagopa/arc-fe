@@ -184,7 +184,7 @@
       "creditorEntity": "Ente creditore",
       "creditorFiscalCode": "Codice Fiscale Ente",
       "debtor": "Debitore",
-      "noticeCode": "Codice avviso",
+      "noticeCode": "Codice avviso/IUV",
       "partialAmount": "Importo parziale",
       "amount": "Importo",
       "commission": "Commissione",
@@ -201,7 +201,7 @@
         "paFullname": "Ente creditore",
         "subject": "Oggetto del pagamento",
         "dueDate": "Entro il",
-        "iuv": "Codice avviso",
+        "iuv": "Codice avviso/IUV",
         "paTaxCode": "Codice fiscale ente"
       },
       "card2": {
