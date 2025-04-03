@@ -17,16 +17,16 @@ const CartItem = (props: Omit<CartItem, 'nav' | 'paTaxCode'>) => {
 
   return (
     <Stack sx={styles.item}>
-      <Grid container>
+      <Grid container justifyContent={'space-between'}>
         <Grid item xs={8}>
-          <Typography variant="body1" fontWeight={600} sx={styles.itemInfo} title={title}>
+          <Typography variant="body1" fontWeight={600} noWrap title={title}>
             {title}
           </Typography>
-          <Typography variant="caption" component="p" sx={styles.itemInfo} title={description}>
+          <Typography variant="caption" component="p" noWrap title={description}>
             {description}
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item>
           <Stack sx={{ ...styles.item, marginTop: 0, marginBottom: 0 }}>
             <Typography variant="body1" fontWeight={600} mr={2}>
               {toEuroOrMissingValue(amount)}

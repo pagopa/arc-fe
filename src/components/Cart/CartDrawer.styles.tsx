@@ -38,11 +38,6 @@ export const cartDrawerStyles = (theme: Theme): Record<string, SxProps> => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
   },
-  itemInfo: {
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden'
-  },
   items: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),

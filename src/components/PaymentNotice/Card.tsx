@@ -60,11 +60,13 @@ export const _Card = (notice: PaymentNoticeType) => {
         <Stack {...styles.headerStack} component="header">
           <PayeeIcon src={notice.image.src} alt={paFullName} visible={smUp} />
           <Stack {...styles.headerTypography}>
-            <Typography component="h1" variant="subtitle1" noWrap>
+            <Typography component="h1" variant="subtitle1" noWrap title={paFullName}>
               {paFullName}
             </Typography>
             {type === PaymentNoticeEnum.SINGLE && (
-              <Typography component="h2">{paymentOptions.description}</Typography>
+              <Typography component="h2" noWrap title={paymentOptions.description}>
+                {paymentOptions.description}
+              </Typography>
             )}
           </Stack>
         </Stack>
