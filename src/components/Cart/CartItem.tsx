@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { cartDrawerStyles } from './CartDrawer.styles';
 import { toEuroOrMissingValue } from 'utils/converters';
@@ -17,24 +17,30 @@ const CartItem = (props: Omit<CartItem, 'nav' | 'paTaxCode'>) => {
 
   return (
     <Stack sx={styles.item}>
-      <Stack>
-        <Typography variant="body1" fontWeight={600}>
-          {title}
-        </Typography>
-        <Typography variant="caption">{description}</Typography>
-      </Stack>
-      <Stack sx={{ ...styles.item, marginTop: 0, marginBottom: 0 }}>
-        <Typography variant="body1" fontWeight={600} mr={2}>
-          {toEuroOrMissingValue(amount)}
-        </Typography>
-        <ButtonNaked
-          color="error"
-          onClick={() => deleteItem(id)}
-          aria-label={t('ui.a11y.removeCartItem')}
-          name="removeCartItemButton">
-          <DeleteIcon />
-        </ButtonNaked>
-      </Stack>
+      <Grid container>
+        <Grid item xs={8}>
+          <Typography variant="body1" fontWeight={600} sx={styles.itemInfo} title={title}>
+            {title}
+          </Typography>
+          <Typography variant="caption" component="p" sx={styles.itemInfo} title={description}>
+            {description}
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Stack sx={{ ...styles.item, marginTop: 0, marginBottom: 0 }}>
+            <Typography variant="body1" fontWeight={600} mr={2}>
+              {toEuroOrMissingValue(amount)}
+            </Typography>
+            <ButtonNaked
+              color="error"
+              onClick={() => deleteItem(id)}
+              aria-label={t('ui.a11y.removeCartItem')}
+              name="removeCartItemButton">
+              <DeleteIcon />
+            </ButtonNaked>
+          </Stack>
+        </Grid>
+      </Grid>
     </Stack>
   );
 };
