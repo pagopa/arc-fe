@@ -3,6 +3,11 @@ export enum DateFormat {
   MEDIUM = 'medium'
 }
 
+export enum langToLocale {
+  it = 'it-IT',
+  en = 'en-US'
+}
+
 interface FormatDateOptions extends Intl.DateTimeFormatOptions {
   withTime?: boolean;
   format?: DateFormat;
