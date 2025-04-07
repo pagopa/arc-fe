@@ -56,11 +56,18 @@ export const Footer = () => {
         languages={{
           it: {
             it: 'Italiano',
-            en: 'Inglese'
+            en: 'Inglese',
+            fr: 'Francese'
           },
           en: {
             it: 'Italian',
-            en: 'English'
+            en: 'English',
+            fr: 'French'
+          },
+          fr: {
+            it: 'Italien',
+            en: 'Anglais',
+            fr: 'Français'
           }
         }}
         onLanguageChanged={changeLanguage}
