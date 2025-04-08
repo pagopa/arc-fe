@@ -1,9 +1,9 @@
 {
   "app": {
     "title": "Area riservata pagoPA",
-    "info": "Informazioni",
+    "info": "information",
     "modal": {
-      "close": "Chiudi modale"
+      "close": "Fermer"
     },
     "user": {
       "title": "Vos informations",
@@ -17,21 +17,21 @@
     },
     "cart": {
       "header": {
-        "title": "Il tuo carrello",
-        "close": "Chiudi carrello",
-        "amount": "Totale Parziale"
+        "title": "votre panier",
+        "close": "fermer",
+        "amount": "Sous-total"
       },
       "empty": {
-        "title": "Il tuo carrello è vuoto",
-        "description": "Aggiungi uno o più avvisi al tuo carrello per procedere con il pagamento",
-        "button": "Torna agli avvisi"
+        "title": "Votre panier est vide",
+        "description": "Ajoutez un ou plusieurs avis à votre panier pour procéder au paiement.",
+        "button": "Retour aux avis"
       },
       "items": {
-        "alert": "L’importo si aggiorna in automatico, così paghi sempre quanto dovuto ed eviti more o altri interessi. <link1>Vuoi saperne di più?</link1>",
-        "back": "Torna agli avvisi",
-        "pay": "Vai al pagamento",
-        "full": "Non puoi aggiungere più di 5 avvisi al carrello",
-        "info": "Puoi pagare fino a 5 avvisi insieme"
+        "alert": "Le montant est mis à jour automatiquement pour garantir le paiement de la somme due et éviter ainsi toute pénalité ou intérêt supplémentaire. <link1>Vuoi saperne di più?</link1>",
+        "back": "Retour aux avis",
+        "pay": "Passer au paiement",
+        "full": "Limite de 5 avis par panier atteinte",
+        "info": "Vous pouvez payer jusqu'à 5 avis à la fois"
       }
     },
     "assistance": {
@@ -48,14 +48,6 @@
       "modalTitle": "Vuoi davvero uscire?",
       "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
     },
-    "login": {
-      "title": "Area Riservata pagoPA",
-      "description": "La tua area personale in cui gestire i pagamenti pagoPA e scaricare le ricevute.",
-      "terms": "Accedendo accetti i <link1>Termini e condizioni d’uso</link1> del servizio e confermi di avere letto l'<link2>Informativa Privacy </link2> ",
-      "areYouAnEnterprise": "Sei un'impresa?",
-      "accessYourArea": "Accedi alla tua area",
-      "login": "Accedi"
-    },
     "dashboard": {
       "title": "Bonjour {{username}}",
       "greetings": "Bonjour",
@@ -64,42 +56,32 @@
       "seeAllTransactions": "Voir tout",
       "IOAlert": {
         "title": "Souhaitez-vous retrouver vos reçus et régler vos avis plus rapidement ?",
-        "description": "Visualizza e gestisci i tuoi metodi di pagamento e tutte le tue ricevute",
         "cta": "Télécharger IO"
       }
     },
     "transactions": {
-      "all": "Tutte",
-      "paidByMe": "Pagate da me",
-      "ownedByMe": "Intestate a me",
-      "searchByName": "Cerca per nome",
-      "searchBy": "Cerca per",
-      "orderBy": "Ordina per",
-      "mostRecent": "più recente",
-      "leastRecent": "meno recente",
-      "payee": "Nome dell’ente",
-      "status": "Stato",
-      "date": "Data",
-      "amount": "Importo",
-      "higherAmount": "importo più alto",
-      "lowerAmount": "importo più basso",
+      "all": "Toutes",
+      "paidByMe": "J’ai payé",
+      "ownedByMe": "A mon nom",
+      "payee": "Nom de l'organisme",
+      "date": "Date",
+      "amount": "Montant",
       "multiEntities": "Avvisi Multipli",
       "paid": "Pagato",
-      "viewDetail": "Visualizza il dettaglio per la transazione",
       "empty": {
         "title": "Vos reçus pagoPA seront disponibles ici",
         "subtitle": "Payez un avis via l’un des canaux pagoPA agréé."
       },
       "error": {
-        "title": "Non riusciamo a recuperare i dati a causa di un problema.",
-        "retry": "Riprova"
+        "title": "Impossible de récupérer les données pour le moment.",
+        "retry": "Réessayer"
       }
     },
     "paymentNotice": {
       "preview": {
-        "title": "Cerca i tuoi avvisi di pagamento pagoPA",
-        "description": "Qui puoi trovare gli avvisi da pagare a tuo nome che gli Enti Creditori ci hanno comunicato.",
-        "action": "Cerca i tuoi avvisi"
+        "title": "Recherchez vos avis de paiement pagoPA",
+        "description": "Vous trouverez ici les avis à payer à votre nom préparés par les organismes participant au service.",
+        "action": "Rechercher vos avis"
       },
       "empty": {
         "title": "Non abbiamo trovato avvisi da pagare",
@@ -117,8 +99,8 @@
         }
       },
       "error": {
-        "description": "Non riusciamo a recuperare i dati a causa di un problema.",
-        "button": "Riprova"
+        "description": "Impossible de récupérer les données pour le moment.",
+        "button": "Réessayer"
       },
       "card": {
         "amount": "Montant",
@@ -131,67 +113,60 @@
       "title": "Vos avis de paiement",
       "found_one": "Nous avons trouvé {{count}} avis",
       "found_other": "Nous avons trouvé {{count}} avis",
-      "notice": "avvisi",
+      "notice": "avis",
       "updated": "Mis à jour le",
       "loading": "Recherche en cours dans les archives des Organismes Créanciers participant au service...",
       "bottomAlert": {
-        "info": "Gli avvisi di pagamento ci sono stati comunicati dagli Enti Creditori. In caso di problemi, rivolgiti all’ente."
+        "info": "Les avis de paiement nous ont été transmis par les Organismes Créanciers."
       },
       "noticesAlert": {
         "info": "Voici les avis de paiement que les organismes ont transmis à PagoPA. Si vous ne trouvez pas un avis, contactez l'Organisme Créancier ou appuyez sur ‘Payer un avis’ et saisissez les informations.",
         "action": "Payer un avis"
         },
       "optin": {
-        "title": "Consenti a PagoPA di ricercare i tuoi avvisi?",
-        "body": "Se confermi, consenti a PagoPA di ricercare gli avvisi di pagamento a tuo nome tra gli archivi degli enti aderenti al servizio.",
-        "privacy": "Proseguendo accetti l’<a1>Informativa Privacy</a1> e i <a2>Termini e Condizioni d’uso</a2> del servizio."
+        "title": "Autorisez-vous PagoPA à rechercher vos avis ?",
+        "body": "En confirmant, vous permettez à PagoPA de rechercher les avis de paiement à votre nom dans les archives des organismes participant au service."
       }
     },
     "routes": {
       "back": "Indietro",
       "exit": "Esci",
-      "cancel": "Annulla",
+      "cancel": "Annuler",
       "continue": "Continua",
-      "consent": "Consenti",
+      "consent": "Autoriser",
       "breadcrumbs": "breadcrumbs",
       "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
       "breadcrumbsElement": "Elemento breadcrumbs",
-      "home": "Homepage",
-      "transactionDetail": "Dettaglio operazione",
-      "transactions": "Ricevute",
-      "user": "I tuoi dati",
+      "home": "Page d'accueil",
+      "transactionDetail": "Détails de l'opération",
+      "transactions": "Reçus",
+      "user": "Vos informations",
       "paymentNotices": "Avis de paiement",
       "paymentNoticeDetail": "Détails de l'avis"
     },
     "transactionDetail": {
-      "title": "Dettaglio operazione",
+      "title": "Détails de l'opération",
       "card2": {
-        "title": "Informazioni sulla transazione"
+        "title": "Informations sur la transaction"
       },
-      "downloadReceipt": "Scarica ricevuta",
+      "downloadReceipt": "Télécharger le reçu",
       "downloadReceiptError":"Non è stato possibile recuperare la ricevuta.",
       "noReceipt": "La ricevuta pagoPA non è disponibile. Rivolgiti all’Ente Creditore se hai bisogno della quietanza di pagamento, cioè il documento che attesta di aver saldato un debito.",
       "downloadQuiettance": "Scarica quietanza",
-      "createdOn": "Creato il",
-      "paidBy": "Eseguita da",
-      "authCode": "Codice autorizzativo",
-      "transactionId": "ID Transazione",
-      "accountHolder": "Intestato a",
-      "paymentMethod": "Metodo di pagamento",
-      "PSP": "Gestore della transazione (PSP)",
-      "dateAndTime": "Data e ora",
-      "subject": "Oggetto",
-      "creditorEntity": "Ente creditore",
-      "creditorFiscalCode": "Codice Fiscale Ente",
-      "debtor": "Debitore",
-      "noticeCode": "Codice avviso/IUV",
-      "partialAmount": "Importo parziale",
-      "amount": "Importo",
-      "commission": "Commissione",
-      "total": "Totale",
-      "somethingDoesntAddUp": "Qualcosa non torna?",
-      "contactSupport": "Contatta l'assistenza",
-      "totalLabel": "Il totale comprende <strong>{{fee}}</strong> di commissione, applicata da {{psp}}"
+      "paidBy": "Effectuée par",
+      "authCode": "Code d’autorisation",
+      "transactionId": "Numéro de transaction",
+      "accountHolder": "Mode de paiement au nom de",
+      "paymentMethod": "Mode de paiement",
+      "PSP": "Prestataire de services de paiement (PSP)",
+      "dateAndTime": "Date et heure",
+      "creditorEntity": "Organisme créancier",
+      "creditorFiscalCode": "Code Fiscal Organisme",
+      "debtor": "Débiteur",
+      "noticeCode": "Code avis/IUV",
+      "amount": "Montant",
+      "total": "Total",
+      "totalLabel": "Le total comprend <strong>{{fee}}</strong> de commission, appliquée par {{psp}}."
     },
     "paymentNoticeDetail": {
       "title": "Détails de l'avis",
@@ -210,13 +185,13 @@
         "firstInstallmentAmount": "Montant",
         "button1": "Payer maintenant",
         "label1": "Oppure",
-        "button2": "Scarica l'avviso pagoPA",
-        "addItemToCart": "Aggiungi al carrello",
-        "removeItemFromCart": "Rimuovi dal carrello"
+        "button2": "Télécharger le reçu",
+        "addItemToCart": "Ajouter au panier",
+        "removeItemFromCart": "Retirer du panier"
       },
       "modal": {
-        "title": "Vedi un importo diverso?",
-        "description": "pagoPA aggiorna automaticamente l'importo per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi."
+        "title": "Remarquez-vous un montant différent ?",
+        "description": "pagoPA ajuste automatiquement le montant pour vous assurer de payer exactement ce qui est dû et éviter ainsi des pénalités ou d'autres intérêts."
       }
     }
   },
@@ -225,7 +200,6 @@
     "help": "Aiuto"
   },
   "general": {
-    "and": "e",
     "PagoPA": "PagoPA S.p.A"
   },
   "menu": {
@@ -249,33 +223,15 @@
       "home": "Vai alla home page"
     },
     "header": {
-      "disclaimer": "",
       "profile": "Vos informations",
       "logout": "Se déconnecter"
     },
     "footer": {
-      "disclaimer": "",
       "a11y": "Accessibilità",
-      "help": "Aiuto",
       "privacy": "Informativa Privacy",
-      "who": "Chi siamo",
-      "pnrr": "PNRR",
-      "media": "Media",
-      "workWithUs": "Lavora con noi",
-      "products": "Prodotti e servizi",
       "personalData": "Diritto alla protezione dei dati personali",
       "termsAndConditions": "Termini e condizioni d'uso",
-      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009",
-      "resources": "Risorse",
-      "terms": "Termini e condizioni",
-      "certifications": "Certificazioni",
-      "security": "Sicurezza delle informazioni",
-      "dataProtectionRights": "Diritto alla protezione dei dati personali",
-      "cookie": "Preferenze cookie",
-      "transparentCompany": "Società trasparente",
-      "dislosurePolicy": "Responsabile Disclosure Policy",
-      "231": "Modello 231",
-      "followUs": "Seguici su"
+      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009"
     }
   },
   "courtesyPage": {
@@ -285,37 +241,37 @@
       "cta": "Torna in home"
     },
     "401": {
-      "title": "La tua sessione è scaduta",
-      "body": "Accedi per continuare ad usare il sito.",
-      "cta": "Accedi"
+      "title": "Votre session a expiré",
+      "body": "Connectez-vous pour continuer votre navigation.",
+      "cta": "Se connecter"
     },
     "403": {
-      "title": "Non è stato possibile accedere",
-      "body": "L'Area Riservata di pagoPA è in fase di sviluppo, al momento l'accesso non è disponibile"
+      "title": "Impossible de se connecter",
+      "body": "L’espace réservé pagoPA est en cours de développement. Il n'est pas possible de se connecter pour le moment."
     },
     "408": {
-      "title": "Non è stato possibile accedere",
-      "body": "Si è verificato un problema durante l'accesso. Riprova tra qualche minuto.",
-      "cta": "Riprova"
+      "title": "Impossible de se connecter",
+      "body": "Un problème s’est produit lors de la connexion. Veuillez réessayer dans quelques minutes.",
+      "cta": "Réessayer"
     },
     "422": {
-      "title": "Non possiamo procedere con il pagamento",
-      "body": "Per avere maggiori informazioni sull’avviso contatta l’Ente Creditore.",
-      "cta": "Chiudi"
+      "title": "Désolé, nous ne pouvons pas traiter le paiement",
+      "body": "Pour plus d'informations, veuillez contacter l'organisme créancier.",
+      "cta": "Fermer"
     },
     "423": {
-      "title": "Non siamo riusciti ad avviare il pagamento",
-      "body": "Riprova tra qualche minuto.",
-      "cta": "Chiudi"
+      "title": "Impossible de démarrer le paiement",
+      "body": "Veuillez réessayer dans quelques minutes.",
+      "cta": "Fermer"
     }
   },
   "pageTitles" : {
-    "dashboard": "La tua Dashboard",
-    "paymentnotices": "I tuoi avvisi di pagamento",
-    "paymentnotice": "Dettaglio avviso",
-    "notices": "Le tue ricevute di pagamento",
-    "notice": "Dettaglio operazione",
+    "dashboard": "Page d'accueil",
+    "paymentnotices": "Vos avis de paiement",
+    "paymentnotice": "Détails de l'avis",
+    "notices": "Vos reçus",
+    "notice": "Détails de l'opération",
     "courtesy": "Pagina di cortesia",
-    "userpage": "I tuoi dati"
+    "userpage": "Vos informations"
   }
 }
