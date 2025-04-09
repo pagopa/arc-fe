@@ -33,7 +33,7 @@ export const cartDrawerStyles = (theme: Theme): Record<string, SxProps> => ({
   },
   item: {
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     flexDirection: 'row',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
