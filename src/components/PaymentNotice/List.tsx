@@ -3,8 +3,9 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentNotice } from './PaymentNotice';
-import { DateFormat, datetools } from 'utils/datetools';
+import { DateFormat, datetools, langToLocale } from 'utils/datetools';
 import { PaymentNoticeType } from 'models/PaymentNotice';
+import { useLanguage } from 'hooks/useLanguage';
 
 /**
  * This component is considered private and should not be used directly.
@@ -18,6 +19,7 @@ export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] 
   const { t } = useTranslation();
   const updatedDate = new Date().toISOString();
   document.body.style.overflow = 'auto';
+  const { language } = useLanguage() as { language: keyof typeof langToLocale };
 
   return (
     <Stack gap={3}>
@@ -38,7 +40,8 @@ export const _List = ({ paymentNotices }: { paymentNotices: PaymentNoticeType[] 
             {datetools.formatDate(updatedDate, {
               format: DateFormat.LONG,
               withTime: true,
-              timeZone: datetools.localTimeZone
+              timeZone: datetools.localTimeZone,
+              locale: langToLocale[language]
             })}
           </Typography>
         </Typography>

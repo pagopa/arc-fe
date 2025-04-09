@@ -65,16 +65,16 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
           </Typography>
           <Grid container rowGap={3}>
             <Grid item xs={12} md={7}>
-              <Card
-                sx={{
-                  padding: { xs: 0, md: 2 }
-                }}>
-                <CardActions>
+              <Card>
+                <CardActions
+                  sx={{
+                    padding: 3
+                  }}>
                   <Stack spacing={2} width={'100%'} alignContent={'center'}>
                     <Typography variant="body1" component={'h2'} fontWeight={700}>
                       {t('app.paymentNoticeDetail.card1.title').toUpperCase()}
                     </Typography>
-                    <Grid container item columnGap={2} justifyContent={'space-between'}>
+                    <Grid container item justifyContent={'space-between'}>
                       <Grid container item xs={9}>
                         <Grid item alignContent={'center'}>
                           <Euro htmlColor={theme.palette.grey[700]} />
@@ -112,7 +112,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                           aria-label={t('app.info')}
                           onClick={open}
                           size="small">
-                          <InfoOutlined color="primary" sx={{ fontSize: 24 }} />
+                          <InfoOutlined color="primary" sx={{ fontSize: 24, marginRight: 1 }} />
                         </IconButton>
                       </Grid>
                     </Grid>
@@ -195,60 +195,50 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                       </Grid>
                     </Grid>
                     <Divider />
-                    <Grid container item columnGap={2} justifyContent={'space-between'}>
-                      <Grid container item xs={9}>
-                        <Grid
-                          item
-                          xs={9}
-                          component={'dl'}
-                          data-testid="app.paymentNoticeDetail.iuv">
-                          <Typography
-                            sx={{ wordBreak: 'break-word' }}
-                            component="dt"
-                            color={theme.palette.text.secondary}>
-                            {t('app.paymentNoticeDetail.card1.iuv')}
-                          </Typography>
-                          <Typography
-                            component="dd"
-                            fontWeight={600}
-                            color={theme.palette.primary.main}
-                            sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                            {paymentNotice.paymentOptions.iuv}
-                          </Typography>
-                        </Grid>
+                    <Grid container justifyContent={'space-between'}>
+                      <Grid item component={'dl'} data-testid="app.paymentNoticeDetail.iuv">
+                        <Typography
+                          sx={{ wordBreak: 'break-word' }}
+                          component="dt"
+                          color={theme.palette.text.secondary}>
+                          {t('app.paymentNoticeDetail.card1.iuv')}
+                        </Typography>
+                        <Typography
+                          component="dd"
+                          fontWeight={600}
+                          color={theme.palette.primary.main}
+                          sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
+                          {paymentNotice.paymentOptions.iuv}
+                        </Typography>
                       </Grid>
-                      <Grid item xs={2} sm={1}>
-                        <CopyToClipboardButton
-                          value={paymentNotice.paymentOptions.iuv}
-                          color="primary"
-                        />
-                      </Grid>
+                      <Grid item></Grid>
+                      <CopyToClipboardButton
+                        value={paymentNotice.paymentOptions.iuv}
+                        color="primary"
+                      />
                     </Grid>
                     <Divider />
+
                     <Grid
                       container
-                      item
-                      columnGap={2}
                       justifyContent={'space-between'}
                       data-testid="app.paymentNoticeDetail.paTaxCode">
-                      <Grid container item xs={9}>
-                        <Grid item xs={9} component={'dl'}>
-                          <Typography
-                            component="dt"
-                            sx={{ wordBreak: 'break-word' }}
-                            color={theme.palette.text.secondary}>
-                            {t('app.paymentNoticeDetail.card1.paTaxCode')}
-                          </Typography>
-                          <Typography
-                            component="dd"
-                            fontWeight={600}
-                            color={theme.palette.primary.main}
-                            sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                            {paymentNotice.paTaxCode}
-                          </Typography>
-                        </Grid>
+                      <Grid item component={'dl'}>
+                        <Typography
+                          component="dt"
+                          sx={{ wordBreak: 'break-word' }}
+                          color={theme.palette.text.secondary}>
+                          {t('app.paymentNoticeDetail.card1.paTaxCode')}
+                        </Typography>
+                        <Typography
+                          component="dd"
+                          fontWeight={600}
+                          color={theme.palette.primary.main}
+                          sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
+                          {paymentNotice.paTaxCode}
+                        </Typography>
                       </Grid>
-                      <Grid item xs={2} sm={1}>
+                      <Grid item>
                         <CopyToClipboardButton value={paymentNotice.paTaxCode} color="primary" />
                       </Grid>
                     </Grid>
