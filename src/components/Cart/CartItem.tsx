@@ -17,8 +17,8 @@ const CartItem = (props: Omit<CartItem, 'nav' | 'paTaxCode'>) => {
 
   return (
     <Stack sx={styles.item}>
-      <Grid container justifyContent={'space-between'}>
-        <Grid item xs={8}>
+      <Grid container justifyContent={'space-between'} flexWrap="nowrap">
+        <Grid item xs={7}>
           <Typography variant="body1" fontWeight={600} noWrap title={title}>
             {title}
           </Typography>
@@ -26,7 +26,7 @@ const CartItem = (props: Omit<CartItem, 'nav' | 'paTaxCode'>) => {
             {description}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid item xs={5}>
           <Stack sx={{ ...styles.item, marginTop: 0, marginBottom: 0 }}>
             <Typography variant="body1" fontWeight={600} mr={2}>
               {toEuroOrMissingValue(amount)}

@@ -43,8 +43,8 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
     // this is not a problem, because we not manage multiple payment options in any case
     const paymentNoticeSigleOption = paymentNotice.paymentOptions as PaymentOptionsDetailsType;
     const { iuv, amountValue: amount, nav, description } = paymentNoticeSigleOption;
-    if (cart.items.length >= 5) return notify.emit(t('app.cart.items.full'), 'error');
     if (isItemInCart(iuv)) return deleteItem(iuv);
+    if (cart.items.length >= 5) return notify.emit(t('app.cart.items.full'), 'error');
     addItem({
       amount,
       paTaxCode,
