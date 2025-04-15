@@ -40,13 +40,13 @@
       "cardTitle": "Votre adresse email",
       "cardDescription": "Indiquez l’adresse email à laquelle vous souhaitez recevoir nos réponses..",
       "input1Placeholder": "Entrer l’adresse email",
-      "input1Helper": "Inserisci un indirizzo email valido",
-      "input2Helper": "Gli indirizzi email devono coincidere",
+      "input1Helper": "Entrer une adresse email valide",
+      "input2Helper": "Les adresses email doivent correspondre",
       "input2Placeholder": "Confirmer l’adresse email",
       "privacy": "En continuant, vous déclarez avoir lu la <link1> Charte de confidentialité </link1> du service d’assistance aux citoyens.",
       "confirm": "Valider",
-      "modalTitle": "Vuoi davvero uscire?",
-      "modalDescription": "Se esci, la richiesta di assistenza andrà persa."
+      "modalTitle": "Voulez-vous vraiment quitter ?",
+      "modalDescription": "Si vous quittez, votre demande d’assistance sera perdue."
     },
     "dashboard": {
       "title": "Bonjour {{username}}",
@@ -66,8 +66,8 @@
       "payee": "Nom de l'organisme",
       "date": "Date",
       "amount": "Montant",
-      "multiEntities": "Avvisi Multipli",
-      "paid": "Pagato",
+      "multiEntities": "Avis Multiples",
+      "paid": "Payé",
       "empty": {
         "title": "Vos reçus pagoPA seront disponibles ici",
         "subtitle": "Payez un avis via l’un des canaux pagoPA agréé."
@@ -84,9 +84,9 @@
         "action": "Rechercher vos avis"
       },
       "empty": {
-        "title": "Non abbiamo trovato avvisi da pagare",
-        "description": "Se hai ricevuto un avviso pagoPA, premi su ‘Paga un avviso’ e inserisci i dati.",
-        "button": "Paga un avviso"
+        "title": "Nous n'avons trouvé aucun avis à payer",
+        "description": "Si vous avez reçu un avis pagoPA, appuyez sur « Payer un avis » et saisissez les informations",
+        "button": "Payer un avis"
       },
       "filtered.nodata": {
         "paidByMe": {
@@ -104,9 +104,9 @@
       },
       "card": {
         "amount": "Montant",
-        "multiPayment": "Altre opzioni di pagamento",
+        "multiPayment": "Autres options de paiement",
         "expiringDate": "Paiement unique avant le",
-        "detail": "Visualizza il dettaglio"
+        "detail": "Voir les détails"
       }
     },
     "paymentNotices": {
@@ -129,14 +129,14 @@
       }
     },
     "routes": {
-      "back": "Indietro",
-      "exit": "Esci",
+      "back": "Retour",
+      "exit": "Quitter",
       "cancel": "Annuler",
-      "continue": "Continua",
+      "continue": "Continuer",
       "consent": "Autoriser",
-      "breadcrumbs": "breadcrumbs",
-      "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
-      "breadcrumbsElement": "Elemento breadcrumbs",
+      "breadcrumbs": "fil d'Ariane",
+      "breadcrumbsElementClickable": "Élément du fil cliquable",
+      "breadcrumbsElement": "Élément du fil",
       "home": "Page d'accueil",
       "transactionDetail": "Détails de l'opération",
       "transactions": "Reçus",
@@ -150,9 +150,9 @@
         "title": "Informations sur la transaction"
       },
       "downloadReceipt": "Télécharger le reçu",
-      "downloadReceiptError":"Non è stato possibile recuperare la ricevuta.",
-      "noReceipt": "La ricevuta pagoPA non è disponibile. Rivolgiti all’Ente Creditore se hai bisogno della quietanza di pagamento, cioè il documento che attesta di aver saldato un debito.",
-      "downloadQuiettance": "Scarica quietanza",
+      "downloadReceiptError":"Impossible de récupérer le reçu.",
+      "noReceipt": "Le reçu pagoPA n'est pas disponible. Veuillez contacter l’organisme créancier si vous avez besoin d’un justificatif de paiement, c'est-à-dire du document confirmant le règlement de votre dette.",
+      "downloadQuiettance": "Télécharger le justificatif",
       "paidBy": "Effectuée par",
       "authCode": "Code d’autorisation",
       "transactionId": "Numéro de transaction",
@@ -184,7 +184,7 @@
         "firstInstallmentDate": "Paiement unique avant le",
         "firstInstallmentAmount": "Montant",
         "button1": "Payer maintenant",
-        "label1": "Oppure",
+        "label1": "Ou",
         "button2": "Télécharger le reçu",
         "addItemToCart": "Ajouter au panier",
         "removeItemFromCart": "Retirer du panier"
@@ -196,49 +196,49 @@
     }
   },
   "aria": {
-    "a11y": "Accessibilità",
-    "help": "Aiuto"
+    "a11y": "Accessibilité",
+    "help": "Aide"
   },
   "general": {
     "PagoPA": "PagoPA S.p.A"
   },
   "menu": {
-    "description": "Naviga il portale",
+    "description": "Naviguer dans le portail",
     "homepage": "Page d’accueil",
     "receipts":{
       "menuTitle":"Reçus",
-       "pageTitle": "Le tue ricevute"
+       "pageTitle": "Vos reçus"
     },
-    "navigationMenu": "Menù di navigazione",
+    "navigationMenu": "Menu de navigation",
     "menu": "Menu",
     "paymentNotices": "Avis de paiement"
   },
   "sidebar": {
-    "collapse": "Comprimi il menu",
-    "expand": "Espandi il menu"
+    "collapse": "Réduire le menu",
+    "expand": "Développer le menu"
   },
   "ui": {
     "a11y": {
-      "cart": "Visualizza il carrello dei pagamenti",
-      "home": "Vai alla home page"
+      "cart": "Voir le panier de paiement",
+      "home": "Aller à la page d’accueil"
     },
     "header": {
       "profile": "Vos informations",
       "logout": "Se déconnecter"
     },
     "footer": {
-      "a11y": "Accessibilità",
-      "privacy": "Informativa Privacy",
-      "personalData": "Diritto alla protezione dei dati personali",
-      "termsAndConditions": "Termini e condizioni d'uso",
-      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009"
+      "a11y": "Accessibilité",
+      "privacy": "Politique de confidentialité",
+      "personalData": "Droit à la protection des données personnelles",
+      "termsAndConditions": "Conditions générales d'utilisation",
+      "legalInfo": "Société par actions à associé unique – capital social de 1 000 000 euros entièrement libéré – siège social : Piazza Colonna 370, 00187 Rome – Enregistrée au Registre du commerce de Rome, CF et TVA 15376371009"
     }
   },
   "courtesyPage": {
     "default": {
-      "title": "La pagina che stai cercando non esiste",
-      "body": "Puoi tornare in homepage o visitare una nuova pagina",
-      "cta": "Torna in home"
+      "title": "La page que vous recherchez n’existe pas",
+      "body": "Vous pouvez revenir à la page d’accueil ou visiter une autre page",
+      "cta": "Retour à la page d'accueil"
     },
     "401": {
       "title": "Votre session a expiré",
@@ -271,7 +271,7 @@
     "paymentnotice": "Détails de l'avis",
     "notices": "Vos reçus",
     "notice": "Détails de l'opération",
-    "courtesy": "Pagina di cortesia",
+    "courtesy": "Page d'information",
     "userpage": "Vos informations"
   }
 }
