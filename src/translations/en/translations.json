@@ -223,7 +223,8 @@
     },
     "header": {
       "profile": "Your data",
-      "logout": "Logout"
+      "logout": "Logout",
+      "help": "Support"
     },
     "footer": {
       "a11y": "Accessibility",

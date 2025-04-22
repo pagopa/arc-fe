@@ -249,12 +249,11 @@
       "home": "Vai alla home page"
     },
     "header": {
-      "disclaimer": "",
       "profile": "I tuoi dati",
-      "logout": "Esci"
+      "logout": "Esci",
+      "help": "Assistenza"
     },
     "footer": {
-      "disclaimer": "",
       "a11y": "Accessibilità",
       "help": "Aiuto",
       "privacy": "Informativa Privacy",
