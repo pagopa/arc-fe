@@ -20,7 +20,6 @@
         "title": "votre panier",
         "close": "fermer",
         "amount": "Sous-total"
-        
       },
       "empty": {
         "title": "Votre panier est vide",
