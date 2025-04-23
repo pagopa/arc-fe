@@ -66,6 +66,7 @@ export const Header = (props: HeaderProps) => {
         onAssistanceClick={onAssistanceClick}
         loggedUser={jwtUser}
         userActions={userActions}
+        translationsMap={{ assistance: t('ui.header.help') }}
       />
       <SubHeader />
     </>

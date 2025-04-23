@@ -224,7 +224,8 @@
     },
     "header": {
       "profile": "Vos informations",
-      "logout": "Se déconnecter"
+      "logout": "Se déconnecter",
+      "help": "Assistance"
     },
     "footer": {
       "a11y": "Accessibilité",
