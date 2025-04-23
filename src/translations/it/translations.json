@@ -279,9 +279,12 @@
   },
   "courtesyPage": {
     "default": {
-      "title": "La pagina che stai cercando non esiste",
-      "body": "Puoi tornare in homepage o visitare una nuova pagina",
-      "cta": "Torna in home"
+      "title": "Qualcosa non ha funzionato",
+      "body": "Si è verificato un Errore imprevisto. Riprova tra qualche minuto."
+    },
+    "400": {
+      "title": "Qualcosa non ha funzionato",
+      "body": "Si è verificato un Errore imprevisto. Riprova tra qualche minuto."
     },
     "401": {
       "title": "La tua sessione è scaduta",
@@ -291,6 +294,11 @@
     "403": {
       "title": "Non è stato possibile accedere",
       "body": "L'Area Riservata di pagoPA è in fase di sviluppo, al momento l'accesso non è disponibile"
+    },
+    "404": {
+      "title": "La Pagina che stai cercando non esiste",
+      "body": "Puoi ritornare alla homepage o visitare una nuova pagina",
+      "cta":  "Ritorna alla homepage"
     },
     "408": {
       "title": "Non è stato possibile accedere",
