@@ -25,13 +25,21 @@ import loaders, { getTokenOneidentity } from 'utils/loaders';
 import { PreLoginLayout } from 'components/PreLoginLayout';
 import { ApiClient } from 'components/ApiClient';
 
+const withGuard = (Component: () => React.JSX.Element) => (
+  <RouteGuard itemKeys={['accessToken']} storage={window.localStorage}>
+    <Component />
+  </RouteGuard>
+);
+
 const router = createBrowserRouter([
   {
     element: <ApiClient client={utils.apiClient} />,
     children: [
       {
         path: '*',
-        element: <Navigate replace to={ArcRoutes.DASHBOARD} />,
+        element: (
+          <Navigate replace to={ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors['404'])} />
+        ),
         ErrorBoundary: () => {
           throw useRouteError();
         }
@@ -63,47 +71,22 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.COURTESY_PAGE.replace(':error', ''),
-        element: <PreLoginLayout />,
-        children: [
-          {
-            path: ArcErrors['401'],
-            loader: () => ArcErrors['401'],
-            element: <CourtesyPage />
-          },
-          {
-            path: ArcErrors['403'],
-            loader: () => ArcErrors['403'],
-            element: <CourtesyPage />
-          },
-          {
-            path: ArcErrors['404'],
-            loader: () => ArcErrors['404'],
-            element: <CourtesyPage />
-          },
-          {
-            path: ArcErrors['408'],
-            loader: () => ArcErrors['408'],
-            element: <CourtesyPage />
-          }
-        ]
+        element: (
+          <PreLoginLayout>
+            <CourtesyPage />
+          </PreLoginLayout>
+        )
       },
       {
         path: ArcRoutes.DASHBOARD,
-        element: (
-          <RouteGuard
-            itemKeys={['accessToken']}
-            storage={window.localStorage}
-            redirectTo={ArcRoutes.LOGIN}>
-            <Layout />
-          </RouteGuard>
-        ),
+        element: <Layout />,
         ErrorBoundary: () => {
           throw useRouteError();
         },
         children: [
           {
             path: ArcRoutes.ASSISTANCE,
-            element: <Assistance />,
+            element: withGuard(Assistance),
             errorElement: <ErrorFallback />,
             handle: {
               backButton: false,
@@ -114,7 +97,7 @@ const router = createBrowserRouter([
           },
           {
             path: ArcRoutes.USER,
-            element: <UserRoute />,
+            element: withGuard(UserRoute),
             errorElement: <ErrorFallback />,
             handle: {
               backButton: true,
@@ -125,15 +108,13 @@ const router = createBrowserRouter([
           },
           {
             path: ArcRoutes.DASHBOARD,
-            element: <DashboardRoute />,
-            // TEMPORARY ERROR ELEMENT
+            element: withGuard(DashboardRoute),
             errorElement: <ErrorFallback />
           },
           {
             path: ArcRoutes.TRANSACTION,
-            element: <TransactionRoute />,
+            element: withGuard(TransactionRoute),
             loader: ({ params }) => Promise.resolve(params.id),
-            // TEMPORARY ERROR ELEMENT
             errorElement: <ErrorFallback />,
             handle: {
               crumbs: {
@@ -150,20 +131,19 @@ const router = createBrowserRouter([
           },
           {
             path: ArcRoutes.TRANSACTIONS,
-            element: <NoticesList />,
-            // TEMPORARY ERROR ELEMENT
+            element: withGuard(NoticesList),
             errorElement: <ErrorFallback />
           },
           ...(utils.config.showNotices
             ? [
                 {
                   path: ArcRoutes.PAYMENT_NOTICES,
-                  element: <PaymentNotices />,
+                  element: withGuard(PaymentNotices),
                   errorElement: <ErrorFallback />
                 },
                 {
                   path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
-                  element: <PaymentNoticeDetail />,
+                  element: withGuard(PaymentNoticeDetail),
                   errorElement: <ErrorFallback />,
                   loader: loaders.getPaymentNoticeDetails,
                   handle: {
@@ -202,7 +182,7 @@ const router = createBrowserRouter([
 ]);
 
 export const App = () => (
-  <ErrorBoundary fallback={<ErrorFallback onReset={() => window.location.replace('/')} />}>
+  <ErrorBoundary fallback={<ErrorFallback />}>
     <HealthCheck />
     <Theme>
       <RouterProvider router={router} />

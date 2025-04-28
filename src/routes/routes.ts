@@ -17,11 +17,13 @@ export const ArcRoutes = {
 };
 
 export enum ArcErrors {
+  /** generic error */
+  'sconosciuto' = 400,
   'sessione-scaduta' = 401,
   /** whitelist: user not authorized to access the resource */
   'accesso-non-autorizzato' = 403,
-  /** resource not found or generic error */
-  'scnosciuto' = 404,
+  /** resource not found */
+  'risorsa-non-trovata' = 404,
   /** something went wrong with the login */
   'accesso-non-riuscito' = 408,
   'avviso-non-pagabile' = 422,

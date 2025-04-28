@@ -238,8 +238,11 @@
   "courtesyPage": {
     "default": {
       "title": "La page que vous recherchez n’existe pas",
-      "body": "Vous pouvez revenir à la page d’accueil ou visiter une autre page",
-      "cta": "Retour à la page d'accueil"
+      "body": "Une erreur imprévue s'est produite. Veuillez réessayer dans quelques minutes."
+    },
+    "400": {
+      "title": "Quelque chose n’a pas marché comme prévu",
+      "body": "Une erreur imprévue s'est produite. Veuillez réessayer dans quelques minutes."
     },
     "401": {
       "title": "Votre session a expiré",
@@ -249,6 +252,11 @@
     "403": {
       "title": "Impossible de se connecter",
       "body": "L’espace réservé pagoPA est en cours de développement. Il n'est pas possible de se connecter pour le moment."
+    },
+    "404": {
+      "title": "La page que vous recherchez n’existe pas",
+      "body": "Vous pouvez revenir à la page d’accueil ou visiter une autre page",
+      "cta":  "Retour à la page d'accueil"
     },
     "408": {
       "title": "Impossible de se connecter",

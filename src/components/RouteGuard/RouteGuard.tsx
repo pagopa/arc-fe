@@ -10,7 +10,7 @@ export type RouteGuardProps = {
 };
 
 export const RouteGuard = ({
-  redirectTo = ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors['404']),
+  redirectTo = ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors['401']),
   storage = sessionStorage,
   itemKeys,
   children
