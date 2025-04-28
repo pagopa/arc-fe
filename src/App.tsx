@@ -71,34 +71,11 @@ const router = createBrowserRouter([
       },
       {
         path: ArcRoutes.COURTESY_PAGE.replace(':error', ''),
-        element: <PreLoginLayout />,
-        children: [
-          {
-            path: ArcErrors['400'],
-            loader: () => ArcErrors['400'],
-            element: <CourtesyPage />
-          },
-          {
-            path: ArcErrors['401'],
-            loader: () => ArcErrors['401'],
-            element: <CourtesyPage />
-          },
-          {
-            path: ArcErrors['403'],
-            loader: () => ArcErrors['403'],
-            element: <CourtesyPage />
-          },
-          {
-            path: ArcErrors['404'],
-            loader: () => ArcErrors['404'],
-            element: <CourtesyPage />
-          },
-          {
-            path: ArcErrors['408'],
-            loader: () => ArcErrors['408'],
-            element: <CourtesyPage />
-          }
-        ]
+        element: (
+          <PreLoginLayout>
+            <CourtesyPage />
+          </PreLoginLayout>
+        )
       },
       {
         path: ArcRoutes.DASHBOARD,
