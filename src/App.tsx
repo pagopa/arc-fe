@@ -25,9 +25,9 @@ import loaders, { getTokenOneidentity } from 'utils/loaders';
 import { PreLoginLayout } from 'components/PreLoginLayout';
 import { ApiClient } from 'components/ApiClient';
 
-const WithGuard = (props: { children: React.ReactNode }) => (
+const withGuard = (Component: () => React.JSX.Element) => (
   <RouteGuard itemKeys={['accessToken']} storage={window.localStorage}>
-    {props.children}
+    <Component />
   </RouteGuard>
 );
 
@@ -109,11 +109,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ArcRoutes.ASSISTANCE,
-            element: (
-              <WithGuard>
-                <Assistance />
-              </WithGuard>
-            ),
+            element: withGuard(Assistance),
             errorElement: <ErrorFallback />,
             handle: {
               backButton: false,
@@ -124,11 +120,7 @@ const router = createBrowserRouter([
           },
           {
             path: ArcRoutes.USER,
-            element: (
-              <WithGuard>
-                <UserRoute />
-              </WithGuard>
-            ),
+            element: withGuard(UserRoute),
             errorElement: <ErrorFallback />,
             handle: {
               backButton: true,
@@ -139,20 +131,12 @@ const router = createBrowserRouter([
           },
           {
             path: ArcRoutes.DASHBOARD,
-            element: (
-              <WithGuard>
-                <DashboardRoute />
-              </WithGuard>
-            ),
+            element: withGuard(DashboardRoute),
             errorElement: <ErrorFallback />
           },
           {
             path: ArcRoutes.TRANSACTION,
-            element: (
-              <WithGuard>
-                <TransactionRoute />
-              </WithGuard>
-            ),
+            element: withGuard(TransactionRoute),
             loader: ({ params }) => Promise.resolve(params.id),
             errorElement: <ErrorFallback />,
             handle: {
@@ -170,31 +154,19 @@ const router = createBrowserRouter([
           },
           {
             path: ArcRoutes.TRANSACTIONS,
-            element: (
-              <WithGuard>
-                <NoticesList />
-              </WithGuard>
-            ),
+            element: withGuard(NoticesList),
             errorElement: <ErrorFallback />
           },
           ...(utils.config.showNotices
             ? [
                 {
                   path: ArcRoutes.PAYMENT_NOTICES,
-                  element: (
-                    <WithGuard>
-                      <PaymentNotices />
-                    </WithGuard>
-                  ),
+                  element: withGuard(PaymentNotices),
                   errorElement: <ErrorFallback />
                 },
                 {
                   path: ArcRoutes.PAYMENT_NOTICE_DETAIL,
-                  element: (
-                    <WithGuard>
-                      <PaymentNoticeDetail />
-                    </WithGuard>
-                  ),
+                  element: withGuard(PaymentNoticeDetail),
                   errorElement: <ErrorFallback />,
                   loader: loaders.getPaymentNoticeDetails,
                   handle: {
