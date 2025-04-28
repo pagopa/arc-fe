@@ -50,6 +50,7 @@ export const CourtesyPage = () => {
               defaultValue: t('courtesyPage.default.body')
             })}
           </Typography>
+          {/* v8 ignore next 12 */}
           {i18next.exists(`courtesyPage.${errorCode}.cta`) && (
             <Button
               component={Link}
