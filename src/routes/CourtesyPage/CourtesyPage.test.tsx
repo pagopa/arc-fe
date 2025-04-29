@@ -14,7 +14,7 @@ vi.mock('react-router-dom', () => ({
       get: () => '403'
     }
   ],
-  useLoaderData: vi.fn(),
+  useParams: vi.fn(),
   Link: vi.fn()
 }));
 

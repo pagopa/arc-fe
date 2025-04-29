@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: ArcRoutes.COURTESY_PAGE.replace(':error', ''),
+        path: ArcRoutes.COURTESY_PAGE,
         element: (
           <PreLoginLayout>
             <CourtesyPage />
@@ -164,17 +164,7 @@ const router = createBrowserRouter([
                   }
                 }
               ]
-            : []),
-          {
-            path: ArcRoutes.COURTESY_PAGE,
-            loader: ({ params }) => Promise.resolve(params.error),
-            element: <CourtesyPage />,
-            handle: {
-              sidebar: {
-                visibile: false
-              }
-            }
-          }
+            : [])
         ]
       }
     ]

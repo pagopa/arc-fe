@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Typography, Container, Box } from '@mui/material';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { ArcErrors, ArcRoutes } from '../../routes/routes';
@@ -27,7 +27,7 @@ export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ erroCode
 
 export const CourtesyPage = () => {
   const { t } = useTranslation();
-  const errorDesc = useLoaderData() as keyof typeof ArcErrors;
+  const errorDesc = useParams()?.error as keyof typeof ArcErrors;
   const errorCode = ArcErrors[errorDesc];
 
   return (
