@@ -1,0 +1,286 @@
+{
+  "app": {
+    "title": "Area riservata pagoPA",
+    "info": "information",
+    "modal": {
+      "close": "Fermer"
+    },
+    "user": {
+      "title": "Vos informations",
+      "subtitle": "Les informations ci-dessous proviennent de votre SPID ou CIE. Pour les modifier, contactez votre fournisseur d’identité numérique.",
+      "info": {
+        "name": "Prénom",
+        "surname": "Nom",
+        "identifier": "Code fiscal",
+        "email": "Adresse email"
+      }
+    },
+    "cart": {
+      "header": {
+        "title": "votre panier",
+        "close": "fermer",
+        "amount": "Sous-total"
+      },
+      "empty": {
+        "title": "Votre panier est vide",
+        "description": "Ajoutez un ou plusieurs avis à votre panier pour procéder au paiement.",
+        "button": "Retour aux avis"
+      },
+      "items": {
+        "alert": "Le montant est mis à jour automatiquement pour garantir le paiement de la somme due et éviter ainsi toute pénalité ou intérêt supplémentaire. <link1>Vuoi saperne di più?</link1>",
+        "back": "Retour aux avis",
+        "pay": "Passer au paiement",
+        "full": "Limite de 5 avis par panier atteinte",
+        "info": "Vous pouvez payer jusqu'à 5 avis à la fois"
+      }
+    },
+    "assistance": {
+      "title": "Comment peut-on vous aider ?",
+      "description": "Si vous avez besoin d'aide avec le portail, remplissez les informations ci-dessous pour soumettre une demande d’assistance.",
+      "cardTitle": "Votre adresse email",
+      "cardDescription": "Indiquez l’adresse email à laquelle vous souhaitez recevoir nos réponses..",
+      "input1Placeholder": "Entrer l’adresse email",
+      "input1Helper": "Entrer une adresse email valide",
+      "input2Helper": "Les adresses email doivent correspondre",
+      "input2Placeholder": "Confirmer l’adresse email",
+      "privacy": "En continuant, vous déclarez avoir lu la <link1> Charte de confidentialité </link1> du service d’assistance aux citoyens.",
+      "confirm": "Valider",
+      "modalTitle": "Voulez-vous vraiment quitter ?",
+      "modalDescription": "Si vous quittez, votre demande d’assistance sera perdue."
+    },
+    "dashboard": {
+      "title": "Bonjour {{username}}",
+      "greetings": "Bonjour",
+      "newPayment": "Payer un avis",
+      "lastTransactions": "Vos reçus",
+      "seeAllTransactions": "Voir tout",
+      "IOAlert": {
+        "title": "Souhaitez-vous retrouver vos reçus et régler vos avis plus rapidement ?",
+        "cta": "Télécharger IO"
+      }
+    },
+    "transactions": {
+      "all": "Toutes",
+      "paidByMe": "J’ai payé",
+      "ownedByMe": "A mon nom",
+      "payee": "Nom de l'organisme",
+      "date": "Date",
+      "amount": "Montant",
+      "multiEntities": "Avis Multiples",
+      "paid": "Payé",
+      "empty": {
+        "title": "Vos reçus pagoPA seront disponibles ici",
+        "subtitle": "Payez un avis via l’un des canaux pagoPA agréé."
+      },
+      "error": {
+        "title": "Impossible de récupérer les données pour le moment.",
+        "retry": "Réessayer"
+      }
+    },
+    "paymentNotice": {
+      "preview": {
+        "title": "Recherchez vos avis de paiement pagoPA",
+        "description": "Vous trouverez ici les avis à payer à votre nom préparés par les organismes participant au service.",
+        "action": "Rechercher vos avis"
+      },
+      "empty": {
+        "title": "Nous n'avons trouvé aucun avis à payer",
+        "description": "Si vous avez reçu un avis pagoPA, appuyez sur « Payer un avis » et saisissez les informations",
+        "button": "Payer un avis"
+      },
+      "filtered.nodata": {
+        "paidByMe": {
+          "title": "Vous trouverez ici les reçus de vos paiements",
+          "text": "Si vous avez payé via un autre canal, veuillez contacter l'organisme créancier pour obtenir votre reçu."
+        },
+        "ownedByMe": {
+          "title": "Vous trouverez ici les reçus des paiements à votre nom",
+          "text": "Si vous ne trouvez pas un reçu, veuillez contacter l'organisme créancier."
+        }
+      },
+      "error": {
+        "description": "Impossible de récupérer les données pour le moment.",
+        "button": "Réessayer"
+      },
+      "card": {
+        "amount": "Montant",
+        "multiPayment": "Autres options de paiement",
+        "expiringDate": "Paiement unique avant le",
+        "detail": "Voir les détails"
+      }
+    },
+    "paymentNotices": {
+      "title": "Vos avis de paiement",
+      "found_one": "Nous avons trouvé {{count}} avis",
+      "found_other": "Nous avons trouvé {{count}} avis",
+      "notice": "avis",
+      "updated": "Mis à jour le",
+      "loading": "Recherche en cours dans les archives des Organismes Créanciers participant au service...",
+      "bottomAlert": {
+        "info": "Les avis de paiement nous ont été transmis par les Organismes Créanciers."
+      },
+      "noticesAlert": {
+        "info": "Voici les avis de paiement que les organismes ont transmis à PagoPA. Si vous ne trouvez pas un avis, contactez l'Organisme Créancier ou appuyez sur ‘Payer un avis’ et saisissez les informations.",
+        "action": "Payer un avis"
+        },
+      "optin": {
+        "title": "Autorisez-vous PagoPA à rechercher vos avis ?",
+        "body": "En confirmant, vous permettez à PagoPA de rechercher les avis de paiement à votre nom dans les archives des organismes participant au service."
+      }
+    },
+    "routes": {
+      "back": "Retour",
+      "exit": "Quitter",
+      "cancel": "Annuler",
+      "continue": "Continuer",
+      "consent": "Autoriser",
+      "breadcrumbs": "fil d'Ariane",
+      "breadcrumbsElementClickable": "Élément du fil cliquable",
+      "breadcrumbsElement": "Élément du fil",
+      "home": "Page d'accueil",
+      "transactionDetail": "Détails de l'opération",
+      "transactions": "Reçus",
+      "user": "Vos informations",
+      "paymentNotices": "Avis de paiement",
+      "paymentNoticeDetail": "Détails de l'avis"
+    },
+    "transactionDetail": {
+      "title": "Détails de l'opération",
+      "card2": {
+        "title": "Informations sur la transaction"
+      },
+      "downloadReceipt": "Télécharger le reçu",
+      "downloadReceiptError":"Impossible de récupérer le reçu.",
+      "noReceipt": "Le reçu pagoPA n'est pas disponible. Veuillez contacter l’organisme créancier si vous avez besoin d’un justificatif de paiement, c'est-à-dire du document confirmant le règlement de votre dette.",
+      "downloadQuiettance": "Télécharger le justificatif",
+      "paidBy": "Effectuée par",
+      "authCode": "Code d’autorisation",
+      "transactionId": "Numéro de transaction",
+      "accountHolder": "Mode de paiement au nom de",
+      "paymentMethod": "Mode de paiement",
+      "PSP": "Prestataire de services de paiement (PSP)",
+      "dateAndTime": "Date et heure",
+      "creditorEntity": "Organisme créancier",
+      "creditorFiscalCode": "Code Fiscal Organisme",
+      "debtor": "Débiteur",
+      "noticeCode": "Code avis/IUV",
+      "amount": "Montant",
+      "total": "Total",
+      "totalLabel": "Le total comprend <strong>{{fee}}</strong> de commission, appliquée par {{psp}}."
+    },
+    "paymentNoticeDetail": {
+      "title": "Détails de l'avis",
+      "card1": {
+        "title": "Informations de paiement",
+        "amount": "Montant",
+        "paFullname": "Organisme créancier",
+        "subject": "Objet du paiement",
+        "dueDate": "Avant le",
+        "iuv": "Code avis/IUV",
+        "paTaxCode": "Code Fiscal Organisme"
+      },
+      "card2": {
+        "title": "Combien et quand payer ?",
+        "firstInstallmentDate": "Paiement unique avant le",
+        "firstInstallmentAmount": "Montant",
+        "button1": "Payer maintenant",
+        "label1": "Ou",
+        "button2": "Télécharger le reçu",
+        "addItemToCart": "Ajouter au panier",
+        "removeItemFromCart": "Retirer du panier"
+      },
+      "modal": {
+        "title": "Remarquez-vous un montant différent ?",
+        "description": "pagoPA ajuste automatiquement le montant pour vous assurer de payer exactement ce qui est dû et éviter ainsi des pénalités ou d'autres intérêts."
+      }
+    }
+  },
+  "aria": {
+    "a11y": "Accessibilité",
+    "help": "Aide"
+  },
+  "general": {
+    "PagoPA": "PagoPA S.p.A"
+  },
+  "menu": {
+    "description": "Naviguer dans le portail",
+    "homepage": "Page d’accueil",
+    "receipts":{
+      "menuTitle":"Reçus",
+       "pageTitle": "Vos reçus"
+    },
+    "navigationMenu": "Menu de navigation",
+    "menu": "Menu",
+    "paymentNotices": "Avis de paiement"
+  },
+  "sidebar": {
+    "collapse": "Réduire le menu",
+    "expand": "Développer le menu"
+  },
+  "ui": {
+    "a11y": {
+      "cart": "Voir le panier de paiement",
+      "home": "Aller à la page d’accueil"
+    },
+    "header": {
+      "profile": "Vos informations",
+      "logout": "Se déconnecter",
+      "help": "Assistance"
+    },
+    "footer": {
+      "a11y": "Accessibilité",
+      "privacy": "Politique de confidentialité",
+      "personalData": "Droit à la protection des données personnelles",
+      "termsAndConditions": "Conditions générales d'utilisation",
+      "legalInfo": "Société par actions à associé unique – capital social de 1 000 000 euros entièrement libéré – siège social : Piazza Colonna 370, 00187 Rome – Enregistrée au Registre du commerce de Rome, CF et TVA 15376371009"
+    }
+  },
+  "courtesyPage": {
+    "default": {
+      "title": "La page que vous recherchez n’existe pas",
+      "body": "Une erreur imprévue s'est produite. Veuillez réessayer dans quelques minutes."
+    },
+    "400": {
+      "title": "Quelque chose n’a pas marché comme prévu",
+      "body": "Une erreur imprévue s'est produite. Veuillez réessayer dans quelques minutes."
+    },
+    "401": {
+      "title": "Votre session a expiré",
+      "body": "Connectez-vous pour continuer votre navigation.",
+      "cta": "Se connecter"
+    },
+    "403": {
+      "title": "Impossible de se connecter",
+      "body": "L’espace réservé pagoPA est en cours de développement. Il n'est pas possible de se connecter pour le moment."
+    },
+    "404": {
+      "title": "La page que vous recherchez n’existe pas",
+      "body": "Vous pouvez revenir à la page d’accueil ou visiter une autre page",
+      "cta":  "Retour à la page d'accueil"
+    },
+    "408": {
+      "title": "Impossible de se connecter",
+      "body": "Un problème s’est produit lors de la connexion. Veuillez réessayer dans quelques minutes.",
+      "cta": "Réessayer"
+    },
+    "422": {
+      "title": "Désolé, nous ne pouvons pas traiter le paiement",
+      "body": "Pour plus d'informations, veuillez contacter l'organisme créancier.",
+      "cta": "Fermer"
+    },
+    "423": {
+      "title": "Impossible de démarrer le paiement",
+      "body": "Veuillez réessayer dans quelques minutes.",
+      "cta": "Fermer"
+    }
+  },
+  "pageTitles" : {
+    "dashboard": "Page d'accueil",
+    "paymentnotices": "Vos avis de paiement",
+    "paymentnotice": "Détails de l'avis",
+    "notices": "Vos reçus",
+    "notice": "Détails de l'opération",
+    "courtesy": "Page d'information",
+    "userpage": "Vos informations"
+  }
+}

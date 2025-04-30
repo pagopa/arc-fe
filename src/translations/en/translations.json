@@ -223,7 +223,8 @@
     },
     "header": {
       "profile": "Your data",
-      "logout": "Logout"
+      "logout": "Logout",
+      "help": "Support"
     },
     "footer": {
       "a11y": "Accessibility",
@@ -235,9 +236,12 @@
   },
   "courtesyPage": {
     "default": {
-      "title": "The page you are looking for does not exist",
-      "body": "You can go back to the homepage or visit a new page",
-      "cta": "Back to homepage"
+      "title": "Something went wrong",
+      "body": "An unexpected error has occurred. Please try again in a few minutes."
+    },
+    "400": {
+      "title": "Something went wrong",
+      "body": "An unexpected error has occurred. Please try again in a few minutes."
     },
     "401": {
       "title": "Your session has expired",
@@ -247,6 +251,11 @@
     "403": {
       "title": "It was not possible to access",
       "body": "The pagoPA private area is under development, access is currently not available."
+    },
+    "404": {
+      "title": "The page you are looking for does not exist",
+      "body": "You can return to the homepage or visit a new page",
+      "cta":  "Return to home"
     },
     "408": {
       "title": "It was not possible to access",

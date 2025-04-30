@@ -71,7 +71,7 @@ describe('Header component', () => {
   it('should call onAssistanceClick assistance button click', () => {
     const onAssistanceClik = vi.fn();
     render(<WrappedHeader onAssistanceClick={onAssistanceClik} />);
-    const button = screen.getByText('Assistenza');
+    const button = screen.getByText('ui.header.help');
     fireEvent.click(button);
     expect(onAssistanceClik).toHaveBeenCalledTimes(1);
   });

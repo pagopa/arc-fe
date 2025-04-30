@@ -1,37 +1,22 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ErrorFallback } from 'components/ErrorFallback';
+import { ArcErrors, ArcRoutes } from 'routes/routes';
+import { Navigate } from 'react-router-dom';
+
+vi.mock('react-router-dom', () => ({
+  Navigate: vi.fn()
+}));
 
 describe('ErrorFallback', () => {
-  it('should render the default error message', () => {
+  it('should navigate to ArcRoutes.COURTESY_PAGE, error 400 (generic)', () => {
     render(<ErrorFallback />);
-    expect(screen.getByText('Ops!... something went wrong')).toBeInTheDocument();
-  });
-
-  it('should render the provided error message', () => {
-    const errorMessage = 'Test error message';
-    render(<ErrorFallback message={errorMessage} />);
-    expect(screen.getByText('Ops!... something went wrong')).toBeInTheDocument();
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
-  });
-
-  it('should render the back button if onReset is provided', () => {
-    const onReset = vi.fn();
-    render(<ErrorFallback onReset={onReset} />);
-    expect(screen.getByRole('button')).toBeInTheDocument();
-  });
-
-  it('should call onReset when back button is clicked', () => {
-    const onReset = vi.fn();
-    render(<ErrorFallback onReset={onReset} />);
-    const backButton = screen.getByRole('button');
-    fireEvent.click(backButton);
-    expect(onReset).toHaveBeenCalledTimes(1);
-  });
-
-  it('should not render the back button if onReset is not provided', () => {
-    render(<ErrorFallback />);
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(Navigate).toHaveBeenCalledWith(
+      {
+        to: ArcRoutes.COURTESY_PAGE.replace(':error', ArcErrors['400'])
+      },
+      {}
+    );
   });
 });
