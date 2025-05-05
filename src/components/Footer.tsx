@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import lang from '../translations/lang';
 import { FooterPostLogin, FooterLegal } from '@pagopa/mui-italia';
 import { ArcRoutes } from 'routes/routes';
 import { useLanguage } from 'hooks/useLanguage';
-import './Footer.css';
 
 const LINK_PERSONAL_DATA_PROTECTION =
   'https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8';
@@ -55,7 +53,23 @@ export const Footer = () => {
           }
         ]}
         currentLangCode={language}
-        languages={lang}
+        languages={{
+          it: {
+            it: 'Italiano',
+            en: 'Inglese',
+            fr: 'Francese'
+          },
+          en: {
+            it: 'Italian',
+            en: 'English',
+            fr: 'French'
+          },
+          fr: {
+            it: 'Italien',
+            en: 'Anglais',
+            fr: 'Français'
+          }
+        }}
         onLanguageChanged={changeLanguage}
       />
       <FooterLegal

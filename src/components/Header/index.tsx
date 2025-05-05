@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArcRoutes } from 'routes/routes';
 import { useUserInfo } from 'hooks/useUserInfo';
 import { SubHeader } from './SubHeader';
+import { useTranslation } from 'react-i18next';
 
 export interface HeaderProps {
   onAssistanceClick?: () => void;
@@ -16,6 +17,7 @@ export const Header = (props: HeaderProps) => {
   /* istanbul ignore next */
   const { onAssistanceClick = () => null } = props;
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   async function logoutUser() {
     try {
@@ -42,7 +44,7 @@ export const Header = (props: HeaderProps) => {
   const userActions: UserAction[] = [
     {
       id: 'profile',
-      label: 'I tuoi dati',
+      label: t('ui.header.profile'),
       onClick: () => {
         navigate(ArcRoutes.USER);
       },
@@ -50,7 +52,7 @@ export const Header = (props: HeaderProps) => {
     },
     {
       id: 'logout',
-      label: 'Esci',
+      label: t('ui.header.logout'),
       onClick: logoutUser,
       icon: <LogoutRoundedIcon fontSize="small" color="inherit" />
     }
@@ -64,6 +66,7 @@ export const Header = (props: HeaderProps) => {
         onAssistanceClick={onAssistanceClick}
         loggedUser={jwtUser}
         userActions={userActions}
+        translationsMap={{ assistance: t('ui.header.help') }}
       />
       <SubHeader />
     </>

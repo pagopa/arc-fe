@@ -6,8 +6,8 @@ import lang from './lang';
 export const fallbackLang = 'it';
 
 const DETECTION_OPTIONS = {
-  order: ['querystring', 'navigator'],
-  caches: []
+  order: ['localStorage', 'navigator'],
+  caches: ['localStorage']
 };
 
 void i18n

@@ -1,25 +1,285 @@
 {
   "app": {
-    "title": "PagoPa - Checkout Evolved",
+    "title": "Area riservata pagoPA",
+    "info": "Info",
+    "modal": {
+      "close": "Close"
+    },
     "user": {
       "title": "Your data",
-      "subtitle": "This data is used to generate receipts.",
+      "subtitle": "This data is derived from your SPID or CIE. To change them, contact your digital identity provider.",
       "info": {
         "name": "Name",
         "surname": "Surname",
-        "identifier": "Tax code",
-        "email": "Email"
+        "identifier": "Fiscal Code",
+        "email": "Email address"
+      }
+    },
+    "cart": {
+      "header": {
+        "title": "Your cart",
+        "close": "Close the cart",
+        "amount": "Amount"
+      },
+      "empty": {
+        "title": "Your cart is empty",
+        "description": "Add one or more notices to your cart to proceed with payment",
+        "button": "Back to notices"
+      },
+      "items": {
+        "alert": "The amount is updated automatically, so you always pay what is due and avoid penalties or other interest. <link1>Vuoi saperne di più?</link1>",
+        "back": "Back to notices",
+        "pay": "Continue and pay",
+        "full": "You cannot add more than 5 notices to your cart",
+        "info": "You can pay up to 5 notices together"
+      }
+    },
+    "assistance": {
+      "title": "How can we help you?",
+      "description": "If you need assistance, you can open a support request.",
+      "cardTitle": "Your email address",
+      "cardDescription": "Indicate the email address on which you wish to receive replies from support.",
+      "input1Placeholder": "Your email",
+      "input1Helper": "Please enter a valid email address",
+      "input2Helper": "Email addresses must match",
+      "input2Placeholder": "Confirm",
+      "privacy": "By continuing, you declare that you have read <link1> Privacy Policy </link1> of the citizen assistance service.",
+      "confirm": "Continue",
+      "modalTitle": "Do you really want to quit?",
+      "modalDescription": "If you quit, the request for assistance will be lost."
+    },
+    "dashboard": {
+      "title": "Hi {{username}}!",
+      "greetings": "Welcome",
+      "newPayment": "Pay a notice",
+      "lastTransactions": "Your receipts",
+      "seeAllTransactions": "See all",
+      "IOAlert": {
+        "title": "Do you want to access your receipts and pay notices faster?",
+        "cta": "Downolad IO"
+      }
+    },
+    "transactions": {
+      "all": "All",
+      "paidByMe": "I paid for it",
+      "ownedByMe": "In my name",
+      "payee": "Name of institution",
+      "date": "Date",
+      "amount": "Amount",
+      "multiEntities": "Multiple notices",
+      "paid": "Paid",
+      "empty": {
+        "title": "Here you can see your pagoPA receipts",
+        "subtitle": "Pay a notice with any pagoPA-enabled channel."
+      },
+      "error": {
+        "title": "We cannot retrieve the data",
+        "retry": "Try again"
+      }
+    },
+    "paymentNotice": {
+      "preview": {
+        "title": "Search your pagoPA payment notices",
+        "description": "Here you can find the notices to be paid on your behalf that the Payee have communicated to us.",
+        "action": "Find your notices"
+      },
+      "empty": {
+        "title": "We found no notices to pay",
+        "description": "If you have received a pagoPA notice, click on ‘Pay a notice’ and enter the data.",
+        "button": "Pay a notice"
+      },
+      "filtered.nodata": {
+        "paidByMe": {
+          "title": "Here you will see receipts for payments made by you",
+          "text": "If you paid by other channel, you should contact the payee to obtain a receipt."
+        },
+        "ownedByMe": {
+          "title": "Here you can see receipts for payments made to you.",
+          "text": "Contact the payee if you cannot find a receipt."
+        }
+      },
+      "error": {
+        "description": "We cannot retrieve the data.",
+        "button": "Try again"
+      },
+      "card": {
+        "amount": "Amount",
+        "multiPayment": "Other payment options",
+        "expiringDate": "Single instalment by",
+        "detail": "Show detail"
+      }
+    },
+    "paymentNotices": {
+      "title": "Your notices",
+      "found_one": "We have found {{count}} notice",
+      "found_other": "We have found {{count}} notices",
+      "updated": "Updated on",
+      "loading": "We are searching through the archives of the Payee participating in the service...",
+      "bottomAlert": {
+        "info": "The payment notices have been communicated to us by the Payee. If you have any problems, please contact the institution."
+      },
+      "noticesAlert": {
+        "info": "These are the notices that institutions have communicated to PagoPA. If you do not find a notice, contact the payee or click on ‘Pay a notice’ and enter the data.",
+        "action": "Pay a notice"
+        },
+      "optin": {
+        "title": "Do you allow PagoPA to search your notices?",
+        "body": "If you confirm, you allow PagoPA to search for payment notices in your name among the archives of the institutions participating in the service."
+      }
+    },
+    "routes": {
+      "back": "Back",
+      "exit": "Exit",
+      "cancel": "Deny",
+      "continue": "Continue",
+      "consent": "Allow",
+      "breadcrumbs": "breadcrumbs",
+      "breadcrumbsElementClickable": "Elemento breadcrumbs cliccabile",
+      "breadcrumbsElement": "Elemento breadcrumbs",
+      "home": "Homepage",
+      "transactionDetail": "Transaction detail",
+      "transactions": "Receipts",
+      "user": "Your data",
+      "paymentNotices": "Payment notices",
+      "paymentNoticeDetail": "Notice detail"
+    },
+    "transactionDetail": {
+      "title": "Transaction detail",
+      "card2": {
+        "title": "Transaction Information"
+      },
+      "downloadReceipt": "Download receipt",
+      "downloadReceiptError":"Receipt could not be retrieved",
+      "noReceipt": "The pagoPA receipt is not available. Contact the Payee if you need the payment receipt, i.e. the document certifying that a debt has been settled.",
+      "downloadQuiettance": "Download receipt",
+      "paidBy": "Executed by",
+      "authCode": "authorisation code",
+      "transactionId": "Transaction ID",
+      "accountHolder": "Method in the name of",
+      "paymentMethod": "Payment method",
+      "PSP": "Payment service provider",
+      "dateAndTime": "Date and time",
+      "creditorEntity": "Payee",
+      "creditorFiscalCode": "Payee tax code",
+      "debtor": "Recipient",
+      "noticeCode": "Notice code/IUV",
+      "amount": "Amount",
+      "total": "Total",
+      "totalLabel": "The total includes <strong>{{fee}}</strong> commission charged by {{psp}}."
+    },
+    "paymentNoticeDetail": {
+      "title": "Notice detail",
+      "card1": {
+        "title": "Payment details",
+        "amount": "Amount",
+        "paFullname": "Payee",
+        "subject": "Payment description",
+        "dueDate": "No lather than",
+        "iuv": "Notice code/IUV",
+        "paTaxCode": "Payee tax code"
+      },
+      "card2": {
+        "title": "How much and when to pay?",
+        "firstInstallmentDate": "Single instalment by",
+        "firstInstallmentAmount": "Amount",
+        "button1": "Pay now",
+        "label1": "or",
+        "button2": "Download pagoPA notice",
+        "addItemToCart": "Add to cart",
+        "removeItemFromCart": "Remove from cart"
+      },
+      "modal": {
+        "title": "Do you see a different amount?",
+        "description": "pagoPA automatically updates the amount to ensure that you have paid exactly what you owe and thus avoid penalties or other interest."
       }
     }
   },
-  "general": {
-    "and": "&"
-  },
-  "header": {
-    "disclaimer": ""
-  },
   "aria": {
-    "a11y": "Accessibility"
+    "a11y": "Accessibility",
+    "help": "Help"
+  },
+  "general": {
+    "PagoPA": "PagoPA S.p.A"
+  },
+  "menu": {
+    "description": "Browse the website",
+    "homepage": "Homepage",
+    "receipts":{
+      "menuTitle":"Recepits",
+       "pageTitle": "Your receipts"
+    },
+    "navigationMenu": "Navigation menu",
+    "menu": "Menu",
+    "paymentNotices": "Payment notices"
+  },
+  "sidebar": {
+    "collapse": "Collapse menu",
+    "expand": "Expand the menu"
+  },
+  "ui": {
+    "a11y": {
+      "cart": "Show payment cart",
+      "home": "Go to home page"
+    },
+    "header": {
+      "profile": "Your data",
+      "logout": "Logout",
+      "help": "Support"
+    },
+    "footer": {
+      "a11y": "Accessibility",
+      "privacy": "Privacy",
+      "personalData": "Data protection",
+      "termsAndConditions": "Terms",
+      "legalInfo": "Società per azioni con socio unico - capitale sociale di euro 1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370, CAP 00187 - N. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009"
+    }
+  },
+  "courtesyPage": {
+    "default": {
+      "title": "Something went wrong",
+      "body": "An unexpected error has occurred. Please try again in a few minutes."
+    },
+    "400": {
+      "title": "Something went wrong",
+      "body": "An unexpected error has occurred. Please try again in a few minutes."
+    },
+    "401": {
+      "title": "Your session has expired",
+      "body": "Please log in to continue using the site.",
+      "cta": "Login"
+    },
+    "403": {
+      "title": "It was not possible to access",
+      "body": "The pagoPA private area is under development, access is currently not available."
+    },
+    "404": {
+      "title": "The page you are looking for does not exist",
+      "body": "You can return to the homepage or visit a new page",
+      "cta":  "Return to home"
+    },
+    "408": {
+      "title": "It was not possible to access",
+      "body": "A problem occurred while logging in. Please try again in a few minutes.",
+      "cta": "Retry"
+    },
+    "422": {
+      "title": "Sorry, we can't go ahead with the payment",
+      "body": "For more information on the notice, contact the payee",
+      "cta": "Close"
+    },
+    "423": {
+      "title": "We couldn't start the payment",
+      "body": "Please try again in a few minutes",
+      "cta": "Close"
+    }
+  },
+  "pageTitles" : {
+    "dashboard": "Your Dashboard",
+    "paymentnotices": "Your notices",
+    "paymentnotice": "Notice detail",
+    "notices": "Your receipts",
+    "notice": "Receipt detail",
+    "courtesy": "Courtesy page",
+    "userpage": "Your data"
   }
 }
-

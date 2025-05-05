@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Typography, Container, Box } from '@mui/material';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { ArcErrors } from '../../routes/routes';
+import { ArcErrors, ArcRoutes } from '../../routes/routes';
+import i18next from 'i18next';
 
 interface ErrorIconComponentProps {
   erroCode?: ArcErrors;
@@ -17,15 +18,16 @@ export const ErrorIconComponent: React.FC<ErrorIconComponentProps> = ({ erroCode
     case ArcErrors['sessione-scaduta']:
       return <img src="/pictograms/expired.svg" title="Expired" aria-hidden="true" />;
     case ArcErrors['avvio-pagamento']:
-      return <img src="/pictograms/umbrella.svg" title="Something go wrong" aria-hidden="true" />;
+    case ArcErrors['sconosciuto']:
+      return <img src="/pictograms/umbrella.svg" title="Something went wrong" aria-hidden="true" />;
     default:
-      return <img src="/pictograms/umbrella.svg" title="Something go wrong" aria-hidden="true" />;
+      return <img src="/pictograms/umbrella.svg" title="Something went wrong" aria-hidden="true" />;
   }
 };
 
 export const CourtesyPage = () => {
   const { t } = useTranslation();
-  const errorDesc = useLoaderData() as keyof typeof ArcErrors;
+  const errorDesc = useParams()?.error as keyof typeof ArcErrors;
   const errorCode = ArcErrors[errorDesc];
 
   return (
@@ -48,10 +50,11 @@ export const CourtesyPage = () => {
               defaultValue: t('courtesyPage.default.body')
             })}
           </Typography>
-          {errorCode !== ArcErrors['accesso-non-autorizzato'] && (
+          {/* v8 ignore next 12 */}
+          {i18next.exists(`courtesyPage.${errorCode}.cta`) && (
             <Button
               component={Link}
-              to="/"
+              to={ArcRoutes.LOGIN}
               variant="contained"
               size="large"
               color="primary"
