@@ -362,10 +362,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                       </Typography>
                     </Grid>
                     <Grid item xs={2} paddingTop={1} textAlign={'end'}>
-                      <CopyToClipboardButton
-                        value={noticeData.authCode.toString()}
-                        color="primary"
-                      />
+                      <CopyToClipboardButton value={noticeData.authCode.toString()} />
                     </Grid>
                   </Grid>
                   <Divider />
@@ -392,10 +389,7 @@ export default function TransactionDetail({ noticeData }: { noticeData: NoticeDe
                       </Stack>
                     </Grid>
                     <Grid item xs={2} paddingTop={1} textAlign={'end'}>
-                      <CopyToClipboardButton
-                        value={noticeData.eventId.toString()}
-                        color="primary"
-                      />
+                      <CopyToClipboardButton value={noticeData.eventId.toString()} />
                     </Grid>
                   </Grid>
                 </Stack>
