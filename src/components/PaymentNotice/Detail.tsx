@@ -196,7 +196,11 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                     </Grid>
                     <Divider />
                     <Grid container justifyContent={'space-between'}>
-                      <Grid item component={'dl'} data-testid="app.paymentNoticeDetail.iuv">
+                      <Grid
+                        item
+                        component={'dl'}
+                        data-testid="app.paymentNoticeDetail.iuv"
+                        alignItems={'center'}>
                         <Typography
                           sx={{ wordBreak: 'break-word' }}
                           component="dt"
@@ -211,11 +215,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                           {paymentNotice.paymentOptions.iuv}
                         </Typography>
                       </Grid>
-                      <Grid item></Grid>
-                      <CopyToClipboardButton
-                        value={paymentNotice.paymentOptions.iuv}
-                        color="primary"
-                      />
+                      <CopyToClipboardButton value={paymentNotice.paymentOptions.iuv} />
                     </Grid>
                     <Divider />
 
@@ -239,7 +239,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <CopyToClipboardButton value={paymentNotice.paTaxCode} color="primary" />
+                        <CopyToClipboardButton value={paymentNotice.paTaxCode} />
                       </Grid>
                     </Grid>
                   </Stack>

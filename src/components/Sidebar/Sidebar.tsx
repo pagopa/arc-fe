@@ -115,7 +115,7 @@ export const Sidebar: React.FC = () => {
                   aria-label={t(!collapsed ? 'sidebar.collapse' : 'sidebar.expand')}
                   onClick={() => changeMenuState()}
                   size="large">
-                  <MenuIcon />
+                  <MenuIcon color="action" />
                   {!lg && (
                     <Typography variant="button" sx={styles.hamburgerTypography}>
                       {t('menu.menu')}

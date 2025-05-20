@@ -45,6 +45,13 @@ const router = createBrowserRouter([
         }
       },
       {
+        path: '/',
+        element: <Navigate replace to={ArcRoutes.DASHBOARD} />,
+        ErrorBoundary: () => {
+          throw useRouteError();
+        }
+      },
+      {
         path: ArcRoutes.LOGIN,
         element: <Login />
       },
