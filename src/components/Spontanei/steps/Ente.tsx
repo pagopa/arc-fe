@@ -36,7 +36,7 @@ const SelezionaEnte = (props: SelezionaEnteProps) => {
           }}
           id="free-solo-demo"
           freeSolo
-          options={options}
+          options={[...options, { label: 'Regione del Veneto', value: 'VENETO' }]}
           renderInput={(params) => <TextField {...params} label="Cerca per nome dell'ente" />}
         />
       </Stack>

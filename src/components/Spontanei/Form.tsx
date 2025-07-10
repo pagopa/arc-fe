@@ -3,18 +3,19 @@ import { Button, Stack, Typography } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import Steps from './steps';
 import SelezionaEnte from './steps/Ente';
-import SelezionaServizio, { Servizio } from './steps/Servizio';
+import SelezionaServizio, { Servizio, ServizioDinamico } from './steps/Servizio';
 import ConfiguraPagamento from './steps/Configura';
 import Riepilogo from './steps/Riepilogo';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import utils from 'utils';
 import { PaymentNoticeDetailsDTO } from '../../../generated/apiClient';
+import ConfiguraPagamentoDinamico from './steps/ConfiguraDinamico';
 
 const Spontanei = () => {
   const [step, setStep] = React.useState(0);
   const [ente, setEnte] = React.useState<{ paFullName: string; paTaxCode: string } | null>(null);
-  const [servizio, setServizio] = React.useState<Servizio | null>(null);
+  const [servizio, setServizio] = React.useState<Servizio | ServizioDinamico | null>(null);
   const [amount, setAmount] = React.useState<number>(0);
   const [causale, setCausale] = React.useState('');
   const [spontaneo, setSpontaneo] = React.useState<PaymentNoticeDetailsDTO | null>(null);
@@ -70,13 +71,21 @@ const Spontanei = () => {
       <Stack spacing={4} mt={4}>
         <Steps activeStep={step} />
         {step === 0 && <SelezionaEnte setEnte={setEnte} />}
-        {step === 1 && <SelezionaServizio setServizio={setServizio} />}
-        {step === 2 && (
+        {step === 1 && (
+          <SelezionaServizio
+            setServizio={setServizio}
+            enteConServiziDinamici={ente?.paTaxCode === 'VENETO'}
+          />
+        )}
+        {step === 2 && ente?.paTaxCode !== 'VENETO' && (
           <ConfiguraPagamento
             onCausaleChange={setCausale}
             amount={amount}
             onAmountChange={OnAmountChange}
           />
+        )}
+        {step === 2 && ente?.paTaxCode === 'VENETO' && (
+          <ConfiguraPagamentoDinamico servizio={servizio as ServizioDinamico} />
         )}
         {step === 3 && spontaneo && <Riepilogo spontaneo={spontaneo} />}
         {step !== 3 && (
