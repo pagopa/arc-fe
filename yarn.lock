@@ -1809,19 +1809,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.27.6":
+  version: 7.27.6
+  resolution: "@babel/runtime@npm:7.27.6"
+  checksum: 10c0/89726be83f356f511dcdb74d3ea4d873a5f0cf0017d4530cb53aa27380c01ca102d573eff8b8b77815e624b1f8c24e7f0311834ad4fb632c90a770fda00bd4c8
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.24.4
   resolution: "@babel/runtime@npm:7.24.4"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10c0/785aff96a3aa8ff97f90958e1e8a7b1d47f793b204b47c6455eaadc3f694f48c97cd5c0a921fe3596d818e71f18106610a164fb0f1c71fd68c622a58269d537c
-  languageName: node
-  linkType: hard
-
-"@babel/runtime@npm:^7.27.6":
-  version: 7.27.6
-  resolution: "@babel/runtime@npm:7.27.6"
-  checksum: 10c0/89726be83f356f511dcdb74d3ea4d873a5f0cf0017d4530cb53aa27380c01ca102d573eff8b8b77815e624b1f8c24e7f0311834ad4fb632c90a770fda00bd4c8
   languageName: node
   linkType: hard
 
@@ -3374,6 +3374,13 @@ __metadata:
     proc-log: "npm:^5.0.0"
     which: "npm:^5.0.0"
   checksum: 10c0/61814b1b8c7fbefb712ddad4b1cb64a563f5806a57ef20df7735482cf3ceafc6fbf6cad82551d158eb10f76fca5bffcdb5b03459f70c61c87e7aa8774f407bbb
+  languageName: node
+  linkType: hard
+
+"@nyariv/sandboxjs@npm:^0.8.25":
+  version: 0.8.25
+  resolution: "@nyariv/sandboxjs@npm:0.8.25"
+  checksum: 10c0/9d656b43035348a743dd0e3e5b92351b48f39a506b98c9070deba524cce8e547945305b5a4b868d5ede303ce012917a92f7daecd6ee5222bafb20b9d0e9dafea
   languageName: node
   linkType: hard
 
@@ -6431,6 +6438,13 @@ __metadata:
   version: 2.0.6
   resolution: "@types/istanbul-lib-coverage@npm:2.0.6"
   checksum: 10c0/3948088654f3eeb45363f1db158354fb013b362dba2a5c2c18c559484d5eb9f6fd85b23d66c0a7c2fcfab7308d0a585b14dadaca6cc8bf89ebfdc7f8f5102fb7
+  languageName: node
+  linkType: hard
+
+"@types/jexl@npm:^2":
+  version: 2.3.4
+  resolution: "@types/jexl@npm:2.3.4"
+  checksum: 10c0/9c86a11adc62bbbca834f0a9aa4699deaaf5a735992edf9cc3cf305ec09447e3aaed131832e2c95619e6ac6143f2862165fa39205fdb5104fde809831200fa5c
   languageName: node
   linkType: hard
 
@@ -12086,6 +12100,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jexl@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "jexl@npm:2.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.10.2"
+  checksum: 10c0/068f2d1f56e94265f871452eac1769612547fde90bd8ba0da8c9aefb7db09e7ef4afaa5eb7fa1db94a4e5b06f702b1b487b7c797cef86cc684e2da12a0dd797f
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -14493,6 +14516,7 @@ __metadata:
     "@mui/lab": "npm:^5.0.0-alpha.170"
     "@mui/material": "npm:^5.15.15"
     "@mui/x-date-pickers": "npm:^8.7.0"
+    "@nyariv/sandboxjs": "npm:^0.8.25"
     "@pagopa/mui-italia": "npm:^1.5.1-0"
     "@preact/signals-react": "npm:^2.2.0"
     "@storybook/addon-essentials": "npm:8.1.11"
@@ -14505,6 +14529,7 @@ __metadata:
     "@storybook/test": "npm:8.1.11"
     "@tanstack/react-query": "npm:^5.40.0"
     "@testing-library/react": "npm:^14.3.0"
+    "@types/jexl": "npm:^2"
     "@types/react": "npm:^18.2.74"
     "@types/react-dom": "npm:^18.2.24"
     "@types/react-helmet": "npm:^6"
@@ -14524,6 +14549,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.8.0"
     i18next: "npm:^23.10.1"
     i18next-browser-languagedetector: "npm:^7.2.1"
+    jexl: "npm:^2.3.0"
     jsdom: "npm:^25.0.0"
     parcel: "npm:latest"
     parcel-reporter-static-files-copy: "npm:^1.5.3"
