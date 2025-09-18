@@ -1,8 +1,14 @@
 import * as z from 'zod';
 import { FieldBean } from '../mockServiziDinamici';
-import { DatePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
-import { TextField } from '@mui/material';
+
+import SINGLESELECT from './FieldBeans/SINGLESELECT';
+import MULTISELECT from './FieldBeans/MULTISELECT';
+import DATE from './FieldBeans/DATE'
+import TEXT from './FieldBeans/TEXT';
+import CURRENCYLABEL from './FieldBeans/CURRENCYLABEL';
+import MULTIFIELD from './FieldBeans/MULTIFIELD';
+import NONE from './FieldBeans/NONE';
+import TAB from './FieldBeans/TAB';
 
 export type FieldName = FieldBean['name'];
 
@@ -33,12 +39,11 @@ export const BuildFormSchema = (fields: Array<FieldBean>) => {
   let schemaObject = {};
   fields.forEach((field) => {
     const name = field.name;
-    //const isRequired = field.required;
+    const isRequired = field.required;
     const regex = field.regex;
     //const type = 'string';
     const errorMessage = field.extraAttr?.error_message;
-
-    const simple = z.string();
+    const simple = isRequired ? z.string().min(1, errorMessage) : z.string();
     const withRex = simple.regex(new RegExp(regex || ''), errorMessage);
 
     schemaObject = { ...schemaObject, [name]: regex ? withRex : simple };
@@ -47,67 +52,42 @@ export const BuildFormSchema = (fields: Array<FieldBean>) => {
 };
 
 /** set the form state considering the initial value */
+let intialState = {};
 export const BuildFormState = (fields: Array<FieldBean>) => {
-  const intialState = fields.reduce(
-    (accumulator, { name, defaultValue }) => ({ ...accumulator, [name]: defaultValue }),
-    {}
+  fields.forEach(
+    ({ name, defaultValue, subfields, htmlRender }) => {
+      if (subfields) BuildFormState(subfields)
+      /* I fields MULTFIELD sono solo contenitori di altri fields
+      non hanno un value associato e per questo motivo non è
+      necessario tenere tracciao dello stato
+      probabilmente anche altri tipi di fields non necessitano
+      di stato  */
+      if (htmlRender !== 'MULTIFIELD') {
+        intialState = { ...intialState, [name]: defaultValue }
+      }
+    }
   );
   return intialState;
 };
 
 /** Render a single input */
 export const BuildInput = (
-  input: FieldBean,
-  formState: FormState,
-  zodIssues: ZodIssues,
-  onChange: OnChange
+  input: FieldBeanPros['input'],
+  formState: FieldBeanPros['formState'],
+  zodIssues: FieldBeanPros['zodIssues'],
+  onChange: FieldBeanPros['onChange']
 ) => {
-  const fieldName = input.name;
-  const label = input.htmlLabel;
-  const format = input.extraAttr?.dateFormat;
+  const props = { input, formState, zodIssues, onChange};
   switch (input.htmlRender) {
-    case 'DATE':
-      return (
-        <>
-          <DatePicker
-            label={label}
-            format={format}
-            slotProps={{
-              textField: {
-                error: inputHasError(zodIssues, fieldName),
-                helperText: getErrorMessage(zodIssues, fieldName)
-              }
-            }}
-            value={formState[fieldName] ? dayjs(formState[fieldName]) : undefined}
-            onChange={(value) => {
-              onChange(fieldName, value?.format(format));
-            }}
-          />
-        </>
-      );
-    case 'NONE':
-    case 'TEXT': {
-      const hasJoinTemplate = input.extraAttr?.join_template;
-      let value: string = '';
-      if (hasJoinTemplate) {
-        value = buildDinamicValue(hasJoinTemplate, formState);
-      } else {
-        value = formState[fieldName];
-      }
-      return (
-        <>
-          <TextField
-            label={input.htmlLabel}
-            variant="outlined"
-            value={value}
-            name={fieldName}
-            error={inputHasError(zodIssues, fieldName)}
-            onChange={(e) => onChange(fieldName, e.currentTarget.value)}
-            helperText={getErrorMessage(zodIssues, fieldName)}
-          />
-        </>
-      );
-    }
+    case 'TAB': return <TAB { ...props }/>
+    case 'SINGLESELECT': return <SINGLESELECT { ...props }/>
+    case 'MULTISELECT': return <MULTISELECT { ...props }/>
+    case 'DATE': return <DATE { ...props } />
+    case 'NONE': return <NONE { ...props }/>
+    case 'CURRENCY':
+    case 'TEXT': return <TEXT { ...props } />
+    case 'CURRENCY_LABEL': return <CURRENCYLABEL { ...props }/>
+    case 'MULTIFIELD': return <MULTIFIELD { ...props }/>
     default:
       return null;
   }
@@ -120,3 +100,10 @@ export const BuildForm = (
   zodIssues: ZodIssues,
   onChange: OnChange
 ) => elements.map((element) => BuildInput(element, formState, zodIssues, onChange));
+
+export type FieldBeanPros = {
+  input: FieldBean,
+  formState: FormState,
+  zodIssues: ZodIssues,
+  onChange: OnChange
+}

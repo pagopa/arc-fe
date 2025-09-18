@@ -17,11 +17,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/it';
 import * as z from 'zod';
 
-import { type ZodIssues, type FormState, type FieldName } from './config';
-import { BuildFormSchema, BuildFormState, BuildForm } from './config';
+import { type ZodIssues, type FormState, type FieldName, BuildFormState } from './config';
+import { BuildFormSchema, BuildForm } from './config';
 
 let schema;
-let initialState;
+let initialState = {};
 type PersonType = 'fisica' | 'giuridica';
 
 const StaticCommonFormSection = () => {
