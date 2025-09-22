@@ -2,9 +2,6 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { FieldBeanPros, getErrorMessage, inputHasError } from '../config';
 import dayjs from 'dayjs';
 
-
-
-
 const DATE = (props: FieldBeanPros) => {
   const { input, formState, zodIssues, onChange } = props;
   const { name, htmlLabel, extraAttr } = input;

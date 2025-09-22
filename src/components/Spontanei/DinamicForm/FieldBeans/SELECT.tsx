@@ -1,15 +1,19 @@
+import React from 'react';
 import FormControl from '@mui/material/FormControl';
 import { FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
-import { FieldBeanPros, inputHasError } from "../config";
+import { FieldBeanPros } from "../config";
+import { useField } from 'formik';
 
 const SELECT = (props: FieldBeanPros & { multiple?: boolean}) => {
-  const { input, formState, zodIssues, onChange, multiple = false } = props;
+  const { input, multiple = false } = props;
   const { name, htmlLabel, required, extraAttr } = input;
-  const value = multiple ? formState[name] || [] : formState[name];
-  const hasError = inputHasError(zodIssues, name)
+  const [field, meta] = useField(name)
+  const value = field.value;
+  const hasError = meta.touched && Boolean(meta.error)
 
   return (
     <FormControl
+      fullWidth
       error={hasError}
       required={required}>
       {
@@ -18,9 +22,10 @@ const SELECT = (props: FieldBeanPros & { multiple?: boolean}) => {
       <Select
         multiple={multiple}
         name={name}
-        onChange={(e) => onChange(name, e.target.value)}
-        value={value}
-        label={"test"} >
+        onChange={field.onChange}
+        onBlur={field.onBlur}
+        label={htmlLabel}
+        value={value}>
       {
         input.enumerationList?.map((option) => (
           <MenuItem key={option} value={option}>

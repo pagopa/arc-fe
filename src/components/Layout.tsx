@@ -55,12 +55,14 @@ export function Layout() {
         <Header onAssistanceClick={() => window.open(ArcRoutes.ASSISTANCE, '_blank')} />
         <Stack direction="row" bgcolor={grey['100']}>
         {sidebar?.visible ? <Sidebar /> : null}
-          {backButton && <BackButton onClick={backButtonFunction} text={backButtonText} />}
-          {crumbs && (
-            <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
-          )}
           <Grid padding={3} width="100%">
-            <Outlet />
+            <Container>
+              {backButton && <BackButton onClick={backButtonFunction} text={backButtonText} />}
+              {crumbs && (
+                <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
+              )}
+              <Outlet />
+            </Container>
           </Grid>
         </Stack>
         <Footer /> 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import Steps from './steps';
 import SelezionaEnte from './steps/Ente';
@@ -60,9 +60,7 @@ const Spontanei = () => {
   const OnAmountChange =
     servizio !== 'Rinnovo Licenza Caccia' ? (amount: number) => setAmount(amount) : undefined;
 
-  console.log(ente);
-
-  return (
+    return (
     <Stack>
       <Typography variant="h6" mb={1}>
         {t('spontanei.form.title')}

@@ -1,22 +1,26 @@
+import React from "react";
 import { Stack, TextField, Tooltip } from "@mui/material";
-import { FieldBeanPros, getErrorMessage, inputHasError } from "../config";
+import { FieldBeanPros } from "../config";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import { useField } from 'formik';
 
 const TEXT = (props: FieldBeanPros) => {
-  const { input, formState, zodIssues, onChange } = props;
+  const { input } = props;
   const { name, htmlLabel, required } = input;
-  const value = formState[name];
+  const [field, meta] = useField(name);
+
   return (
     <Stack direction="row" gap={2} alignItems="center">
       <TextField
         label={htmlLabel}
         variant="outlined"
         required={required}
-        value={value}
+        value={field.value}
         name={name}
-        error={inputHasError(zodIssues, name)}
-        onChange={(e) => onChange(name, e.currentTarget.value)}
-        helperText={getErrorMessage(zodIssues, name)} 
+        error={meta.touched && Boolean(meta.error)}
+        onChange={field.onChange}
+        onBlur={field.onBlur}
+        helperText={meta.touched && meta.error} 
         sx={{ flexGrow: 1 }}/>
       <Tooltip title={input.extraAttr?.help_message}>
         <InfoRoundedIcon/>
@@ -34,5 +38,4 @@ export default TEXT;
 //       } else {
 //         value = formState[fieldName];
 //       }
-
 //     }

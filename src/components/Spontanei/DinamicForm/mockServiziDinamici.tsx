@@ -1,4 +1,4 @@
-import { ServizioDinamico } from './steps/Servizio';
+import { ServizioDinamico } from '../steps/Servizio';
 import Arisgam from './arisgam.json'
 export type FieldBean = {
   name: string;
