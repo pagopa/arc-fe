@@ -20,7 +20,7 @@ const ConfiguraPagamentoDinamico = (props: { servizio: ServizioDinamico }) => {
         <Typography variant="h6">{t('spontanei.form.steps.step3.title')}</Typography>
         <Typography>{t('spontanei.form.steps.step3.description')}</Typography>
         <Stack direction="column" justifyContent={'space-between'} spacing={2}>
-          <DinamicForm form={form}/>
+          <DinamicForm fieldBeans={form.fieldBeans} campoTotaleInclusoInXSD={form.campoTotaleInclusoInXSD}/>
         </Stack>
       </Stack>
     </Card>

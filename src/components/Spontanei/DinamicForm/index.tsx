@@ -2,20 +2,21 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { BuildFormInputs, BuildFormSchema, BuildFormState } from './config';
 import { Stack } from '@mui/material';
-import { FieldBean } from './mockServiziDinamici';
+import { FormServizioDimaico } from './mockServiziDinamici';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import Controls from './Controls';
 
 import 'dayjs/locale/it';
+import StaticFormSection from './StaticFormSection';
 
-type DinamicFormProps = {
-  form: { fieldBeans: FieldBean[]; }
-}
+type DinamicFormProps = FormServizioDimaico
 
-const DinamicForm = ({ form }: DinamicFormProps) => {
-  const fields = BuildFormInputs(form.fieldBeans);
-  const schema = BuildFormSchema(form.fieldBeans);
+const DinamicForm = ({ fieldBeans, campoTotaleInclusoInXSD }: DinamicFormProps) => {
+
+  const hasImporto = fieldBeans.some(field => field.name === 'importo') || Boolean(campoTotaleInclusoInXSD);
+  const fields = BuildFormInputs(fieldBeans, !hasImporto);
+  const schema = BuildFormSchema(fieldBeans);
 
   const validate = (values) => {
     const errors = {};
@@ -30,21 +31,19 @@ const DinamicForm = ({ form }: DinamicFormProps) => {
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="it">
         <Formik
-          initialValues={BuildFormState(form.fieldBeans)}
+          onSubmit={console.log}
+          initialValues={BuildFormState(fieldBeans)}
           validate={validate}>
             {
-              (props) => {
-                //console.log(props.values)
-                return (
-                  <Form>
-                    <Stack gap={2}>
-                      {fields}
-                    </Stack>
-                    <Controls
-                      submit={props.submitForm}
-                      reset={props.resetForm} />
-                  </Form>
-                )
+              ({values}) => {
+                console.log(values);
+                return <Form>
+                  <Stack gap={2}>
+                    {fields}
+                  </Stack>
+                  <StaticFormSection />
+                  <Controls />
+                </Form>
               }
             }
         </Formik>

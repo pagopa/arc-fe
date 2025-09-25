@@ -1,12 +1,19 @@
 import { Button, Stack } from "@mui/material"
+import { useFormikContext } from "formik";
 import React from "react"
 
-type ControlsProps = {
-  reset?: () => void
-  submit?: (values) => void
-}
+const Controls = () => {
+  const { submitForm, values, resetForm } = useFormikContext();
+  
+  const submit = () => {
+    console.log(values);
+    submitForm()
+  }
 
-const Controls = (props: ControlsProps) => {
+  const reset = () => {
+    resetForm()
+  }
+  
   return (
     <Stack
       direction="row"
@@ -16,16 +23,16 @@ const Controls = (props: ControlsProps) => {
         <Button
           variant="outlined"
           size="large"
-          onClick={props.reset}>
+          onClick={reset}>
             Reset
         </Button>
-        <Button
+        {/* <Button
           variant="contained"
           size="large"
-          onClick={props.submit}
+          onClick={submit}
           type='submit'>
             Continua
-        </Button>
+        </Button> */}
     </Stack>
   ) 
 }

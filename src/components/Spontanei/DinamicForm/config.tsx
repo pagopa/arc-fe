@@ -10,7 +10,7 @@ const sandbox = new Sandbox();
 // FIELDBEANS INPUTS
 import SINGLESELECT from './FieldBeans/SINGLESELECT';
 import MULTISELECT from './FieldBeans/MULTISELECT';
-import DATE from './FieldBeans/DATE'
+import DATEPICKER from './FieldBeans/DATE'
 import TEXT from './FieldBeans/TEXT';
 import CURRENCYLABEL from './FieldBeans/CURRENCYLABEL';
 import MULTIFIELD from './FieldBeans/MULTIFIELD';
@@ -117,7 +117,7 @@ export const BuildInput = (element: FieldBean, allElements?: FieldBean[]) => {
     case 'TAB': return <TAB input={element} />
     case 'SINGLESELECT': return <SINGLESELECT input={element}/>
     case 'MULTISELECT': return <MULTISELECT input={element}/>
-    // case 'DATE': return <DATE  />
+    case 'DATE': return <DATEPICKER input={element}/>
     case 'NONE': return <NONE input={element} allFields={allElements || []}/>
     case 'CURRENCY':
     case 'TEXT': return <TEXT input={element} />
@@ -131,7 +131,38 @@ export const BuildInput = (element: FieldBean, allElements?: FieldBean[]) => {
 /** Render a group of inputs */
 export const BuildFormInputs = (
   elements: Array<FieldBean>,
-) => elements.sort((a, b) => a.renderableOrder - b.renderableOrder ).map((element) => BuildInput(element, elements));
+  addTotaleField = false
+) => {
+  const fields = elements;
+
+  if( addTotaleField) {
+    fields.push(    {
+      "name": "importo",
+      "required": true,
+      "htmlRender": "TEXT",
+      "htmlClass": "center",
+      "htmlLabel": "Importo",
+      "defaultValue": "",
+      "insertableOrder": 0,
+      "indexable": false,
+      "renderableOrder": 0,
+      "searchableOrder": 0,
+      "listableOrder": 0,
+      "minOccurences": 0,
+      "maxOccurences": 0,
+      "insertable": false,
+      "renderable": false,
+      "listable": false,
+      "detailLink": false,
+      "searchable": false,
+      "association": false
+    })
+  }
+  
+  return fields.sort((a, b) => a.renderableOrder - b.renderableOrder )
+    .map((element) => BuildInput(element, elements));
+}
+
 
 export type FieldBeanPros = {
   input: FieldBean 
