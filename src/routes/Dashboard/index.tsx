@@ -25,7 +25,7 @@ const Dashboard = () => {
   );
   const theme = useTheme();
   const { userInfo } = useUserInfo();
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const rows =
     data &&

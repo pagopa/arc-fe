@@ -274,9 +274,10 @@ const cartItemsToCartsRequest = (cartItems: CartItem[]) => ({
     noticeNumber: item.nav
   })),
   returnUrls: {
-    returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD + "?fromAction=payment-success", 
-    returnCancelUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + "?fromAction=payment-cancel",
-    returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + "?fromAction=payment-error"
+    returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD + '?fromAction=payment-success',
+    returnCancelUrl:
+      window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-cancel',
+    returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-error'
   }
 });
 
