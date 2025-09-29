@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import utils from 'utils';
 import { ArcRoutes } from '../routes';
 import { grey } from '@mui/material/colors';
@@ -12,6 +12,7 @@ import PaymentButton from 'components/PaymentButton';
 import { Empty, Retry, TransactionsList } from 'components/Transactions';
 import { useUserInfo } from 'hooks/useUserInfo';
 import { Helmet } from 'react-helmet';
+import { resetCart } from 'store/CartStore';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ const Dashboard = () => {
   );
   const theme = useTheme();
   const { userInfo } = useUserInfo();
+  let [searchParams] = useSearchParams();
 
   const rows =
     data &&
@@ -38,6 +40,13 @@ const Dashboard = () => {
     if (rows.length === 0) return <Empty />;
     return <TransactionsList rows={rows} hideDateOrdering />;
   };
+
+  useEffect(() => {
+    const action = searchParams.get('fromAction');
+    if (action === 'payment-success') {
+      resetCart();
+    }
+  }, []);
 
   return (
     <>

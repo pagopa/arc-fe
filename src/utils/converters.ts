@@ -274,9 +274,9 @@ const cartItemsToCartsRequest = (cartItems: CartItem[]) => ({
     noticeNumber: item.nav
   })),
   returnUrls: {
-    returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD,
-    returnCancelUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES,
-    returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES
+    returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD + "?fromAction=payment-success", 
+    returnCancelUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + "?fromAction=payment-cancel",
+    returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + "?fromAction=payment-error"
   }
 });
 
