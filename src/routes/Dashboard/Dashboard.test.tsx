@@ -35,7 +35,8 @@ vi.mock('store/GlobalStore', () => ({
 
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn(),
-  Link: vi.fn()
+  Link: vi.fn(),
+  useSearchParams: () => [new URLSearchParams()]
 }));
 
 vi.mock('hooks/useUserInfo', () => ({
