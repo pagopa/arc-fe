@@ -52,9 +52,11 @@ describe('usePostCarts', () => {
         }
       ],
       returnUrls: {
-        returnCancelUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-cancel',
-        returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-error',
-        returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD + '?fromAction=payment-success',
+        returnCancelUrl:
+          window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-cancel',
+        returnErrorUrl:
+          window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-error',
+        returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD + '?fromAction=payment-success'
       }
     });
     expect(mockOnSuccess).toHaveBeenCalledWith('https://redirect.com');
