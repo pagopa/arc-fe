@@ -40,6 +40,8 @@ describe('usePostCarts', () => {
 
     await waitFor(() => !result.current.isIdle);
 
+    const ORIGIN = window.location.origin;
+
     expect(utils.cartsClient.postCarts).toHaveBeenCalledWith({
       emailNotice: 'test@test.it',
       paymentNotices: [
@@ -52,11 +54,9 @@ describe('usePostCarts', () => {
         }
       ],
       returnUrls: {
-        returnCancelUrl:
-          window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-cancel',
-        returnErrorUrl:
-          window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-error',
-        returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD + '?fromAction=payment-success'
+        returnOkUrl: `${ORIGIN}${ArcRoutes.DASHBOARD}?fromAction=payment-success`,
+        returnCancelUrl: `${ORIGIN}${ArcRoutes.PAYMENT_NOTICES}?fromAction=payment-cancel`,
+        returnErrorUrl: `${ORIGIN}${ArcRoutes.PAYMENT_NOTICES}?fromAction=payment-error`
       }
     });
     expect(mockOnSuccess).toHaveBeenCalledWith('https://redirect.com');
