@@ -13,6 +13,7 @@ import { Signal } from '@preact/signals-react';
 import { i18nTestSetup } from '__tests__/i18nTestSetup';
 import { ThemeProvider } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
+import * as CartStore from 'store/CartStore';
 
 i18nTestSetup({
   app: {
@@ -36,7 +37,7 @@ vi.mock('store/GlobalStore', () => ({
 vi.mock('react-router-dom', () => ({
   useNavigate: vi.fn(),
   Link: vi.fn(),
-  useSearchParams: () => [new URLSearchParams()]
+  useSearchParams: () => [new URLSearchParams('fromAction=payment-success'), vi.fn()]
 }));
 
 vi.mock('hooks/useUserInfo', () => ({
@@ -142,5 +143,11 @@ describe('DashboardRoute', () => {
     await waitFor(() => {
       expect(screen.getByText('greetings, Marco')).toBeInTheDocument(); // Assuming 'Welcome' is part of the t function
     });
+  });
+
+  it('call resetCart if the fromAaction query parameter is payment-success', async () => {
+    const resetCartSpy = vi.spyOn(CartStore, 'resetCart');
+    render(<DashboardWithState />);
+    expect(resetCartSpy).toHaveBeenCalled();
   });
 });
