@@ -25,7 +25,7 @@ const Dashboard = () => {
   );
   const theme = useTheme();
   const { userInfo } = useUserInfo();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const rows =
     data &&
@@ -45,6 +45,7 @@ const Dashboard = () => {
     const action = searchParams.get('fromAction');
     if (action === 'payment-success') {
       resetCart();
+      setSearchParams({}, { replace: true });
     }
   }, []);
 
