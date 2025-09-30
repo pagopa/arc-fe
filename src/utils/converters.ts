@@ -265,21 +265,23 @@ const prepareNoticesData = (
   return { paymentNotices: transformed };
 };
 
-const cartItemsToCartsRequest = (cartItems: CartItem[]) => ({
-  paymentNotices: cartItems.map((item) => ({
-    amount: item.amount,
-    companyName: item.paFullName,
-    description: item.description,
-    fiscalCode: item.paTaxCode,
-    noticeNumber: item.nav
-  })),
-  returnUrls: {
-    returnOkUrl: window.location.origin + ArcRoutes.DASHBOARD + '?fromAction=payment-success',
-    returnCancelUrl:
-      window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-cancel',
-    returnErrorUrl: window.location.origin + ArcRoutes.PAYMENT_NOTICES + '?fromAction=payment-error'
-  }
-});
+const cartItemsToCartsRequest = (cartItems: CartItem[]) => {
+  const ORIGIN = window.location.origin;
+  return {
+    paymentNotices: cartItems.map((item) => ({
+      amount: item.amount,
+      companyName: item.paFullName,
+      description: item.description,
+      fiscalCode: item.paTaxCode,
+      noticeNumber: item.nav
+    })),
+    returnUrls: {
+      returnOkUrl: `${ORIGIN}${ArcRoutes.DASHBOARD}?fromAction=payment-success`,
+      returnCancelUrl: `${ORIGIN}${ArcRoutes.PAYMENT_NOTICES}?fromAction=payment-cancel`,
+      returnErrorUrl: `${ORIGIN}${ArcRoutes.PAYMENT_NOTICES}?fromAction=payment-error`
+    }
+  };
+};
 
 /**
  * Capitalizes the first letter of each word in a string.
