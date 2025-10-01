@@ -46,7 +46,7 @@ export const Footer = () => {
             onClick: () =>
               window
                 .open(
-                  'https://form.agid.gov.it/view/cbed4100-ff1e-11ef-aef0-65558716aff1',
+                  'https://form.agid.gov.it/view/c74d0770-9799-11f0-b583-8b5f76942354',
                   '_blank'
                 )
                 ?.focus()
