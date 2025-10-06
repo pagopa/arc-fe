@@ -5,7 +5,7 @@ import { STATE } from 'store/types';
 import utils from 'utils';
 
 export const useUserInfo = () => {
-  const { setState, state } = useStore();
+  const { setState } = useStore();
 
   const { data, isSuccess } = utils.loaders.getUserInfoOnce();
 
@@ -17,5 +17,5 @@ export const useUserInfo = () => {
     }
   }, [isSuccess]);
 
-  return { userInfo: state.userInfo };
+  return { userInfo: data };
 };
