@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { TextField } from "@mui/material";
-import { FieldBeanPros, computeValue } from "../config";
-import { useField, useFormikContext } from "formik";
-import utils from "utils";
+import React, { useEffect } from 'react';
+import { TextField } from '@mui/material';
+import { FieldBeanPros, computeValue } from '../config';
+import { useField, useFormikContext } from 'formik';
+import utils from 'utils';
 
 const CURRENCYLABEL = (props: FieldBeanPros) => {
   const { input } = props;
@@ -19,16 +19,17 @@ const CURRENCYLABEL = (props: FieldBeanPros) => {
       const newValue = computeValue(valueDependsOn, values);
       setValue(newValue, false);
     }
-  },[values])
+  }, [values]);
 
   return (
     <TextField
       label={htmlLabel}
       variant="outlined"
       disabled
-      value={utils.converters.toEuro(value*100)}
-      name={name} />
+      value={utils.converters.toEuro(value * 100)}
+      name={name}
+    />
   );
-}
+};
 
 export default CURRENCYLABEL;

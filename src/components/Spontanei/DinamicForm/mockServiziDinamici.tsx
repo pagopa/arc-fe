@@ -1,8 +1,7 @@
 import { ServizioDinamico } from '../steps/Servizio';
-import Easy from './easy.json'
-import Medium from './medium.json'
-import Hard from './hard.json'
-
+import Easy from './easy.json';
+import Medium from './medium.json';
+import Hard from './hard.json';
 
 export type FieldBean = {
   name: string;

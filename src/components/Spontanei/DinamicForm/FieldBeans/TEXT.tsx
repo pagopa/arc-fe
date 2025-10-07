@@ -1,6 +1,6 @@
-import React from "react";
-import { Stack, TextField, Tooltip } from "@mui/material";
-import { FieldBeanPros } from "../config";
+import React from 'react';
+import { Stack, TextField, Tooltip } from '@mui/material';
+import { FieldBeanPros } from '../config';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useField } from 'formik';
 
@@ -20,14 +20,15 @@ const TEXT = (props: FieldBeanPros) => {
         error={meta.touched && Boolean(meta.error)}
         onChange={field.onChange}
         onBlur={field.onBlur}
-        helperText={meta.touched && meta.error} 
-        sx={{ flexGrow: 1 }}/>
+        helperText={meta.touched && meta.error}
+        sx={{ flexGrow: 1 }}
+      />
       <Tooltip title={input.extraAttr?.help_message}>
-        <InfoRoundedIcon/>
+        <InfoRoundedIcon />
       </Tooltip>
     </Stack>
   );
-}
+};
 
 export default TEXT;
 // {

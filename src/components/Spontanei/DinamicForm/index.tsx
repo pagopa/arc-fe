@@ -10,11 +10,11 @@ import Controls from './Controls';
 import 'dayjs/locale/it';
 import StaticFormSection from './StaticFormSection';
 
-type DinamicFormProps = FormServizioDimaico
+type DinamicFormProps = FormServizioDimaico;
 
 const DinamicForm = ({ fieldBeans, campoTotaleInclusoInXSD }: DinamicFormProps) => {
-
-  const hasImporto = fieldBeans.some(field => field.name === 'importo') || Boolean(campoTotaleInclusoInXSD);
+  const hasImporto =
+    fieldBeans.some((field) => field.name === 'importo') || Boolean(campoTotaleInclusoInXSD);
   const fields = BuildFormInputs(fieldBeans, !hasImporto);
   const schema = BuildFormSchema(fieldBeans);
 
@@ -22,7 +22,7 @@ const DinamicForm = ({ fieldBeans, campoTotaleInclusoInXSD }: DinamicFormProps) 
     const errors = {};
     const result = schema.safeParse(values);
     if (!result.success) {
-      result.error.issues.forEach((issue) => errors[issue.path[0]] = issue.message)
+      result.error.issues.forEach((issue) => (errors[issue.path[0]] = issue.message));
     }
     return errors;
   };
@@ -34,22 +34,20 @@ const DinamicForm = ({ fieldBeans, campoTotaleInclusoInXSD }: DinamicFormProps) 
           onSubmit={console.log}
           initialValues={BuildFormState(fieldBeans)}
           validate={validate}>
-            {
-              ({values}) => {
-                console.log(values);
-                return <Form>
-                  <Stack gap={2}>
-                    {fields}
-                  </Stack>
-                  <StaticFormSection />
-                  <Controls />
-                </Form>
-              }
-            }
+          {({ values }) => {
+            console.log(values);
+            return (
+              <Form>
+                <Stack gap={2}>{fields}</Stack>
+                <StaticFormSection />
+                <Controls />
+              </Form>
+            );
+          }}
         </Formik>
       </LocalizationProvider>
     </>
-  )
-}  
+  );
+};
 
-export default DinamicForm
+export default DinamicForm;

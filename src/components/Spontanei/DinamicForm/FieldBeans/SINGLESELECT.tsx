@@ -1,6 +1,6 @@
-import SELECT from "./SELECT";
-import { FieldBeanPros } from "../config";
+import SELECT from './SELECT';
+import { FieldBeanPros } from '../config';
 
-const SINGLESELECT = (props: FieldBeanPros) => <SELECT {...props} />
+const SINGLESELECT = (props: FieldBeanPros) => <SELECT {...props} />;
 
 export default SINGLESELECT;

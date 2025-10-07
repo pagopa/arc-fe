@@ -5,7 +5,7 @@ import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import { NavigateNext } from '@mui/icons-material';
-import { Outlet, ScrollRestoration, useMatches } from 'react-router-dom';
+import { Outlet, useMatches } from 'react-router-dom';
 import { RouteHandleObject } from 'models/Breadcrumbs';
 import { Header } from './Header';
 import { BackButton } from './BackButton';
@@ -38,7 +38,6 @@ export function Layout() {
     ...(matches.find((match) => Boolean(match.handle))?.handle || {})
   } as RouteHandleObject;
 
-
   return (
     <>
       <Snackbar
@@ -54,7 +53,7 @@ export function Layout() {
       <Container maxWidth={false} disableGutters>
         <Header onAssistanceClick={() => window.open(ArcRoutes.ASSISTANCE, '_blank')} />
         <Stack direction="row" bgcolor={grey['100']}>
-        {sidebar?.visible ? <Sidebar /> : null}
+          {sidebar?.visible ? <Sidebar /> : null}
           <Grid padding={3} width="100%">
             <Container>
               {backButton && <BackButton onClick={backButtonFunction} text={backButtonText} />}
@@ -65,7 +64,7 @@ export function Layout() {
             </Container>
           </Grid>
         </Stack>
-        <Footer /> 
+        <Footer />
         {cart.isOpen ? <CartDrawer /> : null}
         {paymentTypeDrawerVisibilityStatus ? <PaymentTypeDrawer /> : null}
       </Container>

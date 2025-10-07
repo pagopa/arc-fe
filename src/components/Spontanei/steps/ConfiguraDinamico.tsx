@@ -1,8 +1,4 @@
-import {
-  Card,
-  Stack,
-  Typography
-} from '@mui/material';
+import { Card, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ServizioDinamico } from './Servizio';
@@ -20,7 +16,10 @@ const ConfiguraPagamentoDinamico = (props: { servizio: ServizioDinamico }) => {
         <Typography variant="h6">{t('spontanei.form.steps.step3.title')}</Typography>
         <Typography>{t('spontanei.form.steps.step3.description')}</Typography>
         <Stack direction="column" justifyContent={'space-between'} spacing={2}>
-          <DinamicForm fieldBeans={form.fieldBeans} campoTotaleInclusoInXSD={form.campoTotaleInclusoInXSD}/>
+          <DinamicForm
+            fieldBeans={form.fieldBeans}
+            campoTotaleInclusoInXSD={form.campoTotaleInclusoInXSD}
+          />
         </Stack>
       </Stack>
     </Card>

@@ -4,16 +4,18 @@ import { useTranslation } from 'react-i18next';
 import StaticFormSection from '../DinamicForm/StaticFormSection';
 import { Payment } from '../Form';
 import { Servizio, ServizioDinamico } from './Servizio';
-
+import { useField } from 'formik';
 interface Configura {
-  updatePayment: (field: Partial<Payment>) => void;
-  payment: Payment;
   servizio: Servizio | ServizioDinamico | null;
 }
 
 const ConfiguraPagamento = (props: Configura) => {
-  const { payment, updatePayment, servizio } = props;
+  const { servizio } = props;
   const { t } = useTranslation();
+  const [payee, payeeMeta] = useField<Payment['payee']>('payee');
+  const [payeeId, payeeIdMeta] = useField<Payment['payeeId']>('payeeId');
+  const [amount, amountMeta] = useField<Payment['amount']>('amount');
+  const [causale, causaleMeta] = useField<Payment['causale']>('causale');
 
   return (
     <Card variant="outlined">
@@ -25,16 +27,18 @@ const ConfiguraPagamento = (props: Configura) => {
             label="Nome Cognome / Ragione Sociale"
             variant="outlined"
             required
-            value={payment.payee}
-            onChange={(e) => updatePayment({ payee: e.target.value})}
+            {...payee}
+            error={payeeMeta.touched && Boolean(payeeMeta.error)}
+            helperText={payeeMeta.touched && payeeMeta.error}
             sx={{ width: '-webkit-fill-available' }}
           />
           <TextField
             label="Codice Fiscale / Partita IVA"
             variant="outlined"
             required
-            value={payment.payeeId}
-            onChange={(e) => updatePayment({payeeId: e.target.value})}
+            {...payeeId}
+            error={payeeIdMeta.touched && Boolean(payeeIdMeta.error)}
+            helperText={payeeIdMeta.touched && payeeIdMeta.error}
             sx={{ width: '-webkit-fill-available' }}
           />
         </Stack>
@@ -43,20 +47,23 @@ const ConfiguraPagamento = (props: Configura) => {
             label="Importo (€)"
             variant="outlined"
             type="number"
-            value={payment.amount}
+            required
+            {...amount}
+            error={amountMeta.touched && Boolean(amountMeta.error)}
+            helperText={amountMeta.touched && amountMeta.error}
             disabled={servizio === 'Rinnovo Licenza Caccia'}
-            onChange={(e) => updatePayment({ amount: parseInt(e.target.value, 10)})}
           />
           <TextField
             label="Causale"
             variant="outlined"
             required
-            value={payment.causale}
-            onChange={(e) => updatePayment({causale: e.target.value})}
+            {...causale}
+            error={causaleMeta.touched && Boolean(causaleMeta.error)}
+            helperText={causaleMeta.touched && causaleMeta.error}
             sx={{ width: '-webkit-fill-available' }}
           />
         </Stack>
-        <StaticFormSection payment={payment} updatePayment={updatePayment}/>
+        <StaticFormSection />
       </Stack>
     </Card>
   );

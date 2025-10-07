@@ -1,5 +1,5 @@
-import { Box, Card, CardContent } from "@mui/material";
-import { BuildFormInputs, FieldBeanPros } from "../config";
+import { Box, Card, CardContent } from '@mui/material';
+import { BuildFormInputs, FieldBeanPros } from '../config';
 
 const MULTFIELD = (props: FieldBeanPros) => {
   const { input } = props;
@@ -8,13 +8,11 @@ const MULTFIELD = (props: FieldBeanPros) => {
       <CardContent>
         <Box display={'flex'} flexDirection="column" mb={2} gap={2}>
           <h3>{input.htmlLabel}</h3>
-          {
-            BuildFormInputs(input.subfields || [])
-          }
+          {BuildFormInputs(input.subfields || [])}
         </Box>
       </CardContent>
     </Card>
   );
-}
+};
 
-export default MULTFIELD
+export default MULTFIELD;

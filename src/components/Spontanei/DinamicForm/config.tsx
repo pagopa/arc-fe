@@ -10,20 +10,18 @@ const sandbox = new Sandbox();
 // FIELDBEANS INPUTS
 import SINGLESELECT from './FieldBeans/SINGLESELECT';
 import MULTISELECT from './FieldBeans/MULTISELECT';
-import DATEPICKER from './FieldBeans/DATE'
+import DATEPICKER from './FieldBeans/DATE';
 import TEXT from './FieldBeans/TEXT';
 import CURRENCYLABEL from './FieldBeans/CURRENCYLABEL';
 import MULTIFIELD from './FieldBeans/MULTIFIELD';
 import NONE from './FieldBeans/NONE';
 import TAB from './FieldBeans/TAB';
 
-
 export type FieldName = FieldBean['name'];
 
 export type FormState = Record<FieldName, string>;
 
 export type ZodIssues = z.ZodIssue[];
-
 
 /** return a bolean if the input has an error based on zod issues */
 export const inputHasError = (issues: z.ZodIssue[], fieldName: string) =>
@@ -36,24 +34,26 @@ export const getErrorMessage = (issues: z.ZodIssue[], fieldName: string) =>
     .map(({ message }) => message)
     .toString();
 
-/** usata per la causale */    
+/** usata per la causale */
 export const buildDinamicValue = (stringTemplate: string, templateVars, fields?: FieldBean[]) => {
   const updatedFields = {};
 
-  if(fields) {
-    fields.forEach(field => {
+  if (fields) {
+    fields.forEach((field) => {
       const name = field.name;
       const causaleFunction = field.extraAttr?.causale_function;
       const hasCausaleFunction = Boolean(causaleFunction);
       if (hasCausaleFunction) {
-        updatedFields[name] = computeValue(causaleFunction, templateVars)
+        updatedFields[name] = computeValue(causaleFunction, templateVars);
       }
-    })
+    });
   }
-  
+
   const normalizedTemplate = stringTemplate.replace(/\${/g, '${this.');
-  return new Function('return `' + normalizedTemplate + '`;')
-    .call({...templateVars, ...updatedFields});
+  return new Function('return `' + normalizedTemplate + '`;').call({
+    ...templateVars,
+    ...updatedFields
+  });
 };
 
 export const computeValue = (code, scope = {}) => sandbox.compile(code)(scope).run();
@@ -61,7 +61,7 @@ export const computeValue = (code, scope = {}) => sandbox.compile(code)(scope).r
 let schemaObject = {};
 export const BuildFormSchema = (fields: Array<FieldBean>) => {
   fields.forEach((field) => {
-    if (field.subfields) BuildFormSchema(field.subfields)
+    if (field.subfields) BuildFormSchema(field.subfields);
     const name = field.name;
     const isRequired = field.required;
     const regex = field.regex;
@@ -69,17 +69,15 @@ export const BuildFormSchema = (fields: Array<FieldBean>) => {
     const errorMessage = field.extraAttr?.error_message;
 
     let fieldSchema;
-    if(type === 'MULTISELECT') {
-      fieldSchema = isRequired ?
-        z.array(z.string()).min(1, errorMessage) : 
-        z.array(z.string())
+    if (type === 'MULTISELECT') {
+      fieldSchema = isRequired ? z.array(z.string()).min(1, errorMessage) : z.array(z.string());
     } else {
       fieldSchema = isRequired ? z.string().min(1, errorMessage) : z.string();
       if (regex) {
         fieldSchema = fieldSchema.regex(new RegExp(regex || ''), errorMessage);
       }
     }
-    schemaObject = { ...schemaObject, [name] : fieldSchema };
+    schemaObject = { ...schemaObject, [name]: fieldSchema };
   });
   return z.object(schemaObject);
 };
@@ -87,83 +85,86 @@ export const BuildFormSchema = (fields: Array<FieldBean>) => {
 /** set the form state considering the initial value */
 let intialState = {};
 export const BuildFormState = (fields: Array<FieldBean>) => {
-  fields.forEach(
-    ({ name, defaultValue, subfields, htmlRender }) => {
-      if (subfields) BuildFormState(subfields)
-      /* I fields MULTFIELD sono solo contenitori di altri fields
+  fields.forEach(({ name, defaultValue, subfields, htmlRender }) => {
+    if (subfields) BuildFormState(subfields);
+    /* I fields MULTFIELD sono solo contenitori di altri fields
       non hanno un value associato e per questo motivo non è
       necessario tenere tracciao dello stato
       probabilmente anche altri tipi di fields non necessitano
       di stato  */
-      if (htmlRender !== 'MULTIFIELD') {
-        // Una multiselect usa un array di valori
-        // TODO: gestire un eventuale valore
-        // iniziale. In questo caso è più complesso
-        // perchè defaultValue dovrebbe essere un array di valori
-        if(htmlRender == 'MULTISELECT') {
-          intialState = { ...intialState, [name]: [] }
-        } else {
-          intialState = { ...intialState, [name]: defaultValue }
-        }
+    if (htmlRender !== 'MULTIFIELD') {
+      // Una multiselect usa un array di valori
+      // TODO: gestire un eventuale valore
+      // iniziale. In questo caso è più complesso
+      // perchè defaultValue dovrebbe essere un array di valori
+      if (htmlRender == 'MULTISELECT') {
+        intialState = { ...intialState, [name]: [] };
+      } else {
+        intialState = { ...intialState, [name]: defaultValue };
       }
     }
-  );
+  });
   return intialState;
 };
 
 /** Render a single input */
 export const BuildInput = (element: FieldBean, allElements?: FieldBean[]) => {
   switch (element.htmlRender) {
-    case 'TAB': return <TAB input={element} />
-    case 'SINGLESELECT': return <SINGLESELECT input={element}/>
-    case 'MULTISELECT': return <MULTISELECT input={element}/>
-    case 'DATE': return <DATEPICKER input={element}/>
-    case 'NONE': return <NONE input={element} allFields={allElements || []}/>
+    case 'TAB':
+      return <TAB input={element} />;
+    case 'SINGLESELECT':
+      return <SINGLESELECT input={element} />;
+    case 'MULTISELECT':
+      return <MULTISELECT input={element} />;
+    case 'DATE':
+      return <DATEPICKER input={element} />;
+    case 'NONE':
+      return <NONE input={element} allFields={allElements || []} />;
     case 'CURRENCY':
-    case 'TEXT': return <TEXT input={element} />
-    case 'CURRENCY_LABEL': return <CURRENCYLABEL input={element} />
-    case 'MULTIFIELD': return <MULTIFIELD input={element} />
+    case 'TEXT':
+      return <TEXT input={element} />;
+    case 'CURRENCY_LABEL':
+      return <CURRENCYLABEL input={element} />;
+    case 'MULTIFIELD':
+      return <MULTIFIELD input={element} />;
     default:
       return null;
   }
 };
 
 /** Render a group of inputs */
-export const BuildFormInputs = (
-  elements: Array<FieldBean>,
-  addTotaleField = false
-) => {
+export const BuildFormInputs = (elements: Array<FieldBean>, addTotaleField = false) => {
   const fields = elements;
 
-  if( addTotaleField) {
-    fields.push(    {
-      "name": "importo",
-      "required": true,
-      "htmlRender": "TEXT",
-      "htmlClass": "center",
-      "htmlLabel": "Importo",
-      "defaultValue": "",
-      "insertableOrder": 0,
-      "indexable": false,
-      "renderableOrder": 0,
-      "searchableOrder": 0,
-      "listableOrder": 0,
-      "minOccurences": 0,
-      "maxOccurences": 0,
-      "insertable": false,
-      "renderable": false,
-      "listable": false,
-      "detailLink": false,
-      "searchable": false,
-      "association": false
-    })
+  if (addTotaleField) {
+    fields.push({
+      name: 'importo',
+      required: true,
+      htmlRender: 'TEXT',
+      htmlClass: 'center',
+      htmlLabel: 'Importo',
+      defaultValue: '',
+      insertableOrder: 0,
+      indexable: false,
+      renderableOrder: 0,
+      searchableOrder: 0,
+      listableOrder: 0,
+      minOccurences: 0,
+      maxOccurences: 0,
+      insertable: false,
+      renderable: false,
+      listable: false,
+      detailLink: false,
+      searchable: false,
+      association: false
+    });
   }
-  
-  return fields.sort((a, b) => a.renderableOrder - b.renderableOrder )
-    .map((element) => BuildInput(element, elements));
-}
 
+  return fields
+    .sort((a, b) => a.renderableOrder - b.renderableOrder)
+    .map((element) => BuildInput(element, elements));
+};
 
 export type FieldBeanPros = {
-  input: FieldBean 
-}
+  input: FieldBean;
+};

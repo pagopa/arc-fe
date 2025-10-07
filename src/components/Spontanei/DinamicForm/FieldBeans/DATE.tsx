@@ -7,7 +7,7 @@ import { Stack, Tooltip } from '@mui/material';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
 const DATEPICKER = (props: FieldBeanPros) => {
-  const { input, } = props;
+  const { input } = props;
   const { name, htmlLabel, extraAttr } = input;
   const [field, meta, { setValue }] = useField(name);
   const value = field.value;
@@ -15,28 +15,28 @@ const DATEPICKER = (props: FieldBeanPros) => {
   const dateFormat = extraAttr?.dateFormat;
 
   return (
-  <Stack direction="row" gap={2} alignItems="center">
-    <DatePicker
-      sx={{ width: '-webkit-fill-available'}}
-      label={htmlLabel}
-      format={dateFormat}
-      slotProps={{
-        textField: {
-          required: input.required,
-          error: hasError,
-          helperText: hasError && extraAttr?.error_message
-        }
-      }}
-      value={value ? dayjs(value) : undefined}
-      onChange={(value) => {
-        setValue(value?.format(dateFormat) || '');
-      }}
-    />
-    <Tooltip title={input.extraAttr?.help_message}>
-        <InfoRoundedIcon/>
-    </Tooltip>
-  </Stack>  
-  )
-}
+    <Stack direction="row" gap={2} alignItems="center">
+      <DatePicker
+        sx={{ width: '-webkit-fill-available' }}
+        label={htmlLabel}
+        format={dateFormat}
+        slotProps={{
+          textField: {
+            required: input.required,
+            error: hasError,
+            helperText: hasError && extraAttr?.error_message
+          }
+        }}
+        value={value ? dayjs(value) : undefined}
+        onChange={(value) => {
+          setValue(value?.format(dateFormat) || '');
+        }}
+      />
+      <Tooltip title={input.extraAttr?.help_message}>
+        <InfoRoundedIcon />
+      </Tooltip>
+    </Stack>
+  );
+};
 
 export default DATEPICKER;
