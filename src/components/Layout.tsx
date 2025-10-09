@@ -54,8 +54,7 @@ export function Layout() {
       <ModalSystem />
       <Container maxWidth={false} disableGutters>
         <Header onAssistanceClick={() => window.open(ArcRoutes.ASSISTANCE, '_blank')} />
-        <Stack direction={lg ? "row" : "column"} bgcolor={grey['100']}>
-          
+        <Stack direction={lg ? 'row' : 'column'} bgcolor={grey['100']}>
           {sidebar?.visible ? <Sidebar /> : null}
 
           <Box padding={3} width={'100%'} component="main">
@@ -65,7 +64,6 @@ export function Layout() {
             )}
             <Outlet />
           </Box>
-  
         </Stack>
         <Footer />
         {cart.isOpen ? <CartDrawer /> : null}

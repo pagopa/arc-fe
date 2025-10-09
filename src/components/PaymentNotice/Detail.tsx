@@ -57,7 +57,6 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
   };
 
   return paymentNotice?.type === PaymentNoticeEnum.SINGLE ? (
-
     <Stack width={'100%'} spacing={3}>
       <Typography variant="h4" component={'h1'}>
         {t('app.paymentNoticeDetail.title')}
@@ -74,7 +73,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                   {t('app.paymentNoticeDetail.card1.title').toUpperCase()}
                 </Typography>
 
-                <Stack direction='row' justifyContent={'space-between'}>
+                <Stack direction="row" justifyContent={'space-between'}>
                   <Stack direction={'row'} gap={2} alignItems="center">
                     <Euro htmlColor={theme.palette.grey[700]} />
                     <Stack data-testid="app.paymentNoticeDetail.amount">
@@ -106,10 +105,9 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                 </Stack>
                 <Divider />
 
-                <Stack gap={2} direction='row' alignItems="center">
+                <Stack gap={2} direction="row" alignItems="center">
                   <AccountBalance htmlColor={theme.palette.grey[700]} />
-                  <Stack
-                    data-testid="app.paymentNoticeDetail.paFullname">
+                  <Stack data-testid="app.paymentNoticeDetail.paFullname">
                     <Typography
                       color={theme.palette.text.secondary}
                       variant="body1"
@@ -124,7 +122,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                 </Stack>
                 <Divider />
 
-                <Stack gap={2} direction='row' alignItems="center">
+                <Stack gap={2} direction="row" alignItems="center">
                   <ReceiptLong htmlColor={theme.palette.grey[700]} />
                   <Stack data-testid="app.paymentNoticeDetail.subject">
                     <Typography
@@ -142,7 +140,7 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                 </Stack>
                 <Divider />
 
-                <Stack gap={2} direction='row' alignItems="center">
+                <Stack gap={2} direction="row" alignItems="center">
                   <DateRange htmlColor={theme.palette.grey[700]} />
                   <Stack data-testid="app.paymentNoticeDetail.dueDate">
                     <Typography
@@ -161,24 +159,22 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
 
                 <Stack gap={2} direction="row" justifyContent={'space-between'}>
                   <Stack data-testid="app.paymentNoticeDetail.iuv">
-                      <Typography
-                        sx={{ wordBreak: 'break-word' }}
-                        component="dt"
-                        color={theme.palette.text.secondary}>
-                        {t('app.paymentNoticeDetail.card1.iuv')}
-                      </Typography>
-                      <Typography
-                        component="dd"
-                        fontWeight={600}
-                        color={theme.palette.primary.main}
-                        sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
-                        {paymentNotice.paymentOptions.iuv}
-                      </Typography>
+                    <Typography
+                      sx={{ wordBreak: 'break-word' }}
+                      component="dt"
+                      color={theme.palette.text.secondary}>
+                      {t('app.paymentNoticeDetail.card1.iuv')}
+                    </Typography>
+                    <Typography
+                      component="dd"
+                      fontWeight={600}
+                      color={theme.palette.primary.main}
+                      sx={{ textDecoration: 'underline', wordBreak: 'break-word' }}>
+                      {paymentNotice.paymentOptions.iuv}
+                    </Typography>
                   </Stack>
 
-                    <CopyToClipboardButton
-                      value={paymentNotice.paymentOptions.iuv}
-                      color="primary" />
+                  <CopyToClipboardButton value={paymentNotice.paymentOptions.iuv} color="primary" />
                 </Stack>
                 <Divider />
 
@@ -247,13 +243,9 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
                     <Button
                       id="payment-notice-add-button"
                       variant={
-                        isItemInCart(paymentNotice.paymentOptions.iuv)
-                          ? 'outlined'
-                          : 'contained'
+                        isItemInCart(paymentNotice.paymentOptions.iuv) ? 'outlined' : 'contained'
                       }
-                      color={
-                        isItemInCart(paymentNotice.paymentOptions.iuv) ? 'error' : 'primary'
-                      }
+                      color={isItemInCart(paymentNotice.paymentOptions.iuv) ? 'error' : 'primary'}
                       fullWidth
                       size="medium"
                       onClick={handleClick}>
@@ -279,7 +271,6 @@ export const _Detail = ({ paymentNotice }: { paymentNotice: PaymentNoticeDetails
         </Grid>
       </Grid>
     </Stack>
-
   ) : (
     <div>Multiple PaymentNotice type is not supported</div>
   );
