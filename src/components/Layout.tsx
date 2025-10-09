@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Container, Grid, Snackbar, Stack } from '@mui/material';
+import { Alert, Box, Container, Snackbar, Stack, Theme, useMediaQuery } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Footer } from './Footer';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -28,6 +28,8 @@ export function Layout() {
     state: { cart, paymentTypeDrawerVisibilityStatus }
   } = useStore();
 
+  const lg = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+
   const overlay = utils.sidemenu.status.overlay.value;
   const modalOpen = utils.modal.status.isOpen.value;
 
@@ -52,17 +54,18 @@ export function Layout() {
       <ModalSystem />
       <Container maxWidth={false} disableGutters>
         <Header onAssistanceClick={() => window.open(ArcRoutes.ASSISTANCE, '_blank')} />
-        <Stack direction="row" bgcolor={grey['100']}>
+        <Stack direction={lg ? "row" : "column"} bgcolor={grey['100']}>
+          
           {sidebar?.visible ? <Sidebar /> : null}
-          <Grid padding={3} width="100%">
-            <Container>
-              {backButton && <BackButton onClick={backButtonFunction} text={backButtonText} />}
-              {crumbs && (
-                <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
-              )}
-              <Outlet />
-            </Container>
-          </Grid>
+
+          <Box padding={3} width={'100%'} component="main">
+            {backButton && <BackButton onClick={backButtonFunction} text={backButtonText} />}
+            {crumbs && (
+              <Breadcrumbs crumbs={crumbs} separator={<NavigateNext fontSize="small" />} />
+            )}
+            <Outlet />
+          </Box>
+  
         </Stack>
         <Footer />
         {cart.isOpen ? <CartDrawer /> : null}

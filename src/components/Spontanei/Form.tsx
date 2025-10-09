@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import Steps from './steps';
 import SelezionaEnte from './steps/Ente';
@@ -118,56 +118,58 @@ const Spontanei = () => {
   };
 
   return (
-    <Formik
-      initialValues={defaultPayment}
-      onSubmit={console.log}
-      validate={validate}
-      innerRef={formikRef}>
-      {(formState) => (
-        <Stack>
-          <Typography variant="h6" mb={1}>
-            {t('spontanei.form.title')}
-          </Typography>
-          <Typography>{t('spontanei.form.description')}</Typography>
-          <Stack spacing={4} mt={4}>
-            <Steps activeStep={step} />
-            {step === 0 && <SelezionaEnte setEnte={setEnte} />}
-            {step === 1 && (
-              <SelezionaServizio
-                setServizio={setServizio}
-                enteConServiziDinamici={ente?.paTaxCode === 'VENETO'}
-              />
-            )}
-            {step === 2 && ente?.paTaxCode !== 'VENETO' && (
-              <ConfiguraPagamento servizio={servizio} />
-            )}
-            {step === 2 && ente?.paTaxCode === 'VENETO' && (
-              <ConfiguraPagamentoDinamico servizio={servizio as ServizioDinamico} />
-            )}
-            {step === 3 && spontaneo && <Riepilogo spontaneo={spontaneo} />}
-            {step !== 3 && (
-              <Stack direction="row" justifyContent={'space-between'}>
-                <Button size="large" variant="outlined" onClick={onBack} startIcon={<ArrowBack />}>
-                  {step === 0 ? t('spontanei.form.abort') : t('spontanei.form.back')}
-                </Button>
-                <Button
-                  size="large"
-                  variant="contained"
-                  onClick={onContinue}
-                  disabled={
-                    (step === 0 && !ente) ||
-                    (step == 1 && !servizio) ||
-                    (step == 2 && !formState.dirty) ||
-                    !formState.isValid
-                  }>
-                  {t('spontanei.form.continue')}
-                </Button>
-              </Stack>
-            )}
+    <Container>
+      <Formik
+        initialValues={defaultPayment}
+        onSubmit={console.log}
+        validate={validate}
+        innerRef={formikRef}>
+        {(formState) => (
+          <Stack>
+            <Typography variant="h6" mb={1}>
+              {t('spontanei.form.title')}
+            </Typography>
+            <Typography>{t('spontanei.form.description')}</Typography>
+            <Stack spacing={4} mt={4}>
+              <Steps activeStep={step} />
+              {step === 0 && <SelezionaEnte setEnte={setEnte} />}
+              {step === 1 && (
+                <SelezionaServizio
+                  setServizio={setServizio}
+                  enteConServiziDinamici={ente?.paTaxCode === 'VENETO'}
+                />
+              )}
+              {step === 2 && ente?.paTaxCode !== 'VENETO' && (
+                <ConfiguraPagamento servizio={servizio} />
+              )}
+              {step === 2 && ente?.paTaxCode === 'VENETO' && (
+                <ConfiguraPagamentoDinamico servizio={servizio as ServizioDinamico} />
+              )}
+              {step === 3 && spontaneo && <Riepilogo spontaneo={spontaneo} />}
+              {step !== 3 && (
+                <Stack direction="row" justifyContent={'space-between'}>
+                  <Button size="large" variant="outlined" onClick={onBack} startIcon={<ArrowBack />}>
+                    {step === 0 ? t('spontanei.form.abort') : t('spontanei.form.back')}
+                  </Button>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    onClick={onContinue}
+                    disabled={
+                      (step === 0 && !ente) ||
+                      (step == 1 && !servizio) ||
+                      (step == 2 && !formState.dirty) ||
+                      !formState.isValid
+                    }>
+                    {t('spontanei.form.continue')}
+                  </Button>
+                </Stack>
+              )}
+            </Stack>
           </Stack>
-        </Stack>
-      )}
-    </Formik>
+        )}
+      </Formik>
+    </Container>
   );
 };
 

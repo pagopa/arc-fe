@@ -18,7 +18,7 @@ const DetailsSkeleton = (props: Props) => {
         {title}
       </Typography>
       <Grid container spacing={4} direction={direction}>
-        <Grid item xs={12} md={7}>
+        <Grid size={{ xs: 12, md: 7 }}>
           <Card>
             <CardContent sx={{ padding: 4 }}>
               <Skeleton variant="rounded" sx={{ marginBottom: 4 }} width={'50%'} height={30} />
@@ -40,7 +40,7 @@ const DetailsSkeleton = (props: Props) => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={5}>
+        <Grid size={{ xs: 12, md: 5 }}>
           <Card>
             <CardContent sx={{ padding: 4 }}>
               <Skeleton variant="rounded" sx={{ marginBottom: 4 }} width={'50%'} height={30} />
