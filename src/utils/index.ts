@@ -13,14 +13,20 @@ import sidemenu from './sidemenu';
 import storage from './storage';
 import style from './style';
 import files from './files';
+import URI from './URI';
 
 export default {
   apiClient: new Api({ baseURL: config.baseURL, timeout: config.apiTimeout }),
-  arpuBeApiClient: new ArpuBeApi({ baseURL: config.baseURL, timeout: config.apiTimeout }),
+  arpuBeApiClient: new ArpuBeApi({
+    baseURL: config.baseURL,
+    timeout: config.apiTimeout,
+    paramsSerializer: config.paramsSerializer
+  }),
   cartsClient: new Carts({ baseURL: config.checkoutPlatformUrl, timeout: config.apiTimeout }),
   //** data transformers utility and formatters */
   converters,
   checkoutSchema,
+  URI,
   config,
   datetools,
   loaders,

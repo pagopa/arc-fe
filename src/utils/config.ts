@@ -1,4 +1,6 @@
 import { RootLinkType } from '@pagopa/mui-italia';
+import { CustomParamsSerializer } from 'axios';
+import queryString from 'query-string';
 import { z, ZodError } from 'zod';
 
 /** Useful default values  */
@@ -64,6 +66,7 @@ type Config = {
   version: string;
   showNotices: boolean;
   brokerId: string;
+  paramsSerializer: CustomParamsSerializer;
 };
 
 const assistanceLink: string = 'nomeprodotto@assistenza.pagopa.it';
@@ -109,7 +112,30 @@ const config: Config = {
   brokerId:
     window.location.pathname.split('/')[2] === 'auth-callback'
       ? ''
-      : window.location.pathname.split('/')[2]
+      : window.location.pathname.split('/')[2],
+  /** A global custom parameters serializer:
+   * - null value and empty string parameters are strippef off.
+   * - arrays separated by comma.
+   * - undefined parameters are always skipped.
+   *
+   * @example
+   * const params = {
+   *  a: "",
+   *  b: 'test',
+   *  c: null,
+   *  d: [1, 2],
+   *  e: undefined
+   * };
+   *
+   * console.log(paramsSerializer(params))
+   * => "b=test&d=1,2"
+   *  */
+  paramsSerializer: (params) =>
+    queryString.stringify(params, {
+      skipNull: true,
+      arrayFormat: 'comma',
+      skipEmptyString: true
+    })
 };
 
 export default config;

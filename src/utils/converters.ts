@@ -34,7 +34,7 @@ const withMissingValue =
       : missingValue || utils.config.missingValue;
   };
 
-const fromTaxCodeToSrcImage = (payeeTaxCode: string) =>
+export const fromTaxCodeToSrcImage = (payeeTaxCode: string) =>
   `${utils.config.entitiesLogoCdn}/${payeeTaxCode.replace(/^0+/, '')}.png`;
 
 const toEuro = (amount: number, decimalDigits: number = 2, fractionDigits: number = 2): string =>

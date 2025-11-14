@@ -6,6 +6,7 @@ import * as zodSchema from '../../generated/zod-schema';
 import { Params } from 'react-router-dom';
 import converters from './converters';
 import { DebtPositionRequestDTO } from '../../generated/arpu-be/data-contracts';
+import { FilteredRequest } from 'models/Filters';
 
 const parseAndLog = <T>(schema: ZodSchema, data: T, throwError: boolean = true): void | never => {
   const result = schema.safeParse(data);
@@ -52,6 +53,21 @@ const getNoticesList = (
         notices: noticesList.notices,
         continuationToken: headers['x-continuation-token']
       };
+    }
+  });
+
+const getPagedDebtorReceipts = (brokerId: number) =>
+  useMutation({
+    mutationKey: ['pagedDebtorReceipts'],
+    mutationFn: async (args: FilteredRequest) => {
+      const query = {
+        ...args.pagination,
+        ...args.filters,
+        sort: args.sort
+      };
+      const { data } = await utils.arpuBeApiClient.brokers.getPagedDebtorReceipts(brokerId, query);
+      parseAndLog(zodSchema.noticesListDTOSchema, data);
+      return data;
     }
   });
 
@@ -250,6 +266,7 @@ export default {
   getTokenOneidentity,
   getNoticeDetails,
   getNoticesList,
+  getPagedDebtorReceipts,
   getUserInfo,
   getUserInfoOnce,
   getOrganizations,
