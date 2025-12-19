@@ -60,7 +60,7 @@
     "process": "^0.11.10",
     "rimraf": "^5.0.5",
     "semantic-release": "^24.2.0",
-    "storybook": "8.1.11",
+    "storybook": "8.6.15",
     "swagger-typescript-api": "^13.0.3",
     "ts-node": "^10.9.2",
     "ts-to-zod": "^3.8.5",
