@@ -61,12 +61,3 @@ In order to run the application on a local dev server with mock API responses:
 ```
 
 the application is available at http://localhost:1234
-
-This project uses [storybook](https://storybook.js.org/).
-In order to run the storybook local server:
-
-```sh
-  yarn storybook
-```
-
-the application is available at http://localhost:6006

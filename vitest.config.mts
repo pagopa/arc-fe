@@ -22,7 +22,6 @@ export default defineConfig({
         '**/*.test.ts?(x)',
         '**/*.styles.ts?(x)',
         'src/__tests__/',
-        'src/stories/',
         'src/index.tsx',
         'src/App.tsx',
         'src/global.d.ts',
@@ -50,7 +49,6 @@ export default defineConfig({
       models: path.resolve(__dirname, './src/models'),
       routes: path.resolve(__dirname, './src/routes'),
       store: path.resolve(__dirname, './src/store'),
-      stories: path.resolve(__dirname, './src/stories'),
       translations: path.resolve(__dirname, './src/translations'),
       utils: path.resolve(__dirname, './src/utils'),
       __tests__: path.resolve(__dirname, './src/__tests__')

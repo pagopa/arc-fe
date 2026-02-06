@@ -1,9 +1,10 @@
 name: e2e
 
 on:
-  pull_request:
-    branches:
-      - uat
+  workflow_dispatch:
+  # pull_request:
+  #   branches:
+  #     - uat
 
 env:
   NODE_VERSION: '22.11.0'

@@ -1,9 +1,10 @@
 name: 'coverage-report'
 on:
-  pull_request:
-    branches:
-      - develop
-      - main
+  workflow_dispatch:
+  # pull_request:
+  #   branches:
+  #     - develop
+  #     - main
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
