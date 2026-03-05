@@ -177,9 +177,9 @@ const cartItemsToCartsRequest = (cartItems: CartItem[]) => {
       noticeNumber: item.nav
     })),
     returnUrls: {
-      returnOkUrl: `${ORIGIN}${isAnonymous ? ROUTES.LOGIN : ROUTES.DASHBOARD}?fromAction=payment-success`,
-      returnCancelUrl: `${ORIGIN}${isAnonymous ? ROUTES.LOGIN : ROUTES.DEBT_POSITIONS}?fromAction=payment-cancel`,
-      returnErrorUrl: `${ORIGIN}${isAnonymous ? ROUTES.LOGIN : ROUTES.DEBT_POSITIONS}?fromAction=payment-error`
+      returnOkUrl: `${ORIGIN}${isAnonymous ? `${ROUTES.COURTESY_PAGE}?outcome=pagamento-avviso-completato` : ROUTES.DASHBOARD}?fromAction=payment-success`,
+      returnCancelUrl: `${ORIGIN}${isAnonymous ? `${ROUTES.COURTESY_PAGE}?outcome=pagamento-annullato` : ROUTES.DEBT_POSITIONS}?fromAction=payment-cancel`,
+      returnErrorUrl: `${ORIGIN}${isAnonymous ? `${ROUTES.COURTESY_PAGE}?outcome=pagamento-non-riuscito` : ROUTES.DEBT_POSITIONS}?fromAction=payment-error`
     }
   };
 };
